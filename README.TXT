@@ -1,1 +1,1 @@
- .idea/ - переменные phpstorm IDE
+п»ї .idea/ - РїРµСЂРµРјРµРЅРЅС‹Рµ phpstorm IDE

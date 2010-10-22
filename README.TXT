@@ -1,1 +1,1 @@
-base init
+ .idea/ - переменные phpstorm IDE

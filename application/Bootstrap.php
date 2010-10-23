@@ -7,6 +7,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         // Add autoloader empty namespace
         $autoLoader = Zend_Loader_Autoloader::getInstance();
+        $autoLoader->registerNamespace('NSC_');
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array
             ('basePath' => APPLICATION_PATH,
              'namespace' => '',

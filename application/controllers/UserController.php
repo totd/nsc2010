@@ -37,6 +37,8 @@ class UserController extends Zend_Controller_Action
     {
         $userForm = new Form_User();
         $userForm->setAction('/user/login');
+        $userForm->removeElement('role');
+
         if ($this->_request->isPost() && $userForm->isValid($_POST)) {
             $data = $userForm->getValues();
             $db = Zend_Db_Table::getDefaultAdapter();
@@ -49,8 +51,8 @@ class UserController extends Zend_Controller_Action
                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(
-                        array('username')));
-                return $this->_forward('list');
+                        array('username', 'role')));
+                return $this->_forward('list'); // redirect o needed action
             } else {
                 $this->view->loginMessage = "Sorry, your username or
                                         password was incorrect";
@@ -72,9 +74,10 @@ class UserController extends Zend_Controller_Action
                 $userModel = new Model_User();
                 $userModel->createUser(
                     $userForm->getValue('username'),
-                    $userForm->getValue('password')
+                    $userForm->getValue('password'),
+                    $userForm->getValue('role')
                 );
-                return $this->_forward('list');
+                return $this->_forward('list'); // redirect to the users list.
             }
         }
         $userForm->setAction('/user/create');

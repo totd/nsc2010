@@ -19,7 +19,7 @@ class Model_User extends Zend_Db_Table_Abstract
      * @param string $password
      * @return mixed 
      */
-    public function createUser($username, $password)
+    public function createUser($username, $password, $role = '')
     {
         // create a new row
         $rowUser = $this->createRow();
@@ -27,6 +27,11 @@ class Model_User extends Zend_Db_Table_Abstract
             // update the row values
             $rowUser->username = $username;
             $rowUser->password = md5($password);
+            if (!empty($role)) {
+                $rowUser->role = $role;
+            } else {
+                $rowUser->role = null;
+            }
             $rowUser->save();
             //return the new user
             return $rowUser;

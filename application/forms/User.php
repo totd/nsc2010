@@ -30,6 +30,15 @@ class Form_User extends Zend_Form
         $password->setRequired('true');
         $this->addElement($password);
 
+        // create role select.
+        $roles = array('multiOptions' => array (
+                 'user' => 'User',
+                'administrator' => 'Administrator'
+            ));
+        $role = $this->createElement('select', 'role', $roles);
+        $role->setLabel("Role:");
+        $this->addElement($role);
+
         $submit = $this->addElement('submit', 'submit', array('label' => 'Submit'));
     }
 

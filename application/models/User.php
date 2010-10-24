@@ -26,7 +26,8 @@ class Model_User extends Zend_Db_Table_Abstract
         if ($rowUser) {
             // update the row values
             $rowUser->username = $username;
-            $rowUser->password = md5($password);
+            //$rowUser->password = md5($password);
+            $rowUser->password = $password;
             if (!empty($role)) {
                 $rowUser->role = $role;
             } else {

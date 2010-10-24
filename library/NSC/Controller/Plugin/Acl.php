@@ -38,8 +38,8 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         $acl->allow('Guest', 'user', array('login'));
 
         // users can also see users list
-        $acl->allow('HomeBase', 'user', array('list', 'logout'));
-        
+        $acl->allow('HomeBase', 'user', array('list', 'logout', 'index'));
+                
         // administrators can do anything
         $acl->allow('NSC', null);
 

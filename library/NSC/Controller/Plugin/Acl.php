@@ -39,7 +39,7 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 
         // users can also see users list
         $acl->allow('HomeBase', 'user', array('list', 'logout', 'index'));
-                
+
         // administrators can do anything
         $acl->allow('NSC', null);
 
@@ -53,14 +53,19 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         }
         $controller = $request->controller;
         $action = $request->action;
-        if (!$acl->isAllowed($role, $controller, $action)) {
-            if ($role == 'Guest') {
-                $request->setControllerName('user');
-                $request->setActionName('login');
-            } else {
-                $request->setControllerName('error');
-                $request->setActionName('noauth');
+        try {
+            if (!$acl->isAllowed($role, $controller, $action)) {
+                if ($role == 'Guest') {
+                    $request->setControllerName('user');
+                    $request->setActionName('login');
+                } else {
+                    $request->setControllerName('error');
+                    $request->setActionName('noauth');
+                }
             }
+        } catch (Exception $e) {
+            
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Andryi Ilnytskiy 23.10.2010
  *
@@ -58,10 +59,9 @@ class UserController extends Zend_Controller_Action
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(
                         array('UserType', 'StaffID', 'HomeBaseID', 'CompanyID', 'Username', 'Password', 'Agreed')));
-                return $this->_forward('list'); // redirect o needed action
+                return $this->_redirect('user/list'); // redirect o needed action
             } else {
-                $this->view->loginMessage = "Sorry, your username or
-                                        password was incorrect";
+                $this->view->loginMessage = "Sorry, your username or password was incorrect";
             }
         }
         $this->view->form = $userForm;
@@ -94,7 +94,7 @@ class UserController extends Zend_Controller_Action
         $this->view->form = $userForm;
     }
 
-     /**
+    /**
      * @author Andryi Ilnytskiy 22.10.2010
      *
      * Display the users' list.
@@ -109,7 +109,7 @@ class UserController extends Zend_Controller_Action
         }
     }
 
-     /**
+    /**
      * @author Andryi Ilnytskiy 23.10.2010
      *
      * Logout action.

@@ -7,19 +7,24 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `users`
+-- Структура таблицы `tuser`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL auto_increment,
-  `username` varchar(50) default NULL,
-  `password` varchar(250) default NULL,
-  `role` enum('user','administrator') default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+CREATE TABLE `tuser` (
+  `UserID` int(11) NOT NULL auto_increment,
+  `UserType` varchar(20) collate utf8_unicode_ci NOT NULL,
+  `StaffID` int(11) NOT NULL,
+  `HomeBaseID` int(11) NOT NULL,
+  `CompanyID` int(11) NOT NULL,
+  `Username` varchar(20) collate utf8_unicode_ci NOT NULL,
+  `Password` varchar(20) collate utf8_unicode_ci NOT NULL,
+  `Agreed` tinyint(4) NOT NULL,
+  PRIMARY KEY  (`UserID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
--- Дамп данных таблицы `users`
+-- Дамп данных таблицы `tuser`
 --
 
-INSERT INTO `users` VALUES (1, 'root', 'root', 'administrator');
+INSERT INTO `tuser` VALUES (1, 'NSC', 0, 0, 0, 'root', 'root', 0);
+INSERT INTO `tuser` VALUES (2, 'HomeBase', 0, 0, 0, 'user', 'user', 0);

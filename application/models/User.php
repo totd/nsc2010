@@ -8,7 +8,7 @@
 class Model_User extends Zend_Db_Table_Abstract
 {
 
-    protected $_name = 'users';
+    protected $_name = 'tuser';
 
     /**
      * @author Andriy Ilnytskyi 22.10.2010
@@ -19,20 +19,21 @@ class Model_User extends Zend_Db_Table_Abstract
      * @param string $password
      * @return mixed 
      */
-    public function createUser($username, $password, $role = '')
+    public function createUser($userType, $username, $password, $staffID, $homeBaseID, $companyId)
     {
         // create a new row
         $rowUser = $this->createRow();
         if ($rowUser) {
             // update the row values
-            $rowUser->username = $username;
+            $rowUser->Username = $username;
+            // TODO implement password crypt.
             //$rowUser->password = md5($password);
-            $rowUser->password = $password;
-            if (!empty($role)) {
-                $rowUser->role = $role;
-            } else {
-                $rowUser->role = null;
-            }
+            $rowUser->Password = $password;
+            $rowUser->UserType = $userType;
+            $rowUser->StaffID = $staffID;
+            $rowUser->HomeBaseID = $homeBaseID;
+            $rowUser->CompanyID = $companyId;
+
             $rowUser->save();
             //return the new user
             return $rowUser;

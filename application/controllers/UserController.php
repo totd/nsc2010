@@ -37,22 +37,27 @@ class UserController extends Zend_Controller_Action
     {
         $userForm = new Form_User();
         $userForm->setAction('/user/login');
-        $userForm->removeElement('role');
+        $userForm->removeElement('UserType');
+        $userForm->removeElement('StaffID');
+        $userForm->removeElement('HomeBaseID');
+        $userForm->removeElement('CompanyID');
+        $userForm->removeElement('Agreed');
 
         if ($this->_request->isPost() && $userForm->isValid($_POST)) {
             $data = $userForm->getValues();
             $db = Zend_Db_Table::getDefaultAdapter();
-            $authAdapter = new Zend_Auth_Adapter_DbTable($db, 'users',
-                    'username', 'password');
-            $authAdapter->setIdentity($data['username']);
+            $authAdapter = new Zend_Auth_Adapter_DbTable($db, 'tuser',
+                    'Username', 'Password');
+            $authAdapter->setIdentity($data['Username']);
+            // TODO Implement password crypt
 //            $authAdapter->setCredential(md5($data['password']));
-            $authAdapter->setCredential($data['password']);
+            $authAdapter->setCredential($data['Password']);
             $result = $authAdapter->authenticate();
             if ($result->isValid()) {
                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(
-                        array('username', 'role')));
+                        array('UserType', 'StaffID', 'HomeBaseID', 'CompanyID', 'Username', 'Password', 'Agreed')));
                 return $this->_forward('list'); // redirect o needed action
             } else {
                 $this->view->loginMessage = "Sorry, your username or
@@ -74,9 +79,13 @@ class UserController extends Zend_Controller_Action
             if ($userForm->isValid($_POST)) {
                 $userModel = new Model_User();
                 $userModel->createUser(
-                    $userForm->getValue('username'),
-                    $userForm->getValue('password'),
-                    $userForm->getValue('role')
+                    $userForm->getValue('UserType'),
+                    $userForm->getValue('Username'),
+                    $userForm->getValue('Password'),
+                    $userForm->getValue('StaffID'),
+                    $userForm->getValue('HomeBaseID'),
+                    $userForm->getValue('CompanyID'),
+                    $userForm->getValue('Agreed')
                 );
                 return $this->_forward('list'); // redirect to the users list.
             }

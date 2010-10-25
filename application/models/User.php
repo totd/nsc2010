@@ -19,7 +19,7 @@ class Model_User extends Zend_Db_Table_Abstract
      * @param string $password
      * @return mixed 
      */
-    public function createUser($userType, $username, $password, $staffID, $homeBaseID, $companyId)
+    public function createUser($userType, $username, $password, $staffID, $homeBaseID, $companyId, $agreed)
     {
         // create a new row
         $rowUser = $this->createRow();
@@ -33,6 +33,7 @@ class Model_User extends Zend_Db_Table_Abstract
             $rowUser->StaffID = $staffID;
             $rowUser->HomeBaseID = $homeBaseID;
             $rowUser->CompanyID = $companyId;
+            $rowUser->Agreed = $agreed;
 
             $rowUser->save();
             //return the new user

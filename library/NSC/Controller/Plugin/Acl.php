@@ -30,16 +30,20 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         // add the resources
         $acl->add(new Zend_Acl_Resource('index'));
         $acl->add(new Zend_Acl_Resource('error'));
-        $acl->add(new Zend_Acl_Resource('user'));
+        $acl->add(new Zend_Acl_Resource('user:index'))
+            ->add(new Zend_Acl_Resource('user:login'))
+            ->add(new Zend_Acl_Resource('user:create'))
+            ->add(new Zend_Acl_Resource('user:logout'))
+            ->add(new Zend_Acl_Resource('user:list'));
             
 
         // set up the access rules
         $acl->allow(null, array('index', 'error'));
         // a guest can only read content and login
-        $acl->allow('Guest', 'user', array('login'));
+        $acl->allow('Guest', 'user:login');
 
         // users can also see users list
-        $acl->allow('HomeBase', 'user', array('index', 'list', 'logout'));
+        $acl->allow('HomeBase', 'user:list');
 
         // administrators can do anything
         $acl->allow('NSC', null);
@@ -54,8 +58,20 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         }
         $controller = $request->controller;
         $action = $request->action;
+
+        $module = (empty($request->module)) ? "default" : $request->module;
+
+        // -- this ends up like "cms:articles" just like my resources
+        $resource = $module . ":" . $controller;
+
+        if (!$acl->has($resource))
+        {
+            $resource = $module;
+        }
+
         try {
-            if (!$acl->isAllowed($role, $controller, $action)) {
+//            if (!$acl->isAllowed($role, $controller, $action)) {
+            if (!$acl->isAllowed($role, $resource, $action)) {
                 if ($role == 'Guest') {
                     $request->setControllerName('user');
                     $request->setActionName('login');

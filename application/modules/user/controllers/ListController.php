@@ -10,7 +10,7 @@ class User_ListController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $currentUsers = Model_User::getUsers();
+        $currentUsers = User_Model_User::getUsers();
         if ($currentUsers->count() > 0) {
             $this->view->users = $currentUsers;
         } else {

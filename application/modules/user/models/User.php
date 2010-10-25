@@ -5,7 +5,7 @@
  *
  * This is the DbTable class for the users table.
  */
-class Model_User extends Zend_Db_Table_Abstract
+class User_Model_User extends Zend_Db_Table_Abstract
 {
 
     protected $_name = 'tuser';

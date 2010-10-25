@@ -18,7 +18,7 @@ class User_CreateController extends Zend_Controller_Action
         $userForm = new User_Form_User();
         if ($this->_request->isPost()) {
             if ($userForm->isValid($_POST)) {
-                $userModel = new Model_User();
+                $userModel = new User_Model_User();
                 $r = $userForm->getValue('Agreed');
                 $userModel->createUser(
                     $userForm->getValue('UserType'),

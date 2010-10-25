@@ -2,10 +2,13 @@
 
 class User_CreateController extends Zend_Controller_Action
 {
+	protected $_acl; 
+    protected $_application;
 
     public function init()
     {
-        /* Initialize action controller here */
+        #$this->_acl = $this->_helper->getHelper('acl'); 
+		
     }
 
     /**
@@ -15,6 +18,9 @@ class User_CreateController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+		if ( ($this->_application->currentRole != 'admin')) { 
+			return $this->_redirect('user/index'); // redirect o needed action
+        } 
         $userForm = new User_Form_User();
         if ($this->_request->isPost()) {
             if ($userForm->isValid($_POST)) {

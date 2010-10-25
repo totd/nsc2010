@@ -31,6 +31,7 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         $acl->add(new Zend_Acl_Resource('index'));
         $acl->add(new Zend_Acl_Resource('error'));
         $acl->add(new Zend_Acl_Resource('user'));
+            
 
         // set up the access rules
         $acl->allow(null, array('index', 'error'));
@@ -38,7 +39,7 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         $acl->allow('Guest', 'user', array('login'));
 
         // users can also see users list
-        $acl->allow('HomeBase', 'user', array('list', 'logout', 'index'));
+        $acl->allow('HomeBase', 'user', array('index', 'list', 'logout'));
 
         // administrators can do anything
         $acl->allow('NSC', null);
@@ -64,7 +65,7 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
                 }
             }
         } catch (Exception $e) {
-            
+
         }
     }
 

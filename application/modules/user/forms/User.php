@@ -1,6 +1,6 @@
 <?php
 
-class Form_User extends Zend_Form
+class User_Form_User extends Zend_Form
 {
 
     /**

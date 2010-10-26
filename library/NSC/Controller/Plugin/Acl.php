@@ -30,7 +30,7 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         // add the resources
         $acl->add(new Zend_Acl_Resource('index'));
         $acl->add(new Zend_Acl_Resource('error'));
-        $acl->add(new Zend_Acl_Resource('default'));
+//        $acl->add(new Zend_Acl_Resource('default'));
         $acl->add(new Zend_Acl_Resource('user'))
             ->add(new Zend_Acl_Resource('user:index'), 'user')
             ->add(new Zend_Acl_Resource('user:login'), 'user')

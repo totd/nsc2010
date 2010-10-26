@@ -21,10 +21,17 @@ class User_Form_User extends Zend_Form
 
         // create role select.
         $userTypes= array('multiOptions' => array (
-                 'NSC' => 'NSC',
-                'HomeBase' => 'HomeBase',
-                'CompanyUser' => 'CompanyUser'
-            ));
+                'NSC_USERS_Level_1' => 'CEO, GM, Operations Manager (NSC)',
+                'NSC_USERS_Level_2' => 'Manager (NSC)',
+                'NSC_USERS_Level_3' => 'Employee (Trained) (NSC)',
+                'NSC_USERS_Level_4' => 'Office (Clerical, Temp or In the Field) (NSC)',
+                'CUSTOMER_USERS_Level_1' => 'Super Administrator (Customer)',
+                'CUSTOMER_USERS_Level_2' => 'System Manager (Customer)',
+                'CUSTOMER_USERS_Level_3' => 'Office (Customer)',
+                'EXTERNAL_USERS_Insurance' => 'Insurance (Read Only)',
+                'EXTERNAL_USERS_Auditor' => 'Auditor (Read Only)',
+            )
+        );
         $userType = $this->createElement('select', 'UserType', $userTypes);
         $userType->setLabel("UserType:");
         $this->addElement($userType);

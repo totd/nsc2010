@@ -24,21 +24,19 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         // add the roles
         $acl->addRole(new Zend_Acl_Role('Guest'));
 
-        $acl->addRole(new Zend_Acl_Role('EXTERNAL_USERS_Auditor'), 'Guest'); // Read Only
-        $acl->addRole(new Zend_Acl_Role('EXTERNAL_USERS_Insurance'), 'Guest'); // Read Only
-        $acl->addRole(new Zend_Acl_Role('CUSTOMER_USERS_Level_3'), 'Guest'); // Office
-        $acl->addRole(new Zend_Acl_Role('CUSTOMER_USERS_Level_2'), 'CUSTOMER_USERS_Level_3'); // System Manager
-        $acl->addRole(new Zend_Acl_Role('CUSTOMER_USERS_Level_1'), 'CUSTOMER_USERS_Level_2'); // Super Administrator
-        $acl->addRole(new Zend_Acl_Role('NSC_USERS_Level_4'), 'Guest'); // Office (Clerical, Temp or In the Field)
-        $acl->addRole(new Zend_Acl_Role('NSC_USERS_Level_3'), 'Guest'); // Employee (Trained)
-        $acl->addRole(new Zend_Acl_Role('NSC_USERS_Level_2'), 'NSC_USERS_Level_3'); // Manager
-        $acl->addRole(new Zend_Acl_Role('NSC_USERS_Level_1'), 'NSC_USERS_Level_2'); // CEO, GM, Operations Manager
-
+        $acl->addRole(new Zend_Acl_Role('9'), 'Guest'); // EXTERNAL_USERS__Insurance - Read Only
+        $acl->addRole(new Zend_Acl_Role('8'), 'Guest'); // EXTERNAL_USERS__Auditor - Read Only
+        $acl->addRole(new Zend_Acl_Role('7'), 'Guest'); // CUSTOMER_USERS__Level_3 - Office
+        $acl->addRole(new Zend_Acl_Role('6'), '7');     // CUSTOMER_USERS__Level_2 - System Manager
+        $acl->addRole(new Zend_Acl_Role('5'), '6');     // CUSTOMER_USERS__Level_2 - Super Administrator
+        $acl->addRole(new Zend_Acl_Role('4'), 'Guest'); // NSC_USERS__Level_4 - Office (Clerical, Temp or In the Field)
+        $acl->addRole(new Zend_Acl_Role('3'), 'Guest'); // NSC_USERS__Level_3 - Employee (Trained)
+        $acl->addRole(new Zend_Acl_Role('2'), '3');     // NSC_USERS__Level_2 - Manager
+        $acl->addRole(new Zend_Acl_Role('1'), '2');     // NSC_USERS__Level_1 - CEO, GM, Operations Manager
 
         // add the resources
         $acl->add(new Zend_Acl_Resource('index'));
         $acl->add(new Zend_Acl_Resource('error'));
-//        $acl->add(new Zend_Acl_Resource('default'));
         $acl->add(new Zend_Acl_Resource('user'))
                 ->add(new Zend_Acl_Resource('user:index'), 'user')
                 ->add(new Zend_Acl_Resource('user:login'), 'user')
@@ -52,39 +50,19 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         $acl->allow('Guest', array('user:login', 'user:index'));
 
         // users logout permissions
-        $acl->allow(array(
-                        'CUSTOMER_USERS_Level_3',
-                        'NSC_USERS_Level_4',
-                        'NSC_USERS_Level_3',
-                        'EXTERNAL_USERS_Auditor',
-                        'EXTERNAL_USERS_Insurance'
-                    ),
-                    array(
-                        'user:logout',
-                        'user:list'
-                    )
-        );
-
+        $acl->allow(array('9', '8', '7', '4', '3'), array('user:logout', 'user:list'));
 
         // users CRUD operations
-        $acl->allow(array(
-                        'CUSTOMER_USERS_Level_2',
-                        'CUSTOMER_USERS_Level_1',
-                        'NSC_USERS_Level_2',
-                    ),
-                    'user:create'
-        );
-
-
+        $acl->allow(array('6', '5', '2'), 'user:create');
 
         // administrators can do anything
-        $acl->allow('NSC_USERS_Level_1', null);
+        $acl->allow('1', null);
 
         // fetch the current user
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $identity = $auth->getIdentity();
-            $role = $identity->UserType;
+            $role = $identity->UserTypeID;
         } else {
             $role = 'Guest';
         }

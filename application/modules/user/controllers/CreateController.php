@@ -21,12 +21,13 @@ class User_CreateController extends Zend_Controller_Action
                 $userModel = new User_Model_User();
                 $r = $userForm->getValue('Agreed');
                 $userModel->createUser(
-                    $userForm->getValue('UserType'),
+                    $userForm->getValue('UserTypeID'),
                     $userForm->getValue('Username'),
                     $userForm->getValue('Password'),
                     $userForm->getValue('StaffID'),
                     $userForm->getValue('HomeBaseID'),
                     $userForm->getValue('CompanyID'),
+                    $userForm->getValue('DepotID'),
                     (int) $userForm->getValue('Agreed')
                 );
                 return $this->_redirect('user/list'); // _forward('index', 'list', 'user'); // redirect to the users list.

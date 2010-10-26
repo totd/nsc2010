@@ -15,16 +15,11 @@ class User_LoginController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $userForm = new User_Form_User();
-        $userForm->setAction('/user/login');
-        $userForm->removeElement('UserType');
-        $userForm->removeElement('StaffID');
-        $userForm->removeElement('HomeBaseID');
-        $userForm->removeElement('CompanyID');
-        $userForm->removeElement('Agreed');
-
-        if ($this->_request->isPost() && $userForm->isValid($_POST)) {
-            $data = $userForm->getValues();
+        $loginForm = new User_Form_Login();
+        $loginForm->setAction('/user/login');
+        
+        if ($this->_request->isPost() && $loginForm->isValid($_POST)) {
+            $data = $loginForm->getValues();
             $db = Zend_Db_Table::getDefaultAdapter();
             $authAdapter = new Zend_Auth_Adapter_DbTable($db, 'tuser',
                     'Username', 'Password');
@@ -37,13 +32,14 @@ class User_LoginController extends Zend_Controller_Action
                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(
-                        array('UserType', 'StaffID', 'HomeBaseID', 'CompanyID', 'Username', 'Password', 'Agreed')));
+                        array('UserTypeID', 'StaffID', 'HomeBaseID', 'DepotID', 'CompanyID', 'Username', 'Password',
+                                'Agreed')));
                 return $this->_redirect('user/list'); // redirect o needed action
             } else {
                 $this->view->loginMessage = "Sorry, your username or password was incorrect";
             }
         }
-        $this->view->form = $userForm;
+        $this->view->form = $loginForm;
     }
 
 

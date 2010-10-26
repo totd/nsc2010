@@ -21,18 +21,18 @@ class User_Form_User extends Zend_Form
 
         // create role select.
         $userTypes= array('multiOptions' => array (
-                'NSC_USERS_Level_1' => 'CEO, GM, Operations Manager (NSC)',
-                'NSC_USERS_Level_2' => 'Manager (NSC)',
-                'NSC_USERS_Level_3' => 'Employee (Trained) (NSC)',
-                'NSC_USERS_Level_4' => 'Office (Clerical, Temp or In the Field) (NSC)',
-                'CUSTOMER_USERS_Level_1' => 'Super Administrator (Customer)',
-                'CUSTOMER_USERS_Level_2' => 'System Manager (Customer)',
-                'CUSTOMER_USERS_Level_3' => 'Office (Customer)',
-                'EXTERNAL_USERS_Insurance' => 'Insurance (Read Only)',
-                'EXTERNAL_USERS_Auditor' => 'Auditor (Read Only)',
+                '1' => 'CEO, GM, Operations Manager (NSC)',             // NSC_USERS__Level_1
+                '2' => 'Manager (NSC)',                                 // NSC_USERS__Level_2
+                '3' => 'Employee (Trained) (NSC)',                      // NSC_USERS__Level_3
+                '4' => 'Office (Clerical, Temp or In the Field) (NSC)', // NSC_USERS__Level_4
+                '5' => 'Super Administrator (Customer)',                // CUSTOMER_USERS__Level_1
+                '6' => 'System Manager (Customer)',                     // CUSTOMER_USERS__Level_2
+                '7' => 'Office (Customer)',                             // CUSTOMER_USERS__Level_3
+                '8' => 'Auditor (Read Only)',                           // EXTERNAL_USERS__Auditor
+                '9' => 'Insurance (Read Only)',                         // EXTERNAL_USERS__Insurance
             )
         );
-        $userType = $this->createElement('select', 'UserType', $userTypes);
+        $userType = $this->createElement('select', 'UserTypeID', $userTypes);
         $userType->setLabel("UserType:");
         $this->addElement($userType);
 
@@ -51,6 +51,11 @@ class User_Form_User extends Zend_Form
         $companyID->addFilter('StripTags');
         $this->addElement($companyID);
 
+        $depotID = $this->createElement('text','DepotID');
+        $depotID->setLabel('Depot: ');
+        $depotID->addFilter('StripTags');
+        $this->addElement($depotID);
+
         $username = $this->createElement('text','Username');
         $username->setLabel('Username: ');
         $username->setRequired('true');
@@ -58,7 +63,9 @@ class User_Form_User extends Zend_Form
         $username->addErrorMessage('The username is required!');
         $this->addElement($username);
 
-        $password = $this->createElement('password', 'Password');
+//      TODO Possible needed hidden.
+//        $password = $this->createElement('password', 'Password');
+        $password = $this->createElement('text', 'Password');
         $password->setLabel('Password: ');
         $password->setRequired('true');
         $this->addElement($password);

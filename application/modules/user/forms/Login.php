@@ -25,13 +25,13 @@ class User_Form_Login extends Zend_Form
 
         $companyCode = $this->createElement('text','CompanyCode');
         $companyCode->setLabel('Company Code: ');
-        //$companyCode->setRequired('true');
+        $companyCode->setRequired('true');
         $companyCode->addFilter('StripTags');
         $this->addElement($companyCode);
 
         $homeBaseCode = $this->createElement('text','HomeBaseCode');
         $homeBaseCode->setLabel('Home Base Code: ');
-        //$homeBaseCode->setRequired('true');
+        $homeBaseCode->setRequired('true');
         $homeBaseCode->addFilter('StripTags');
         $this->addElement($homeBaseCode);
         

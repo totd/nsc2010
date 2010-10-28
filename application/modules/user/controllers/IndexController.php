@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @author Andryi Ilnytskiy 23.10.2010
+ *
+ * Default controller of the user module.
+ */
 class User_IndexController extends Zend_Controller_Action
 {
 

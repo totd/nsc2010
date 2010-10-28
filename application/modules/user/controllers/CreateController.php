@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @author Andryi Ilnytskiy 22.10.2010
+ *
+ * Handle of the user creation.
+ */
 class User_CreateController extends Zend_Controller_Action
 {
 

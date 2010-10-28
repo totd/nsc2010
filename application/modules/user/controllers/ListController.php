@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @author Andryi Ilnytskyi 25-10.-2010.
+ *
+ * Get users list frob DB
+ */
 class User_ListController extends Zend_Controller_Action
 {
 
@@ -8,6 +12,11 @@ class User_ListController extends Zend_Controller_Action
         /* Initialize action controller here */
     }
 
+    /**
+     * @author Andryi Ilnytskyi 25-10.-2010.
+     * 
+     * Default action.
+     */
     public function indexAction()
     {
         $currentUsers = User_Model_User::getUsers();

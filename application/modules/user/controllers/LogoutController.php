@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @author Andryi Ilnytskiy 23.10.2010
+ *
+ * Handle of the user logout.
+ */
 class User_LogoutController extends Zend_Controller_Action
 {
 

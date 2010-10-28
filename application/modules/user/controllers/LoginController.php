@@ -1,17 +1,21 @@
 <?php
-
+/**
+ * @author Andryi Ilnytskiy 23.10.2010
+ * 
+ * Handler of the user login.
+ */
 class User_LoginController extends Zend_Controller_Action
 {
 
     public function init()
     {
-        /* Initialize action controller here */
+       
     }
 
     /**
      * @author Andryi Ilnytskiy 23.10.2010
      *
-     * Handler of the user login.
+     * Default action.
      */
     public function indexAction()
     {

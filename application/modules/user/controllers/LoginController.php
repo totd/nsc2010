@@ -22,39 +22,43 @@ class User_LoginController extends Zend_Controller_Action
             $data = $loginForm->getValues();
             $db = Zend_Db_Table::getDefaultAdapter();
             $authAdapter = new Zend_Auth_Adapter_DbTable($db, 'vauthuser',
-                    'Username', 'Password');
-            $authAdapter->setIdentity($data['Username']);
+                    'vau_username', 'vau_password');
+            $authAdapter->setIdentity($data['username']);
+
             // TODO Implement password crypt
-//            $authAdapter->setCredential(md5($data['password']));
-            $authAdapter->setCredential($data['Password']);
+            // $authAdapter->setCredential(md5($data['password']));
+            $authAdapter->setCredential($data['password']);
 
+            // Added additional login criteria.
             $select = $authAdapter->getDbSelect();
-            $select->where("HomeBaseCode = '{$data['HomeBaseCode']}'");
-            $select->where("CompanyCode = '{$data['CompanyCode']}'");
+            $select->where("vau_homebase_code = '{$data['homebase_code']}'");
+            $select->where("vau_company_code = '{$data['company_code']}'");
 
-// TODO Implement check not required fields
-//            if (!empty($data['ParentCompany'])) {
-//
-//            }
-//            if (!empty($data['Depot'])) {
-//                 $select->where("d_Name = '{$data['Depot']}'");
-//            }
+            // Check nonrequired parameters.
+            if (!empty($data['ParentCompany'])) {
+                $select->where("vau_parent_company_code = '{$data['parent_company_code']}'");
+            }
 
+            if (!empty($data['Depot'])) {
+                 $select->where("vau_depot_name = '{$data['depot_name']}'");
+            }
+
+            // Check an authentication.
             $result = $authAdapter->authenticate();
             if ($result->isValid()) {
                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(
-                        array('UserTypeID', 'StaffID', 'HomeBaseID', 'DepotID', 'CompanyID', 'Username', 'Password',
-                                'Agreed')));
-                return $this->_redirect('user/list'); // redirect o needed action
+                        array('vau_role_id', 'vau_role', 'vau_role_title', 'vau_username', 'vau_password')));
+                
+                // TODO Implement a forwarding or redirecting to the needed action.
+                //return $this->_forward('list', 'index', 'user');
+                return $this->_redirect('user/list'); 
             } else {
                 $this->view->loginMessage = "Sorry, a data you have input is incorrect";
             }
         }
         $this->view->form = $loginForm;
     }
-
-
 }
 

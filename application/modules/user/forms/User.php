@@ -20,16 +20,19 @@ class User_Form_User extends Zend_Form
 
 
         // create role select.
+        // TODO refactor it after RoleControler implementation.
         $userTypes= array('multiOptions' => array (
-                '1' => 'CEO, GM, Operations Manager (NSC)',             // NSC_USERS__Level_1
-                '2' => 'Manager (NSC)',                                 // NSC_USERS__Level_2
-                '3' => 'Employee (Trained) (NSC)',                      // NSC_USERS__Level_3
-                '4' => 'Office (Clerical, Temp or In the Field) (NSC)', // NSC_USERS__Level_4
-                '5' => 'Super Administrator (Customer)',                // CUSTOMER_USERS__Level_1
-                '6' => 'System Manager (Customer)',                     // CUSTOMER_USERS__Level_2
-                '7' => 'Office (Customer)',                             // CUSTOMER_USERS__Level_3
-                '8' => 'Auditor (Read Only)',                           // EXTERNAL_USERS__Auditor
-                '9' => 'Insurance (Read Only)',                         // EXTERNAL_USERS__Insurance
+                '1' => 'NSC SuperAdmin',                            // NSC_USERS__Level_0
+                '2' => 'NSC Admin',                                 // NSC_USERS__Level_1
+                '3' => 'NSC Office',                                // NSC_USERS__Level_2
+                '4' => 'NSC Auditor',                               // NSC_USERS__Level_3
+                '5' => 'NSC Checker',                               // NSC_USERS__Level_4
+                '6' => 'Client User SuperAdmin',                    // CUSTOMER_USERS__Level_0
+                '7' => 'Client User NationalAdmin',                 // CUSTOMER_USERS__Level_1
+                '8' => 'Client User RegionalAdmin',                 // CUSTOMER_USERS__Level_2
+                '9' => 'Client User LocalAdmin',                    // CUSTOMER_USERS__Level_3
+                '10' => 'Client User Office',                        // CUSTOMER_USERS__Level_4
+                '11' => 'DEMO',                                      // CUSTOMER_USERS__Level_5
             )
         );
         $userType = $this->createElement('select', 'UserTypeID', $userTypes);

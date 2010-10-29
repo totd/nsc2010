@@ -15,26 +15,17 @@ class User_Model_User extends Zend_Db_Table_Abstract
      *
      * Create user.
      * 
-     * @param string $username
-     * @param string $password
+     * @param array $userRow Array which contains value of the fields
      * @return mixed 
      */
-    public function createUser($userTypeID, $username, $password, $staffID, $homeBaseID, $companyID, $depotID, $agreed)
+    public function createUser($userRow)
     {
         // create a new row
         $rowUser = $this->createRow();
         if ($rowUser) {
-            // update the row values
-            $rowUser->Username = $username;
-            // TODO implement password crypt.
-            //$rowUser->password = md5($password);
-            $rowUser->Password = $password;
-            $rowUser->UserTypeID = $userType;
-            $rowUser->StaffID = $staffID;
-            $rowUser->HomeBaseID = $homeBaseID;
-            $rowUser->CompanyID = $companyID;
-            $rowUser->DepotID = $depotID;
-            $rowUser->Agreed = $agreed;
+            foreach ($userRow as $key => $value) {
+                $rowUser->$key = $value;
+            }
 
             $rowUser->save();
             //return the new user

@@ -26,6 +26,11 @@
         <controllerFile controllerName="Create">
           <actionMethod actionName="index"/>
         </controllerFile>
+        <controllerFile controllerName="Company">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Company"/>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="User"/>
@@ -143,6 +148,12 @@
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Create">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Company">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Company">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>

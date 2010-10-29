@@ -1,0 +1,9 @@
+<?php
+if ($this->identity == null) {
+ ?>
+    <p>To log in <a href='/user/login'>click here</a></p>
+<?php } else {
+
+    echo $this->navigation()->menu()->render();
+
+ } ?>

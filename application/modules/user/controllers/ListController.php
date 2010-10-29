@@ -25,6 +25,10 @@ class User_ListController extends Zend_Controller_Action
         } else {
             $this->view->users = null;
         }
+
+        //$partial = array('partials/_header.phtml', 'user');
+        $partial = array('partial/_Header.phtml', 'default');
+        $this->view->navigation()->menu()->setPartial($partial);
     }
 
 

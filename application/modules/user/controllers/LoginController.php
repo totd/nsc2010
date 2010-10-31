@@ -39,16 +39,17 @@ class User_LoginController extends Zend_Controller_Action
             $select->where("vau_company_code = '{$data['company_code']}'");
 
             // Check nonrequired parameters.
-            if (!empty($data['ParentCompany'])) {
+            if (!empty($data['parent_company_code'])) {
                 $select->where("vau_parent_company_code = '{$data['parent_company_code']}'");
             }
 
-            if (!empty($data['Depot'])) {
+            if (!empty($data['depot_name'])) {
                  $select->where("vau_depot_name = '{$data['depot_name']}'");
             }
 
             // Check an authentication.
             $result = $authAdapter->authenticate();
+            
             if ($result->isValid()) {
                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();

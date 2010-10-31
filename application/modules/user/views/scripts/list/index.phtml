@@ -26,5 +26,8 @@ if ($this->users != null) {
     <p>You do not have any users yet.</p>
 <?php
 }
+if ($this->display_create_link) {
+    echo '<p><a href="/user/create">Create a new user</a></p>';
+}
 ?>
-<p><a href='/user/create'>Create a new user</a></p> 
+

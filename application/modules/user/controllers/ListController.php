@@ -26,6 +26,12 @@ class User_ListController extends Zend_Controller_Action
             $this->view->users = null;
         }
 
+        $auth = Zend_Auth::getInstance();
+        $user = $auth->getIdentity();
+
+        // TODO implement hiden CreteUser link if user hasn't permission
+        $this->view->display_create_link = true;
+
         //$partial = array('partials/_header.phtml', 'user');
         $partial = array('partial/_Header.phtml', 'default');
         $this->view->navigation()->menu()->setPartial($partial);

@@ -1,0 +1,1 @@
+﻿ .idea/ - переменные phpstorm IDE

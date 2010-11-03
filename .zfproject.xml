@@ -50,6 +50,7 @@
           <controllersDirectory>
             <controllerFile controllerName="Index">
               <actionMethod actionName="index"/>
+<<<<<<< HEAD
               <actionMethod actionName="list"/>
               <actionMethod actionName="login"/>
               <actionMethod actionName="logout"/>
@@ -77,6 +78,13 @@
           <modelsDirectory>
             <dbTableDirectory enabled="false"/>
           </modelsDirectory>
+=======
+            </controllerFile>
+          </controllersDirectory>
+          <formsDirectory enabled="false"/>
+          <layoutsDirectory enabled="false"/>
+          <modelsDirectory/>
+>>>>>>> f46a6a0211c26105c92735259d18d11abfa2811e
           <viewsDirectory>
             <viewScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">

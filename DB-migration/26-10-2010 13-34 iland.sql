@@ -1,0 +1,2 @@
+INSERT INTO  `nsc2010`.`tuser` (`UserID` ,`UserTypeID` ,`StaffID` ,`HomeBaseID` ,`DepotID` ,`CompanyID` ,`Username` ,`Password` ,`Agreed`)
+VALUES (NULL ,  '1',  '0',  '0',  '0',  '0',  'root',  'root',  '0');

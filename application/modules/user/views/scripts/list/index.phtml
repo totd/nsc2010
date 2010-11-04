@@ -1,0 +1,33 @@
+<!--
+@author Andryi Ilnytskyi 23-10-2010
+
+Users list form.
+-->
+
+<?php
+    echo $this->navigation()->menu()->render(); ?>
+<h2>Current Users</h2>
+<?php
+if ($this->users != null) {
+?>
+    <table border='1' cellpadding="0" cellspacing="0" width="1100px">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        <?php echo $this->partialLoop('partials/_user-row.phtml', $this->users); ?>
+    </table>
+<?php
+} else {
+?>
+    <p>You do not have any users yet.</p>
+<?php
+}
+if ($this->display_create_link) {
+    echo '<p><a href="/user/create">Create a new user</a></p>';
+}
+?>
+

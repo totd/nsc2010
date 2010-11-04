@@ -32,17 +32,7 @@
         </controllerFile>
         <controllerFile controllerName="Company"/>
       </controllersDirectory>
-      <formsDirectory>
-        <formFile formName="User"/>
-      </formsDirectory>
       <layoutsDirectory enabled="false"/>
-      <modelsDirectory>
-        <modelFile modelName="User"/>
-        <dbTableDirectory>
-          <dbTableFile dbTableName="User"/>
-        </dbTableDirectory>
-        <modelFile modelName="UserMapper"/>
-      </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="user">
           <apisDirectory enabled="false"/>
@@ -50,18 +40,11 @@
           <controllersDirectory>
             <controllerFile controllerName="Index">
               <actionMethod actionName="index"/>
-<<<<<<< HEAD
-              <actionMethod actionName="list"/>
-              <actionMethod actionName="login"/>
-              <actionMethod actionName="logout"/>
-              <actionMethod actionName="create"/>
             </controllerFile>
             <controllerFile controllerName="Create">
               <actionMethod actionName="index"/>
-              <actionMethod actionName="index"/>
             </controllerFile>
             <controllerFile controllerName="List">
-              <actionMethod actionName="index"/>
               <actionMethod actionName="index"/>
             </controllerFile>
             <controllerFile controllerName="Login">
@@ -70,21 +53,16 @@
             <controllerFile controllerName="Logout">
               <actionMethod actionName="index"/>
             </controllerFile>
-            <controllerFile controllerName="Create"/>
-            <controllerFile controllerName="List"/>
           </controllersDirectory>
-          <formsDirectory enabled="false"/>
+          <formsDirectory>
+            <formFile formName="User"/>
+            <formFile formName="Login"/>
+          </formsDirectory>
           <layoutsDirectory enabled="false"/>
           <modelsDirectory>
+            <modelFile modelName="User"/>
             <dbTableDirectory enabled="false"/>
           </modelsDirectory>
-=======
-            </controllerFile>
-          </controllersDirectory>
-          <formsDirectory enabled="false"/>
-          <layoutsDirectory enabled="false"/>
-          <modelsDirectory/>
->>>>>>> f46a6a0211c26105c92735259d18d11abfa2811e
           <viewsDirectory>
             <viewScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
@@ -96,22 +74,42 @@
               <viewControllerScriptsDirectory forControllerName="List">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Index">
-                <viewScriptFile forActionName="list"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Index">
-                <viewScriptFile forActionName="login"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Index">
-                <viewScriptFile forActionName="logout"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Index">
-                <viewScriptFile forActionName="create"/>
-              </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Login">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Logout">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+            </viewScriptsDirectory>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+        <moduleDirectory moduleName="equipment">
+          <apisDirectory enabled="false"/>
+          <configsDirectory enabled="false"/>
+          <controllersDirectory>
+            <controllerFile controllerName="Index">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+            <controllerFile controllerName="Create">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+            <controllerFile controllerName="List">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+          </controllersDirectory>
+          <layoutsDirectory enabled="false"/>
+          <formsDirectory>
+            <formFile formName="Equipment"/>
+          </formsDirectory>
+          <modelsDirectory>
+            <modelFile modelName="Equipment"/>
+            <dbTableDirectory enabled="false"/>
+          </modelsDirectory>
+          <viewsDirectory>
+            <viewScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Create">

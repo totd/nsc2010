@@ -47,6 +47,10 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
                 ->add(new Zend_Acl_Resource('user:create'), 'user')
                 ->add(new Zend_Acl_Resource('user:logout'), 'user')
                 ->add(new Zend_Acl_Resource('user:list'), 'user');
+        $acl->add(new Zend_Acl_Resource('equipment'))
+                ->add(new Zend_Acl_Resource('equipment:index'), 'equipment')
+                ->add(new Zend_Acl_Resource('equipment:create'), 'equipment')
+                ->add(new Zend_Acl_Resource('equipment:list'), 'equipment');
 
         // set up the access rules
         $acl->allow(null, array('index', 'error'));
@@ -65,10 +69,10 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
                             'CUSTOMER_USERS__Level_3',
                             'CUSTOMER_USERS__Level_4',
                             'CUSTOMER_USERS__Level_5',
-                         ), array('user:logout', 'user:list'));
+                         ), array('user:logout', 'user:list', 'equipment:list', 'equipment:index'));
 
         // users CRUD operations
-        $acl->allow('NSC_USERS__Level_0', 'user:create');
+        $acl->allow('NSC_USERS__Level_0', array('user:create', 'equipment:create'));
 
         // administrators can do anything
         $acl->allow('NSC_USERS__Level_0', null);

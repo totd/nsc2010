@@ -23,7 +23,6 @@ class User_CreateController extends Zend_Controller_Action
         if ($this->_request->isPost()) {
             if ($userForm->isValid($_POST)) {
                 $userModel = new User_Model_User();
-                $r = $userForm->getValue('Agreed');
                 $userRow = array(
                     'u_Parent_Company_ID' => $userForm->getValue('parent_company'),
                     'u_Company_ID' => $userForm->getValue('company'),

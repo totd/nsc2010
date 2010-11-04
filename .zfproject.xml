@@ -31,8 +31,22 @@
           <actionMethod actionName="index"/>
         </controllerFile>
         <controllerFile controllerName="Company"/>
+        <controllerFile controllerName="Search">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Search"/>
       </controllersDirectory>
+      <formsDirectory>
+        <formFile formName="User"/>
+      </formsDirectory>
       <layoutsDirectory enabled="false"/>
+      <modelsDirectory>
+        <modelFile modelName="User"/>
+        <dbTableDirectory>
+          <dbTableFile dbTableName="User"/>
+        </dbTableDirectory>
+        <modelFile modelName="UserMapper"/>
+      </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="user">
           <apisDirectory enabled="false"/>
@@ -40,6 +54,10 @@
           <controllersDirectory>
             <controllerFile controllerName="Index">
               <actionMethod actionName="index"/>
+              <actionMethod actionName="list"/>
+              <actionMethod actionName="login"/>
+              <actionMethod actionName="logout"/>
+              <actionMethod actionName="create"/>
             </controllerFile>
             <controllerFile controllerName="Create">
               <actionMethod actionName="index"/>
@@ -53,6 +71,8 @@
             <controllerFile controllerName="Logout">
               <actionMethod actionName="index"/>
             </controllerFile>
+            <controllerFile controllerName="Create"/>
+            <controllerFile controllerName="List"/>
           </controllersDirectory>
           <formsDirectory>
             <formFile formName="User"/>
@@ -74,11 +94,60 @@
               <viewControllerScriptsDirectory forControllerName="List">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="login"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="logout"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="create"/>
+              </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Login">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Logout">
                 <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Create">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="List">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+            </viewScriptsDirectory>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+        <moduleDirectory moduleName="driver">
+          <apisDirectory enabled="false"/>
+          <configsDirectory enabled="false"/>
+          <controllersDirectory>
+            <controllerFile controllerName="Index">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="newDriverSearch"/>
+            </controllerFile>
+          </controllersDirectory>
+          <formsDirectory>
+            <formFile formName="NewDriverSearch"/>
+            <formFile formName="NewDriver"/>
+          </formsDirectory>
+          <layoutsDirectory enabled="false"/>
+          <modelsDirectory>
+            <dbTableDirectory enabled="false"/>
+            <modelFile modelName="Driver"/>
+          </modelsDirectory>
+          <viewsDirectory>
+            <viewScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="newDriverSearch"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -162,6 +231,12 @@
           <viewControllerScriptsDirectory forControllerName="Company">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Search">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Search">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -206,6 +281,8 @@
           <testApplicationControllerFile filesystemName="LogoutControllerTest.php"/>
           <testApplicationControllerFile filesystemName="CreateControllerTest.php"/>
           <testApplicationControllerFile filesystemName="ListControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="IndexControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="SearchControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

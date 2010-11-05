@@ -21,8 +21,8 @@ class System_IndexController extends Zend_Controller_Action
         if ($auth->hasIdentity()!=null) {
             $this->view->identity = $auth->getIdentity();
 
-            $partial = array('partial/_Header.phtml', 'default');
-            $this->view->navigation()->menu()->setPartial($partial);
+            //$partial = array('partial/_Header.phtml', 'default');
+            //$this->view->navigation()->menu()->setPartial($partial);
           
 
             $this->view->listOfCompanies = null;

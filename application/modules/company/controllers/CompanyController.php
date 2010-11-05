@@ -33,8 +33,8 @@ class Company_CompanyController extends Zend_Controller_Action
                 $this->view->companyData = null;
             }
 
-            $partial = array('partial/_Header.phtml', 'default');
-            $this->view->navigation()->menu()->setPartial($partial);
+            //$partial = array('partial/_Header.phtml', 'default');
+            //$this->view->navigation()->menu()->setPartial($partial);
 
 
         }else{

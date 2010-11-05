@@ -129,12 +129,20 @@
           <controllersDirectory>
             <controllerFile controllerName="Index">
               <actionMethod actionName="index"/>
+            </controllerFile>
+            <controllerFile controllerName="NewDriver">
+              <actionMethod actionName="index"/>
               <actionMethod actionName="newDriverSearch"/>
+              <actionMethod actionName="driverInformationWorksheetView"/>
+              <actionMethod actionName="newDriverComplete"/>
+              <actionMethod actionName="updateDriver"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory>
             <formFile formName="NewDriverSearch"/>
             <formFile formName="NewDriver"/>
+            <formFile formName="ApplicationInformation"/>
+            <formFile formName="DriverPersonalInformation"/>
           </formsDirectory>
           <layoutsDirectory enabled="false"/>
           <modelsDirectory>
@@ -146,8 +154,20 @@
               <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Index">
+              <viewControllerScriptsDirectory forControllerName="NewDriver">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="NewDriver">
                 <viewScriptFile forActionName="newDriverSearch"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="NewDriver">
+                <viewScriptFile forActionName="driverInformationWorksheetView"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="NewDriver">
+                <viewScriptFile forActionName="newDriverComplete"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="NewDriver">
+                <viewScriptFile forActionName="updateDriver"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -283,6 +303,7 @@
           <testApplicationControllerFile filesystemName="ListControllerTest.php"/>
           <testApplicationControllerFile filesystemName="IndexControllerTest.php"/>
           <testApplicationControllerFile filesystemName="SearchControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="NewDriverControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

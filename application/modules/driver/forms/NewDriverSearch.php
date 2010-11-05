@@ -19,15 +19,17 @@ class driver_Form_NewDriverSearch extends Zend_Form
         $this->addElement($d_Employment_Type);
 
         $d_Driver_SSN = $this->createElement('text','d_Driver_SSN');
-        $d_Driver_SSN->setLabel('Driver SSN: (123-45-6789) ');
+        $d_Driver_SSN->setLabel('Driver SSN: (only numbers) ');
         $d_Driver_SSN->setRequired('true');
-        $d_Driver_SSN->addFilter('StripTags');
+        $d_Driver_SSN->addValidator('regex',false,array('/[0-9]+/'));
+        $d_Driver_SSN->addValidator('StringLength', false, 9);
         $this->addElement($d_Driver_SSN);
 
         $d_Date_Of_Birth = $this->createElement('text','d_Date_Of_Birth');
         $d_Date_Of_Birth->setLabel('Driver Date Of Birth: (yyyy-mm-dd)');
         $d_Date_Of_Birth->setRequired('true');
         $d_Date_Of_Birth->addFilter('StripTags');
+        $d_Date_Of_Birth->addValidator('regex',false,array('/[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9]/'));
         $this->addElement($d_Date_Of_Birth);
 
 

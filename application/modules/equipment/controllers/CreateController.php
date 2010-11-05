@@ -54,6 +54,7 @@ class Equipment_CreateController extends Zend_Controller_Action
             }
         }
         $equipmentForm->setAction('/equipment/create');
+
         $this->view->form = $equipmentForm;
     }
 

@@ -53,6 +53,7 @@ class User_CreateController extends Zend_Controller_Action
             }
         }
         $userForm->setAction('/user/create');
+
         $this->view->form = $userForm;
     }
 

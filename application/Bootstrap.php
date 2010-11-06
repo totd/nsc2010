@@ -26,5 +26,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         return $autoLoader;
     }
 
+    /**
+     * @author Andriy Ilnytskyi 05.11.2010
+     *
+     * Add header DocType to the app.
+     */
+    protected function _initDoctype()
+    {
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+        $view->doctype('XHTML1_STRICT');
+    }
+
+
 }
 

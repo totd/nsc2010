@@ -63,6 +63,7 @@ class User_LoginController extends Zend_Controller_Action
                 $this->view->loginMessage = "Sorry, a data you have input is incorrect";
             }
         }
+
         $this->view->form = $loginForm;
     }
 }

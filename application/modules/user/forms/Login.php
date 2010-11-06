@@ -34,7 +34,7 @@ class User_Form_Login extends Zend_Form
         $homeBaseCode->setRequired('true');
         $homeBaseCode->addFilter('StripTags');
         $this->addElement($homeBaseCode);
-
+        
         $depot = $this->createElement('text','depot_name');
         $depot->setLabel('Depot: ');
         $depot->addFilter('StripTags');
@@ -51,7 +51,7 @@ class User_Form_Login extends Zend_Form
         $password->setLabel('Password: ');
         $password->setRequired('true');
         $this->addElement($password);
-
+       
         $submit = $this->addElement('submit', 'submit', array('label' => 'Submit'));
     }
 

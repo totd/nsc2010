@@ -25,8 +25,8 @@ class Company_IndexController extends Zend_Controller_Action
                 $this->view->listOfCompanies = null;
             }
 
-            $partial = array('partial/_Header.phtml', 'default');
-            $this->view->navigation()->menu()->setPartial($partial);
+            //$partial = array('partial/_Header.phtml', 'default');
+            //$this->view->navigation()->menu()->setPartial($partial);
                       
         }else{
             return $this->_redirect('system/error/session-closed');

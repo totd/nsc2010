@@ -27,7 +27,6 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
      */
     public function createEquipment($equipmentRow)
     {
-        // create a new row
         $rowEquipment = $this->createRow();
         if ($rowEquipment) {
             foreach ($equipmentRow as $key => $value) {
@@ -35,10 +34,31 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
             }
 
             $rowEquipment->save();
-            //return the new equipment
             return $rowEquipment;
         } else {
-            throw new Zend_Exception("Could not create user!");
+            throw new Zend_Exception("Could not create equipment!");
         }
     }
+
+    /**
+     * @author Andryi Ilnytskyi
+     * 
+     * Find equipment by VIN
+     * 
+     * @param string $valueVIN
+     * 
+     * @return mixed search result
+     */
+    public function findEquipmentByVIN($valueVIN)
+    {
+        $select = $this->select()
+                ->where('e_Number = ?', $valueVIN);
+
+        $stmt = $select->query();
+        $resultArray = $stmt->fetchAll();
+        $result = (count($resultArray) > 0) ? $resultArray : null;
+        
+        return $result;
+    }
+
 }

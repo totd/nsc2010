@@ -452,7 +452,7 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_Unit_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Alternate_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `e_RFID_No` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
-  `e_Entry_Date` date NOT NULL,
+  `e_Entry_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `e_License_Number` varchar(50) COLLATE latin1_general_ci NOT NULL,
   `e_License_Expiration_Date` date NOT NULL,
   `e_Start_Mileage` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
@@ -473,8 +473,9 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_Title_Status` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Picture` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `e_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`e_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`e_id`),
+  UNIQUE KEY `e_Number` (`e_Number`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `equipment`

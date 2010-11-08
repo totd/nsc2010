@@ -1,7 +1,12 @@
 <?php
 
-class Equipment_Form_Equipment extends Zend_Form
+class Equipment_Form_EditInformationWorksheet extends Zend_Form
 {
+    /**
+     *
+     * @var string Vehicle Identification Number
+     */
+    private $_VIN = 'test'; // TODO remove afer save implementation.
 
     protected $elementDecorators = array(
         'ViewHelper',
@@ -31,6 +36,7 @@ class Equipment_Form_Equipment extends Zend_Form
                     'size' => 20,
                     'label' => 'VIN',
                     'disable' => 'true',
+                    'value' => $this->_VIN,
                     'decorators' => $this->elementDecorators
                 )));
 
@@ -41,6 +47,7 @@ class Equipment_Form_Equipment extends Zend_Form
                     'decorators' => $this->elementDecorators
                 )));
 
+        // TODO implement using DB
         $this->addElement(new Zend_Form_Element_Select('VehicleType', array(
                     'MultiOptions' => array(
                         '' => '-',
@@ -125,6 +132,7 @@ class Equipment_Form_Equipment extends Zend_Form
                     'decorators' => $this->elementDecorators
                 )));
 
+        // TODO Implemented usins StateController
         $this->addElement(new Zend_Form_Element_Select('State', array(
                     'MultiOptions' => array(
                         '-' => '-',
@@ -253,57 +261,6 @@ class Equipment_Form_Equipment extends Zend_Form
             'label' => 'Save',
                 )
         );
-//
-//        $this->addElement(new Zend_Form_Element_Hidden('ProfitCN', array(
-//                    'value' => ''
-//                )));
-//
-//        $this->addElement(new Zend_Form_Element_Hidden('ProfitCNLocation', array(
-//                    'value' => ''
-//                )));
-//
-//        $this->addElement(new Zend_Form_Element_Hidden('OwningCompany', array(
-//                    'value' => ''
-//                )));
-//
-//        $this->addElement(new Zend_Form_Element_Hidden('IRP', array(
-//                    'value' => ''
-//                )));
-//
-//        $this->addElement(new Zend_Form_Element_Hidden('IFTASticker', array(
-//                    'value' => ''
-//                )));
-//
-//        $this->addElement(new Zend_Form_Element_Hidden('IFTAStickerExpDate', array(
-//                    'value' => '1/1/1900'
-//                )));
-//
-//        $this->addElement(new Zend_Form_Element_Hidden('Weight2290', array(
-//                    'value' => ''
-//                )));
-//
-//        $this->addElement(new Zend_Form_Element_Hidden('HUT', array(
-//                    'value' => 'No'
-//                )));
-//
-//        $this->addElement(new Zend_Form_Element_Hidden('TitleStatus', array(
-//                    'value' => 'Corporate'
-//                )));
-//
-//
-//        $this->setDecorators(array(
-//            'FormElements',
-//            array('HtmlTag', array('tag' => 'table')),
-//            'Form',
-//        ));
-//
-//        $id = $this->createElement('hidden', 'EquipmentId');
-//        // element options
-//        $id->setDecorators(array('ViewHelper'));
-//        // add the element to the form
-//        $this->addElement($id);
-//
-//        $submit = $this->addElement('submit', 'submit', array('label' => 'Submit'));
     }
 
     public function loadDefaultDecorators()
@@ -316,4 +273,3 @@ class Equipment_Form_Equipment extends Zend_Form
     }
 
 }
-

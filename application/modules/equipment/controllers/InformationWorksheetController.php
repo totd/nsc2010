@@ -5,7 +5,7 @@
  *
  * Handle of the equipment creation.
  */
-class Equipment_CreateController extends Zend_Controller_Action
+class Equipment_InformationWorksheetController extends Zend_Controller_Action
 {
 
     public function init()
@@ -13,11 +13,6 @@ class Equipment_CreateController extends Zend_Controller_Action
 
     }
 
-    /**
-     * @author Andryi Ilnytskiy 04.11.2010
-     *
-     * Create a new equipment.
-     */
     public function indexAction($VIN = null)
     {
         if (is_null($VIN)) {
@@ -27,13 +22,54 @@ class Equipment_CreateController extends Zend_Controller_Action
             }
         }
 
-        $equipmentForm = new Equipment_Form_Equipment();
+        $equipmentModel = new Equipment_Model_Equipment();
+        $equipmentRow = array(
+                    'e_Number' => $VIN,
+                );
+        // Create equipment only with VIN value
+        $equipmentRow = $equipmentModel->createEquipment($equipmentRow);
+
+        $this->view->equipmentRow = $equipmentRow;
+
+        $equipmentForm = new Equipment_Form_ViewInformationWorksheet($equipmentRow);
+
+        $equipmentForm->setAction('/equipment/update-status/');
+
+        $this->view->form = $equipmentForm;
+    }
+
+
+
+    /**
+     * @author Andryi Ilnytskiy 04.11.2010
+     *
+     * Save imformation worksheet of a new equipment.
+     *
+     * @param string $VIN
+     * 
+     * @return mixed
+     */
+    public function updateAction($VIN = null)
+    {
+        if (is_null($VIN)) {
+            $VIN = $this->_request->getParam('VIN');
+            if (is_null($VIN)) {
+                $this->_redirect('/equipment/search');
+            }
+            
+            $equipmentModel->createEquipment($equipmentRow);
+            
+        }
+
+        $this->view->VIN = $VIN;
+
+        $equipmentForm = new Equipment_Form_EditInformationWorksheet();
         if ($this->_request->isPost()) {
             if ($equipmentForm->isValid($_POST)) {
                 $equipmentModel = new Equipment_Model_Equipment();
                 $equipmentRow = array(
                     //'e_id' => $equipmentForm->getValue(''),
-                    //'e_Number' => $equipmentForm->getValue('VIN'),
+                    'e_Number' => $equipmentForm->getValue('VIN'),
                     //'e_Owner_Number' => $equipmentForm->getValue(''),
                     'e_Unit_Number' => $equipmentForm->getValue('UnitNumber'),
 //                    'e_Alternate_ID' => $equipmentForm->getValue(''),
@@ -67,6 +103,30 @@ class Equipment_CreateController extends Zend_Controller_Action
         $equipmentForm->setAction('/equipment/create');
 
         $this->view->form = $equipmentForm;
+    }
+
+    public function completedAction($id = null)
+    {
+        if (is_null($id)) {
+            $id = $this->_request->getParam('id');
+            if (is_null($id)) {
+                // TODO imlemen needed error handling.
+                $this->_redirect('/equipment/search');
+            }
+        }
+
+        $equipmentModel = new Equipment_Model_Equipment();
+        $equipmentModel->changeNewEquipmentStatus('Completed', $id);
+    }
+
+    public function declinedAction()
+    {
+        // TODO Implementation needed.
+    }
+
+    public function exitAction()
+    {
+        // TODO Implementation needed.
     }
 
 }

@@ -1,0 +1,40 @@
+<table width="90%" cellspacing="" cellpadding="0" border="0" bgcolor="#0000cc" align="center">
+    <tbody>
+        <tr height="30">
+            <td align="center">VEHICLE INFORMATION WORKSHEET</td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="90%" cellspacing="1" cellpadding="4" border="0" bgcolor="#cccccc" align="center">
+    <tbody>
+        <tr height="20">
+            <td bgcolor="#66cdaa" colspan="2">
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#66cdaa">
+                    <tbody>
+                        <tr>
+                            <td width="40%" bgcolor="#66cdaa" align="left"><b></b>&nbsp;</td>
+                            <td bgcolor="#66cdaa" align="right">
+                                <a href="<?php echo '/equipment/information-worksheet/completed/id/' . $this->equipmentRow['e_id'] ?>"><font color="#0000cc">Complete</font></a>
+                                <font color="#0000cc">&nbsp;|&nbsp;</font>
+                                <a href="<?php echo '/equipment/information-worksheet/declined/id/' . $this->equipmentRow['e_id'] ?>"><font color="#0000cc">Decline</font></a>
+                                <font color="#0000cc">&nbsp;|&nbsp;</font>
+                                <a href="/equipment/information-worksheet//exit"><font color="#0000cc">Exit</font></a>&nbsp;&nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#ffffff">VIN</td>
+            <td bgcolor="#ffffff"><?php echo $this->equipmentRow['e_Number'] ?></td>
+        </tr>
+        <tr>
+            <td width="30%" bgcolor="#ffffff">Entry Date</td>
+            <td width="75%" bgcolor="#ffffff"><?php echo $this->equipmentRow['e_Entry_Date'] ?></td> <!-- 11/3/2010 2:20:45 AM-->
+        </tr><tr>
+            <td width="30%" bgcolor="#ffffff">Status</td>
+            <td width="75%" bgcolor="#ffffff"><?php echo $this->equipmentRow['enes_Type'] ?></td>
+        </tr>
+    </tbody></table>

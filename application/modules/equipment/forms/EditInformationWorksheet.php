@@ -2,6 +2,10 @@
 
 class Equipment_Form_EditInformationWorksheet extends Zend_Form
 {
+    private $_listNewStatuses;
+    private $_listActiveStatuses;
+
+
     /**
      *
      * @var string Vehicle Identification Number
@@ -21,6 +25,15 @@ class Equipment_Form_EditInformationWorksheet extends Zend_Form
         array(array('label' => 'HtmlTag'), array('tag' => 'td', 'placement' => 'prepend')),
         array(array('row' => 'HtmlTag'), array('tag' => 'tr')),
     );
+
+    public function __construct($listNewStatuses, $listActiveStatuses, $options = null)
+    {
+        $this->_listActiveStatuses = $listActiveStatuses;
+        $this->_listNewStatuses = $listNewStatuses;
+
+
+        parent::__construct($options);
+    }
 
     /**
      * @author Andryi Ilnytskyi 05.11.2010
@@ -255,6 +268,31 @@ class Equipment_Form_EditInformationWorksheet extends Zend_Form
                     'label' => 'Insurance Limits',
                     'decorators' => $this->elementDecorators
                 )));
+
+        $selectArray = array('' => '-');
+        foreach ($this->_listActiveStatuses as $status) {
+            $selectArray[$status->eas_id] = $status->eas_type;
+        }
+
+        $this->addElement(new Zend_Form_Element_Select('ActiveStatus', array(
+                    'MultiOptions' => $selectArray,
+                    'label' => 'Active Status',
+                    'decorators' => $this->elementDecorators
+                )));
+
+
+        $selectArray = array();
+        foreach ($this->_listNewStatuses as $status) {
+            $selectArray[$status->enes_id] = $status->enes_type;
+        }
+
+        $this->addElement(new Zend_Form_Element_Select('NewStatus', array(
+                    'MultiOptions' => $selectArray,
+                    'label' => 'New Status',
+                    'decorators' => $this->elementDecorators
+                )));
+
+        
 
         $this->addElement('submit', 'save', array(
             'decorators' => $this->buttonDecorators,

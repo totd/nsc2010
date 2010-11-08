@@ -15,7 +15,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
      */
     public function changeNewEquipmentStatus($status, $id)
     {
-        $select = "SELECT enes_id FROM equipment__new_equipment_status WHERE enes_Type='{$status}'";
+        $select = "SELECT enes_id FROM equipment__new_equipment_status WHERE enes_type='{$status}'";
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
         $stmt = $db->query($select);
         $result = $stmt->fetch();
@@ -34,13 +34,13 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
     }
 
     /**
-     * @author Andriy Ilnytskyi 22.10.2010
+     * @author Andriy Ilnytskyi 04.11.2010
      *
-     * Get all users from a storing.
+     * Get all equipments from a storing.
      *
      * @return mixed
      */
-    public static function getEquipmentList()
+    public function getEquipmentList()
     {
         $equipmentModel = new self();
         $select = $equipmentModel->select();
@@ -67,7 +67,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 
             $db = $this->getAdapter();
 
-            $select = "SELECT e_id, e_Number, e_Entry_Date, enes_Type
+            $select = "SELECT e_id, e_Number, e_Entry_Date, enes_type
                             FROM equipment
                             JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id
                             WHERE e_Number = '{$rowEquipment->e_Number}'";
@@ -75,7 +75,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
             // TODO implement using ZendDB->select()
 //            $select = $this->select()
 //                             ->from('equipment')
-//                             ->columns(array('e_Number', 'e_Entry_Date', 'enes_Type'))
+//                             ->columns(array('e_Number', 'e_Entry_Date', 'enes_type'))
 //                             ->join('equipment__new_equipment_status', 'e_New_Equipment_Status = enes_id')
 //                             ->where('e_Number = ?', $rowEquipment->e_Number);
 //            $stmt = $select->query();

@@ -63,7 +63,13 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
         $this->view->VIN = $VIN;
 
-        $equipmentForm = new Equipment_Form_EditInformationWorksheet();
+        $newStatus = new NewStatus_Model_NewStatus();
+        $listNewStatuses = $newStatus->getList();
+
+        $activeStatus = new ActiveStatus_Model_ActiveStatus();
+        $listActiveStatuses = $activeStatus->getList();
+
+        $equipmentForm = new Equipment_Form_EditInformationWorksheet($listNewStatuses, $listActiveStatuses);
         if ($this->_request->isPost()) {
             if ($equipmentForm->isValid($_POST)) {
                 $equipmentModel = new Equipment_Model_Equipment();
@@ -89,8 +95,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     'e_Color' => $equipmentForm->getValue('Color'),
                     'e_Model' => $equipmentForm->getValue('Model'),
 //                    'e_Description' => $equipmentForm->getValue(''),
-//                    'e_New_Equipment_Status' => $equipmentForm->getValue(''),
-//                    'e_Active_Status' => $equipmentForm->getValue(''),
+                    'e_New_Equipment_Status' => $equipmentForm->getValue('NewStatus'),
+                    'e_Active_Status' => $equipmentForm->getValue('ActiveStatus'),
 //                    'e_Fee' => $equipmentForm->getValue(''),
 //                    'e_Title_Status' => $equipmentForm->getValue(''),
 //                    'e_Picture' => $equipmentForm->getValue(''),

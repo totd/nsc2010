@@ -1,0 +1,32 @@
+<?php
+    echo $this->navigation()->menu()->render(); ?>
+<h2>Pending Drivers</h2>
+  <table border="1" cellpadding="0" cellspacing="1" width="100%"  align="center">
+		<tr height="25">
+			<td colspan="8" align="right"><a href="/driver/new-Driver/new-Driver-Search">Create Driver</a></td>
+		</tr>
+		<tr height="25">
+			<td align="center" class="">
+				First Name</td>
+			<td align="center" class="">
+				Last Name</td>
+			<td align="center" class="">
+				SSN</td>
+			<td align="center" class="">
+				Employment</td>
+			<td align="center" class="">
+				Status</td>
+			<td align="center" class="">
+				Entry Date</td>
+			<td align="center" class="">Account</td>
+			<td align="center" class="">Action</td>
+		</tr>
+
+<?php
+if ($this->pendingDrivers != null) {
+?>
+        <?php echo $this->partialLoop('partials/_driver-row.phtml', $this->pendingDrivers); ?>
+
+    <?php } ?>
+
+		</Table>

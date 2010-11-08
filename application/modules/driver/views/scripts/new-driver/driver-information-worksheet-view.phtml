@@ -1,0 +1,37 @@
+<?php
+    echo $this->navigation()->menu()->render(); ?>
+<table border="1" width="100%">
+    <tr>
+        <td colspan="2" align="center"><h2 style="background:#00f; color:#FFF;">DRIVER INFORMATION WORKSHEET</h2></td>
+    </tr>
+    <tr>
+        <td width="300px"><b>Driver:</b></td>
+        <td width="300px" align="right">
+            <a href="/driver/new-Driver/new-Driver-Complete/id/<?php echo $this->driverId;?>" >Complete</a> |
+            <a href="/driver/new-Driver/new-Driver-Decline/id/<?php echo $this->driverId;?>" >Decline</a> |
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" bgcolor="#ccffcc"><b>Application Information:</b></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <?php echo $this->driver_applicationInformation_Form; ?>
+            <?php //echo $this->driverPersonalInfo_Form; ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2" bgcolor="#ccffcc"><b>Driver Information:</b></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <?php echo $this->driverPersonalInfo_Form; ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+</table>

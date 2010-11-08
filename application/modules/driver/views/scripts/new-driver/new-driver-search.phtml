@@ -1,0 +1,19 @@
+
+<?php
+    echo $this->navigation()->menu()->render(); ?>
+<h2>NEW DRIVER - LOOK FOR A DRIVER</h2>
+<?php if ($this->driver_exist==true) {
+ ?>
+    <p><?php echo $this->partial('partials/_searchDriver-error-driverExist.phtml', $this->d_Driver_SSN); ?></p>
+<?php
+} ?>
+<?php if ($this->systemMessage==true) {
+ ?>
+    <p><?php echo $this->systemMessage; ?></p>
+<?php
+} ?>
+
+<?php
+echo $this->form_NewDriverSearch;
+
+?>

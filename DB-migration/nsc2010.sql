@@ -1398,26 +1398,6 @@ INSERT INTO `user__status` (`us_id`, `us_type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Дублирующая структура для представления `vauthuser`
---
-DROP VIEW IF EXISTS `vauthuser`;
-CREATE TABLE IF NOT EXISTS `vauthuser` (
-`vau_ID` int(11)
-,`vau_username` varchar(255)
-,`vau_password` varchar(255)
-,`vau_role_id` int(11)
-,`vau_role_title` varchar(100)
-,`vau_role` varchar(100)
-,`vau_homebase_id` int(11)
-,`vau_homebase_code` varchar(250)
-,`vau_company_id` int(11)
-,`vau_company_code` varchar(250)
-,`vau_depot_name` varchar(250)
-,`vau_parent_company_code` varchar(250)
-);
--- --------------------------------------------------------
-
---
 -- Структура таблицы `witness`
 --
 
@@ -1446,8 +1426,19 @@ CREATE TABLE IF NOT EXISTS `witness` (
 -- Структура для представления `vauthuser`
 --
 DROP TABLE IF EXISTS `vauthuser`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vauthuser` AS select `user`.`u_ID` AS `vau_ID`,`user`.`u_User_Name` AS `vau_username`,`user`.`u_Password` AS `vau_password`,`user`.`u_Role_ID` AS `vau_role_id`,`user_role`.`ur_title` AS `vau_role_title`,`user_role`.`ur_role` AS `vau_role`,`user`.`u_Homebase_ID` AS `vau_homebase_id`,`homebase`.`h_Name` AS `vau_homebase_code`,`user`.`u_Company_ID` AS `vau_company_id`,`company`.`c_Name` AS `vau_company_code`,`depot`.`d_Name` AS `vau_depot_name`,`parent_company`.`pc_Name` AS `vau_parent_company_code` from (((((`user` join `company` on((`user`.`u_Company_ID` = `company`.`c_id`))) left join `parent_company` on((`company`.`c_Parent_Company_Account_Number` = `parent_company`.`pc_id`))) join `user_role` on((`user`.`u_Role_ID` = `user_role`.`ur_ID`))) join `homebase` on((`user`.`u_Homebase_ID` = `homebase`.`h_id`))) left join `depot` on((`user`.`u_Depot_ID` = `depot`.`d_id`)));
+CREATE VIEW `vauthuser` AS
+select
+`user`.`u_ID` AS `vau_ID`,`user`.`u_User_Name` AS `vau_username`,`user`.`u_Password` AS `vau_password`,
+`user`.`u_Role_ID` AS `vau_role_id`,`user_role`.`ur_title` AS `vau_role_title`,`user_role`.`ur_role` AS `vau_role`,
+`user`.`u_Homebase_ID` AS `vau_homebase_id`,`homebase`.`h_Name` AS `vau_homebase_code`,
+`user`.`u_Company_ID` AS `vau_company_id`,`company`.`c_Name` AS `vau_company_code`,`depot`.`d_Name` AS `vau_depot_name`,
+`parent_company`.`pc_Name` AS `vau_parent_company_code`
+from
+(((((`user` join `company` on((`user`.`u_Company_ID` = `company`.`c_id`)))
+left join `parent_company` on((`company`.`c_Parent_Company_Account_Number` = `parent_company`.`pc_id`)))
+join `user_role` on((`user`.`u_Role_ID` = `user_role`.`ur_ID`)))
+join `homebase` on((`user`.`u_Homebase_ID` = `homebase`.`h_id`)))
+left join `depot` on((`user`.`u_Depot_ID` = `depot`.`d_id`)));
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

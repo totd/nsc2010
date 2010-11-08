@@ -3,11 +3,14 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 24 2010 г., 13:16
--- Версия сервера: 5.0.27
+-- Время создания: Ноя 08 2010 г., 09:36
+-- Версия сервера: 5.1.49
 -- Версия PHP: 5.2.1
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT=0;
+START TRANSACTION;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -22,2905 +25,1549 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `holddups`
---
-
-CREATE TABLE IF NOT EXISTS `holddups` (
-  `DIWID` bigint(20) NOT NULL,
-  `FileID` bigint(20) NOT NULL,
-  `EntryDate` datetime NOT NULL,
-  `AppDate` datetime NOT NULL,
-  `AppType` varchar(15) collate utf8_unicode_ci NOT NULL,
-  `AppNumber` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `DateOfHire` datetime NOT NULL,
-  `TruckNumber` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `FirstName` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `LastName` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `MiddleName` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `BirthName` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `RANumber` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `RAExpDate` datetime NOT NULL,
-  `MedNumber` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `MedExpDate` datetime NOT NULL,
-  `MedExaminerName` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `StraightTruck` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `STFromDate` datetime NOT NULL,
-  `STToDate` datetime NOT NULL,
-  `STTotalMiles` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `TractorSemiTrailer` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `TSTFromDate` datetime NOT NULL,
-  `TSTToDate` datetime NOT NULL,
-  `TSTTotalMiles` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `DoublesTriples` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `DTFromDate` datetime NOT NULL,
-  `DTToDate` datetime NOT NULL,
-  `DTTotalMiles` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `Busses` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `BusFromDate` datetime NOT NULL,
-  `BusToDate` datetime NOT NULL,
-  `BusTotalMiles` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `Tankers` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `TanFromDate` datetime NOT NULL,
-  `TanToDate` datetime NOT NULL,
-  `TanTotalMiles` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `OtherEquip` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `OthFromDate` datetime NOT NULL,
-  `OthToDate` datetime NOT NULL,
-  `OthTotalMiles` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `OthDescribe` varchar(200) collate utf8_unicode_ci NOT NULL,
-  `DeniedCDL` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `DeniedCDLExplain` varchar(200) collate utf8_unicode_ci NOT NULL,
-  `SuspCDL` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `SuspCDLExplain` varchar(200) collate utf8_unicode_ci NOT NULL,
-  `CopyStatus` varchar(15) collate utf8_unicode_ci NOT NULL,
-  `Created` datetime NOT NULL,
-  `NoRA` tinyint(4) NOT NULL,
-  `NoAcc` tinyint(4) NOT NULL,
-  `NoViol` tinyint(4) NOT NULL,
-  `NoEmpl` tinyint(4) NOT NULL,
-  `DriverCode` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `TWICSerial` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `TWICExpDate` datetime NOT NULL,
-  `NextelPhone` varchar(15) collate utf8_unicode_ci NOT NULL,
-  `NextelPhoneSerial` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `RadioFrequency` varchar(15) collate utf8_unicode_ci NOT NULL,
-  `RadioSerial` varchar(20) collate utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Дамп данных таблицы `holddups`
+-- Структура таблицы `company`
 --
 
+DROP TABLE IF EXISTS `company`;
+CREATE TABLE IF NOT EXISTS `company` (
+  `c_id` int(11) NOT NULL AUTO_INCREMENT,
+  `c_Parent_Company_Account_Number` int(11) DEFAULT NULL,
+  `c_Number` varchar(12) COLLATE latin1_general_ci NOT NULL,
+  `c_EIN` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `c_SSN` varchar(11) COLLATE latin1_general_ci DEFAULT NULL,
+  `c_DOT_Number` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `c_Carrier_Number` varchar(15) COLLATE latin1_general_ci DEFAULT NULL,
+  `c_Name` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `c_Contact_Table_ID` int(11) NOT NULL,
+  `c_Annual_Support` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `c_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`c_id`),
+  KEY `FK_Company_2_Parent_Company__pc_id` (`c_Parent_Company_Account_Number`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `holdkey`
---
-
-CREATE TABLE IF NOT EXISTS `holdkey` (
-  `DIWID` bigint(20) NOT NULL auto_increment,
-  `FileID` bigint(20) NOT NULL,
-  `col3` tinyint(4) default NULL,
-  PRIMARY KEY  (`DIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `holdkey`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccdoc`
---
-
-CREATE TABLE IF NOT EXISTS `taccdoc` (
-  `DocID` bigint(20) NOT NULL auto_increment,
-  `DocType` varchar(30) collate utf8_unicode_ci default '',
-  `Category` varchar(30) collate utf8_unicode_ci default '',
-  `DocTitle` varchar(100) collate utf8_unicode_ci default '',
-  `DocCode` varchar(10) collate utf8_unicode_ci default '',
-  `HasPDF` tinyint(4) default '0',
-  `PDFFile` varchar(100) collate utf8_unicode_ci default '',
-  `HasScan` tinyint(4) default '0',
-  `Multiple` tinyint(4) default '0',
-  `ForEmployer` tinyint(4) default '0',
-  `PageNum` tinyint(4) default '0',
-  `HasNSCCheck` tinyint(4) default '0',
-  PRIMARY KEY  (`DocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccdoc`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccdotinc`
---
-
-CREATE TABLE IF NOT EXISTS `taccdotinc` (
-  `DOTincID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) NOT NULL default '-1',
-  `Fatality` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  `injuries` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  `towed` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  `citation` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  `test` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  `Alcohol2` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  `Alcohol` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  `Drug` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  `WhyNot` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  `WhyNotDrug` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  `DOTReportable` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
-  PRIMARY KEY  (`DOTincID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccdotinc`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccdqfdoc`
---
-
-CREATE TABLE IF NOT EXISTS `taccdqfdoc` (
-  `AccDQFDocID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) default '-1',
-  `DocID` bigint(20) default '-1',
-  `Status` varchar(15) collate utf8_unicode_ci default '',
-  `Requested` date NOT NULL default '1990-01-01',
-  `Completed` date NOT NULL default '1990-01-01',
-  `EmployeeDrID` bigint(20) default '-1',
-  `ScanDateTime` varchar(20) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `OtherTitle` varchar(200) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`AccDQFDocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccdqfdoc`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccemployeedriver`
---
-
-CREATE TABLE IF NOT EXISTS `taccemployeedriver` (
-  `EmployeeDrID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) NOT NULL,
-  `DriverID` bigint(20) NOT NULL,
-  `SSN` varchar(15) collate utf8_unicode_ci default '',
-  `HomeBaseID` bigint(20) default '-1',
-  `Status` varchar(10) collate utf8_unicode_ci default '',
-  `TerminationDate` date NOT NULL default '1900-01-01',
-  `DateOfHire` date NOT NULL default '1900-01-01',
-  `DOB` date NOT NULL default '1900-01-01',
-  `FirstName` varchar(30) collate utf8_unicode_ci default '',
-  `LastName` varchar(30) collate utf8_unicode_ci default '',
-  `MiddleName` varchar(30) collate utf8_unicode_ci default '',
-  `BirthName` varchar(30) collate utf8_unicode_ci default '',
-  `StreetAddress` varchar(20) collate utf8_unicode_ci default '',
-  `CityAddress` varchar(20) collate utf8_unicode_ci default '',
-  `StateAddress` varchar(3) collate utf8_unicode_ci default '',
-  `ZIPAddress` varchar(7) collate utf8_unicode_ci default '',
-  `CDLNumber` varchar(30) collate utf8_unicode_ci default '',
-  `State` varchar(5) collate utf8_unicode_ci default '',
-  `Class` varchar(5) collate utf8_unicode_ci default '',
-  `Injured` varchar(5) collate utf8_unicode_ci default '',
-  `InjuryDescription` varchar(300) collate utf8_unicode_ci default '',
-  `Killed` varchar(5) collate utf8_unicode_ci default '',
-  `HomePhone` varchar(15) collate utf8_unicode_ci default '',
-  `BusinessPhone` varchar(16) collate utf8_unicode_ci default '',
-  `InsuranceCarier` varchar(30) collate utf8_unicode_ci default '',
-  `InsPolicy` varchar(20) collate utf8_unicode_ci default '',
-  `TravDirection` varchar(5) collate utf8_unicode_ci default '',
-  `OnStreet` varchar(30) collate utf8_unicode_ci default '',
-  `Speed` varchar(10) collate utf8_unicode_ci default '',
-  `SpeedMax` varchar(10) collate utf8_unicode_ci default '',
-  `LicPlate` varchar(15) collate utf8_unicode_ci default '',
-  `Sex` varchar(10) collate utf8_unicode_ci default '',
-  `HairColor` varchar(10) collate utf8_unicode_ci default '',
-  `Eyes` varchar(10) collate utf8_unicode_ci default '',
-  `HeightFeet` varchar(7) collate utf8_unicode_ci default '',
-  `HeightInch` varchar(7) collate utf8_unicode_ci default '',
-  `Weight` varchar(10) collate utf8_unicode_ci default '',
-  `NumberOfPassanger` varchar(3) collate utf8_unicode_ci default '',
-  `Other` varchar(3) collate utf8_unicode_ci default '',
-  `Alcohol8` varchar(3) collate utf8_unicode_ci default '',
-  `Alcohol2` varchar(3) collate utf8_unicode_ci default '',
-  `WhyNotAlcohol` text collate utf8_unicode_ci,
-  `DrugTest` varchar(3) collate utf8_unicode_ci default '',
-  `WhyNotDrug` text collate utf8_unicode_ci,
-  `Citation8Hours` varchar(3) collate utf8_unicode_ci default '',
-  `Citation32Hours` varchar(3) collate utf8_unicode_ci default '',
-  `AccPoints` bigint(20) default '0',
-  PRIMARY KEY  (`EmployeeDrID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccemployeedriver`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccemployeemovement`
---
-
-CREATE TABLE IF NOT EXISTS `taccemployeemovement` (
-  `EmployeeMovID` bigint(20) NOT NULL auto_increment,
-  `EmployeeDrID` bigint(20) default '-1',
-  `Stopped` tinyint(4) default '0',
-  `ProceedingStraight` tinyint(4) default '0',
-  `RunOffRoadway` tinyint(4) default '0',
-  `MakingRightTurn` tinyint(4) default '0',
-  `MakingLeftTurn` tinyint(4) default '0',
-  `MakingUTurn` tinyint(4) NOT NULL,
-  `Backing` tinyint(4) default '0',
-  `Slowing` tinyint(4) default '0',
-  `Stopping` tinyint(4) default '0',
-  `Passing` tinyint(4) default '0',
-  `ChangingLanes` tinyint(4) default '0',
-  `Parking` tinyint(4) default '0',
-  `EnteringTraffic` tinyint(4) default '0',
-  `UnsafeTurning` tinyint(4) default '0',
-  `Parked` tinyint(4) default '0',
-  `Merging` tinyint(4) default '0',
-  `WrongWay` tinyint(4) default '0',
-  `Other` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`EmployeeMovID`),
-  KEY `FK_tAccEmployeeMovement_tAccEmployeeDriver` (`EmployeeDrID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccemployeemovement`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccemployeevehicle`
---
-
-CREATE TABLE IF NOT EXISTS `taccemployeevehicle` (
-  `AccEmployVehicleID` bigint(20) NOT NULL auto_increment,
-  `EmployeeDrID` bigint(20) default '-1',
-  `DriverID` bigint(20) default '-1',
-  `AccIWID` bigint(20) default '-1',
-  `TruckID` bigint(20) default '-1',
-  `TIWID` bigint(20) default '-1',
-  `VendorID` bigint(20) default '-1',
-  `VendorCompany` varchar(20) collate utf8_unicode_ci default '',
-  `HomeBaseID` bigint(20) default '-1',
-  `Make` varchar(20) collate utf8_unicode_ci default '',
-  `Model` varchar(20) collate utf8_unicode_ci default '',
-  `Color` varchar(20) collate utf8_unicode_ci default '',
-  `ProdYear` varchar(5) collate utf8_unicode_ci default '',
-  `LicPlate` varchar(15) collate utf8_unicode_ci default '',
-  `State` varchar(5) collate utf8_unicode_ci default '',
-  `UnitNUmber` varchar(15) collate utf8_unicode_ci default '',
-  `OwnersFirstName` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersLastName` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersMiddleName` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersStreetAddress` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersCityAddress` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersStateAddress` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersZIPAddress` varchar(10) collate utf8_unicode_ci default '',
-  `OwnersCode` varchar(15) collate utf8_unicode_ci default '',
-  `VIN` varchar(25) collate utf8_unicode_ci default '',
-  `Towed` varchar(3) collate utf8_unicode_ci default '',
-  `DOT` varchar(15) collate utf8_unicode_ci default '',
-  `Damage` text collate utf8_unicode_ci,
-  `PhotoTaken` varchar(3) collate utf8_unicode_ci default '',
-  `InsCompany` varchar(30) collate utf8_unicode_ci default '',
-  `InsPolicyNum` varchar(30) collate utf8_unicode_ci default '',
-  `InsExpDate` date NOT NULL default '1900-01-01',
-  `VehicleValue` bigint(20) default '0',
-  `VehType` varchar(10) collate utf8_unicode_ci default '',
-  `DamageEstimate` varchar(10) collate utf8_unicode_ci default '',
-  `Status` varchar(10) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`AccEmployVehicleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccemployeevehicle`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccemployepassanger`
---
-
-CREATE TABLE IF NOT EXISTS `taccemployepassanger` (
-  `PassangerID` bigint(20) NOT NULL auto_increment,
-  `SSN` varchar(30) collate utf8_unicode_ci default '',
-  `AccIWID` bigint(20) NOT NULL,
-  `Status` varchar(20) collate utf8_unicode_ci default '',
-  `DOB` date NOT NULL default '1990-01-01',
-  `FirstName` varchar(20) collate utf8_unicode_ci default '',
-  `LastName` varchar(20) collate utf8_unicode_ci default '',
-  `MIddleName` varchar(20) collate utf8_unicode_ci default '',
-  `HomePhone` varchar(15) collate utf8_unicode_ci default '',
-  `BusinessPhone` varchar(16) collate utf8_unicode_ci default '',
-  `StreetAddress` varchar(20) collate utf8_unicode_ci default '',
-  `CityAddress` varchar(20) collate utf8_unicode_ci default '',
-  `StateAddress` varchar(3) collate utf8_unicode_ci default '',
-  `ZIPAddress` varchar(7) collate utf8_unicode_ci default '',
-  `CDLNumber` varchar(30) collate utf8_unicode_ci default '',
-  `State` varchar(5) collate utf8_unicode_ci default '',
-  `Class` varchar(5) collate utf8_unicode_ci default '',
-  `Injured` varchar(5) collate utf8_unicode_ci NOT NULL,
-  `InjuryDescription` varchar(300) collate utf8_unicode_ci default '',
-  `Killed` varchar(5) collate utf8_unicode_ci default '',
-  `Sex` varchar(10) collate utf8_unicode_ci default '',
-  `HairColor` varchar(10) collate utf8_unicode_ci default '',
-  `Eyes` varchar(10) collate utf8_unicode_ci default '',
-  `HeightFeet` varchar(7) collate utf8_unicode_ci default '',
-  `HeightInch` varchar(7) collate utf8_unicode_ci default '',
-  `Weight` varchar(10) collate utf8_unicode_ci default '',
-  `Seatbelt` varchar(5) collate utf8_unicode_ci default '',
-  `Statement` varchar(300) collate utf8_unicode_ci default '',
-  `WitnessType` varchar(15) collate utf8_unicode_ci default '',
-  `InjuryType` varchar(30) collate utf8_unicode_ci default '',
-  `TransportedBy` varchar(50) collate utf8_unicode_ci default '',
-  `TakenTo` varchar(50) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`PassangerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccemployepassanger`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccfile`
---
-
-CREATE TABLE IF NOT EXISTS `taccfile` (
-  `AccFileID` bigint(20) NOT NULL auto_increment,
-  `AccidentID` bigint(20) default '-1',
-  `HomeBaseID` bigint(20) default '-1',
-  `Status` varchar(20) collate utf8_unicode_ci default 'Open',
-  `ClosingDate` date NOT NULL default '1900-01-01',
-  `FileOpened` date NOT NULL default '1900-01-01',
-  `FileCreated` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `DOTCheck` tinyint(4) default '0',
-  PRIMARY KEY  (`AccFileID`),
-  KEY `FK_tAccFile_tAccident` (`AccidentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccfile`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccident`
---
-
-CREATE TABLE IF NOT EXISTS `taccident` (
-  `AccidentID` bigint(20) NOT NULL auto_increment,
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `AccDate` date NOT NULL default '1900-01-01',
-  PRIMARY KEY  (`AccidentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccident`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccinvolvedwith`
---
-
-CREATE TABLE IF NOT EXISTS `taccinvolvedwith` (
-  `InvolvedWithID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) NOT NULL,
-  `Noncollision` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `OtherMotorVehicle` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `Pedestrian` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `ParkedVehicle` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `Train` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `Bus` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `Bicycle` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `Animal` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `FixedObject` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `Other` varchar(30) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`InvolvedWithID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccinvolvedwith`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tacciw`
---
-
-CREATE TABLE IF NOT EXISTS `tacciw` (
-  `AccIWID` bigint(20) NOT NULL auto_increment,
-  `AccFileID` bigint(20) default '-1',
-  `City` varchar(30) collate utf8_unicode_ci default '',
-  `County` varchar(30) collate utf8_unicode_ci default '',
-  `State` varchar(4) collate utf8_unicode_ci default '',
-  `AccLocation` varchar(100) collate utf8_unicode_ci default '',
-  `Intersection` varchar(100) collate utf8_unicode_ci default '',
-  `Distance` varchar(20) collate utf8_unicode_ci default '',
-  `DistFrom` varchar(100) collate utf8_unicode_ci default '',
-  `AccTime` varchar(15) collate utf8_unicode_ci default '',
-  `PhotoBy` varchar(30) collate utf8_unicode_ci default '',
-  `SpeedLimit` varchar(10) collate utf8_unicode_ci default '',
-  `Reported` varchar(5) collate utf8_unicode_ci default '',
-  `PoliceDep` varchar(20) collate utf8_unicode_ci default '',
-  `Scatched` varchar(5) collate utf8_unicode_ci default '',
-  `OfficerName` varchar(40) collate utf8_unicode_ci default '',
-  `ReportNum` varchar(40) collate utf8_unicode_ci default '',
-  `FileOpened` date NOT NULL default '1900-01-01',
-  `AccNarative` text collate utf8_unicode_ci,
-  `MileMarker` text collate utf8_unicode_ci,
-  `Preventable` varchar(3) collate utf8_unicode_ci default '',
-  `AccType` varchar(15) collate utf8_unicode_ci default 'Not Defined',
-  `AccNumber` varchar(50) collate utf8_unicode_ci default '',
-  `HazmatSpill` varchar(3) collate utf8_unicode_ci default 'No',
-  `FuelSpill` varchar(3) collate utf8_unicode_ci default 'No',
-  PRIMARY KEY  (`AccIWID`),
-  KEY `FK_tAccIW_tAccFile` (`AccFileID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tacciw`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tacclightningdata`
---
-
-CREATE TABLE IF NOT EXISTS `tacclightningdata` (
-  `LightningDataID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) default '-1',
-  `DayLight` varchar(3) collate utf8_unicode_ci default '',
-  `Dusk` varchar(3) collate utf8_unicode_ci default '',
-  `Down` varchar(3) collate utf8_unicode_ci default '',
-  `DarkLights` varchar(3) collate utf8_unicode_ci default '',
-  `DarkNoLights` varchar(3) collate utf8_unicode_ci default '',
-  `DarkLightsOff` varchar(3) collate utf8_unicode_ci default '',
-  `Other` varchar(30) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`LightningDataID`),
-  UNIQUE KEY `tAccLightningData_Index_1` (`LightningDataID`),
-  KEY `FK_tAccLightningData_tAccIW` (`AccIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tacclightningdata`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccnarrative`
---
-
-CREATE TABLE IF NOT EXISTS `taccnarrative` (
-  `AccIWID` bigint(20) default '-1',
-  `AccNarrative` text collate utf8_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Дамп данных таблицы `taccnarrative`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccnotes`
---
-
-CREATE TABLE IF NOT EXISTS `taccnotes` (
-  `AccNotesID` bigint(20) NOT NULL auto_increment,
-  `AccWID` bigint(20) default '-1',
-  `NotesDate` date NOT NULL default '1900-01-01',
-  `Notes` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`AccNotesID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccnotes`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccotherdriver`
---
-
-CREATE TABLE IF NOT EXISTS `taccotherdriver` (
-  `OtherDrID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) NOT NULL,
-  `HomeBaseID` bigint(20) default '-1',
-  `SSN` varchar(11) collate utf8_unicode_ci default '',
-  `FirstName` varchar(15) collate utf8_unicode_ci default '',
-  `LastName` varchar(15) collate utf8_unicode_ci default '',
-  `MiddleName` varchar(15) collate utf8_unicode_ci default '',
-  `BirthName` varchar(15) collate utf8_unicode_ci default '',
-  `StreetAddress` varchar(30) collate utf8_unicode_ci default '',
-  `CityAddress` varchar(20) collate utf8_unicode_ci default '',
-  `StateAddress` varchar(5) collate utf8_unicode_ci default '',
-  `ZIPAddress` varchar(6) collate utf8_unicode_ci default '',
-  `CDLNumber` varchar(15) collate utf8_unicode_ci default '',
-  `State` varchar(5) collate utf8_unicode_ci default '',
-  `Class` varchar(5) collate utf8_unicode_ci default '',
-  `Injured` varchar(3) collate utf8_unicode_ci default '',
-  `InjuryDescription` varchar(200) collate utf8_unicode_ci default '',
-  `killed` varchar(3) collate utf8_unicode_ci default '',
-  `HomePhone` varchar(15) collate utf8_unicode_ci default '',
-  `BusinessPhone` varchar(15) collate utf8_unicode_ci default '',
-  `InsuranceCarier` varchar(30) collate utf8_unicode_ci default '',
-  `InsPolicy` varchar(20) collate utf8_unicode_ci default '',
-  `TravDirection` varchar(3) collate utf8_unicode_ci default '',
-  `OnStreet` varchar(30) collate utf8_unicode_ci default '',
-  `Speed` varchar(3) collate utf8_unicode_ci default '',
-  `SpeedMax` varchar(3) collate utf8_unicode_ci default '',
-  `Sex` varchar(7) collate utf8_unicode_ci default '',
-  `HairColor` varchar(10) collate utf8_unicode_ci default '',
-  `Eyes` varchar(10) collate utf8_unicode_ci default '',
-  `HeightFeet` varchar(3) collate utf8_unicode_ci default '',
-  `HeightInch` varchar(3) collate utf8_unicode_ci default '',
-  `Weight` varchar(3) collate utf8_unicode_ci default '',
-  `NumberOfPassanger` varchar(2) collate utf8_unicode_ci default '',
-  `DOB` date NOT NULL default '1900-01-01',
-  PRIMARY KEY  (`OtherDrID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccotherdriver`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccothermovement`
---
-
-CREATE TABLE IF NOT EXISTS `taccothermovement` (
-  `OtherMovID` bigint(20) NOT NULL auto_increment,
-  `OtherDrID` bigint(20) default '-1',
-  `Stopped` tinyint(4) default '0',
-  `ProceedingStraight` tinyint(4) default '0',
-  `RunOffRoadway` tinyint(4) default '0',
-  `MakingRightTurn` tinyint(4) default '0',
-  `MakingLeftTurn` tinyint(4) default '0',
-  `MakingUTurn` tinyint(4) default '0',
-  `Backing` tinyint(4) default '0',
-  `Slowing` tinyint(4) default '0',
-  `Stopping` tinyint(4) default '0',
-  `Passing` tinyint(4) default '0',
-  `ChangingLanes` tinyint(4) default '0',
-  `Parking` tinyint(4) default '0',
-  `EnteringTraffic` tinyint(4) default '0',
-  `UnsafeTurning` tinyint(4) default '0',
-  `Parked` tinyint(4) default '0',
-  `Merging` tinyint(4) default '0',
-  `WrongWay` tinyint(4) default '0',
-  `Other` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`OtherMovID`),
-  KEY `FK_tAccOtherMovement_tAccOtherDriver` (`OtherDrID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccothermovement`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccothervehicle`
---
-
-CREATE TABLE IF NOT EXISTS `taccothervehicle` (
-  `AccOtherVehicleID` bigint(20) NOT NULL auto_increment,
-  `OtherDrID` bigint(20) NOT NULL,
-  `HomeBaseID` bigint(20) default '-1',
-  `AccIWID` bigint(20) NOT NULL,
-  `Make` varchar(20) collate utf8_unicode_ci default '',
-  `Model` varchar(20) collate utf8_unicode_ci default '',
-  `Color` varchar(20) collate utf8_unicode_ci default '',
-  `ProdYear` varchar(5) collate utf8_unicode_ci default '',
-  `LicPlate` varchar(15) collate utf8_unicode_ci default '',
-  `State` varchar(5) collate utf8_unicode_ci default '',
-  `OwnersFirstName` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersLastName` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersMiddleName` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersStreetAddress` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersCityAddress` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersStateAddress` varchar(20) collate utf8_unicode_ci default '',
-  `OwnersZIPAddress` varchar(5) collate utf8_unicode_ci default '',
-  `VIN` varchar(25) collate utf8_unicode_ci default '',
-  `Towed` varchar(50) collate utf8_unicode_ci default '',
-  `DOT` varchar(10) collate utf8_unicode_ci default '',
-  `Damage` text collate utf8_unicode_ci,
-  `PhotoTaken` varchar(3) collate utf8_unicode_ci default '',
-  `InsCompany` varchar(30) collate utf8_unicode_ci default '',
-  `InsPolicyNum` varchar(30) collate utf8_unicode_ci default '',
-  `InsExpDate` date NOT NULL default '1900-01-01',
-  `VehicleValue` bigint(20) default '0',
-  `DamageEstimate` bigint(20) default '0',
-  PRIMARY KEY  (`AccOtherVehicleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccothervehicle`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccpassanger`
---
-
-CREATE TABLE IF NOT EXISTS `taccpassanger` (
-  `PassangerID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) NOT NULL,
-  `SSN` varchar(15) collate utf8_unicode_ci NOT NULL,
-  `HomeBaseID` bigint(20) NOT NULL,
-  `Status` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `DOB` datetime NOT NULL,
-  `FirstName` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `LastName` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `MiddleName` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `StreetAddress` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `CityAddress` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `StateAddress` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `ZIPAddress` varchar(8) collate utf8_unicode_ci NOT NULL,
-  `CDLNumber` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `State` varchar(5) collate utf8_unicode_ci NOT NULL,
-  `Injured` varchar(5) collate utf8_unicode_ci NOT NULL,
-  `InjuryDescription` varchar(200) collate utf8_unicode_ci NOT NULL,
-  `killed` varchar(5) collate utf8_unicode_ci NOT NULL,
-  `HomePhone` varchar(15) collate utf8_unicode_ci NOT NULL,
-  `BusinessPhone` varchar(15) collate utf8_unicode_ci NOT NULL,
-  `Sex` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `HairColor` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `Eyes` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `Height` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `Weight` varchar(10) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`PassangerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccpassanger`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccradwaydata`
---
-
-CREATE TABLE IF NOT EXISTS `taccradwaydata` (
-  `RoadwayDataID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) default '-1',
-  `Oneway` varchar(3) collate utf8_unicode_ci default '',
-  `Twoway` varchar(3) collate utf8_unicode_ci default '',
-  `TwoLane` varchar(3) collate utf8_unicode_ci default '',
-  `ThreeLane` varchar(3) collate utf8_unicode_ci default '',
-  `FourLane` varchar(3) collate utf8_unicode_ci default '',
-  `Other` varchar(200) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`RoadwayDataID`),
-  KEY `FK_tAccRadwayData_tAccIW` (`AccIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccradwaydata`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccroadconddata`
---
-
-CREATE TABLE IF NOT EXISTS `taccroadconddata` (
-  `RoadCondID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) default '-1',
-  `Holes` varchar(3) collate utf8_unicode_ci default '',
-  `LooseMaterial` varchar(3) collate utf8_unicode_ci default '-1',
-  `Obstruction` varchar(3) collate utf8_unicode_ci default '',
-  `Construction` varchar(3) collate utf8_unicode_ci default '',
-  `ReducedRoadway` varchar(3) collate utf8_unicode_ci default '',
-  `Flooded` varchar(3) collate utf8_unicode_ci default '',
-  `NoUnusual` varchar(3) collate utf8_unicode_ci default '',
-  `Other` varchar(30) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`RoadCondID`),
-  KEY `FK_tAccRoadCondData_tAccIW` (`AccIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccroadconddata`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccsurfacedata`
---
-
-CREATE TABLE IF NOT EXISTS `taccsurfacedata` (
-  `SurfaceDataID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) default '-1',
-  `Dry` varchar(3) collate utf8_unicode_ci default '',
-  `Wet` varchar(3) collate utf8_unicode_ci default '',
-  `Snow` varchar(3) collate utf8_unicode_ci default '',
-  `Icy` varchar(3) collate utf8_unicode_ci default '',
-  `Muddy` varchar(3) collate utf8_unicode_ci default '',
-  `Oily` varchar(3) collate utf8_unicode_ci default '',
-  `Other` varchar(30) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`SurfaceDataID`),
-  KEY `FK_tAccSurfaceData_tAccIW` (`AccIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccsurfacedata`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tacctraficcontrol`
---
-
-CREATE TABLE IF NOT EXISTS `tacctraficcontrol` (
-  `TraficControlDataID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) default '-1',
-  `Functioning` varchar(3) collate utf8_unicode_ci default '',
-  `NotFunctioning` varchar(3) collate utf8_unicode_ci default '',
-  `NoControl` varchar(3) collate utf8_unicode_ci default '',
-  `Obscured` varchar(3) collate utf8_unicode_ci default '',
-  `Other` varchar(30) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`TraficControlDataID`),
-  KEY `FK_tAccTraficControl_tAccIW` (`AccIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tacctraficcontrol`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tacctraficdata`
---
-
-CREATE TABLE IF NOT EXISTS `tacctraficdata` (
-  `TrafficDataID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) default '-1',
-  `Light` varchar(3) collate utf8_unicode_ci default '',
-  `Heavy` varchar(3) collate utf8_unicode_ci default '',
-  `Medium` varchar(3) collate utf8_unicode_ci default '',
-  `Other` varchar(30) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`TrafficDataID`),
-  KEY `FK_tAccTraficData_tAccIW` (`AccIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tacctraficdata`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tacctypeofcollison`
---
-
-CREATE TABLE IF NOT EXISTS `tacctypeofcollison` (
-  `TypeOfCollisionID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) NOT NULL,
-  `HeadOn` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `Sideswipe` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `RearEnd` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `Broadside` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `Overturned` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `HitObject` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `VehiclePedestrian` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `Other` varchar(30) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`TypeOfCollisionID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tacctypeofcollison`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccweatherdata`
---
-
-CREATE TABLE IF NOT EXISTS `taccweatherdata` (
-  `WeatherID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) default '-1',
-  `ClearW` varchar(3) collate utf8_unicode_ci default '',
-  `Cloudy` varchar(3) collate utf8_unicode_ci default '',
-  `Raining` varchar(3) collate utf8_unicode_ci default '',
-  `Snowing` varchar(3) collate utf8_unicode_ci default '',
-  `Fog` varchar(3) collate utf8_unicode_ci default '',
-  `Wind` varchar(3) collate utf8_unicode_ci default '',
-  `Other` varchar(30) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`WeatherID`),
-  KEY `FK_tAccWatherData_tAccIW` (`AccIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccweatherdata`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `taccwitness`
---
-
-CREATE TABLE IF NOT EXISTS `taccwitness` (
-  `WitnessID` bigint(20) NOT NULL auto_increment,
-  `AccIWID` bigint(20) NOT NULL,
-  `FirstName` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `LastName` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `MIddleName` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `Phone` varchar(15) collate utf8_unicode_ci NOT NULL,
-  `Street` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `City` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `State` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `ZIP` varchar(7) collate utf8_unicode_ci NOT NULL,
-  `Injured` varchar(5) collate utf8_unicode_ci NOT NULL,
-  `InjuryDescription` varchar(200) collate utf8_unicode_ci NOT NULL,
-  `Killed` varchar(5) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`WitnessID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `taccwitness`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tactiondriver`
---
-
-CREATE TABLE IF NOT EXISTS `tactiondriver` (
-  `ActionDriverID` bigint(20) NOT NULL auto_increment,
-  `HomeBaseID` bigint(20) default '-1',
-  `DIWID` bigint(20) default '-1',
-  `ActionType` varchar(15) collate utf8_unicode_ci default '',
-  `Status` varchar(15) collate utf8_unicode_ci default '',
-  `FromDate` date NOT NULL default '1900-01-01',
-  `ValidForDays` tinyint(4) default '1',
-  `ValidForMin` tinyint(4) default '90',
-  `StartDateTime` date NOT NULL default '1900-01-01',
-  `EndDateTime` date NOT NULL default '1900-01-01',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `CreatedByUserID` bigint(20) default '-1',
-  PRIMARY KEY  (`ActionDriverID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tactiondriver`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tactionsystem`
---
-
-CREATE TABLE IF NOT EXISTS `tactionsystem` (
-  `ActionSystemID` bigint(20) NOT NULL auto_increment,
-  `ActionType` varchar(15) collate utf8_unicode_ci default '',
-  `ActionDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `ToHomeBaseID` bigint(20) default '-1',
-  `ToUserID` bigint(20) default '-1',
-  `Confirmed` tinyint(4) default '0',
-  PRIMARY KEY  (`ActionSystemID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tactionsystem`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tactionsystemforfile`
---
-
-CREATE TABLE IF NOT EXISTS `tactionsystemforfile` (
-  `ActionSystemForFileID` bigint(20) NOT NULL auto_increment,
-  `ActionSystemID` bigint(20) default '-1',
-  `FileID` bigint(20) default '-1',
-  `DIWID` bigint(20) default '-1',
-  `ExpType` varchar(20) collate utf8_unicode_ci default '',
-  `Expires` date NOT NULL default '1900-01-01',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `ActionType` varchar(15) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`ActionSystemForFileID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tactionsystemforfile`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tactionuser`
---
-
-CREATE TABLE IF NOT EXISTS `tactionuser` (
-  `ActionUserID` bigint(20) NOT NULL auto_increment,
-  `HomeBaseID` bigint(20) default '-1',
-  `ActionType` varchar(100) collate utf8_unicode_ci default '',
-  `ActionDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `ActionOn` varchar(20) collate utf8_unicode_ci default '',
-  `OnID` bigint(20) default '-1',
-  `ByName` varchar(50) collate utf8_unicode_ci default '',
-  `ByUserID` bigint(20) default '-1',
-  `Parameters` text collate utf8_unicode_ci,
-  `Comment` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`ActionUserID`),
-  UNIQUE KEY `tActionUser2` (`ActionType`,`OnID`),
-  UNIQUE KEY `tActionUser3` (`ActionType`,`ActionDate`,`OnID`),
-  KEY `tActionUser9` (`OnID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tactionuser`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tappcheck`
---
-
-CREATE TABLE IF NOT EXISTS `tappcheck` (
-  `AppCheckID` bigint(20) NOT NULL auto_increment,
-  `DIWID` bigint(20) default '-1',
-  `CheckReview` tinyint(1) default '0',
-  `CheckPrintForms` tinyint(1) default '0',
-  `CheckScanAllForms` tinyint(1) default '0',
-  `CheckSignature` tinyint(1) default '0',
-  `CheckPicture` tinyint(1) default '0',
-  `CheckScan` tinyint(1) default '0',
-  `CheckAutoFax` tinyint(1) default '0',
-  PRIMARY KEY  (`AppCheckID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tappcheck`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tcompany`
---
-
-CREATE TABLE IF NOT EXISTS `tcompany` (
-  `CompanyID` bigint(20) NOT NULL auto_increment,
-  `CompanyName` varchar(100) collate utf8_unicode_ci default '',
-  `CompanyCode` varchar(20) collate utf8_unicode_ci default '',
-  `Address` varchar(100) collate utf8_unicode_ci default '',
-  `City` varchar(50) collate utf8_unicode_ci default '',
-  `State` varchar(2) collate utf8_unicode_ci default '',
-  `Zip` varchar(20) collate utf8_unicode_ci default '',
-  `Telephone` varchar(30) collate utf8_unicode_ci default '',
-  `Fax` varchar(30) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `P1FirstName` varchar(50) collate utf8_unicode_ci default '',
-  `P1LastName` varchar(50) collate utf8_unicode_ci default '',
-  `P1Title` varchar(50) collate utf8_unicode_ci default '',
-  `P1Telephone` varchar(30) collate utf8_unicode_ci default '',
-  `P1Email` varchar(100) collate utf8_unicode_ci default '',
-  `P1Role` varchar(30) collate utf8_unicode_ci default '',
-  `P1Status` varchar(10) collate utf8_unicode_ci default '',
-  `Url` varchar(100) collate utf8_unicode_ci default 'https://www.driverqualificationonline.com/nschanson',
-  PRIMARY KEY  (`CompanyID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tcompany`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tcompanydoc`
---
-
-CREATE TABLE IF NOT EXISTS `tcompanydoc` (
-  `DocID` bigint(20) NOT NULL,
-  `DocType` varchar(30) collate utf8_unicode_ci default '',
-  `Category` varchar(30) collate utf8_unicode_ci default '',
-  `DocTitle` varchar(100) collate utf8_unicode_ci default '',
-  `DocCode` varchar(10) collate utf8_unicode_ci default '',
-  `HasPDF` tinyint(1) default '0',
-  `PDFFile` varchar(100) collate utf8_unicode_ci default '',
-  `HasScan` tinyint(1) default '0',
-  `Multiple` tinyint(1) NOT NULL default '0',
-  `PageNum` tinyint(4) NOT NULL default '-1',
-  PRIMARY KEY  (`DocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Дамп данных таблицы `tcompanydoc`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tcompanydoclist`
---
-
-CREATE TABLE IF NOT EXISTS `tcompanydoclist` (
-  `CompanyDocID` bigint(20) NOT NULL auto_increment,
-  `CompanyID` bigint(20) default '-1',
-  `DocID` bigint(20) default '-1',
-  `Status` varchar(15) collate utf8_unicode_ci default '',
-  `Requested` date NOT NULL default '1900-01-01',
-  `Completed` date NOT NULL default '1900-01-01',
-  `ScanDateTime` datetime default NULL,
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `OtherTitle` varchar(200) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`CompanyDocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tcompanydoclist`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tcstaff`
---
-
-CREATE TABLE IF NOT EXISTS `tcstaff` (
-  `CStaffID` bigint(20) NOT NULL auto_increment,
-  `CompanyID` bigint(20) default '-1',
-  `FirstName` varchar(50) collate utf8_unicode_ci default '',
-  `LastName` varchar(50) collate utf8_unicode_ci default '',
-  `Title` varchar(50) collate utf8_unicode_ci default '',
-  `Telephone` varchar(30) collate utf8_unicode_ci default '',
-  `Email` varchar(100) collate utf8_unicode_ci default '',
-  `Role` varchar(30) collate utf8_unicode_ci default '',
-  `Status` varchar(10) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `DQF` tinyint(1) default '1',
-  `VIM` tinyint(1) default '1',
-  `Accident` tinyint(1) default '1',
-  PRIMARY KEY  (`CStaffID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tcstaff`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdiw`
---
-
-CREATE TABLE IF NOT EXISTS `tdiw` (
-  `DIWID` bigint(20) NOT NULL auto_increment,
-  `FileID` bigint(20) default '-1',
-  `EntryDate` datetime NOT NULL COMMENT 'при обновлении - установить текущее время и дату',
-  `AppDate` date NOT NULL default '1900-01-01',
-  `AppType` varchar(15) collate utf8_unicode_ci default '',
-  `AppNumber` varchar(20) collate utf8_unicode_ci default '',
-  `DateOfHire` date NOT NULL default '1900-01-01',
-  `TruckNumber` varchar(20) collate utf8_unicode_ci default '',
-  `FirstName` varchar(20) collate utf8_unicode_ci default '',
-  `LastName` varchar(20) collate utf8_unicode_ci default '',
-  `MiddleName` varchar(20) collate utf8_unicode_ci default '',
-  `BirthName` varchar(100) collate utf8_unicode_ci default '',
-  `RANumber` varchar(20) collate utf8_unicode_ci default '',
-  `RAExpDate` date NOT NULL default '1900-01-01',
-  `MedNumber` varchar(20) collate utf8_unicode_ci default '',
-  `MedExpDate` date NOT NULL default '1900-01-01',
-  `MedExaminerName` varchar(50) collate utf8_unicode_ci default '',
-  `StraightTruck` varchar(3) collate utf8_unicode_ci default 'No',
-  `STFromDate` date NOT NULL default '1900-01-01',
-  `STToDate` date NOT NULL default '1900-01-01',
-  `STTotalMiles` varchar(10) collate utf8_unicode_ci default '',
-  `TractorSemiTrailer` varchar(3) collate utf8_unicode_ci default 'No',
-  `TSTFromDate` date NOT NULL default '1900-01-01',
-  `TSTToDate` date NOT NULL default '1900-01-01',
-  `TSTTotalMiles` varchar(10) collate utf8_unicode_ci default '',
-  `DoublesTriples` varchar(3) collate utf8_unicode_ci default 'No',
-  `DTFromDate` date NOT NULL default '1900-01-01',
-  `DTToDate` date NOT NULL default '1900-01-01',
-  `DTTotalMiles` varchar(10) collate utf8_unicode_ci default '',
-  `Busses` varchar(3) collate utf8_unicode_ci default 'No',
-  `BusFromDate` date NOT NULL default '1900-01-01',
-  `BusToDate` date NOT NULL default '1900-01-01',
-  `BusTotalMiles` varchar(10) collate utf8_unicode_ci default '',
-  `Tankers` varchar(3) collate utf8_unicode_ci default 'No',
-  `TanFromDate` date NOT NULL default '1900-01-01',
-  `TanToDate` date NOT NULL default '1900-01-01',
-  `TanTotalMiles` varchar(100) collate utf8_unicode_ci default '',
-  `OtherEquip` varchar(3) collate utf8_unicode_ci default 'No',
-  `OthFromDate` date NOT NULL default '1900-01-01',
-  `OthToDate` date NOT NULL default '1900-01-01',
-  `OthTotalMiles` varchar(10) collate utf8_unicode_ci default '',
-  `OthDescribe` varchar(200) collate utf8_unicode_ci default '',
-  `DeniedCDL` varchar(3) collate utf8_unicode_ci default '',
-  `DeniedCDLExplain` varchar(200) collate utf8_unicode_ci default '',
-  `SuspCDL` varchar(3) collate utf8_unicode_ci default '',
-  `SuspCDLExplain` varchar(200) collate utf8_unicode_ci default '',
-  `CopyStatus` varchar(15) collate utf8_unicode_ci default 'Incomplete',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `NoRA` tinyint(1) default '0',
-  `NoAcc` tinyint(1) default '0',
-  `NoViol` tinyint(1) default '0',
-  `NoEmpl` tinyint(1) default '0',
-  `DriverCode` varchar(30) collate utf8_unicode_ci default '',
-  `TWICSerial` varchar(50) collate utf8_unicode_ci default '-1',
-  `TWICExpDate` date NOT NULL default '1900-01-01',
-  `NextelPhone` varchar(15) collate utf8_unicode_ci default '',
-  `NextelPhoneSerial` varchar(20) collate utf8_unicode_ci default '',
-  `RadioFrequency` varchar(15) collate utf8_unicode_ci default '',
-  `RadioSerial` varchar(20) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`DIWID`),
-  KEY `tDIW6` (`FileID`,`DIWID`,`FirstName`,`LastName`,`RAExpDate`,`NoRA`),
-  KEY `tDIW7` (`FileID`,`DIWID`,`FirstName`,`LastName`,`MedExpDate`),
-  KEY `tDIW8` (`FileID`),
-  KEY `tDIW88` (`DIWID`,`FileID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdiw`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdiwaccident`
---
-
-CREATE TABLE IF NOT EXISTS `tdiwaccident` (
-  `DIWAccidentID` bigint(20) NOT NULL auto_increment,
-  `DIWID` bigint(20) default '-1',
-  `AccDate` date NOT NULL default '1900-01-01',
-  `City` varchar(50) collate utf8_unicode_ci default '',
-  `State` varchar(3) collate utf8_unicode_ci default '',
-  `AccType` varchar(30) collate utf8_unicode_ci default '',
-  `Fatalies` varchar(3) collate utf8_unicode_ci default '',
-  `Injuries` varchar(3) collate utf8_unicode_ci default '',
-  `OrderNo` tinyint(4) default '-1',
-  PRIMARY KEY  (`DIWAccidentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdiwaccident`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdiwaddress`
---
-
-CREATE TABLE IF NOT EXISTS `tdiwaddress` (
-  `DIWAddressID` bigint(20) NOT NULL auto_increment,
-  `DIWID` bigint(20) default '-1',
-  `Address` varchar(200) collate utf8_unicode_ci default '',
-  `City` varchar(50) collate utf8_unicode_ci default '',
-  `State` varchar(3) collate utf8_unicode_ci default '',
-  `Zip` varchar(20) collate utf8_unicode_ci default '',
-  `Phone` varchar(30) collate utf8_unicode_ci default '',
-  `YearsAtAddress` varchar(2) collate utf8_unicode_ci default '',
-  `MonthsAtAddress` varchar(2) collate utf8_unicode_ci default '',
-  `FromDate` date NOT NULL default '1900-01-01',
-  `CurrAddress` varchar(3) collate utf8_unicode_ci default 'No',
-  PRIMARY KEY  (`DIWAddressID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdiwaddress`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdiwcdl`
---
-
-CREATE TABLE IF NOT EXISTS `tdiwcdl` (
-  `DIWCDLID` bigint(20) NOT NULL auto_increment,
-  `DIWID` bigint(20) default '-1',
-  `CDLNumber` varchar(20) collate utf8_unicode_ci default '',
-  `State` varchar(3) collate utf8_unicode_ci default '',
-  `Class` varchar(1) collate utf8_unicode_ci default '',
-  `EndorP` varchar(3) collate utf8_unicode_ci default '',
-  `EndorT` varchar(3) collate utf8_unicode_ci default '',
-  `EndorH` varchar(3) collate utf8_unicode_ci default '',
-  `EndorN` varchar(3) collate utf8_unicode_ci default '',
-  `EndorX` varchar(3) collate utf8_unicode_ci default '',
-  `AirBrakeRestriction` varchar(3) collate utf8_unicode_ci default '0',
-  `Expires` date NOT NULL default '1900-01-01',
-  `CDLCurrent` varchar(3) collate utf8_unicode_ci default '0',
-  `OrderNo` tinyint(4) default '-1',
-  PRIMARY KEY  (`DIWCDLID`),
-  KEY `tDIWCDL7` (`DIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdiwcdl`
---
-
-
--- --------------------------------------------------------
-
 --
--- Структура таблицы `tdiwdatasheet`
+-- Дамп данных таблицы `company`
 --
 
-CREATE TABLE IF NOT EXISTS `tdiwdatasheet` (
-  `DIWDataSheetID` bigint(20) NOT NULL auto_increment,
-  `DIWID` bigint(20) default '-1',
-  `Date1` date NOT NULL default '1900-01-01',
-  `Hours1` varchar(2) collate utf8_unicode_ci default '',
-  `Date2` date NOT NULL default '1900-01-01',
-  `Hours2` varchar(2) collate utf8_unicode_ci default '',
-  `Date3` date NOT NULL default '1900-01-01',
-  `Hours3` varchar(2) collate utf8_unicode_ci default '',
-  `Date4` date NOT NULL default '1900-01-01',
-  `Hours4` varchar(2) collate utf8_unicode_ci default '',
-  `Date5` date NOT NULL default '1900-01-01',
-  `Hours5` varchar(2) collate utf8_unicode_ci default '',
-  `Date6` date NOT NULL default '1900-01-01',
-  `Hours6` varchar(2) collate utf8_unicode_ci default '',
-  `Date7` date NOT NULL default '1900-01-01',
-  `Hours7` varchar(2) collate utf8_unicode_ci default '',
-  `LastRelievedDate` date NOT NULL default '1900-01-01',
-  `LastRelievedTime` varchar(10) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`DIWDataSheetID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+INSERT INTO `company` (`c_id`, `c_Parent_Company_Account_Number`, `c_Number`, `c_EIN`, `c_SSN`, `c_DOT_Number`, `c_Carrier_Number`, `c_Name`, `c_Contact_Table_ID`, `c_Annual_Support`, `c_DOT_Regulated`) VALUES
+(1, 1, 'c1', NULL, NULL, NULL, NULL, 'c1', 0, '', '');
 
---
--- Дамп данных таблицы `tdiwdatasheet`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdiwemployer`
---
-
-CREATE TABLE IF NOT EXISTS `tdiwemployer` (
-  `DIWEmployerID` bigint(20) NOT NULL auto_increment,
-  `DIWID` bigint(20) default '-1',
-  `Employer` varchar(200) collate utf8_unicode_ci default '',
-  `Address` varchar(200) collate utf8_unicode_ci default '',
-  `City` varchar(50) collate utf8_unicode_ci default '',
-  `State` varchar(2) collate utf8_unicode_ci default '',
-  `Zip` varchar(20) collate utf8_unicode_ci default '',
-  `Telephone` varchar(30) collate utf8_unicode_ci default '',
-  `Fax` varchar(30) collate utf8_unicode_ci default '',
-  `Job` varchar(200) collate utf8_unicode_ci default '',
-  `FromMonth` varchar(3) collate utf8_unicode_ci default '0',
-  `FromYear` varchar(5) collate utf8_unicode_ci default '0',
-  `ToMonth` varchar(3) collate utf8_unicode_ci default '0',
-  `ToYear` varchar(5) collate utf8_unicode_ci default '0',
-  `Reason` varchar(100) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`DIWEmployerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdiwemployer`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdiwvehicle`
---
-
-CREATE TABLE IF NOT EXISTS `tdiwvehicle` (
-  `DIWVehicleID` bigint(20) NOT NULL auto_increment,
-  `DIWID` bigint(20) default '-1',
-  `OwnerFirstName` varchar(20) collate utf8_unicode_ci default '',
-  `OwnerLastName` varchar(20) collate utf8_unicode_ci default '',
-  `VehicleType` varchar(30) collate utf8_unicode_ci default '',
-  `NumberOfAxles` varchar(5) collate utf8_unicode_ci default '',
-  `LicPlateNumber` varchar(20) collate utf8_unicode_ci default '',
-  `VIN` varchar(30) collate utf8_unicode_ci default '',
-  `RegExpDate` date NOT NULL default '1900-01-01',
-  `ValueOfVehicle` varchar(15) collate utf8_unicode_ci default '',
-  `InsCompany` varchar(100) collate utf8_unicode_ci default '',
-  `InsPolicy` varchar(20) collate utf8_unicode_ci default '',
-  `InsExpDate` date NOT NULL default '1900-01-01',
-  `InsLimits` varchar(200) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`DIWVehicleID`),
-  KEY `tDIWVehicle13` (`RegExpDate`,`DIWID`),
-  KEY `tDIWVehicle14` (`InsExpDate`,`DIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdiwvehicle`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdiwviolation`
---
-
-CREATE TABLE IF NOT EXISTS `tdiwviolation` (
-  `DIWViolationID` bigint(20) NOT NULL auto_increment,
-  `DIWID` bigint(20) default '-1',
-  `ViolDate` date NOT NULL default '1900-01-01',
-  `Location` varchar(50) collate utf8_unicode_ci default '',
-  `Violation` varchar(50) collate utf8_unicode_ci default '',
-  `Penalty` varchar(50) collate utf8_unicode_ci default '',
-  `TypeOfVehicle` varchar(20) collate utf8_unicode_ci default '',
-  `OrderNo` tinyint(4) default '-1',
-  PRIMARY KEY  (`DIWViolationID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdiwviolation`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdoc`
---
-
-CREATE TABLE IF NOT EXISTS `tdoc` (
-  `DocID` bigint(20) NOT NULL auto_increment,
-  `DocType` varchar(10) collate utf8_unicode_ci default '',
-  `Category` varchar(30) collate utf8_unicode_ci default '',
-  `DocTitle` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `DocCode` varchar(10) collate utf8_unicode_ci default '',
-  `HasPDF` tinyint(4) default '0',
-  `PDFFile` varchar(100) collate utf8_unicode_ci default '',
-  `HasScan` tinyint(4) default '0',
-  `Multiple` tinyint(4) default '0',
-  `ForEmployer` tinyint(4) default '0',
-  `PageNum` tinyint(4) default '-1',
-  `HasNSCCheck` tinyint(4) default '1',
-  PRIMARY KEY  (`DocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdoc`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdotinspections`
---
-
-CREATE TABLE IF NOT EXISTS `tdotinspections` (
-  `DOTInspectionID` bigint(20) NOT NULL auto_increment,
-  `CompanyID` bigint(20) default '-1',
-  `InspectionDate` date NOT NULL default '1900-01-01',
-  `InspectionTime` varchar(15) collate utf8_unicode_ci default '',
-  `RequestedByFName` varchar(20) collate utf8_unicode_ci default '',
-  `RequestedByLName` varchar(20) collate utf8_unicode_ci default '',
-  `Status` varchar(50) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`DOTInspectionID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdotinspections`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdqfannualreview`
---
-
-CREATE TABLE IF NOT EXISTS `tdqfannualreview` (
-  `DQFAnnualReviewID` bigint(20) NOT NULL auto_increment,
-  `DQFDocID` bigint(20) default '-1',
-  `ReviewDate` date NOT NULL default '1900-01-01',
-  `Qualified` tinyint(4) default '-1',
-  `Name` varchar(50) collate utf8_unicode_ci default '',
-  `Remarks` text collate utf8_unicode_ci,
-  `ConfirmReview` tinyint(4) default '-1',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`DQFAnnualReviewID`),
-  KEY `FK_tDQFAnnualReview_tDQFDoc` (`DQFDocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdqfannualreview`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdqfdisq383`
---
-
-CREATE TABLE IF NOT EXISTS `tdqfdisq383` (
-  `DQFDisq383ID` bigint(20) NOT NULL auto_increment,
-  `DQFDocID` bigint(20) default '-1',
-  `AADate` varchar(10) collate utf8_unicode_ci default '',
-  `BBDate` varchar(10) collate utf8_unicode_ci default '',
-  `CCDate` varchar(10) collate utf8_unicode_ci default '',
-  `DDDate` varchar(10) collate utf8_unicode_ci default '',
-  `EEDate` varchar(10) collate utf8_unicode_ci default '',
-  `FFDate` varchar(10) collate utf8_unicode_ci default '',
-  `GGDate` varchar(10) collate utf8_unicode_ci default '',
-  `ToName` varchar(50) collate utf8_unicode_ci default '',
-  `NoticeDate` date NOT NULL default '1900-01-01',
-  `Period` varchar(20) collate utf8_unicode_ci default '',
-  `SuspCode` varchar(20) collate utf8_unicode_ci default '',
-  `SuspFromDate` date NOT NULL default '1900-01-01',
-  `SuspToDate` date NOT NULL default '1900-01-01',
-  `TermCode` varchar(20) collate utf8_unicode_ci default '',
-  `TermDate` date NOT NULL default '1900-01-01',
-  `ByName` varchar(50) collate utf8_unicode_ci default '',
-  `ByTitle` varchar(50) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`DQFDisq383ID`),
-  KEY `FK_tDQFDisq383_tDQFDoc` (`DQFDocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdqfdisq383`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdqfdisq391`
---
-
-CREATE TABLE IF NOT EXISTS `tdqfdisq391` (
-  `DQFDisq391ID` bigint(20) NOT NULL auto_increment,
-  `DQFDocID` bigint(20) default '-1',
-  `ADate` varchar(10) collate utf8_unicode_ci default '',
-  `BDate` varchar(10) collate utf8_unicode_ci default '',
-  `CDate` varchar(10) collate utf8_unicode_ci default '',
-  `DDate` varchar(10) collate utf8_unicode_ci default '',
-  `EDate` varchar(10) collate utf8_unicode_ci default '',
-  `FDate` varchar(10) collate utf8_unicode_ci default '',
-  `GDate` varchar(10) collate utf8_unicode_ci default '',
-  `HDate` varchar(10) collate utf8_unicode_ci default '',
-  `IDate` varchar(10) collate utf8_unicode_ci default '',
-  `JDate` varchar(10) collate utf8_unicode_ci default '',
-  `KDate` varchar(10) collate utf8_unicode_ci default '',
-  `LDate` varchar(10) collate utf8_unicode_ci default '',
-  `MDate` varchar(10) collate utf8_unicode_ci default '',
-  `NDate` varchar(10) collate utf8_unicode_ci default '',
-  `ODate` varchar(10) collate utf8_unicode_ci default '',
-  `PRegulation` varchar(15) collate utf8_unicode_ci default '',
-  `PDate` varchar(10) collate utf8_unicode_ci default '',
-  `PDescription` varchar(200) collate utf8_unicode_ci default '',
-  `QRegulation` varchar(15) collate utf8_unicode_ci default '',
-  `QDate` varchar(10) collate utf8_unicode_ci default '',
-  `QDescription` varchar(200) collate utf8_unicode_ci default '',
-  `RRegulation` varchar(15) collate utf8_unicode_ci default '',
-  `RDate` varchar(10) collate utf8_unicode_ci default '',
-  `RDescription` varchar(200) collate utf8_unicode_ci default '',
-  `SRegulation` varchar(15) collate utf8_unicode_ci default '',
-  `SDate` varchar(10) collate utf8_unicode_ci default '',
-  `SDescription` varchar(200) collate utf8_unicode_ci default '',
-  `ToName` varchar(50) collate utf8_unicode_ci default '',
-  `NoticeDate` date NOT NULL default '1900-01-01',
-  `Period` varchar(20) collate utf8_unicode_ci default '',
-  `SuspCode` varchar(20) collate utf8_unicode_ci default '',
-  `SuspFromDate` date NOT NULL default '1900-01-01',
-  `SuspToDate` date NOT NULL default '1900-01-01',
-  `TermCode` varchar(20) collate utf8_unicode_ci default '',
-  `TermDate` date NOT NULL default '1900-01-01',
-  `ByName` varchar(50) collate utf8_unicode_ci default '',
-  `ByTitle` varchar(50) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`DQFDisq391ID`),
-  KEY `FK_tDQFDisq391_tDQFDoc` (`DQFDocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdqfdisq391`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tdqfdoc`
---
-
-CREATE TABLE IF NOT EXISTS `tdqfdoc` (
-  `DQFDocID` bigint(20) NOT NULL auto_increment,
-  `DIWID` bigint(20) default '-1',
-  `DocID` bigint(20) default '-1',
-  `Status` varchar(50) collate utf8_unicode_ci default '',
-  `Requested` date NOT NULL default '1900-01-01',
-  `Completed` date NOT NULL default '1900-01-01',
-  `DIWEmployerID` bigint(20) default '-1',
-  `ScanDateTime` varchar(20) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `OtherTitle` varchar(200) collate utf8_unicode_ci default '',
-  `RelatedTo` bigint(20) default '-1',
-  PRIMARY KEY  (`DQFDocID`),
-  KEY `tDQFDoc7` (`DQFDocID`,`DIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdqfdoc`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tdqfdocdotcheck`
+-- Структура таблицы `contacts_table`
 --
 
-CREATE TABLE IF NOT EXISTS `tdqfdocdotcheck` (
-  `DOTCheckID` tinyint(4) NOT NULL auto_increment,
-  `DQFDocID` tinyint(4) default '-1',
-  `TruckQFDocID` tinyint(4) default '-1',
-  `AccQFDocID` tinyint(4) default '-1',
-  `DriverFileID` tinyint(4) default '-1',
-  `AccFileID` tinyint(4) default '-1',
-  `VehFileID` tinyint(4) default '-1',
-  `CompanyID` tinyint(4) default '-1',
-  `CompanyDocID` int(11) default '-1',
-  `DOTCheckStatus` tinyint(4) default '0',
-  `DOTCheckNote` text collate utf8_unicode_ci,
-  `DOTCheckDate` date NOT NULL default '1900-01-01',
-  `DOTCheckBy` varchar(30) collate utf8_unicode_ci default '',
-  `DocStatus` varchar(10) collate utf8_unicode_ci default '',
-  `DOTInspectionID` tinyint(4) default '-1',
-  `DocTitle` varchar(50) collate utf8_unicode_ci default '',
-  `HomeBaseID` tinyint(4) default '-1',
-  `HBName` varchar(50) collate utf8_unicode_ci default '',
-  `CompName` varchar(50) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`DOTCheckID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `contacts_table`;
+CREATE TABLE IF NOT EXISTS `contacts_table` (
+  `ct_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ct_Contact` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `ct_Contact_Title` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `ct_Telephone_Number` varchar(15) COLLATE latin1_general_ci NOT NULL,
+  `ct_Contact_Fax` varchar(15) COLLATE latin1_general_ci NOT NULL,
+  `ct_Contact_Email` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `ct_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `ct_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `ct_City` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `ct_State` tinyint(2) NOT NULL,
+  `ct_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  `ct_Country_Code` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `ct_Start_Date` date NOT NULL,
+  `ct_Created_Date_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ct_URL` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `ct_Memo` text COLLATE latin1_general_ci,
+  PRIMARY KEY (`ct_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tdqfdocdotcheck`
+-- Дамп данных таблицы `contacts_table`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tdqfdocnsccheck`
+-- Структура таблицы `custom_document`
 --
 
-CREATE TABLE IF NOT EXISTS `tdqfdocnsccheck` (
-  `NSCCheckID` tinyint(4) NOT NULL,
-  `DQFDocID` tinyint(4) NOT NULL,
-  `NSCCheckStatus` tinyint(4) NOT NULL,
-  `NSCCheckNote` text collate utf8_unicode_ci NOT NULL,
-  `NSCCheckDate` datetime NOT NULL,
-  `NSCCheckBy` varchar(30) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`NSCCheckID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `custom_document`;
+CREATE TABLE IF NOT EXISTS `custom_document` (
+  `cd_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `cd_Driver_ID` int(11) DEFAULT NULL,
+  `cd_Company_ID` int(11) DEFAULT NULL,
+  `cd_Homebase_ID` int(11) DEFAULT NULL,
+  `cd_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `cd_Description` text COLLATE latin1_general_ci,
+  `cd_Logo` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `cd_Fax_Status_id` tinyint(4) NOT NULL DEFAULT '1',
+  `cd_Document_Form_Status` tinyint(4) NOT NULL,
+  `cd_Date_Requested` date NOT NULL,
+  `cd_Date_Completed` date NOT NULL,
+  `cd_Scan` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `cd_Archived` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
+  `cd_Electronic_Signature` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `cd_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`cd_ID`),
+  KEY `fk_custom_document_company1` (`cd_Company_ID`),
+  KEY `fk_custom_document_driver1` (`cd_Driver_ID`),
+  KEY `fk_custom_document_homebase1` (`cd_Homebase_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tdqfdocnsccheck`
+-- Дамп данных таблицы `custom_document`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tdriver`
+-- Структура таблицы `custom_document__fax_status`
 --
 
-CREATE TABLE IF NOT EXISTS `tdriver` (
-  `DriverID` bigint(20) NOT NULL auto_increment,
-  `SSN` varchar(11) collate utf8_unicode_ci default '',
-  `DOB` date NOT NULL default '1900-01-01',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`DriverID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `custom_document__fax_status`;
+CREATE TABLE IF NOT EXISTS `custom_document__fax_status` (
+  `cdfs_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cdfs_status` varchar(50) NOT NULL,
+  PRIMARY KEY (`cdfs_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Дамп данных таблицы `tdriver`
+-- Дамп данных таблицы `custom_document__fax_status`
 --
 
+INSERT INTO `custom_document__fax_status` (`cdfs_id`, `cdfs_status`) VALUES
+(1, 'PENDING'),
+(2, 'SENT'),
+(3, 'ERROR');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tdriveraccount`
+-- Структура таблицы `custom_document__form_status`
 --
 
-CREATE TABLE IF NOT EXISTS `tdriveraccount` (
-  `DriverAccountID` bigint(20) NOT NULL auto_increment,
-  `DIWID` bigint(20) default '-1',
-  `AccountType` varchar(10) collate utf8_unicode_ci default '',
-  `DQFDocID` int(11) default '-1',
-  `StartTime` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `Duration` tinyint(4) default '0',
-  `Status` varchar(50) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`DriverAccountID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `custom_document__form_status`;
+CREATE TABLE IF NOT EXISTS `custom_document__form_status` (
+  `cdfms_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cdfms_status` varchar(50) NOT NULL,
+  PRIMARY KEY (`cdfms_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
--- Дамп данных таблицы `tdriveraccount`
+-- Дамп данных таблицы `custom_document__form_status`
 --
 
+INSERT INTO `custom_document__form_status` (`cdfms_id`, `cdfms_status`) VALUES
+(4, 'Vehicle Registration'),
+(5, 'Vehicle Insurance'),
+(6, 'Vehicle Other'),
+(7, 'Vehicle State Inspection Report'),
+(8, 'Vehicle Federal Inspection Report'),
+(9, 'Vehicle Maintenance Report/Record'),
+(10, 'Vehicle Receipts of Repair'),
+(11, 'Vehicle Roadside Inspection Report');
 
 -- --------------------------------------------------------
-
---
--- Структура таблицы `tdriverscrosssection`
---
 
-CREATE TABLE IF NOT EXISTS `tdriverscrosssection` (
-  `CrossID` bigint(20) NOT NULL auto_increment,
-  `HBID` tinyint(4) default '-1',
-  `CompanyID` tinyint(4) default '-1',
-  `DateCreated` date NOT NULL default '1900-01-01',
-  `Pending` tinyint(4) default '-1',
-  `Applicant` tinyint(4) default '-1',
-  `Hired` tinyint(4) default '-1',
-  `HiredActive` tinyint(4) default '-1',
-  `HiredInactive` tinyint(4) default '-1',
-  `Declined` tinyint(4) default '-1',
-  `Denied` tinyint(4) default '-1',
-  `Terminated` tinyint(4) default '-1',
-  `NoComplDrivers` int(11) default '-1',
-  `NoComplItems` int(11) default '-1',
-  `NoComplDriversByNSC` int(11) default '-1',
-  `NoComplItemsByNSC` int(11) default '-1',
-  PRIMARY KEY  (`CrossID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
 --
--- Дамп данных таблицы `tdriverscrosssection`
+-- Структура таблицы `depot`
 --
 
-
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `depot`;
+CREATE TABLE IF NOT EXISTS `depot` (
+  `d_id` int(11) NOT NULL AUTO_INCREMENT,
+  `d_HomeBase_Account_Number` int(11) NOT NULL,
+  `d_Name` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `d_Contact_Table_ID` int(11) NOT NULL,
+  `d_Annual_Support` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `d_Road_Test_Record_Required` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `d_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`d_id`),
+  KEY `FK_Depot_2_HomeBase__h_id` (`d_HomeBase_Account_Number`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
 
 --
--- Структура таблицы `tdriversnoncomplientitemsum`
---
-
-CREATE TABLE IF NOT EXISTS `tdriversnoncomplientitemsum` (
-  `NoncompID` int(11) NOT NULL auto_increment,
-  `DateCreated` date NOT NULL default '1900-01-01',
-  `HBID` tinyint(4) default '-1',
-  `CompanyID` tinyint(4) default '-1',
-  `CDLExpired` tinyint(4) default '-1',
-  `RAExpired` tinyint(4) default '-1',
-  `MDExpired` tinyint(4) default '-1',
-  `AnRevExpired` tinyint(4) default '-1',
-  `RecViolExpired` tinyint(4) default '-1',
-  `MissCreatedNeverScanned` tinyint(4) default '-1',
-  `MissRequiredFormDocument` tinyint(4) default '-1',
-  `MissingRA` tinyint(4) default '-1',
-  `MissingPrevEmploy` tinyint(4) default '-1',
-  `MissingRADIWData` tinyint(4) default '-1',
-  `MissingMDDIWData` tinyint(4) default '-1',
-  `MissingAddressDIWData` tinyint(4) default '-1',
-  `MissingCDLDIWData` tinyint(4) default '-1',
-  `MissingPrevEmplLDIWData` tinyint(4) default '-1',
-  `MissingAccDIWData` tinyint(4) default '-1',
-  `MissingViolDIWData` tinyint(4) default '-1',
-  `MissingVehDIWData` tinyint(4) default '-1',
-  `MissRequiredFormDocumentForVeh` tinyint(4) default '-1',
-  `VehInsExpired` tinyint(4) default '-1',
-  `VehRegExpired` tinyint(4) default '-1',
-  PRIMARY KEY  (`NoncompID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `tdriversnoncomplientitemsum`
+-- Дамп данных таблицы `depot`
 --
 
+INSERT INTO `depot` (`d_id`, `d_HomeBase_Account_Number`, `d_Name`, `d_Contact_Table_ID`, `d_Annual_Support`, `d_Road_Test_Record_Required`, `d_DOT_Regulated`) VALUES
+(1, 1, 'dep1', 0, '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tfaxrequest`
+-- Структура таблицы `driver`
 --
 
-CREATE TABLE IF NOT EXISTS `tfaxrequest` (
-  `FaxRequestID` bigint(20) NOT NULL auto_increment,
-  `DQFDocID` int(11) default '-1',
-  `RequestDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `RequestByUserID` int(11) default '-1',
-  `SubmitDate` datetime default NULL,
-  `SubmitByUserID` int(11) default '-1',
-  `Status` varchar(50) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`FaxRequestID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `driver`;
+CREATE TABLE IF NOT EXISTS `driver` (
+  `d_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `d_Driver_Alternate_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_Driver_SSN` varchar(11) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_Entry_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `d_Employment_Type` tinyint(4) NOT NULL DEFAULT '5',
+  `d_Account` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_First_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_Middle_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_Last_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_Gender` tinyint(4) DEFAULT NULL,
+  `d_Hair_Color` tinyint(4) DEFAULT NULL,
+  `d_Eye_Color` tinyint(4) DEFAULT NULL,
+  `d_Height_Feet` tinyint(4) DEFAULT NULL COMMENT '1 - 9',
+  `d_Height_Inches` tinyint(4) DEFAULT NULL COMMENT '1 - 11',
+  `d_Date_Of_Birth` date NOT NULL,
+  `d_Date_Of_Hire` date DEFAULT NULL,
+  `d_Description` text COLLATE latin1_general_ci,
+  `d_Telephone_Number1` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_Telephone_Number2` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_Telephone_Number3` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_Fax` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_Status` tinyint(4) NOT NULL DEFAULT '1',
+  `d_Total Miles Driven` int(11) DEFAULT NULL,
+  `d_Physical_Exam_Date` date DEFAULT NULL,
+  `d_Doctor_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_Medical_Card_Issue_Date` date DEFAULT NULL,
+  `d_Medical_Card_Expiration_Date` date DEFAULT NULL,
+  `d_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci DEFAULT NULL,
+  PRIMARY KEY (`d_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
 
 --
--- Дамп данных таблицы `tfaxrequest`
+-- Дамп данных таблицы `driver`
 --
 
+INSERT INTO `driver` (`d_ID`, `d_Driver_Alternate_ID`, `d_Driver_SSN`, `d_Entry_Date`, `d_Employment_Type`, `d_Account`, `d_First_Name`, `d_Middle_Name`, `d_Last_Name`, `d_Gender`, `d_Hair_Color`, `d_Eye_Color`, `d_Height_Feet`, `d_Height_Inches`, `d_Date_Of_Birth`, `d_Date_Of_Hire`, `d_Description`, `d_Telephone_Number1`, `d_Telephone_Number2`, `d_Telephone_Number3`, `d_Fax`, `d_Status`, `d_Total Miles Driven`, `d_Physical_Exam_Date`, `d_Doctor_Name`, `d_Medical_Card_Issue_Date`, `d_Medical_Card_Expiration_Date`, `d_DOT_Regulated`) VALUES
+(1, '123', '123-223-123', '2010-11-04 00:00:00', 4, NULL, 'test1', 'rr', 'test1', 1, 3, 1, 9, 3, '2010-11-01', '2010-11-03', 'test', '123123123', NULL, NULL, NULL, 1, 1122, '2010-11-03', 'doctor 1', '2010-11-03', '2010-11-30', 'Yes'),
+(2, NULL, '222-333-444', '2010-11-01 00:00:00', 4, NULL, 'driver nave 2', 'Driver-mid-name2', 'Driver-last-name2', 2, 1, 4, 3, 1, '1995-11-23', '2010-11-01', 'asdas dasd asd as', '123123123', NULL, NULL, NULL, 1, NULL, '2010-11-06', 'doctor name 2', '2010-11-01', '2010-11-30', 'No'),
+(3, NULL, '123456789', '2010-11-05 00:11:33', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, NULL, '123426789', '2010-11-05 00:12:25', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, NULL, '121212131', '2010-11-05 00:21:47', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1999-01-01', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tfile`
+-- Структура таблицы `driver_address_history`
 --
 
-CREATE TABLE IF NOT EXISTS `tfile` (
-  `FileID` bigint(20) NOT NULL auto_increment,
-  `DriverID` int(11) default '-1',
-  `HomeBaseID` int(11) default '-1',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `Status` varchar(10) collate utf8_unicode_ci default '',
-  `TerminationDate` date NOT NULL default '1900-01-01',
-  `NSCCheck` tinyint(4) default '0',
-  `NSCCheckAction` varchar(50) collate utf8_unicode_ci default '',
-  `VendorID` int(11) default '-1',
-  `ActiveStatus` varchar(10) collate utf8_unicode_ci default 'Active',
-  `DOTCheck` tinyint(4) default '0',
-  `LocationID` tinyint(4) default '-1',
-  PRIMARY KEY  (`FileID`),
-  KEY `tFile8` (`FileID`,`DriverID`,`HomeBaseID`,`Status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `driver_address_history`;
+CREATE TABLE IF NOT EXISTS `driver_address_history` (
+  `dah_Driver_ID` int(11) NOT NULL,
+  `dah_Start_Date` date NOT NULL,
+  `dah_End_Date` date NOT NULL,
+  `dah_Current_Address` set('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `dah_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `dah_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `dah_City` varchar(250) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `dah_State` tinyint(2) NOT NULL,
+  `dah_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `dah_Country_Code` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `dah_Phone` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
+  `dah_ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`dah_ID`),
+  KEY `fk_driver_address_history_driver1` (`dah_Driver_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tfile`
+-- Дамп данных таблицы `driver_address_history`
 --
 
 
 -- --------------------------------------------------------
-
---
--- Структура таблицы `thbstaff`
---
-
-CREATE TABLE IF NOT EXISTS `thbstaff` (
-  `HBStaffID` bigint(20) NOT NULL auto_increment,
-  `HomeBaseID` int(11) default '-1',
-  `FirstName` varchar(20) collate utf8_unicode_ci default '',
-  `LastName` varchar(20) collate utf8_unicode_ci default '',
-  `Title` varchar(50) collate utf8_unicode_ci default '',
-  `Role` varchar(20) collate utf8_unicode_ci default '',
-  `Telephone` varchar(30) collate utf8_unicode_ci default '',
-  `Email` varchar(100) collate utf8_unicode_ci default '',
-  `Status` varchar(10) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `CreatedByUserID` int(11) default '-1',
-  `DQF` tinyint(4) default '1',
-  `VIM` tinyint(4) default '1',
-  `Accident` tinyint(4) default '1',
-  PRIMARY KEY  (`HBStaffID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `thbstaff`
+-- Структура таблицы `driver_service_hours`
 --
 
+DROP TABLE IF EXISTS `driver_service_hours`;
+CREATE TABLE IF NOT EXISTS `driver_service_hours` (
+  `dsh_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `dsh_Driver_ID` int(11) NOT NULL,
+  `dsh_Date` date NOT NULL,
+  `dsh_Off_Duty_Start_Time_1` int(11) DEFAULT NULL,
+  `dsh_Off_Duty_Stop_Time_1` int(11) DEFAULT NULL,
+  `dsh_Off_Duty_Start_Time_2` int(11) DEFAULT NULL,
+  `dsh_Off_Duty_Stop_Time_2` int(11) DEFAULT NULL,
+  `dsh_Off_Duty_Start_Time_3` int(11) DEFAULT NULL,
+  `dsh_Off_Duty_Stop_Time_3` int(11) DEFAULT NULL,
+  `dsh_Off_Duty_Start_Time_4` int(11) DEFAULT NULL,
+  `dsh_Off_Duty_Stop_Time_4` int(11) DEFAULT NULL,
+  `dsh_Total_Hours_Off_Duty` int(11) DEFAULT NULL,
+  `dsh_Sleeper_Berth_Start_Time_1` int(11) DEFAULT NULL,
+  `dsh_Sleeper_Berth_Stop_Time_1` int(11) DEFAULT NULL,
+  `dsh_Sleeper_Berth_Start_Time_2` int(11) DEFAULT NULL,
+  `dsh_Sleeper_Berth_Stop_Time_2` int(11) DEFAULT NULL,
+  `dsh_Total_Hours_Sleeper_Berth` int(11) DEFAULT NULL,
+  `dsh_Driving_Start_Time_1` int(11) DEFAULT NULL,
+  `dsh_Driving_Stop_Time_1` int(11) DEFAULT NULL,
+  `dsh_Driving_Start_Time_2` int(11) DEFAULT NULL,
+  `dsh_Driving_Stop_Time_2` int(11) DEFAULT NULL,
+  `dsh_Total_Hours_Driving` int(11) DEFAULT NULL,
+  `dsh_On_Duty_Not_Driving_Start_Time_1` int(11) DEFAULT NULL,
+  `dsh_On_Duty_Not_Driving_Stop_Time_1` int(11) DEFAULT NULL,
+  `dsh_On_Duty_Not_Driving_Start_Time_2` int(11) DEFAULT NULL,
+  `dsh_On_Duty_Not_Driving_Stop_Time_2` int(11) DEFAULT NULL,
+  `dsh_Total_Hours_On_Duty` int(11) DEFAULT NULL,
+  `dsh_Odometer_Start_1` int(11) DEFAULT NULL,
+  `dsh_Odometer_Stop_1` int(11) DEFAULT NULL,
+  `dsh_Total_Miles_Driving` int(11) DEFAULT NULL,
+  `dsh_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`dsh_ID`),
+  KEY `fk_driver_service_hours_driver1` (`dsh_Driver_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
--- Структура таблицы `thomebase`
---
-
-CREATE TABLE IF NOT EXISTS `thomebase` (
-  `HomeBaseID` bigint(20) NOT NULL auto_increment,
-  `CompanyID` int(11) default '-1',
-  `HomeBaseName` varchar(100) collate utf8_unicode_ci default '',
-  `HomeBaseCode` varchar(20) collate utf8_unicode_ci default '',
-  `Address` varchar(100) collate utf8_unicode_ci default '',
-  `City` varchar(50) collate utf8_unicode_ci default '',
-  `State` varchar(2) collate utf8_unicode_ci default '',
-  `Zip` varchar(20) collate utf8_unicode_ci default '',
-  `Telephone` varchar(30) collate utf8_unicode_ci default '',
-  `Fax` varchar(30) collate utf8_unicode_ci default '',
-  `Status` varchar(10) collate utf8_unicode_ci default '',
-  `StartDate` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `Created` timestamp NOT NULL default '0000-00-00 00:00:00' on update CURRENT_TIMESTAMP,
-  `Url` varchar(100) collate utf8_unicode_ci default 'https://www.driverqualificationonline.com/nschanson',
-  `DQFModul` varchar(3) collate utf8_unicode_ci default 'Yes',
-  `TruckModul` varchar(3) collate utf8_unicode_ci default 'No',
-  `NewDriverRate` double default '65',
-  `MonthlyDriverRate` double default '2.5',
-  `NewVehicleRate` double default '19.95',
-  `MonthlyVehicleRate` double default '1.65',
-  `RenewDriverRate` double default '0',
-  `NewTruckRate` double default '19.95',
-  `MonthlyTruckRate` double default '1.65',
-  PRIMARY KEY  (`HomeBaseID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `thomebase`
+-- Дамп данных таблицы `driver_service_hours`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `thomebaselocations`
+-- Структура таблицы `driver__employment_type`
 --
 
-CREATE TABLE IF NOT EXISTS `thomebaselocations` (
-  `LocationID` tinyint(4) NOT NULL auto_increment,
-  `HomeBaseID` tinyint(4) NOT NULL,
-  `CompanyID` tinyint(4) NOT NULL,
-  `LocationCode` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `LocationDistrict` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `LocationAddress` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `LocationCity` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `LocationState` varchar(3) collate utf8_unicode_ci NOT NULL,
-  `LocationZIP` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `MngFirstName` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `MngLastName` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `MngEmail` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `LocationPhone` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `LocationFax` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `LocationCell` varchar(20) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`LocationID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `driver__employment_type`;
+CREATE TABLE IF NOT EXISTS `driver__employment_type` (
+  `det_id` int(11) NOT NULL AUTO_INCREMENT,
+  `det_type` varchar(100) NOT NULL,
+  PRIMARY KEY (`det_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Дамп данных таблицы `thomebaselocations`
+-- Дамп данных таблицы `driver__employment_type`
 --
 
+INSERT INTO `driver__employment_type` (`det_id`, `det_type`) VALUES
+(1, 'Company'),
+(2, 'Owner'),
+(3, 'Operator'),
+(4, 'Employer'),
+(5, 'Other');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tinvoice`
+-- Структура таблицы `driver__eye_color`
 --
 
-CREATE TABLE IF NOT EXISTS `tinvoice` (
-  `InvoiceID` bigint(20) NOT NULL auto_increment,
-  `InvoiceForHBID` int(11) default '-1',
-  `FileID` int(11) default '-1',
-  `InvoiceType` varchar(20) collate utf8_unicode_ci default '',
-  `InvoiceDate` date NOT NULL default '1900-01-01',
-  `Name` varchar(50) collate utf8_unicode_ci default '',
-  `ForYear` varchar(4) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `ByUserID` int(11) default '-1',
-  PRIMARY KEY  (`InvoiceID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `driver__eye_color`;
+CREATE TABLE IF NOT EXISTS `driver__eye_color` (
+  `dhc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dhc_type` varchar(100) NOT NULL,
+  PRIMARY KEY (`dhc_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Дамп данных таблицы `tinvoice`
+-- Дамп данных таблицы `driver__eye_color`
 --
 
+INSERT INTO `driver__eye_color` (`dhc_id`, `dhc_type`) VALUES
+(1, 'Blue'),
+(2, 'Brown'),
+(3, 'Green'),
+(4, 'Hazle'),
+(5, 'Other');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tinvoiceforhb`
+-- Структура таблицы `driver__gender`
 --
 
-CREATE TABLE IF NOT EXISTS `tinvoiceforhb` (
-  `InvoiceForHBID` bigint(20) NOT NULL auto_increment,
-  `HomeBaseID` int(11) default '-1',
-  `InvoiceType` varchar(20) collate utf8_unicode_ci default '',
-  `InvoiceDate` date NOT NULL default '1900-01-01',
-  `Rate` double default '65',
-  PRIMARY KEY  (`InvoiceForHBID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `driver__gender`;
+CREATE TABLE IF NOT EXISTS `driver__gender` (
+  `dg_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dg_type` varchar(100) NOT NULL,
+  PRIMARY KEY (`dg_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Дамп данных таблицы `tinvoiceforhb`
+-- Дамп данных таблицы `driver__gender`
 --
 
+INSERT INTO `driver__gender` (`dg_id`, `dg_type`) VALUES
+(1, 'Male'),
+(2, 'Female');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tinvoicetruck`
+-- Структура таблицы `driver__hair_color`
 --
 
-CREATE TABLE IF NOT EXISTS `tinvoicetruck` (
-  `InvoiceID` bigint(20) NOT NULL auto_increment,
-  `InvoiceForHBID` int(11) default '-1',
-  `TruckFileID` int(11) default '-1',
-  `InvoiceType` varchar(20) collate utf8_unicode_ci default '',
-  `InvoiceDate` date NOT NULL default '1900-01-01',
-  `Name` varchar(50) collate utf8_unicode_ci default '',
-  `ForYear` varchar(4) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `ByUserID` int(11) default '-1',
-  PRIMARY KEY  (`InvoiceID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `driver__hair_color`;
+CREATE TABLE IF NOT EXISTS `driver__hair_color` (
+  `dhc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dhc_type` varchar(100) NOT NULL,
+  PRIMARY KEY (`dhc_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
--- Дамп данных таблицы `tinvoicetruck`
+-- Дамп данных таблицы `driver__hair_color`
 --
 
+INSERT INTO `driver__hair_color` (`dhc_id`, `dhc_type`) VALUES
+(1, 'Black'),
+(2, 'Brown'),
+(3, 'Blonde'),
+(4, 'White'),
+(5, 'Grey'),
+(6, 'Other');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tinvoicetruckforhb`
+-- Структура таблицы `driver__status`
 --
 
-CREATE TABLE IF NOT EXISTS `tinvoicetruckforhb` (
-  `InvoiceForHBID` bigint(20) NOT NULL auto_increment,
-  `HomeBaseID` int(11) default '-1',
-  `InvoiceType` varchar(20) collate utf8_unicode_ci default '',
-  `InvoiceDate` date NOT NULL default '1900-01-01',
-  `Rate` double default '0',
-  PRIMARY KEY  (`InvoiceForHBID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `driver__status`;
+CREATE TABLE IF NOT EXISTS `driver__status` (
+  `ds_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ds_type` varchar(100) NOT NULL,
+  PRIMARY KEY (`ds_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Дамп данных таблицы `tinvoicetruckforhb`
+-- Дамп данных таблицы `driver__status`
 --
 
+INSERT INTO `driver__status` (`ds_id`, `ds_type`) VALUES
+(1, 'Pending'),
+(2, 'Applicant'),
+(3, 'Hired - Active'),
+(4, 'Hired - Inactive'),
+(5, 'Terminated');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tloginurl`
+-- Структура таблицы `equipment`
 --
 
-CREATE TABLE IF NOT EXISTS `tloginurl` (
-  `LoginID` tinyint(4) NOT NULL auto_increment,
-  `CompanyCode` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `HBCode` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `LoginUrl` varchar(100) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`LoginID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `equipment`;
+CREATE TABLE IF NOT EXISTS `equipment` (
+  `e_id` int(11) NOT NULL AUTO_INCREMENT,
+  `e_Number` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `e_Owner_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Unit_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Alternate_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_RFID_No` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Entry_Date` date NOT NULL,
+  `e_License_Number` varchar(50) COLLATE latin1_general_ci NOT NULL,
+  `e_License_Expiration_Date` date NOT NULL,
+  `e_Start_Mileage` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Registration_State` tinyint(2) NOT NULL,
+  `e_Gross_Vehicle_Weight_Rating` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Gross_Vehicle_Registered_Weight` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Unladen_Weight` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Axles` tinyint(2) DEFAULT NULL,
+  `e_Name` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `e_Year` year(4) NOT NULL,
+  `e_Make` varchar(12) COLLATE latin1_general_ci NOT NULL,
+  `e_Color` varchar(12) COLLATE latin1_general_ci NOT NULL,
+  `e_Model` varchar(12) COLLATE latin1_general_ci NOT NULL,
+  `e_Description` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `e_New_Equipment_Status` tinyint(4) NOT NULL DEFAULT '1',
+  `e_Active_Status` tinyint(4) DEFAULT NULL,
+  `e_Fee` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Title_Status` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Picture` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`e_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tloginurl`
+-- Дамп данных таблицы `equipment`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tmerror`
+-- Структура таблицы `equipment_assignment`
 --
 
-CREATE TABLE IF NOT EXISTS `tmerror` (
-  `ErrorID` bigint(20) NOT NULL auto_increment,
-  `SessionID` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `ModuleName` varchar(500) collate utf8_unicode_ci NOT NULL,
-  `Created` datetime NOT NULL,
-  `ErrorType` tinyint(4) NOT NULL,
-  `SystemMsg` varchar(5000) collate utf8_unicode_ci NOT NULL,
-  `CustomerMsg` varchar(800) collate utf8_unicode_ci NOT NULL,
-  `ActionType` varchar(50) collate utf8_unicode_ci NOT NULL default '1',
-  PRIMARY KEY  (`ErrorID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `equipment_assignment`;
+CREATE TABLE IF NOT EXISTS `equipment_assignment` (
+  `ea_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ea_Company_Company_Number` int(11) DEFAULT NULL,
+  `ea_Driver_Driver_ID` int(11) DEFAULT NULL,
+  `ea_Homebase_Number` int(11) DEFAULT NULL,
+  `ea_Equipment_Number` int(11) DEFAULT NULL,
+  `ea_Equipment_Assignment_Start_Date` date NOT NULL,
+  `ea_Equipment_Assignment_End_Date` date NOT NULL,
+  `ea_Equipment_Assignment_Mileage` date DEFAULT NULL,
+  `ea_Equipment_Owner_Number` int(12) DEFAULT NULL,
+  `ea_Equipment_Owner_Code` int(12) DEFAULT NULL,
+  `ea_Equipment_Owner_SSN` int(12) DEFAULT NULL,
+  `ea_Equipment_Owner_Federal_ID_Number` int(12) NOT NULL,
+  `ea_Equipment_Owner_Name` int(255) NOT NULL,
+  `ea_Equipment_Owner_Contact` int(255) NOT NULL,
+  `ea_Equipment_Owner_Telephone_Number` int(15) NOT NULL,
+  `ea_Equipment_Owner_Fax` int(15) DEFAULT NULL,
+  `ea_Equipment_Owner_Address1` int(255) NOT NULL,
+  `ea_Equipment_Owner_Address2` int(255) DEFAULT NULL,
+  `ea_Equipment_Owner_City` int(255) NOT NULL,
+  `ea_Equipment_Owner_State` tinyint(2) NOT NULL,
+  `ea_Equipment_Owner_Postal_Code` int(10) NOT NULL,
+  `ea_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`ea_ID`),
+  KEY `fk_equipment_assignment_driver1` (`ea_Driver_Driver_ID`),
+  KEY `fk_equipment_assignment_homebase1` (`ea_Homebase_Number`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tmerror`
+-- Дамп данных таблицы `equipment_assignment`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tnscstaff`
+-- Структура таблицы `equipment_identifier`
 --
 
-CREATE TABLE IF NOT EXISTS `tnscstaff` (
-  `NSCStaffID` bigint(20) NOT NULL auto_increment,
-  `FirstName` varchar(20) collate utf8_unicode_ci default '',
-  `LastName` varchar(20) collate utf8_unicode_ci default '',
-  `Title` varchar(50) collate utf8_unicode_ci default '',
-  `Telephone` varchar(30) collate utf8_unicode_ci default '',
-  `Email` varchar(100) collate utf8_unicode_ci default '',
-  `Role` varchar(20) collate utf8_unicode_ci default '0',
-  `Status` varchar(10) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `CreatedByUserID` int(11) default '-1',
-  PRIMARY KEY  (`NSCStaffID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `equipment_identifier`;
+CREATE TABLE IF NOT EXISTS `equipment_identifier` (
+  `ei_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ei_Equipment_Type_Types` set('VIN','Serial Number','Vessel Number') COLLATE latin1_general_ci NOT NULL,
+  `ei_Equipment_Number_ID` int(11) NOT NULL,
+  PRIMARY KEY (`ei_id`),
+  KEY `fk_equipment_identifier_equipment1` (`ei_Equipment_Number_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tnscstaff`
+-- Дамп данных таблицы `equipment_identifier`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tsession`
+-- Структура таблицы `equipment_maintenance`
 --
 
-CREATE TABLE IF NOT EXISTS `tsession` (
-  `SID` bigint(20) NOT NULL,
-  `RID` varchar(12) collate utf8_unicode_ci NOT NULL,
-  `UserID` int(11) default '-1',
-  `CurrentHBID` int(11) default '-1',
-  `LastClickTime` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `StartTime` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `SessionStatus` tinyint(4) default '-1',
-  `CurrentCompanyID` int(11) default '-1',
-  UNIQUE KEY `SID` (`SID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `equipment_maintenance`;
+CREATE TABLE IF NOT EXISTS `equipment_maintenance` (
+  `em_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `em_Equipment_ID` int(11) DEFAULT NULL,
+  `em_Service_Provider_ID` int(11) DEFAULT NULL,
+  `em_Maintenance_Month` int(11) NOT NULL DEFAULT '30',
+  `em_Requested_Date` date NOT NULL,
+  `em_Next_Maintenance_Date` date DEFAULT NULL,
+  `em_Completed_Date` date NOT NULL,
+  `em_Invoice_Amount` varchar(12) COLLATE latin1_general_ci DEFAULT '30',
+  `em_Service_Date` date NOT NULL,
+  `em_Notes` text COLLATE latin1_general_ci,
+  `em_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`em_ID`),
+  KEY `fk_equipment_maintenance_equipment1` (`em_Equipment_ID`),
+  KEY `fk_equipment_maintenance_service_provider1` (`em_Service_Provider_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tsession`
+-- Дамп данных таблицы `equipment_maintenance`
 --
 
 
 -- --------------------------------------------------------
-
---
--- Структура таблицы `tsetup`
---
-
-CREATE TABLE IF NOT EXISTS `tsetup` (
-  `SetupID` bigint(20) NOT NULL auto_increment,
-  `ParentID` bigint(20) NOT NULL,
-  `SetupName` varchar(50) collate utf8_unicode_ci default '',
-  `Status` tinyint(4) NOT NULL,
-  `Code` varchar(20) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`SetupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tsetup`
+-- Структура таблицы `equipment__active_status`
 --
 
-
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `equipment__active_status`;
+CREATE TABLE IF NOT EXISTS `equipment__active_status` (
+  `eas_id` int(11) NOT NULL AUTO_INCREMENT,
+  `eas_type` varchar(20) NOT NULL,
+  PRIMARY KEY (`eas_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Структура таблицы `ttiw`
---
-
-CREATE TABLE IF NOT EXISTS `ttiw` (
-  `TIWID` int(11) NOT NULL auto_increment,
-  `TruckFileID` int(11) default '-1',
-  `TruckVendorID` int(11) default '-1',
-  `EntryDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `DateOfHire` date NOT NULL default '1900-01-01',
-  `AppDate` date NOT NULL default '1900-01-01',
-  `AppNumber` varchar(20) collate utf8_unicode_ci default '',
-  `VehType` varchar(20) collate utf8_unicode_ci default '',
-  `UnitNumber` varchar(25) collate utf8_unicode_ci default '',
-  `Year` varchar(10) collate utf8_unicode_ci default '',
-  `Make` varchar(20) collate utf8_unicode_ci default '',
-  `Model` varchar(20) collate utf8_unicode_ci default '',
-  `Color` varchar(15) collate utf8_unicode_ci default '',
-  `UnladenWeight` varchar(9) collate utf8_unicode_ci default '0',
-  `GVW` varchar(9) collate utf8_unicode_ci default '0',
-  `NumOfAxles` varchar(10) collate utf8_unicode_ci default '',
-  `LicPlateNum` varchar(20) collate utf8_unicode_ci default '',
-  `RegState` varchar(20) collate utf8_unicode_ci default '',
-  `RegExpDate` date NOT NULL default '1900-01-01',
-  `VehicleValue` int(11) default '0',
-  `LastEvaluationDate` date NOT NULL default '1900-01-01',
-  `InsCompany` varchar(30) collate utf8_unicode_ci default '',
-  `InsPolicyNum` varchar(30) collate utf8_unicode_ci default '',
-  `InsExpDate` date NOT NULL default '1900-01-01',
-  `AppType` varchar(10) collate utf8_unicode_ci default '',
-  `InsLimits` int(11) default '0',
-  `NSCCheck` varchar(3) collate utf8_unicode_ci default 'No',
-  `RFID` varchar(15) collate utf8_unicode_ci default '',
-  `ProfitCN` varchar(15) collate utf8_unicode_ci default '',
-  `ProfitCNLocation` varchar(30) collate utf8_unicode_ci default '',
-  `OwningCompany` varchar(50) collate utf8_unicode_ci default '',
-  `IRP` varchar(20) collate utf8_unicode_ci default '',
-  `IFTASticker` varchar(20) collate utf8_unicode_ci default '',
-  `Weight2290` varchar(10) collate utf8_unicode_ci default '',
-  `TitleStatus` varchar(20) collate utf8_unicode_ci default 'Corporate',
-  `GVRW` int(11) default '0',
-  `HUT` varchar(10) collate utf8_unicode_ci default 'No',
-  `IFTAStickerExpDate` date NOT NULL default '1900-01-01',
-  PRIMARY KEY  (`TIWID`),
-  UNIQUE KEY `IX_tTIW` (`TIWID`),
-  UNIQUE KEY `IX_tTIW_1` (`TIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `ttiw`
+-- Дамп данных таблицы `equipment__active_status`
 --
 
+INSERT INTO `equipment__active_status` (`eas_id`, `eas_type`) VALUES
+(1, 'In Service'),
+(2, 'Out of Service'),
+(3, 'Terminated');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttiwbitinspection`
+-- Структура таблицы `equipment__new_equipment_status`
 --
 
-CREATE TABLE IF NOT EXISTS `ttiwbitinspection` (
-  `TIWBITInspID` tinyint(4) NOT NULL auto_increment,
-  `TIWID` int(11) default '-1',
-  `InspectorName` varchar(30) collate utf8_unicode_ci default '',
-  `InspCompany` varchar(100) collate utf8_unicode_ci default '',
-  `Result` varchar(15) collate utf8_unicode_ci default '',
-  `ShopNote` text collate utf8_unicode_ci,
-  `BITExpDate` date NOT NULL default '1900-01-01',
-  `ReinspectionDate` date NOT NULL default '1900-01-01',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `InspectionDate` date NOT NULL default '1900-01-01',
-  `InspectorNumber` varchar(15) collate utf8_unicode_ci default '',
-  `InspectionFormNumber` varchar(25) collate utf8_unicode_ci default '',
-  `InspectionType` varchar(10) collate utf8_unicode_ci default '',
-  `DOTExpDate` date NOT NULL default '1900-01-01',
-  `InspectorCertification` varchar(100) collate utf8_unicode_ci default '',
-  `InspectorID` tinyint(4) default '-1',
-  `InsCompanyID` tinyint(4) default '-1',
-  PRIMARY KEY  (`TIWBITInspID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `equipment__new_equipment_status`;
+CREATE TABLE IF NOT EXISTS `equipment__new_equipment_status` (
+  `enes_id` int(11) NOT NULL AUTO_INCREMENT,
+  `enes_type` varchar(10) NOT NULL,
+  PRIMARY KEY (`enes_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Дамп данных таблицы `ttiwbitinspection`
+-- Дамп данных таблицы `equipment__new_equipment_status`
 --
 
+INSERT INTO `equipment__new_equipment_status` (`enes_id`, `enes_type`) VALUES
+(1, 'Pending'),
+(2, 'Declined'),
+(3, 'Completed');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttiwdisinspection`
+-- Структура таблицы `fee`
 --
 
-CREATE TABLE IF NOT EXISTS `ttiwdisinspection` (
-  `TIWDISInspID` tinyint(4) NOT NULL auto_increment,
-  `TIWID` int(11) default '-1',
-  `InspectorName` varchar(30) collate utf8_unicode_ci default '',
-  `InspCompany` varchar(100) collate utf8_unicode_ci default '',
-  `Result` varchar(15) collate utf8_unicode_ci default '',
-  `ShopNote` text collate utf8_unicode_ci,
-  `DISExpDate` date NOT NULL default '1900-01-01',
-  `ReinspectionDate` date NOT NULL default '1900-01-01',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `InspectionDate` date NOT NULL default '1900-01-01',
-  `InspectorNumber` varchar(15) collate utf8_unicode_ci default '',
-  `InspectionFormNumber` varchar(25) collate utf8_unicode_ci default '',
-  `InspectionType` varchar(10) collate utf8_unicode_ci default '',
-  `StickerNumber` date NOT NULL default '1900-01-01',
-  PRIMARY KEY  (`TIWDISInspID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `fee`;
+CREATE TABLE IF NOT EXISTS `fee` (
+  `f_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `f_Fee_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `f_IFTA_Sticker` set('Yes','No') COLLATE latin1_general_ci DEFAULT NULL,
+  `f_Expiration_Date` date NOT NULL,
+  `f_Weight_Code` varchar(20) COLLATE latin1_general_ci NOT NULL,
+  `f_NYHUT` set('Yes','No') COLLATE latin1_general_ci DEFAULT NULL,
+  PRIMARY KEY (`f_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `ttiwdisinspection`
+-- Дамп данных таблицы `fee`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruck`
+-- Структура таблицы `homebase`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruck` (
-  `TruckID` bigint(20) NOT NULL auto_increment,
-  `VIN` varchar(30) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`TruckID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `homebase`;
+CREATE TABLE IF NOT EXISTS `homebase` (
+  `h_id` int(11) NOT NULL AUTO_INCREMENT,
+  `h_Company_Account_Number` int(11) NOT NULL,
+  `h_Carrier_Number` varchar(15) COLLATE latin1_general_ci DEFAULT NULL,
+  `h_Name` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `h_Contact_Table_ID` int(11) NOT NULL,
+  `h_Annual_Support` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `h_Road_Test_Record_Required` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `h_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`h_id`),
+  KEY `FK_HomeBase_2_Company__c_id` (`h_Company_Account_Number`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
 
 --
--- Дамп данных таблицы `ttruck`
+-- Дамп данных таблицы `homebase`
 --
 
+INSERT INTO `homebase` (`h_id`, `h_Company_Account_Number`, `h_Carrier_Number`, `h_Name`, `h_Contact_Table_ID`, `h_Annual_Support`, `h_Road_Test_Record_Required`, `h_DOT_Regulated`) VALUES
+(1, 1, 'hb1', 'hb1', 0, '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckactionsystem`
+-- Структура таблицы `incident`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckactionsystem` (
-  `ActionSystemID` bigint(20) NOT NULL auto_increment,
-  `ActionType` varchar(15) collate utf8_unicode_ci default '',
-  `ActionDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `ToHomeBaseID` int(11) default '-1',
-  `ToUserID` int(11) default '-1',
-  `Confirmed` tinyint(4) default '0',
-  PRIMARY KEY  (`ActionSystemID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `incident`;
+CREATE TABLE IF NOT EXISTS `incident` (
+  `i_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `i_Violation_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Date` date NOT NULL,
+  `i_Time` time NOT NULL,
+  `i_Status` set('Open','Closed') COLLATE latin1_general_ci NOT NULL,
+  `i_City` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `i_State` tinyint(2) NOT NULL,
+  `i_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  `i_Highway_Street` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Highway_Street_Travel_Direction` tinyint(4) DEFAULT NULL,
+  `i_At_Intersection` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Collision_Movement` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Mile_Marker` int(11) DEFAULT NULL,
+  `i_Speed_Limit` tinyint(3) DEFAULT NULL,
+  `i_Actual_Speed` tinyint(3) DEFAULT NULL,
+  `i_Construction_Zone` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `i_Alcohol_Test` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `i_Drug_Test` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `i_Cell_Phone_Usage` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `i_Photo_Taken_By` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `i_Injured` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `i_Injury_Description` text COLLATE latin1_general_ci,
+  `i_Injured_Persons_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Deceased` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `i_Incident_Diagram_Taken` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `i_Reported` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `i_Police_Department` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Officer_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Police_Report_Number` varchar(24) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Narrative` text COLLATE latin1_general_ci,
+  `i_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`i_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `ttruckactionsystem`
+-- Дамп данных таблицы `incident`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckactionsystemforfile`
+-- Структура таблицы `incident_cause`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckactionsystemforfile` (
-  `ActionSystemForFileID` bigint(20) NOT NULL auto_increment,
-  `ActionSystemID` int(11) default '-1',
-  `TruckFileID` int(11) default '-1',
-  `TIWID` int(11) default '-1',
-  `ExpType` varchar(20) collate utf8_unicode_ci default '',
-  `Expires` date NOT NULL default '1900-01-01',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `ActionType` varchar(15) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`ActionSystemForFileID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `incident_cause`;
+CREATE TABLE IF NOT EXISTS `incident_cause` (
+  `ic_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ic_Incident_ID` int(11) NOT NULL,
+  `ic_Incident_Cause` tinyint(4) DEFAULT NULL,
+  `ic_Preventable` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `ic_Incident_Witness` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `ic_Incident_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `ic_Witness_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ic_ID`),
+  KEY `fk_incident_cause_incident1` (`ic_Incident_ID`),
+  KEY `fk_incident_cause_witness1` (`ic_Witness_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `ttruckactionsystemforfile`
+-- Дамп данных таблицы `incident_cause`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckappcheck`
+-- Структура таблицы `incident__highway_street_travel_direction`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckappcheck` (
-  `AppCheckID` tinyint(4) NOT NULL auto_increment,
-  `TIWID` int(11) default '-1',
-  `CheckReview` tinyint(1) default '0',
-  `CheckBIT` tinyint(1) default '0',
-  `CheckPicture` tinyint(1) default '0',
-  `CheckReqDoc` tinyint(1) default '0',
-  `CheckVehReg` tinyint(1) default '0',
-  `CheckInsSert` tinyint(1) default '0',
-  PRIMARY KEY  (`AppCheckID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `incident__highway_street_travel_direction`;
+CREATE TABLE IF NOT EXISTS `incident__highway_street_travel_direction` (
+  `ihstd_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ihstd_type` varchar(10) NOT NULL,
+  PRIMARY KEY (`ihstd_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Дамп данных таблицы `ttruckappcheck`
+-- Дамп данных таблицы `incident__highway_street_travel_direction`
 --
 
+INSERT INTO `incident__highway_street_travel_direction` (`ihstd_id`, `ihstd_type`) VALUES
+(1, 'North'),
+(2, 'South'),
+(3, 'East'),
+(4, 'West');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckdoc`
+-- Структура таблицы `incident__incident_cause`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckdoc` (
-  `DocID` tinyint(4) NOT NULL auto_increment,
-  `DocType` varchar(10) collate utf8_unicode_ci default '',
-  `Category` varchar(30) collate utf8_unicode_ci default '',
-  `DocTitle` varchar(100) collate utf8_unicode_ci default '',
-  `DocCode` varchar(10) collate utf8_unicode_ci default '',
-  `HasPDF` tinyint(4) default '0',
-  `PDFFile` varchar(100) collate utf8_unicode_ci default '',
-  `HasScan` tinyint(4) default '0',
-  `Muitiple` tinyint(4) default '0',
-  `PageNum` tinyint(4) default '-1',
-  PRIMARY KEY  (`DocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `incident__incident_cause`;
+CREATE TABLE IF NOT EXISTS `incident__incident_cause` (
+  `iic_id` int(11) NOT NULL AUTO_INCREMENT,
+  `iic_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`iic_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
--- Дамп данных таблицы `ttruckdoc`
+-- Дамп данных таблицы `incident__incident_cause`
 --
 
+INSERT INTO `incident__incident_cause` (`iic_id`, `iic_type`) VALUES
+(1, 'Weather'),
+(2, 'Alcohol'),
+(3, 'Drugs'),
+(4, 'Roadway Obstruction'),
+(5, 'Trip or Fall'),
+(6, 'Road Conditions'),
+(7, 'Traffic Conditions'),
+(8, 'Road Surf Cond'),
+(9, 'Traff Contr Devices'),
+(10, 'Lighting Conditions'),
+(11, 'HaxMat Spill'),
+(12, 'Fuel Spill'),
+(13, 'Construction');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckdriver`
+-- Структура таблицы `incident__investigator`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckdriver` (
-  `DriverID` int(11) default '-1',
-  `TruckID` int(11) default '-1',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `HBID` int(11) default '-1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `incident__investigator`;
+CREATE TABLE IF NOT EXISTS `incident__investigator` (
+  `ii_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ii_Investigator_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `ii_Driver_ID` int(11) DEFAULT NULL,
+  `ii_Company_ID` int(11) DEFAULT NULL,
+  `ii_Organization_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `ii_Contact_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `ii_Telephone_Number` varchar(14) COLLATE latin1_general_ci NOT NULL,
+  `ii_Fax` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
+  `ii_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `ii_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `ii_City` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `ii_State` tinyint(2) NOT NULL,
+  `ii_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  `ii_Country_Code` varchar(5) COLLATE latin1_general_ci DEFAULT NULL,
+  PRIMARY KEY (`ii_ID`),
+  KEY `fk_incident__investigator_company1` (`ii_Company_ID`),
+  KEY `fk_incident__investigator_driver1` (`ii_Driver_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `ttruckdriver`
+-- Дамп данных таблицы `incident__investigator`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckfile`
+-- Структура таблицы `incident__passenger`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckfile` (
-  `TruckFileID` bigint(20) NOT NULL auto_increment,
-  `TruckID` bigint(20) NOT NULL,
-  `HomeBaseID` bigint(20) NOT NULL,
-  `Created` datetime NOT NULL,
-  `Status` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `TerminationDate` datetime NOT NULL,
-  `VendorID` tinyint(4) NOT NULL,
-  `DOTCheck` tinyint(4) NOT NULL,
-  PRIMARY KEY  (`TruckFileID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `incident__passenger`;
+CREATE TABLE IF NOT EXISTS `incident__passenger` (
+  `ip_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ip_Equipment_Number` int(11) NOT NULL,
+  `ip_Passenger _Number` int(11) NOT NULL,
+  PRIMARY KEY (`ip_ID`),
+  KEY `fk_incident__passenger_equipment1` (`ip_Equipment_Number`),
+  KEY `fk_incident__passenger_passenger1` (`ip_Passenger _Number`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `ttruckfile`
+-- Дамп данных таблицы `incident__passenger`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckinspectioncompany`
+-- Структура таблицы `inspection`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckinspectioncompany` (
-  `InsCompanyID` tinyint(4) NOT NULL auto_increment,
-  `CompanyID` tinyint(4) NOT NULL,
-  `HBID` tinyint(4) NOT NULL,
-  `InsCompanyName` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `InsCompanyAddress` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `InsCompanyCity` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `InsCompanyState` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `InsCompanyZIP` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `InsCompCreated` datetime NOT NULL,
-  PRIMARY KEY  (`InsCompanyID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `inspection`;
+CREATE TABLE IF NOT EXISTS `inspection` (
+  `i_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `i_Equipment_ID` int(11) NOT NULL,
+  `i_Date` date NOT NULL,
+  `i_Start_Time` time NOT NULL,
+  `i_Entry_Date` date NOT NULL,
+  `i_Inspector_First_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `i_Inspector_Last_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `i_Inspector_ID_Number` int(11) DEFAULT NULL,
+  `i_Inspector_Certificate` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Type_ID` int(11) NOT NULL,
+  `i_Result` tinyint(4) DEFAULT NULL,
+  `i_Next_Date` date NOT NULL,
+  `i_Reinspection_Date` date NOT NULL,
+  `i_Company` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `i_Diesel_Inspection_Information` text COLLATE latin1_general_ci,
+  `i_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`i_ID`),
+  KEY `fk_inspection_equipment1` (`i_Equipment_ID`),
+  KEY `fk_inspection_inspection_types1` (`i_Type_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `ttruckinspectioncompany`
+-- Дамп данных таблицы `inspection`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckinspector`
+-- Структура таблицы `inspection_types`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckinspector` (
-  `InspectorID` tinyint(4) NOT NULL auto_increment,
-  `InsCompanyID` tinyint(4) default '-1',
-  `InspectorFirstName` varchar(50) collate utf8_unicode_ci default '',
-  `InspectorLastName` varchar(50) collate utf8_unicode_ci default '',
-  `InspectorNumber` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `InspectorCreated` date NOT NULL default '1900-01-01',
-  `InspectorCertificate` varchar(100) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`InspectorID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `inspection_types`;
+CREATE TABLE IF NOT EXISTS `inspection_types` (
+  `it_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `it_Inspection_ID` int(11) NOT NULL,
+  `it_Inspection_Type_Type` set('Local','Federal','State','Company') COLLATE latin1_general_ci NOT NULL,
+  `it_Inspection_Type_Parameters` text COLLATE latin1_general_ci,
+  PRIMARY KEY (`it_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `ttruckinspector`
+-- Дамп данных таблицы `inspection_types`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckinspectorcertificate`
+-- Структура таблицы `inspection__result`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckinspectorcertificate` (
-  `InspectorCertificateID` tinyint(4) NOT NULL auto_increment,
-  `InspectorID` int(11) default '-1',
-  `InspectorCertificate` varchar(100) collate utf8_unicode_ci default '',
-  `InspectorCertificateCreated` date NOT NULL default '1900-01-01',
-  PRIMARY KEY  (`InspectorCertificateID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `inspection__result`;
+CREATE TABLE IF NOT EXISTS `inspection__result` (
+  `ir_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ir_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`ir_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Дамп данных таблицы `ttruckinspectorcertificate`
+-- Дамп данных таблицы `inspection__result`
 --
 
+INSERT INTO `inspection__result` (`ir_id`, `ir_type`) VALUES
+(1, 'Passed'),
+(2, 'Failed - Out of Service'),
+(3, 'Failed – Defects Only');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckmaintenance`
+-- Структура таблицы `insurance`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckmaintenance` (
-  `MaintenanceID` tinyint(4) NOT NULL auto_increment,
-  `TIWID` int(11) default '-1',
-  `RequestedDate` date NOT NULL default '1900-01-01',
-  `CompletedDate` date NOT NULL default '1900-01-01',
-  `NextMaintDate` date NOT NULL default '1900-01-01',
-  `MaintNumber` varchar(20) collate utf8_unicode_ci default '',
-  `Amount` int(11) default '0',
-  `MaintCompany` varchar(30) collate utf8_unicode_ci default '',
-  `MaintMonth` varchar(10) collate utf8_unicode_ci default '',
-  `Notes` text collate utf8_unicode_ci,
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`MaintenanceID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `insurance`;
+CREATE TABLE IF NOT EXISTS `insurance` (
+  `i_Insurance_Carrier_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Insurance_Carrier_Name` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `i_Insurance_Policy_Number` varchar(24) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Insurance_Liability_Limit` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Insurance_Deductible` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Insurance_Expiration_Date` date NOT NULL,
+  `i_Insurance_General_Liability` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Insurance_Auto` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Insurance_Cargo` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Insurance_Workers_Compensation` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `i_ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`i_ID`),
+  UNIQUE KEY `i_Insurance_Carrier_Name` (`i_Insurance_Carrier_Name`),
+  UNIQUE KEY `Insurance_ID` (`i_Insurance_Carrier_ID`,`i_Insurance_Carrier_Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `ttruckmaintenance`
+-- Дамп данных таблицы `insurance`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ttruckqfdoc`
+-- Структура таблицы `medical_history`
 --
 
-CREATE TABLE IF NOT EXISTS `ttruckqfdoc` (
-  `TruckQFDocID` bigint(20) NOT NULL auto_increment,
-  `TIWID` int(11) default '-1',
-  `DocID` int(11) default '-1',
-  `Status` varchar(15) collate utf8_unicode_ci default '',
-  `Requested` date NOT NULL default '1900-01-01',
-  `Completed` date NOT NULL default '1900-01-01',
-  `TIWBITInspID` int(11) default '-1',
-  `ScanDateTime` varchar(20) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `OtherTitle` varchar(200) collate utf8_unicode_ci default '',
-  `TIWDISInspID` int(11) default '-1',
-  PRIMARY KEY  (`TruckQFDocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `medical_history`;
+CREATE TABLE IF NOT EXISTS `medical_history` (
+  `mh_Driver_ID` varchar(12) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `mh_Examiner_Name` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `mh_Exam_Date` date NOT NULL,
+  `mh_Passed` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `mh_Expiration_Date` date NOT NULL,
+  `mh_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  UNIQUE KEY `mh_ID` (`mh_Driver_ID`,`mh_Examiner_Name`,`mh_Exam_Date`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Дамп данных таблицы `ttruckqfdoc`
+-- Дамп данных таблицы `medical_history`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tuser`
+-- Структура таблицы `parent_company`
 --
 
-CREATE TABLE IF NOT EXISTS `tuser` (
-  `UserID` int(11) NOT NULL auto_increment,
-  `UserType` varchar(20) collate utf8_unicode_ci default '',
-  `StaffID` int(11) default '-1',
-  `HomeBaseID` int(11) default '-1',
-  `CompanyID` tinyint(4) default '-1',
-  `Username` varchar(20) collate utf8_unicode_ci default '',
-  `Password` varchar(100) collate utf8_unicode_ci default '',
-  `Agreed` tinyint(4) default '0',
-  PRIMARY KEY  (`UserID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `parent_company`;
+CREATE TABLE IF NOT EXISTS `parent_company` (
+  `pc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pc_Account_Number` varchar(12) COLLATE latin1_general_ci NOT NULL,
+  `pc_EIN` varchar(12) COLLATE latin1_general_ci NOT NULL,
+  `pc_Name` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `pc_Telephone_Number` varchar(15) COLLATE latin1_general_ci NOT NULL,
+  `pc_Contact_Table_ID` int(11) NOT NULL,
+  `pc_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`pc_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
 
 --
--- Дамп данных таблицы `tuser`
+-- Дамп данных таблицы `parent_company`
 --
 
+INSERT INTO `parent_company` (`pc_id`, `pc_Account_Number`, `pc_EIN`, `pc_Name`, `pc_Telephone_Number`, `pc_Contact_Table_ID`, `pc_DOT_Regulated`) VALUES
+(1, 'pc1', '', 'pc1', '', 0, '');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tvendor`
+-- Структура таблицы `passenger`
 --
 
-CREATE TABLE IF NOT EXISTS `tvendor` (
-  `VendorID` tinyint(4) NOT NULL auto_increment,
-  `SSN` varchar(12) collate utf8_unicode_ci default '',
-  `FederalID` varchar(20) collate utf8_unicode_ci default '',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`VendorID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `passenger`;
+CREATE TABLE IF NOT EXISTS `passenger` (
+  `p_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `p_Passenger_First_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `p_Passenger_Last_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `p_Passenger_Telephone_Number` varchar(14) COLLATE latin1_general_ci NOT NULL,
+  `p_Passenger_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `p_Passenger_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `p_Passenger_City` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `p_Passenger_State` tinyint(2) NOT NULL,
+  `p_Passenger_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`p_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tvendor`
+-- Дамп данных таблицы `passenger`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tvendorappcheck`
+-- Структура таблицы `previous_employment`
 --
 
-CREATE TABLE IF NOT EXISTS `tvendorappcheck` (
-  `AppCheckID` tinyint(4) NOT NULL auto_increment,
-  `VIWID` int(11) default '-1',
-  `CheckReview` tinyint(1) default '0',
-  `CheckContract` tinyint(1) default '0',
-  PRIMARY KEY  (`AppCheckID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `previous_employment`;
+CREATE TABLE IF NOT EXISTS `previous_employment` (
+  `pe_Driver_ID` int(11) NOT NULL,
+  `pe_Employer_Name` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Employment_Start_Date` date NOT NULL,
+  `pe_Employment_Stop_Date` date NOT NULL,
+  `pe_Position` varchar(24) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Salary` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Reason_for_Leaving` text COLLATE latin1_general_ci,
+  `pe_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `pe_City` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_State` tinyint(2) NOT NULL,
+  `pe_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Phone` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Fax` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_DOT_Safety_Sensitive_Function` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_FMCSR_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Intermodal` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Interstate` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Intrastate` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`pe_ID`),
+  KEY `fk_previous_employment_driver1` (`pe_Driver_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tvendorappcheck`
+-- Дамп данных таблицы `previous_employment`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tvendorcontract`
+-- Структура таблицы `role`
 --
 
-CREATE TABLE IF NOT EXISTS `tvendorcontract` (
-  `ContractID` tinyint(4) NOT NULL auto_increment,
-  `VIWID` int(11) default '-1',
-  `ContractNum` varchar(20) collate utf8_unicode_ci default '',
-  `DateOfContractSign` date NOT NULL default '1900-01-01',
-  `ExpDateContract` date NOT NULL default '1900-01-01',
-  `ContractSign` varchar(10) collate utf8_unicode_ci default '',
-  `ContractFileName` varchar(100) collate utf8_unicode_ci default '',
-  `UnitNumber` varchar(25) collate utf8_unicode_ci default '',
-  `TruckID` int(11) default '-1',
-  PRIMARY KEY  (`ContractID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE IF NOT EXISTS `role` (
+  `r_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `r_Level_ID` int(11) NOT NULL DEFAULT '11',
+  `r_Company_ID` int(11) DEFAULT NULL,
+  `r_Homebase_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`r_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tvendorcontract`
+-- Дамп данных таблицы `role`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tvendordoc`
+-- Структура таблицы `score`
 --
 
-CREATE TABLE IF NOT EXISTS `tvendordoc` (
-  `DocID` tinyint(4) NOT NULL auto_increment,
-  `DocType` varchar(10) collate utf8_unicode_ci default '',
-  `Category` varchar(30) collate utf8_unicode_ci default '',
-  `DocTitle` varchar(100) collate utf8_unicode_ci default '',
-  `DocCode` varchar(10) collate utf8_unicode_ci default '',
-  `HasPDF` tinyint(4) default '0',
-  `PDFFile` varchar(100) collate utf8_unicode_ci default '',
-  `HasScan` tinyint(4) default '0',
-  `Multiple` tinyint(4) default '0',
-  `PageNum` tinyint(4) default '-1',
-  PRIMARY KEY  (`DocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `score`;
+CREATE TABLE IF NOT EXISTS `score` (
+  `s_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `s_Driver_License_Number` varchar(50) COLLATE latin1_general_ci NOT NULL,
+  `s_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `s_Driver_License_Point` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  PRIMARY KEY (`s_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tvendordoc`
+-- Дамп данных таблицы `score`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tvendordriver`
+-- Структура таблицы `service_provider`
 --
 
-CREATE TABLE IF NOT EXISTS `tvendordriver` (
-  `VendDriverID` tinyint(4) NOT NULL auto_increment,
-  `VendorID` int(11) default '-1',
-  `DriverID` int(11) default '-1',
-  `VendorCode` varchar(15) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`VendDriverID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `service_provider`;
+CREATE TABLE IF NOT EXISTS `service_provider` (
+  `sp_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `sp_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sp_Contact` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sp_Type` tinyint(4) DEFAULT NULL,
+  `sp_Telephone_Number` varchar(14) COLLATE latin1_general_ci NOT NULL,
+  `sp_Fax` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
+  `sp_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sp_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `sp_City` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sp_State` tinyint(2) NOT NULL,
+  `sp_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  `sp_Description` text COLLATE latin1_general_ci,
+  `sp_Insurance_Last_Valuation_Date` date NOT NULL,
+  `sp_Insurance_Company_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sp_Insurance_Policy_Number` varchar(24) COLLATE latin1_general_ci DEFAULT NULL,
+  `sp_Insurance_Limit` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `sp_Insurance_Deductible` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `sp_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`sp_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tvendordriver`
+-- Дамп данных таблицы `service_provider`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tvendorfile`
+-- Структура таблицы `service_provider__company_assignment`
 --
 
-CREATE TABLE IF NOT EXISTS `tvendorfile` (
-  `VendorFileID` tinyint(4) NOT NULL auto_increment,
-  `VendorID` int(11) default '-1',
-  `HomeBaseID` int(11) default '-1',
-  `Created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `Status` varchar(15) collate utf8_unicode_ci default 'Inactive',
-  `TerminationDate` date NOT NULL default '1900-01-01',
-  PRIMARY KEY  (`VendorFileID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `service_provider__company_assignment`;
+CREATE TABLE IF NOT EXISTS `service_provider__company_assignment` (
+  `spсa_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `spсa_Service_Provider_ID` int(11) NOT NULL,
+  `spсa_Company_ID` int(11) NOT NULL,
+  PRIMARY KEY (`spсa_ID`),
+  UNIQUE KEY `spсa_row` (`spсa_Service_Provider_ID`,`spсa_Company_ID`),
+  KEY `fk_service_provider__company_assignment_service_provider1` (`spсa_Service_Provider_ID`),
+  KEY `fk_service_provider__company_assignment_company1` (`spсa_Company_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tvendorfile`
+-- Дамп данных таблицы `service_provider__company_assignment`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tvendorqfdoc`
+-- Структура таблицы `service_provider__equipment_assignment`
 --
 
-CREATE TABLE IF NOT EXISTS `tvendorqfdoc` (
-  `VendorQFDocID` bigint(20) NOT NULL auto_increment,
-  `VIWID` int(11) default '-1',
-  `DocID` int(11) default '-1',
-  `Status` varchar(15) collate utf8_unicode_ci default '',
-  `Requested` date NOT NULL default '1900-01-01',
-  `Completed` date NOT NULL default '1900-01-01',
-  `ContractID` int(11) default '-1',
-  `ScanDateTime` varchar(20) collate utf8_unicode_ci default '',
-  `Created` date NOT NULL default '1900-01-01',
-  `OtherTitle` varchar(100) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`VendorQFDocID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `service_provider__equipment_assignment`;
+CREATE TABLE IF NOT EXISTS `service_provider__equipment_assignment` (
+  `spea_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `spea_Service_Provider_ID` int(11) NOT NULL,
+  `spea_Equipment_ID` int(11) NOT NULL,
+  PRIMARY KEY (`spea_ID`),
+  UNIQUE KEY `spea_row` (`spea_Service_Provider_ID`,`spea_Equipment_ID`),
+  KEY `fk_service_provider__equipment_assignment_equipment1` (`spea_Equipment_ID`),
+  KEY `fk_service_provider__equipment_assignment_service_provider1` (`spea_Service_Provider_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=FIXED AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tvendorqfdoc`
+-- Дамп данных таблицы `service_provider__equipment_assignment`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tviw`
+-- Структура таблицы `service_provider__insurance`
 --
 
-CREATE TABLE IF NOT EXISTS `tviw` (
-  `VIWID` tinyint(4) NOT NULL auto_increment,
-  `VendorFileID` tinyint(4) default '-1',
-  `VendorCode` varchar(25) collate utf8_unicode_ci default '',
-  `AppType` varchar(15) collate utf8_unicode_ci default '',
-  `CompanyName` varchar(50) collate utf8_unicode_ci default '',
-  `FirstName` varchar(20) collate utf8_unicode_ci default '',
-  `LastName` varchar(20) collate utf8_unicode_ci default '',
-  `Address` varchar(50) collate utf8_unicode_ci default '',
-  `City` varchar(20) collate utf8_unicode_ci default '',
-  `Zip` varchar(20) collate utf8_unicode_ci default '',
-  `State` varchar(5) collate utf8_unicode_ci default '',
-  `Phone` varchar(30) collate utf8_unicode_ci default '',
-  `Fax` varchar(30) collate utf8_unicode_ci default '',
-  `Email` varchar(100) collate utf8_unicode_ci default '',
-  `EntryDate` date NOT NULL default '1900-01-01',
-  `DateOfHire` date NOT NULL default '1900-01-01',
-  `AppDate` date NOT NULL default '1900-01-01',
-  `AppNumber` varchar(20) collate utf8_unicode_ci default '',
-  PRIMARY KEY  (`VIWID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `service_provider__insurance`;
+CREATE TABLE IF NOT EXISTS `service_provider__insurance` (
+  `spi_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `spi_Service_Provider_ID` int(11) NOT NULL,
+  `spi_Insurance_Company_ID` int(11) NOT NULL,
+  PRIMARY KEY (`spi_ID`),
+  UNIQUE KEY `spi_row` (`spi_Service_Provider_ID`,`spi_Insurance_Company_ID`),
+  KEY `fk_service_provider__insurance_service_provider1` (`spi_Service_Provider_ID`),
+  KEY `fk_service_provider__insurance_insurance1` (`spi_Insurance_Company_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `tviw`
+-- Дамп данных таблицы `service_provider__insurance`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `vaccidentlistforallhb`
+-- Структура таблицы `service_provider__type`
 --
 
-CREATE TABLE IF NOT EXISTS `vaccidentlistforallhb` (
-  `AccidentID` bigint(20) NOT NULL,
-  `AccDate` datetime NOT NULL,
-  `Created` datetime NOT NULL,
-  `AccFileID` bigint(20) NOT NULL,
-  `Status` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `HomeBaseID` bigint(20) NOT NULL,
-  `AccIWID` bigint(20) NOT NULL,
-  `City` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `State` varchar(4) collate utf8_unicode_ci NOT NULL,
-  `FirstName` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `LastName` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `EmployeeDrID` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `service_provider__type`;
+CREATE TABLE IF NOT EXISTS `service_provider__type` (
+  `spt_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spt_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`spt_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Дамп данных таблицы `vaccidentlistforallhb`
+-- Дамп данных таблицы `service_provider__type`
 --
 
+INSERT INTO `service_provider__type` (`spt_id`, `spt_type`) VALUES
+(1, 'Insurance'),
+(2, 'Tow Truck'),
+(3, 'Repair');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `vallhb`
---
-
-CREATE TABLE IF NOT EXISTS `vallhb` (
-  `CompanyID` bigint(20) NOT NULL,
-  `CompanyName` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `CompanyCode` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `Address` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `City` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `State` varchar(2) collate utf8_unicode_ci NOT NULL,
-  `Zip` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `Telephone` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `Fax` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `Created` datetime NOT NULL,
-  `P1FirstName` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `P1LastName` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `P1Title` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `P1Telephone` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `P1Email` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `P1Role` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `P1Status` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `HomeBaseID` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `HomeBaseName` bigint(20) default NULL,
-  `HomeBaseCode` varchar(100) collate utf8_unicode_ci default NULL,
-  `HBAddress` varchar(20) collate utf8_unicode_ci default NULL,
-  `HBCity` varchar(100) collate utf8_unicode_ci default NULL,
-  `HBState` varchar(50) collate utf8_unicode_ci default NULL,
-  `HBZip` varchar(2) collate utf8_unicode_ci default NULL,
-  `HBTelephone` varchar(20) collate utf8_unicode_ci default NULL,
-  `HBFax` varchar(30) collate utf8_unicode_ci default NULL,
-  `HBStatus` varchar(30) collate utf8_unicode_ci default NULL,
-  `HBStartDate` varchar(10) collate utf8_unicode_ci default NULL,
-  `HBCreated` datetime default NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Дамп данных таблицы `vallhb`
+-- Структура таблицы `state`
 --
 
+DROP TABLE IF EXISTS `state`;
+CREATE TABLE IF NOT EXISTS `state` (
+  `s_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_name` varchar(2) NOT NULL,
+  PRIMARY KEY (`s_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `vfiledoctypes`
---
-
-CREATE TABLE IF NOT EXISTS `vfiledoctypes` (
-  `DocID` bigint(20) NOT NULL,
-  `FileID` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 --
--- Дамп данных таблицы `vfiledoctypes`
+-- Дамп данных таблицы `state`
 --
 
+INSERT INTO `state` (`s_id`, `s_name`) VALUES
+(1, 'AZ'),
+(2, 'AK'),
+(3, 'AL'),
+(4, 'AR'),
+(5, 'CA'),
+(6, 'CO'),
+(7, 'CT'),
+(8, 'DC'),
+(9, 'DE'),
+(10, 'FL'),
+(11, 'GA'),
+(12, 'HI'),
+(13, 'IA'),
+(14, 'ID'),
+(15, 'IL'),
+(16, 'IN'),
+(17, 'KS'),
+(18, 'KY'),
+(19, 'LA'),
+(20, 'MA'),
+(21, 'MD'),
+(22, 'ME'),
+(23, 'MI'),
+(24, 'MN'),
+(25, 'MO'),
+(26, 'MS'),
+(27, 'MT'),
+(28, 'NH'),
+(29, 'NC'),
+(30, 'ND'),
+(31, 'NE'),
+(32, 'NJ'),
+(33, 'NM'),
+(34, 'NV'),
+(35, 'NY'),
+(36, 'OH'),
+(37, 'OK'),
+(38, 'OR'),
+(39, 'PA'),
+(40, 'RI'),
+(41, 'SC'),
+(42, 'SD'),
+(43, 'TN'),
+(44, 'TX'),
+(45, 'UT'),
+(46, 'VA'),
+(47, 'VT'),
+(48, 'WA'),
+(49, 'WI'),
+(50, 'WV'),
+(51, 'WY');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `vlastannualreview`
+-- Структура таблицы `user`
 --
 
-CREATE TABLE IF NOT EXISTS `vlastannualreview` (
-  `FileID` bigint(20) NOT NULL,
-  `DQFDocID` bigint(20) NOT NULL,
-  `DIWID` bigint(20) NOT NULL,
-  `DocID` bigint(20) NOT NULL,
-  `Status` varchar(15) collate utf8_unicode_ci NOT NULL,
-  `Requested` datetime NOT NULL,
-  `Completed` datetime NOT NULL,
-  `DIWEmployerID` bigint(20) NOT NULL,
-  `ScanDateTime` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `Created` datetime NOT NULL,
-  `OtherTitle` varchar(200) collate utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `u_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `u_User_ID` varchar(24) COLLATE latin1_general_ci DEFAULT NULL,
+  `u_Parent_Company_ID` int(11) DEFAULT NULL,
+  `u_Company_ID` int(11) DEFAULT NULL,
+  `u_Homebase_ID` int(11) DEFAULT NULL,
+  `u_Depot_ID` int(11) DEFAULT NULL,
+  `u_Role_ID` int(11) NOT NULL DEFAULT '11',
+  `u_User_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `u_Password` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `u_Status` tinyint(4) DEFAULT NULL,
+  `u_Title` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `u_Date_Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `u_Allowed_Access_To_DQF` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `u_Allowed_Access_To_VIM` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `u_Allowed_Access_To_Accident` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `u_First_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `u_Last_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `u_Email` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `u_Telephone_Number` varchar(14) COLLATE latin1_general_ci NOT NULL,
+  `u_Fax` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
+  `u_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `u_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `u_City` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `u_State` tinyint(2) NOT NULL,
+  `u_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`u_ID`),
+  UNIQUE KEY `u_User_Name` (`u_User_Name`),
+  UNIQUE KEY `u_User_ID` (`u_User_ID`),
+  KEY `fk_user_user_role1` (`u_Role_ID`),
+  KEY `fk_user_company1` (`u_Company_ID`),
+  KEY `fk_user_parent_company1` (`u_Parent_Company_ID`),
+  KEY `fk_user_homebase1` (`u_Homebase_ID`),
+  KEY `fk_user_depot1` (`u_Depot_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
 
 --
--- Дамп данных таблицы `vlastannualreview`
+-- Дамп данных таблицы `user`
 --
 
+INSERT INTO `user` (`u_ID`, `u_User_ID`, `u_Parent_Company_ID`, `u_Company_ID`, `u_Homebase_ID`, `u_Depot_ID`, `u_Role_ID`, `u_User_Name`, `u_Password`, `u_Status`, `u_Title`, `u_Date_Created`, `u_Allowed_Access_To_DQF`, `u_Allowed_Access_To_VIM`, `u_Allowed_Access_To_Accident`, `u_First_Name`, `u_Last_Name`, `u_Email`, `u_Telephone_Number`, `u_Fax`, `u_Address1`, `u_Address2`, `u_City`, `u_State`, `u_Postal_Code`) VALUES
+(1, NULL, 1, 1, 1, 1, 1, 'root', 'root', 1, NULL, '2010-10-28 14:15:10', '', '', '', 'Admin', 'Super', '', '', NULL, '', NULL, '', 1, ''),
+(2, NULL, 1, 1, 1, 1, 11, 'user', 'user', 1, NULL, '2010-10-28 15:17:59', '', '', '', 'User', 'Simple', '', '', NULL, '', NULL, '', 2, ''),
+(3, NULL, 1, 1, 1, 1, 11, 'test', 'test', 1, '', '2010-10-26 10:10:10', '', '', '', 'test', 'test', '', '', '', '', '', '', 3, '');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `vlastdiwforhbforarchives`
+-- Структура таблицы `user_role`
 --
 
-CREATE TABLE IF NOT EXISTS `vlastdiwforhbforarchives` (
-  `DIWID` bigint(20) default NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE IF NOT EXISTS `user_role` (
+  `ur_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ur_role` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `ur_title` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`ur_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=12 ;
 
 --
--- Дамп данных таблицы `vlastdiwforhbforarchives`
+-- Дамп данных таблицы `user_role`
 --
 
+INSERT INTO `user_role` (`ur_ID`, `ur_role`, `ur_title`) VALUES
+(1, 'NSC_USERS__Level_0', 'NSC SuperAdmin'),
+(2, 'NSC_USERS__Level_1', 'NSC Admin'),
+(3, 'NSC_USERS__Level_2', 'NSC Office'),
+(4, 'NSC_USERS__Level_3', 'NSC Auditor'),
+(5, 'NSC_USERS__Level_4', 'NSC Checker'),
+(6, 'CUSTOMER_USERS__Level_0', 'Client User SuperAdmin'),
+(7, 'CUSTOMER_USERS__Level_1', 'Client User NationalAdmin'),
+(8, 'CUSTOMER_USERS__Level_2', 'Client User RegionalAdmin'),
+(9, 'CUSTOMER_USERS__Level_3', 'Client User LocalAdmin'),
+(10, 'CUSTOMER_USERS__Level_4', 'Client User Office'),
+(11, 'CUSTOMER_USERS__Level_5', 'DEMO');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `vlastrecordofviolations`
+-- Структура таблицы `user__status`
 --
 
-CREATE TABLE IF NOT EXISTS `vlastrecordofviolations` (
-  `FileID` bigint(20) NOT NULL,
-  `DQFDocID` bigint(20) NOT NULL,
-  `DIWID` bigint(20) NOT NULL,
-  `DocID` bigint(20) NOT NULL,
-  `Status` varchar(15) collate utf8_unicode_ci NOT NULL,
-  `Requested` datetime NOT NULL,
-  `Completed` datetime NOT NULL,
-  `DIWEmployerID` bigint(20) NOT NULL,
-  `ScanDateTime` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `Created` datetime NOT NULL,
-  `OtherTitle` varchar(200) collate utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `user__status`;
+CREATE TABLE IF NOT EXISTS `user__status` (
+  `us_id` int(11) NOT NULL AUTO_INCREMENT,
+  `us_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`us_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Дамп данных таблицы `vlastrecordofviolations`
+-- Дамп данных таблицы `user__status`
 --
 
+INSERT INTO `user__status` (`us_id`, `us_type`) VALUES
+(1, 'ACTIVE'),
+(2, 'INACTIVE'),
+(3, 'TERMINATED');
 
 -- --------------------------------------------------------
-
---
--- Структура таблицы `vlasttiwforhb`
---
-
-CREATE TABLE IF NOT EXISTS `vlasttiwforhb` (
-  `TIWID` int(11) default NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Дамп данных таблицы `vlasttiwforhb`
+-- Дублирующая структура для представления `vauthuser`
 --
-
-
+DROP VIEW IF EXISTS `vauthuser`;
+CREATE TABLE IF NOT EXISTS `vauthuser` (
+`vau_ID` int(11)
+,`vau_username` varchar(255)
+,`vau_password` varchar(255)
+,`vau_role_id` int(11)
+,`vau_role_title` varchar(100)
+,`vau_role` varchar(100)
+,`vau_homebase_id` int(11)
+,`vau_homebase_code` varchar(250)
+,`vau_company_id` int(11)
+,`vau_company_code` varchar(250)
+,`vau_depot_name` varchar(250)
+,`vau_parent_company_code` varchar(250)
+);
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `vlastviwforhb`
+-- Структура таблицы `witness`
 --
 
-CREATE TABLE IF NOT EXISTS `vlastviwforhb` (
-  `VIWID` tinyint(4) default NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `witness`;
+CREATE TABLE IF NOT EXISTS `witness` (
+  `w_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `w_Witness_First_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `w_Witness_Last_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `w_Telephone_Number` varchar(14) COLLATE latin1_general_ci NOT NULL,
+  `w_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `w_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `w_City` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `w_State` tinyint(2) NOT NULL,
+  `w_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`w_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `vlastviwforhb`
+-- Дамп данных таблицы `witness`
 --
 
 
 -- --------------------------------------------------------
-
---
--- Структура таблицы `vlastviwidforhb`
---
-
-CREATE TABLE IF NOT EXISTS `vlastviwidforhb` (
-  `VIWID` tinyint(4) default NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Дамп данных таблицы `vlastviwidforhb`
+-- Структура для представления `vauthuser`
 --
+DROP TABLE IF EXISTS `vauthuser`;
 
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vauthuser` AS select `user`.`u_ID` AS `vau_ID`,`user`.`u_User_Name` AS `vau_username`,`user`.`u_Password` AS `vau_password`,`user`.`u_Role_ID` AS `vau_role_id`,`user_role`.`ur_title` AS `vau_role_title`,`user_role`.`ur_role` AS `vau_role`,`user`.`u_Homebase_ID` AS `vau_homebase_id`,`homebase`.`h_Name` AS `vau_homebase_code`,`user`.`u_Company_ID` AS `vau_company_id`,`company`.`c_Name` AS `vau_company_code`,`depot`.`d_Name` AS `vau_depot_name`,`parent_company`.`pc_Name` AS `vau_parent_company_code` from (((((`user` join `company` on((`user`.`u_Company_ID` = `company`.`c_id`))) left join `parent_company` on((`company`.`c_Parent_Company_Account_Number` = `parent_company`.`pc_id`))) join `user_role` on((`user`.`u_Role_ID` = `user_role`.`ur_ID`))) join `homebase` on((`user`.`u_Homebase_ID` = `homebase`.`h_id`))) left join `depot` on((`user`.`u_Depot_ID` = `depot`.`d_id`)));
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
 
+--
+-- Ограничения внешнего ключа таблицы `company`
+--
+ALTER TABLE `company`
+  ADD CONSTRAINT `FK_Company_2_Parent_Company__pc_id` FOREIGN KEY (`c_Parent_Company_Account_Number`) REFERENCES `parent_company` (`pc_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `custom_document`
+--
+ALTER TABLE `custom_document`
+  ADD CONSTRAINT `fk_custom_document_company1` FOREIGN KEY (`cd_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_custom_document_driver1` FOREIGN KEY (`cd_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_custom_document_homebase1` FOREIGN KEY (`cd_Homebase_ID`) REFERENCES `homebase` (`h_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `depot`
+--
+ALTER TABLE `depot`
+  ADD CONSTRAINT `depot_ibfk_1` FOREIGN KEY (`d_HomeBase_Account_Number`) REFERENCES `homebase` (`h_id`) ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `driver_address_history`
+--
+ALTER TABLE `driver_address_history`
+  ADD CONSTRAINT `fk_driver_address_history_driver1` FOREIGN KEY (`dah_Driver_ID`) REFERENCES `driver` (`d_ID`) ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `driver_service_hours`
+--
+ALTER TABLE `driver_service_hours`
+  ADD CONSTRAINT `fk_driver_service_hours_driver1` FOREIGN KEY (`dsh_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `equipment_assignment`
+--
+ALTER TABLE `equipment_assignment`
+  ADD CONSTRAINT `fk_equipment_assignment_driver1` FOREIGN KEY (`ea_Driver_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_equipment_assignment_equipment1` FOREIGN KEY (`ea_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_equipment_assignment_homebase1` FOREIGN KEY (`ea_Homebase_Number`) REFERENCES `homebase` (`h_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `equipment_identifier`
+--
+ALTER TABLE `equipment_identifier`
+  ADD CONSTRAINT `fk_equipment_identifier_equipment1` FOREIGN KEY (`ei_Equipment_Number_ID`) REFERENCES `equipment` (`e_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `equipment_maintenance`
+--
+ALTER TABLE `equipment_maintenance`
+  ADD CONSTRAINT `fk_equipment_maintenance_equipment1` FOREIGN KEY (`em_Equipment_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_equipment_maintenance_service_provider1` FOREIGN KEY (`em_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `homebase`
+--
+ALTER TABLE `homebase`
+  ADD CONSTRAINT `homebase_ibfk_1` FOREIGN KEY (`h_Company_Account_Number`) REFERENCES `company` (`c_id`) ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `incident_cause`
+--
+ALTER TABLE `incident_cause`
+  ADD CONSTRAINT `fk_incident_cause_incident1` FOREIGN KEY (`ic_Incident_ID`) REFERENCES `incident` (`i_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_incident_cause_witness1` FOREIGN KEY (`ic_Witness_ID`) REFERENCES `witness` (`w_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `incident__investigator`
+--
+ALTER TABLE `incident__investigator`
+  ADD CONSTRAINT `fk_incident__investigator_company1` FOREIGN KEY (`ii_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_incident__investigator_driver1` FOREIGN KEY (`ii_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `incident__passenger`
+--
+ALTER TABLE `incident__passenger`
+  ADD CONSTRAINT `fk_incident__passenger_equipment1` FOREIGN KEY (`ip_Equipment_Number`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_incident__passenger_passenger1` FOREIGN KEY (`ip_Passenger _Number`) REFERENCES `passenger` (`p_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `inspection`
+--
+ALTER TABLE `inspection`
+  ADD CONSTRAINT `fk_inspection_equipment1` FOREIGN KEY (`i_Equipment_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_inspection_inspection_types1` FOREIGN KEY (`i_Type_ID`) REFERENCES `inspection_types` (`it_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `previous_employment`
+--
+ALTER TABLE `previous_employment`
+  ADD CONSTRAINT `fk_previous_employment_driver1` FOREIGN KEY (`pe_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `service_provider__company_assignment`
+--
+ALTER TABLE `service_provider__company_assignment`
+  ADD CONSTRAINT `fk_service_provider__company_assignment_company1` FOREIGN KEY (`spсa_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_service_provider__company_assignment_service_provider1` FOREIGN KEY (`spсa_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `service_provider__insurance`
+--
+ALTER TABLE `service_provider__insurance`
+  ADD CONSTRAINT `fk_service_provider__insurance_insurance1` FOREIGN KEY (`spi_Insurance_Company_ID`) REFERENCES `insurance` (`i_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_service_provider__insurance_service_provider1` FOREIGN KEY (`spi_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `fk_user_company1` FOREIGN KEY (`u_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_depot1` FOREIGN KEY (`u_Depot_ID`) REFERENCES `depot` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_homebase1` FOREIGN KEY (`u_Homebase_ID`) REFERENCES `homebase` (`h_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_parent_company1` FOREIGN KEY (`u_Parent_Company_ID`) REFERENCES `parent_company` (`pc_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_user_role1` FOREIGN KEY (`u_Role_ID`) REFERENCES `user_role` (`ur_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;

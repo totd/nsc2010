@@ -25,11 +25,21 @@ class Equipment_ListController extends Zend_Controller_Action
             $this->view->equipments = null;
         }
 
-        // TODO implement hiden CreteEquipment link if user hasn't permission
-        $this->view->display_create_link = true;
+        // Check whether the user has permission to search equipment.
+        $display_search_link = false;
 
-        //$partial = array('partial/_Header.phtml', 'default');
-        //$this->view->navigation()->menu()->setPartial($partial);
+        $auth = Zend_Auth::getInstance();
+
+        if ($auth->hasIdentity()) {
+            $this->identity = $auth->getIdentity();
+
+            $permission = new Permission_Model_Permission();
+            if ($permission->doesRoleHaveResource($this->identity->vau_role, 'equipment/search')) {
+                $display_search_link = true;
+            }
+        }
+
+        $this->view->display_search_link = $display_search_link;
     }
 }
 

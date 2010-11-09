@@ -1,10 +1,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="/css/style.css" type="text/css" rel="stylesheet"/>
-<title>National Safety Compliance, INC</title>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/zendcode.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/calendar.css" type="text/css" rel="stylesheet"/>
+    <script src="/js/calendar.js"></script>
+    <script src="/js//jquery-latest.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <title>National Safety Compliance, INC</title>
+ <script>
+$(document).ready(function() {
+	  $("#new-Driver-Search").validate({
+	    rules: {
+	      d_Employment_Type: "required",
+	      d_Driver_SSN: {
+	        required: true,
+            minlength: 9,
+            maxlength: 9
+	      },
+	      d_Date_Of_Birth: {
+	        required: true
+	      },
+	    },
+	    messages: {
+	      comment: "Please check information."
+	    }
+	  });
+	});  
+  </script>
 </head>
 <body>
         <?php
@@ -35,7 +59,19 @@
       <div class="header-bottom">
 
           <ul class="top-menu">
-            <li><span class="left"><span class="right"><a href="new-driver"><span class="left"><span class="right">New Driver</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Drivers</span></span></a></span></span>
+            <div class="top-pod-menu">
+                <ul>
+                    <li>
+                        <ul>
+                            <li><a href="/driver/index/index">Pending Drivers</a></li>
+                            <li><a href="/driver/new-driver/new-driver-search">Create New Driver</a></li>
+                            <li><a href="#">Search Drivers</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            </li>
             <li><span class="left"><span class="right"><a href="dq-files"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
             <li><span class="left"><span class="right"><a href="archives"><span class="left"><span class="right">Archives</span></span></a></span></span></li>
             <li><span class="left"><span class="right"><a href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
@@ -55,13 +91,14 @@
                 <li><a href="#">Non-Compliant by NSC check report</a></li>
                 <li><a href="#">Driver List - create your own look</a></li>
                 <li><a href="#">Vehicle Report</a></li></ul></li>
-              </ul></div></li>
+              </ul></div>
+            </li>
           </ul>
-            <!--
+
           <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
-            <span><a href="#">Report</a>&nbsp;&gt;&nbsp;<a href="#">Active Drivers Report</a>&nbsp;&gt;&nbsp;PARAMETER PAGE</span>
+              <span><?php echo $this->breadcrumbs; ?></span>
           </div></div></div>
-          -->
+           <!--     </div> -->
 
         <?php echo $this->layout()->content ?>
         <?php } else {?>

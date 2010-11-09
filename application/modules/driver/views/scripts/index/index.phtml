@@ -1,14 +1,16 @@
 
           <div class="bottom-nav">
-            <form class="status" action="#">
+            <form class="status" name="driver_get_list_by_status" id="driver_get_list_by_status" method="GET" enctype="application/x-www-form-urlencoded" action="/driver/index/index">
               <fieldset>
                 <label>Status:</label>
-                <select>
-                  <option selected="selected">All</option>
-                  <option>Applicant</option>
-                  <option>Hired</option>
-                  <option>Active</option>
-                  <option>Inactive</option></select>
+                <select name="status" onmousedown="">
+                  <option value="0" <?php if($this->status==0){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">All</option>
+                  <option value="1" <?php if($this->status==1){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Pending</option>
+                  <option value="2" <?php if($this->status==2){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Applicant</option>
+                  <option value="3" <?php if($this->status==3){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Hired - Active</option>
+                  <option value="4" <?php if($this->status==4){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Hired - Inactive</option>
+                  <option value="5" <?php if($this->status==5){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Terminated</option>
+                </select>
               </fieldset>
             </form>
 
@@ -25,12 +27,14 @@
               </fieldset>
             </form>
           </div>
-          <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
-              <span><?php echo $this->breadcrumbs; ?></span>
-          </div></div></div>
-          </div>
+
           <!--
-          -->
+          <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
+              <span><?php // echo $this->breadcrumbs; ?></span>
+              <div style="float:right;"><a href="/driver/index/new-Driver-Search">New Driver</a></div>
+              </div></div></div>
+              -->
+          </div>
 
     <div id="main" class="driver-profile">
 
@@ -38,19 +42,23 @@
       <tr class="table-title">
           <td>First Name</td>
           <td>Last Name</td>
+          <td>SSN</td>
           <td>DOB</td>
-          <td>Application/Hire Date</td>
           <td>Status</td>
+          <td>Employment Type / Date of Hire</td>
           <td>Action</td>
         </tr>
 
 <?php
 
-      if ($this->pendingDrivers != null) {
+      if ($this->Drivers != null) {
 ?>
-        <?php echo $this->partialLoop('partials/_driver-row.phtml', $this->pendingDrivers); ?>
+        <?php echo $this->partialLoop('partials/_driver-row.phtml', $this->Drivers); ?>
 
     <?php } ?>
-<tr><td class="page" colspan="7"> DQF  1 to 6  ( 6 )</td></tr>
+<tr><td class="page" colspan="7"> DQF  <?php echo $this->from;?> to <?php echo $this->from+$this->step;?>  ( <?php echo sizeof($this->allDrivers);?> )</td></tr>
+<tr><td class="page" colspan="7">  <?php echo $this->partial('partials/_pagignator.phtml',array('drivers' => $this->allDrivers, 'from' => $this->from, 'last' => $this->from+$this->step, 'step' => $this->step, 'status' => $this->status)); ?></td></tr>
 		</Table>
+
+
     </div>

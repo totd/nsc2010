@@ -35,7 +35,10 @@ class Driver_NewDriverController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $this->view->identity = $auth->getIdentity();
-        
+
+            # Breadcrumbs goes here:
+            $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;New Driver Existence Check";
+            
             # load to template Top Menu
             $partial = array('partials/_driver-menu.phtml', 'default');
             $this->view->navigation()->menu()->setPartial($partial);

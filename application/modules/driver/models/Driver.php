@@ -18,18 +18,29 @@ class driver_Model_Driver extends Zend_Db_Table_Abstract
      *
      * get drivers list
      *
-     * @param string $sStatus
+     * @param int: $iStatus, $iFrom
      * @return mixed
      */
-    public static function getDrivers($sStatus=1)
+    public static function getDrivers($iStatus=1,$iFrom=0,$iLimit=20)
     {
-
+        if($iStatus==0){
+            $sWhere =" WHERE 1";
+        }else{
+            $sWhere =" WHERE d_Status = " . $iStatus . "";
+        }
+        if((isset($iFrom)) && (isset($iLimit))){
+            $sLimit = "LIMIT ".$iFrom.",".$iLimit."";
+        }else{
+            $sLimit = "LIMIT 0,20";
+        }
          $db = Zend_Db_Table_Abstract::getDefaultAdapter();
          $stmt = $db->query('
                       SELECT
-                        d_ID, d_Driver_SSN,d_Employment_Type, d_First_Name, d_Last_Name, d_Entry_Date,d_Status
+                        *
                       FROM driver
-                      WHERE d_Status = ' . $sStatus . '
+                      ' . $sWhere . '
+                      ' . $sLimit . '
+
 
         ');
          $row = $stmt->fetchAll();

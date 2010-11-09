@@ -18,7 +18,7 @@ class Equipment_Form_Equipment extends Zend_Form
     );
 
     /**
-     * @author Andryi Ilnytskyi 23.10.2010
+     * @author Andryi Ilnytskyi 05.11.2010
      *
      * Init equipment form.
      */

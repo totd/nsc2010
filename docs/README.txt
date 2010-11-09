@@ -1,11 +1,17 @@
 README
 ======
 
-This directory should be used to place project specfic documentation including
-but not limited to project notes, generated API/phpdoc documentation, or 
-manual files generated or hand written.  Ideally, this directory would remain
-in your development environment only and should not be deployed with your
-application to it's final production location.
+VARIABLES USED IN PROJECT
+=========================
+$_SESSION['driver_info']['DriverEmploymentType_list'] # contains list of employment types
+$_SESSION['driver_info']['DriverEyeColor_list'] # contains list of eye colors
+$_SESSION['driver_info']['DriverGender_list'] # contains gender list
+$_SESSION['driver_info']['DriverHairColor_list'] # contains list of hair colors
+$_SESSION['driver_info']['DriverStatus_list'] # contains list of driver status
+
+
+
+
 
 
 Setting Up Your VHOST

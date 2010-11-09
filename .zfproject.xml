@@ -137,6 +137,10 @@
               <actionMethod actionName="newDriverComplete"/>
               <actionMethod actionName="updateDriver"/>
             </controllerFile>
+            <controllerFile controllerName="Driver">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="editDriverInformation"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory>
             <formFile formName="NewDriverSearch"/>
@@ -148,6 +152,12 @@
           <modelsDirectory>
             <dbTableDirectory enabled="false"/>
             <modelFile modelName="Driver"/>
+            <modelFile modelName="DriverEmploymentType"/>
+            <modelFile modelName="DriverEyeColor"/>
+            <modelFile modelName="DriverGender"/>
+            <modelFile modelName="DriverHairColor"/>
+            <modelFile modelName="DriverStatus"/>
+            <modelFile modelName="MedicalHistory"/>
           </modelsDirectory>
           <viewsDirectory>
             <viewScriptsDirectory>
@@ -168,6 +178,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="NewDriver">
                 <viewScriptFile forActionName="updateDriver"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Driver">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Driver">
+                <viewScriptFile forActionName="editDriverInformation"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -304,6 +320,7 @@
           <testApplicationControllerFile filesystemName="IndexControllerTest.php"/>
           <testApplicationControllerFile filesystemName="SearchControllerTest.php"/>
           <testApplicationControllerFile filesystemName="NewDriverControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="DriverControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

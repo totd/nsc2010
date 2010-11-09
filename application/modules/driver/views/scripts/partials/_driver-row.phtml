@@ -1,15 +1,8 @@
-<tr height="30" >
-			    	<td align="center" ><?php echo $this->d_First_Name; ?></td>
-    				<td align="center" ><?php echo $this->d_Last_Name; ?></td>
-    				<td align="center" ><?php echo $this->d_Driver_SSN; ?></td>
-    				<td align="center" ><?php echo $this->d_Employment_Type; ?></td>
-    				<td align="center" ><?php echo $this->d_Status; ?></td>
-    				<td align="center" ><?php echo $this->d_Entry_Date; ?></td>
-    				<td align="center" class="">&nbsp;
-    				</td>
-					<td align="center" class="">
-						<A href='#' class="">View</a>
-						&nbsp;&nbsp;|&nbsp;&nbsp;
-						<A href='#' class="">Accounts</a>
-    				</td>
-	   			</tr>
+        <tr>
+          <td><?php echo $this->d_First_Name; ?></td>
+          <td><?php echo $this->d_Last_Name; ?></td>
+          <td><?php echo $this->d_Driver_SSN; ?></td>
+          <td><?php echo  $_SESSION['driver_info']['DriverEmploymentType_list'][$this->d_Employment_Type]; ?></td>
+          <td><?php echo $_SESSION['driver_info']['DriverStatus_list'][$this->d_Status]; ?></td>
+          <td class="link-profile"><a href="/driver/Driver/edit-Driver-Information/id/<?php echo $this->d_ID;?>" >Profile</a>&nbsp;|&nbsp;<a href="#">DQF</a></td>
+        </tr>

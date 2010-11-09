@@ -1,49 +1,89 @@
-<?php echo $this->doctype(); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=latin1" />
-        <title>NSC HAL</title>
-        <?php echo $this->headLink()->appendStylesheet('/css/global.css'); ?>
-    </head>
-    <body>
-        <div id="header" style="background-color: #EEEEEE; height: 50px;">
-            <div id="header-logo" style="float: left;">
-                <b>NSC HAL</b>
-            </div>
-            <div id="header-navigation" style="float: right">
-                <table border='1' cellpadding="0" cellspacing="0" width="900px">
-                    <tr>
-                        <td colspan="6"></td>
-                        <td>
-                            <?php
-                            // TODO Research about possibility to check identity in the controller side
-                            // Fetch the current instance of Zend_Auth
-                            $auth = Zend_Auth::getInstance();
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/css/style.css" type="text/css" rel="stylesheet"/>
+<title>National Safety Compliance, INC</title>
 
-                            // Check whether an identity is set.
-                            if ($auth->hasIdentity()) {
-                                $this->identity = $auth->getIdentity();
-                            }
+</head>
+<body>
+        <?php
+            // TODO Research about possibility to check identity in the controller side
+            // Fetch the current instance of Zend_Auth
+            $auth = Zend_Auth::getInstance();
 
-                            if ($this->identity == null) {
-                            ?>
-                                <a href="/user/login">Login</a>
-                            <?php } else { ?>
-                                Hello <?php echo $this->identity->vau_username; ?> &nbsp;
-                                <a href='/user/logout'>Logout</a>
-                            <?php } ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="/company/index/index">Company module</a></td>
-                        <td><a href="/report/index/index">Report module</a></td>
-                        <td><a href="/company/parent-company/index">Parent Company module</a></td>
-                        <td><a href="/equipment/index/index">Equipment module</a></td>
-                        <td><a href="/user/list">user module</a></td>
-                    </tr>
-                </table>
-            </div>
+            // Check whether an identity is set.
+            if ($auth->hasIdentity()) {
+                $this->identity = $auth->getIdentity();
+            }
+            if ($this->identity != null) {
+           # $this->_redirect("/user/login");
+        ?>
+  <div id="wrapper">
+      <div class="header-top">
+        <div class="services">
+          <span class="text"><span>Driver Qualification Services:  <?php echo $this->identity->vau_username; ?></span></span>
         </div>
+        <div class="log-out">
+          <ul>
+            <li><a href='/user/logout'>Logout</a></li>
+            <li><a href="/DQF">DQF home page</a></li>
+          </ul>
+        </div>
+        <h1><span class="no-display">National Safety Compliance, INC</span></h1>
+      </div>
+      <div class="header-bottom">
+
+          <ul class="top-menu">
+            <li><span class="left"><span class="right"><a href="new-driver"><span class="left"><span class="right">New Driver</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="dq-files"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="archives"><span class="left"><span class="right">Archives</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
+              <div class="top-pod-menu"><ul>
+              <li><a href="#">SUMMARY  REPORTS</a><ul>
+                <li><a href="#">Summary Report</a></li></ul></li>
+              <li><a href="#">ACTIVITY  REPORTS</a><ul>
+                <li><a href="#">Activity Report</a></li>
+                <li><a href="#">Email Warning Report</a></li></ul></li>
+              <li><a href="#">GENERAL REPORTS</a><ul>
+                <li><a href="#">Driver List - Current Status Report</a></li>
+                <li><a href="#">Driver List - Active Drivers Report</a></li>
+                <li><a href="#">Driver List - By CDL class</a></li>
+                <li><a href="#">Driver's Expiration Report</a></li>
+                <li><a href="#">Get Driver's Expiration Report Letter</a></li>
+                <li><a href="#">Non-Compliant Detailed Report</a></li>
+                <li><a href="#">Non-Compliant by NSC check report</a></li>
+                <li><a href="#">Driver List - create your own look</a></li>
+                <li><a href="#">Vehicle Report</a></li></ul></li>
+              </ul></div></li>
+          </ul>
+            <!--
+          <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
+            <span><a href="#">Report</a>&nbsp;&gt;&nbsp;<a href="#">Active Drivers Report</a>&nbsp;&gt;&nbsp;PARAMETER PAGE</span>
+          </div></div></div>
+          -->
+
         <?php echo $this->layout()->content ?>
-    </body>
+        <?php } else {?>
+                    <div id="wrapper">
+      <div class="header-top">
+        <h1>
+          <span class="no-display">National Safety Compliance, INC</span>
+        </h1>
+      </div>
+      <div id="main" class="parametr-page">
+        <div class="parametr-top">
+          <div class="parametr-bottom">
+            <div class="parametr-middle">
+                <?php echo $this->layout()->content ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        <?php }?>
+
+    </div>
+</body>
 </html>
+

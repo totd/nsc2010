@@ -18,6 +18,30 @@ class driver_Form_DriverPersonalInformation extends Zend_Form
         $formName->setRequired('true');
         $formName->setValue('driver_DriverPersonalInformation_Form');
         $this->addElement($formName);
+
+
+        $d_Employment_Type = new Zend_Form_Element_Select('d_Employment_Type');
+        $d_Employment_Type->setLabel('Application Type');
+        $d_Employment_Type->setRequired('true');
+        $d_Employment_Type->addMultiOptions(array(
+            '4' => 'Employee/Driver',
+            '3' => 'Operator/Contractor'
+        ));
+        $d_Employment_Type->setValue($driverInfo['d_Employment_Type']);
+        $this->addElement($d_Employment_Type);
+
+        $d_Employment_Type = new Zend_Form_Element_Text('entry date');
+        $d_Employment_Type->setLabel('Entry Date');
+        $d_Employment_Type->setAttrib('disabled', 'disabled');
+        $d_Employment_Type->setValue($driverInfo['d_Entry_Date']);
+        $this->addElement($d_Employment_Type);
+
+        $d_Employment_Type = new Zend_Form_Element_Text('statys');
+        $d_Employment_Type->setLabel('Status');
+        $d_Employment_Type->setAttrib('disabled', 'disabled');
+        $d_Employment_Type->setValue($_SESSION['driver_info']['DriverStatus_list'][$driverInfo['d_Status']]);
+        $this->addElement($d_Employment_Type);
+        
 /*
         $d_Employment_Type = new Zend_Form_Element_Select('d_First_Name');
         $d_Employment_Type->setLabel('Application Type');
@@ -51,29 +75,24 @@ class driver_Form_DriverPersonalInformation extends Zend_Form
         $d_Gender->setLabel('Sex');
         $d_Gender->setRequired('true');
         $d_Gender->addMultiOptions(array(
-            'Male' => 'Male',
-            'Female' => 'Female'
+            '1' => 'Male',
+            '2' => 'Female'
         ));
-        $d_Gender->setValue($driverInfo['d_Gender']);
+        $d_Gender->setValue($_SESSION['driver_info']['DriverGender_list'][$driverInfo['d_Gender']]);
         $this->addElement($d_Gender);
 
         $d_Hair_Color = new Zend_Form_Element_Select('d_Hair_Color');
         $d_Hair_Color->setLabel('Hair Color');
         $d_Hair_Color->addMultiOptions(array(
             Null => '-Select-',
-            'Black' => 'Black',
-            'Brown' => 'Brown',
-            'Blonde' => 'Blonde',
-            'White' => 'White',
-            'Grey' => 'Grey',
-            'Other' => 'Other',
-            'N/A' => 'N/A'
+            '1' => 'Black',
+            '2' => 'Brown',
+            '3' => 'Blonde',
+            '4' => 'White',
+            '5' => 'Grey',
+            '6' => 'Other'
         ));
-        if($driverInfo['d_Hair_Color']==""){
-            $d_Hair_Color->setValue('N/A');
-        }else{
-            $d_Hair_Color->setValue($driverInfo['d_Hair_Color']);
-        }
+        $d_Hair_Color->setValue($_SESSION['driver_info']['DriverHairColor_list'][$driverInfo['d_Hair_Color']]);
         $this->addElement($d_Hair_Color);
 
         $d_Height_Feet = new Zend_Form_Element_Select('d_Height_Feet');
@@ -124,11 +143,31 @@ class driver_Form_DriverPersonalInformation extends Zend_Form
         $d_Date_Of_Birth->setValue($driverInfo['d_Date_Of_Birth']);
         $this->addElement($d_Date_Of_Birth);
         
-        $d_Date_Of_Birth = new Zend_Form_Element_Text('Employee identification code');
-        $d_Date_Of_Birth->setLabel('Employee identification code ????');
-        $d_Date_Of_Birth->setRequired('true');
-        $d_Date_Of_Birth->setValue($driverInfo['Employee identification code']);
-        $this->addElement($d_Date_Of_Birth);
+        $d_Medical_Card_Expiration_Date = new Zend_Form_Element_Text('d_Medical_Card_Expiration_Date');
+        $d_Medical_Card_Expiration_Date->setLabel('Medical Card Expiration Date');
+        $d_Medical_Card_Expiration_Date->setValue($driverInfo['d_Medical_Card_Expiration_Date']);
+        $this->addElement($d_Medical_Card_Expiration_Date);
+        /*
+        $d_Medical_Card_Expiration_Date = new Zend_Form_Element_Text('d_Medical_Card_Expiration_Date');
+        $d_Medical_Card_Expiration_Date->setLabel("Medical Examiner's Name");
+        $d_Medical_Card_Expiration_Date->setValue($driverInfo['d_Medical_Card_Expiration_Date']);
+        $this->addElement($d_Medical_Card_Expiration_Date);
+        */
+        $d_Telephone_Number1 = new Zend_Form_Element_Text('d_Telephone_Number1');
+        $d_Telephone_Number1->setLabel('#1 Telephone_Number');
+        $d_Telephone_Number1->setRequired('true');
+        $d_Telephone_Number1->setValue($driverInfo['d_Telephone_Number1']);
+        $this->addElement($d_Telephone_Number1);
+        
+        $d_Telephone_Number2 = new Zend_Form_Element_Text('d_Telephone_Number2');
+        $d_Telephone_Number2->setLabel('#2 Telephone_Number');
+        $d_Telephone_Number2->setValue($driverInfo['d_Telephone_Number2']);
+        $this->addElement($d_Telephone_Number2);
+
+        $d_Telephone_Number3 = new Zend_Form_Element_Text('d_Telephone_Number3');
+        $d_Telephone_Number3->setLabel('#3 Telephone_Number');
+        $d_Telephone_Number3->setValue($driverInfo['d_Telephone_Number3']);
+        $this->addElement($d_Telephone_Number3);
 
 
         $submit = $this->addElement('submit', 'Driver_Personal_Information', array('label' => 'Save'));

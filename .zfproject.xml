@@ -46,6 +46,7 @@
           <dbTableFile dbTableName="User"/>
         </dbTableDirectory>
         <modelFile modelName="UserMapper"/>
+        <modelFile modelName="Permission"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="user">
@@ -243,6 +244,21 @@
           </viewsDirectory>
         </moduleDirectory>
         <moduleDirectory moduleName="role">
+          <apisDirectory enabled="false"/>
+          <configsDirectory enabled="false"/>
+          <controllersDirectory/>
+          <formsDirectory enabled="false"/>
+          <layoutsDirectory enabled="false"/>
+          <modelsDirectory>
+            <dbTableDirectory enabled="false"/>
+          </modelsDirectory>
+          <viewsDirectory>
+            <viewScriptsDirectory/>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+        <moduleDirectory moduleName="permission">
           <apisDirectory enabled="false"/>
           <configsDirectory enabled="false"/>
           <controllersDirectory/>

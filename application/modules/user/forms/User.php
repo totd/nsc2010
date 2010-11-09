@@ -3,6 +3,23 @@
 class User_Form_User extends Zend_Form
 {
 
+    private $_roles;
+
+    /**
+     * @author Andryi Ilnytskyi 09.11.2010
+     *
+     * A class' constractor.
+     *
+     * @param array $roles Listof the roles
+     * @param mixed $options
+     */
+    public function __construct($roles, $options = null)
+    {
+        $this->_roles = $roles;
+
+        parent::__construct($options);
+    }
+
     /**
      * @author Andryi Ilnytskyi 23.10.2010
      *
@@ -19,21 +36,12 @@ class User_Form_User extends Zend_Form
         $this->addElement($id);
 
         // create role select.
-        // TODO refactor it after RoleControler implementation.
-        $userTypes= array('multiOptions' => array (
-                '1' => 'NSC SuperAdmin',                            // NSC_USERS__Level_0
-                '2' => 'NSC Admin',                                 // NSC_USERS__Level_1
-                '3' => 'NSC Office',                                // NSC_USERS__Level_2
-                '4' => 'NSC Auditor',                               // NSC_USERS__Level_3
-                '5' => 'NSC Checker',                               // NSC_USERS__Level_4
-                '6' => 'Client User SuperAdmin',                    // CUSTOMER_USERS__Level_0
-                '7' => 'Client User NationalAdmin',                 // CUSTOMER_USERS__Level_1
-                '8' => 'Client User RegionalAdmin',                 // CUSTOMER_USERS__Level_2
-                '9' => 'Client User LocalAdmin',                    // CUSTOMER_USERS__Level_3
-                '10' => 'Client User Office',                        // CUSTOMER_USERS__Level_4
-                '11' => 'DEMO',                                      // CUSTOMER_USERS__Level_5
-            )
-        );
+        $selectArray = array();
+        foreach ($this->_roles as $role) {
+            $selectArray[$role->ur_ID] = $role->ur_title;
+        }
+
+        $userTypes= array('multiOptions' => $selectArray);
         $role = $this->createElement('select', 'role', $userTypes);
         $role->setLabel("Role:");
         $this->addElement($role);

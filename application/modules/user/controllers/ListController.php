@@ -19,7 +19,10 @@ class User_ListController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $currentUsers = User_Model_User::getUsers();
+    	# Breadcrumbs goes here:
+        $this->view->breadcrumbs = "<a href='#'>Archives</a>&nbsp;&gt;&nbsp;User Profile";
+        
+	$currentUsers = User_Model_User::getUsers();
         if ($currentUsers->count() > 0) {
             $this->view->users = $currentUsers;
         } else {
@@ -42,8 +45,7 @@ class User_ListController extends Zend_Controller_Action
 
         $this->view->display_create_link = $display_create_link;
 
-        # Breadcrumbs goes here:
-        $this->view->breadcrumbs = "<a href='#'>Archives</a>&nbsp;&gt;&nbsp;User Profile";
+        
     }
 
 

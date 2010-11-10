@@ -18,8 +18,15 @@ class Equipment_CreateController extends Zend_Controller_Action
      *
      * Create a new equipment.
      */
-    public function indexAction()
+    public function indexAction($VIN = null)
     {
+        if (is_null($VIN)) {
+            $VIN = $this->_request->getParam('VIN');
+            if (is_null($VIN)) {
+                $this->_redirect('/equipment/search');
+            }
+        }
+
         $equipmentForm = new Equipment_Form_Equipment();
         if ($this->_request->isPost()) {
             if ($equipmentForm->isValid($_POST)) {

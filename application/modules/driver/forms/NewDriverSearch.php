@@ -12,8 +12,8 @@ class driver_Form_NewDriverSearch extends Zend_Form
         $d_Employment_Type->setLabel('Application for:');
         $d_Employment_Type->setRequired('true');
         $d_Employment_Type->addMultiOptions(array(
-                    'Employer' => 'Employee',
-                    'Operator' => 'Contractor'
+                    '4' => 'Employee',
+                    '3' => 'Contractor'
                         ));
         $d_Employment_Type->setSeparator(' ');
         $this->addElement($d_Employment_Type);

@@ -29,6 +29,9 @@ class User_ListController extends Zend_Controller_Action
         // TODO implement hiden CreteUser link if user hasn't permission
         $this->view->display_create_link = true;
 
+        # Breadcrumbs goes here:
+        $this->view->breadcrumbs = "<a href='#'>Archives</a>&nbsp;&gt;&nbsp;User Profile";
+
         //$partial = array('partial/_Header.phtml', 'default');
         //$this->view->navigation()->menu()->setPartial($partial);
     }

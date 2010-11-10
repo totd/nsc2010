@@ -17,15 +17,54 @@ class User_IndexController extends Zend_Controller_Action
      *
      * Deafault action.
      */
-    public function indexAction()
+  public function indexAction()
     {
-         // Fetch the current instance of Zend_Auth
-        $auth = Zend_Auth::getInstance();
+        $loginForm = new User_Form_Login();
+        $loginForm->setAction('/user/login');
 
-        // Check whether an identity is set.
-        if ($auth->hasIdentity()) {
-            $this->view->identity = $auth->getIdentity();
+        if ($this->_request->isPost() && $loginForm->isValid($_POST)) {
+            $data = $loginForm->getValues();
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $authAdapter = new Zend_Auth_Adapter_DbTable($db, 'vauthuser',
+                    'vau_username', 'vau_password');
+            $authAdapter->setIdentity($data['username']);
+
+            // TODO Implement password crypt
+            // $authAdapter->setCredential(md5($data['password']));
+            $authAdapter->setCredential($data['password']);
+
+            // Added additional login criteria.
+            $select = $authAdapter->getDbSelect();
+            $select->where("vau_homebase_code = '{$data['homebase_code']}'");
+            $select->where("vau_company_code = '{$data['company_code']}'");
+
+            // Check nonrequired parameters.
+            if (!empty($data['parent_company_code'])) {
+                $select->where("vau_parent_company_code = '{$data['parent_company_code']}'");
+            }
+
+            if (!empty($data['depot_name'])) {
+                 $select->where("vau_depot_name = '{$data['depot_name']}'");
+            }
+
+            // Check an authentication.
+            $result = $authAdapter->authenticate();
+
+            if ($result->isValid()) {
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
+                $storage->write($authAdapter->getResultRowObject(
+                        array('vau_role_id', 'vau_role', 'vau_role_title', 'vau_username', 'vau_password')));
+
+                // TODO Implement a forwarding or redirecting to the needed action.
+                //return $this->_forward('list', 'index', 'user');
+                return $this->_redirect('user/list');
+            } else {
+                $this->view->loginMessage = "Sorry, a data you have input is incorrect";
+            }
         }
+
+        $this->view->form = $loginForm;
     }
 }
 

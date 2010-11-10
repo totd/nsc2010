@@ -1,6 +1,9 @@
+<!--
+          <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
+              <span><?php echo $this->breadcrumbs; ?></span>
+          </div></div></div>
+          -->
 
-<?php
-    echo $this->navigation()->menu()->render(); ?>
 <h2>NEW DRIVER - LOOK FOR A DRIVER</h2>
 <?php if ($this->driver_exist==true) {
  ?>
@@ -13,7 +16,26 @@
 <?php
 } ?>
 
-<?php
-echo $this->form_NewDriverSearch;
-
-?>
+<form action="/driver/new-Driver/new-Driver-Search" method="post" enctype="application/x-www-form-urlencoded" id="new-Driver-Search">
+    <div class="zend_form">
+        <div class="form_element">
+           <label class="required">Application for:</label><br/>
+           <label><input type="radio" value="4" id="d_Employment_Type-4" name="d_Employment_Type" />Employee</label>
+           <label><input type="radio" value="3" id="d_Employment_Type-3" name="d_Employment_Type" />Contractor</label>
+        </div>
+        <div class="form_element">
+            <label class="required" for="d_Driver_SSN">Driver SSN: </label>
+            <br/>
+            <input type="text" value="" id="d_Driver_SSN" name="d_Driver_SSN" /><span class="form_element_tip">(only numbers)</span>
+        </div>
+        <div class="form_element">
+            <label class="required" for="d_Date_Of_Birth" />Driver Date Of Birth: </label>
+            <br/>
+            <input type="text" value="" id="d_Date_Of_Birth" name="d_Date_Of_Birth" readonly="readonly" onfocus='showCalendar("",this,this,"","d_Date_Of_Birth",0,30,1)' /><span class="form_element_tip">(yyyy-mm-dd)</span>
+        </div>
+        <div class="form_element">
+            <input type="submit" value="By Driver" id="Driver" name="Driver" />
+            <input type="submit" value="By Administrator" id="Administrator" name="Administrator"/>
+        </div>
+    </div>
+</form>

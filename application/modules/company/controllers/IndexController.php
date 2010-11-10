@@ -14,7 +14,7 @@ class Company_IndexController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance();
 
         // Check whether an identity is set.
-        if ($auth->hasIdentity() != null) {
+        if ($auth->hasIdentity()!=null) {
             $this->view->identity = $auth->getIdentity();
 
             $modelCompany = new company_Model_Company();

@@ -30,18 +30,17 @@ class Driver_NewDriverController extends Zend_Controller_Action
      */
     public function newDriverSearchAction()
     {
+
+        # Breadcrumbs goes here:
+        $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;Driver Profile List";
+        
         # origin - http://www.driverqualificationonline.com/ProdClient/Application/NewDriverSearch.asp
         # pre-create Driver search. If there no such Driver in DB - offer to create new one.
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $this->view->identity = $auth->getIdentity();
 
-            # Breadcrumbs goes here:
-            $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;New Driver Existence Check";
             
-            # load to template Top Menu
-            $partial = array('partials/_driver-menu.phtml', 'default');
-            $this->view->navigation()->menu()->setPartial($partial);
         
             $NewDriverSearch_form = new driver_Form_NewDriverSearch();
             $NewDriverSearch_form->setAction('/driver/new-Driver/new-Driver-Search');
@@ -85,8 +84,8 @@ class Driver_NewDriverController extends Zend_Controller_Action
     public function driverInformationWorksheetViewAction()
     {
 
-        $partial = array('partials/_driver-menu.phtml', 'default');
-        $this->view->navigation()->menu()->setPartial($partial);
+        # Breadcrumbs goes here:
+        $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;Driver Profile List";
 
         $driverID = (int)$this->_request->getParam('id');
         $driverInfo = driver_Model_Driver::getDriverInfo($driverID);

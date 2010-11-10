@@ -16,6 +16,10 @@ class Driver_IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
+
+        # Breadcrumbs goes here:
+        $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;Driver Profile List";
+
         if((int)$this->_getParam('status')!=null){
             $status = $this->_getParam('status');
         }else{
@@ -48,8 +52,6 @@ class Driver_IndexController extends Zend_Controller_Action
         if ($auth->hasIdentity()) {
             $this->view->identity = $auth->getIdentity();
 
-            # Breadcrumbs goes here:
-            $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;Driver Profile List";
 
         }else{
             return $this->_redirect('user/login');

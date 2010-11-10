@@ -60,19 +60,19 @@ $(document).ready(function() {
 
           <ul class="top-menu">
             <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Drivers</span></span></a></span></span>
-            <div class="top-pod-menu">
-                <ul>
-                    <li>
-                        <ul>
-                            <li><a href="/driver/index/index">Pending Drivers</a></li>
-                            <li><a href="/driver/new-driver/new-driver-search">Create New Driver</a></li>
-                            <li><a href="#">Search Drivers</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/driver/index/index?status=1">Pending Drivers</a></li>
+                                <li><a href="/driver/new-driver/new-driver-search">Create New Driver</a></li>
+                                <li><a href="#">Search Drivers</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </li>
-            <li><span class="left"><span class="right"><a href="dq-files"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="/driver/index/index?status=2"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
             <li><span class="left"><span class="right"><a href="archives"><span class="left"><span class="right">Archives</span></span></a></span></span></li>
             <li><span class="left"><span class="right"><a href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
               <div class="top-pod-menu"><ul>
@@ -93,8 +93,58 @@ $(document).ready(function() {
                 <li><a href="#">Vehicle Report</a></li></ul></li>
               </ul></div>
             </li>
+            <li style="background:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Equipment</span></span></a></span></span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/driver/index/index?status=1">Equipment List</a></li>
+                                <li><a href="/driver/new-driver/new-driver-search">Create New Equipment</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Inspaction</span></span></a></span></span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/driver/index/index?status=1">Inspection List</a></li>
+                                <li><a href="/driver/new-driver/new-driver-search">Create New Inspection</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Violation</span></span></a></span></span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/driver/index/index?status=1">Violation List</a></li>
+                                <li><a href="/driver/new-driver/new-driver-search">Create New Violation</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Incident</span></span></a></span></span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/driver/index/index?status=1">Incident List</a></li>
+                                <li><a href="/driver/new-driver/new-driver-search">Create New Incident</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Service Provider Management</span></span></a></span></span></li>
           </ul>
-
+          <?php if(isset($this->pageTitle)){ ?><h1 class="page-title"><?php echo $this->pageTitle; ?></h1><?php } ?>
           <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
               <span><?php echo $this->breadcrumbs; ?></span>
           </div></div></div>

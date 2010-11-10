@@ -16,8 +16,11 @@ class Driver_DriverController extends Zend_Controller_Action
     public function editDriverInformationAction()
     {
 
-        $partial = array('partials/_driver-menu.phtml', 'default');
-        $this->view->navigation()->menu()->setPartial($partial);
+        # Page title goes here:
+        $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
+        # Breadcrumbs goes here:
+        $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;Driver Profile List";
+
 
         $driverID = (int)$this->_request->getParam('id');
         $driverInfo = driver_Model_Driver::getDriverInfo($driverID);

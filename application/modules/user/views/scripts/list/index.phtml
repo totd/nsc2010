@@ -1,52 +1,52 @@
 
 <div class="bottom-nav">
-  <form class="status" action="#">
-    <fieldset>
-      <label>Status:</label>
-      <select>
-        <option selected="selected">All</option>
-        <option>Applicant</option>
-        <option>Hired</option>
-        <option>Active</option>
-        <option>Inactive</option></select>
-    </fieldset>
-  </form>
+    <form class="status" action="#">
+        <fieldset>
+            <label>Status:</label>
+            <select>
+                <option selected="selected">All</option>
+                <option>Active</option>
+                <option>Inactive</option>
+            </select>
+        </fieldset>
+    </form>
 
-  <form class="search" action="#">
-    <fieldset>
-      <label>Search By:</label>
-      <select>
-        <option selected="selected"> - </option>
-        <option>Category 1</option>
-        <option>Category 2</option>
-        <option>Category 3</option></select>
-      <input type="text" value=""/>
-      <input type="submit" value=""/>
-    </fieldset>
-  </form>
+    <form class="search" action="#">
+        <fieldset>
+            <label>Search By:</label>
+            <select>
+                <option selected="selected">First Name</option>
+                <option>Last Name</option>
+            </select>
+            <input type="text" value=""/>
+            <input type="submit" value=""/>
+        </fieldset>
+    </form>
 </div>
-<div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
-    <span><?php echo $this->breadcrumbs; ?></span>
-</div></div></div>
-</div>
-<!--
--->
-
-  <div id="main" class="driver-profile">
-
-<table class="application-forms" cellspacing="0">
-<tr class="table-title">
-<td>First Name</td>
-<td>Last Name</td>
-<td>Role</td>
-<td>Status</td>
-<td>Action</td>
-  </tr>
-  <?php
-if ($this->users != null) {
-?>
-        <?php echo $this->partialLoop('partials/_user-row.phtml', $this->users); ?>
-<?php } ?>
-    <tr><td class="page" colspan="7"> Users  1 to 6  ( 6 )</td></tr>
-    </table>
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span><?php echo $this->breadcrumbs; ?></span>
+        </div>
     </div>
+</div>
+
+
+<div id="main" class="driver-profile">
+
+    <table class="application-forms" cellspacing="0">
+        <tr class="table-title">
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Role</td>
+            <td>Status</td>
+            <td>Action</td>
+        </tr>
+        <?php
+        if ($this->users != null) {
+        ?>
+        <?php echo $this->partialLoop('partials/_user-row.phtml', $this->users); ?>
+        <?php } ?>
+        <tr><td class="page" colspan="7"> Users  1 to 6  ( 6 )</td></tr>
+    </table>
+</div>

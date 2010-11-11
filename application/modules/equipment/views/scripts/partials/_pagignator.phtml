@@ -1,0 +1,39 @@
+<?php
+if (sizeof($this->equipmentsCount) > $this->step) {
+    $url = $_SERVER['REQUEST_URI'];
+    if (!isset($_GET['status']) || $_GET['status'] == null) {
+        $url .= "?status=Pending";
+    }
+    if (!isset($_GET['from']) || $_GET['from'] == null) {
+        $_GET['from'] = 0;
+        $url .= "&from=0";
+    }
+
+    if (!isset($_GET['step']) || !$_GET['step']) {
+        $url .= "&step={$this->step}";
+    }
+
+    if ($this->from > 0) {
+        $from = $_GET['from'] - $this->step;
+        if ($from < 0) {
+            $from = 0;
+        }
+        $url = preg_replace("/from[=][0-9]+/", "from=" . $from . "", $url);
+        $url = preg_replace("/step[=][0-9]+/", "step=" . $this->step, $url);
+?>
+        <a href="<?php echo $url; ?>"><< Prev <?php echo $this->step; ?> records</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+<?php
+    }
+    if ($this->last < sizeof($this->equipmentsCount)) {
+        $from = $_GET['from'] + $this->step;
+        if ($from < 0) {
+            $from = 0;
+        }
+        $url = preg_replace("/from[=][0-9]+/", "from=" . $from . "", $url);
+        $url = preg_replace("/step[=][0-9]+/", "step=" . $this->step, $url);
+?>
+        <a href="<?php echo $url; ?>">Next <?php echo $this->step; ?> records >></a>
+<?php
+    }
+}
+?>

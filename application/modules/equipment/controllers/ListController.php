@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Andryi Ilnytskiy 04.11.2010
  *
@@ -6,6 +7,7 @@
  */
 class Equipment_ListController extends Zend_Controller_Action
 {
+
     public function init()
     {
 
@@ -18,9 +20,37 @@ class Equipment_ListController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $equipments = Equipment_Model_Equipment::getEquipmentList();
-        if ($equipments->count() > 0) {
+        # TODO implement filling breadcrumbs.
+        $this->view->breadcrumbs = "<a href='#'>Archives</a>&nbsp;&gt;&nbsp;Equipment Profile";
+
+        // Set parameters for paginator
+        if ($this->_getParam('status') != null) {
+            $status = $this->_getParam('status');
+        } else {
+            $status = 'Pending';
+        }
+
+        if ((int) $this->_getParam('from') != null) {
+            $from = $this->_getParam('from');
+        } else {
+            $from = 0;
+        }
+
+        if ((int) $this->_getParam('step') != null) {
+            $step = $this->_getParam('step');
+        } else {
+            $step = 3;
+        }
+
+        $this->view->status = $status;
+        $this->view->from = $from;
+        $this->view->step = $step;
+
+        $equipment = new Equipment_Model_Equipment();
+        $equipments = $equipment->getEquipmentList($status, $from, $step);
+        if (sizeof($equipments) > 0) {
             $this->view->equipments = $equipments;
+            $this->view->allEquipments = $equipment->getEquipmentList();
         } else {
             $this->view->equipments = null;
         }
@@ -41,5 +71,6 @@ class Equipment_ListController extends Zend_Controller_Action
 
         $this->view->display_search_link = $display_search_link;
     }
+
 }
 

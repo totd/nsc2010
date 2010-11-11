@@ -13,16 +13,16 @@ class User_ListController extends Zend_Controller_Action
     }
 
     /**
-     * @author Andryi Ilnytskyi 25-10.-2010.
+     * @author Andryi Ilnytskyi 25-10-2010.
      * 
      * Default action.
      */
     public function indexAction()
     {
-    	# Breadcrumbs goes here:
+        # Breadcrumbs goes here:
         $this->view->breadcrumbs = "<a href='#'>Archives</a>&nbsp;&gt;&nbsp;User Profile";
         
-	$currentUsers = User_Model_User::getUsers();
+        $currentUsers = User_Model_User::getUsers();
         if ($currentUsers->count() > 0) {
             $this->view->users = $currentUsers;
         } else {

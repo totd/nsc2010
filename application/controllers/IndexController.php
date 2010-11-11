@@ -15,8 +15,10 @@ class IndexController extends Zend_Controller_Action
         // Check whether an identity is set.
         if (!$auth->hasIdentity()) {
             // TODO Implement a forwarding or redirecting to the needed action.
-            return $this->_forward('index', 'index', 'user');
+            return $this->_forward('index', 'login', 'user');
             //return $this->_redirect('user/index');
+        } else {
+            // TODO impltment redirect to the main page.
         }
     }
 

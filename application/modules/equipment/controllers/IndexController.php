@@ -27,7 +27,7 @@ class Equipment_IndexController extends Zend_Controller_Action
             return $this->_forward('index', 'index', 'user');
             //return $this->_redirect('user/index');
         } else {
-            return $this->_redirect('equipment/list');
+            return $this->_redirect('equipment/list/index');
         }
     }
 }

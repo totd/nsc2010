@@ -38,13 +38,26 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
      *
      * Get all equipments from a storing.
      *
-     * @return mixed
+     * @param <type> $status
+     * @param <type> $offset
+     * @param <type> $count
+     * @return <type>
      */
-    public function getEquipmentList()
+    public function getEquipmentList($status = 'Pending', $offset = 0, $count = 20)
     {
-        $equipmentModel = new self();
-        $select = $equipmentModel->select();
-        return $equipmentModel->fetchAll($select);
+        $limit = "LIMIT $offset, $count";
+        $select  = "SELECT * FROM equipment";
+        $join = " JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id";
+
+        if ($status == 'All') {
+            $select .= " $join $limit";
+        } else {
+            $where = "WHERE enes_type = '$status'";
+            $select .= " $join $where $limit";
+        }
+        
+        $stmt = $this->getDefaultAdapter()->query($select);
+        return $stmt->fetchAll();
     }
 
     /**

@@ -400,7 +400,8 @@ a.show-legend {
 	text-decoration:underline;
 	height:42px;
 	text-transform:uppercase;
-	//margin-top:-32px;}	
+/*	margin-top:-32px;*/
+}	
 	
 a.show-legend:hover {text-decoration:none;}	
 

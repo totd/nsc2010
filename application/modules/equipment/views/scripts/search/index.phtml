@@ -3,6 +3,7 @@
 
 Search equipment form.
 -->
+
 <table width="80%" cellspacing="" cellpadding="0" border="0" bgcolor="#0000cc" align="center">
     <tbody>
         <tr height="30">
@@ -10,4 +11,46 @@ Search equipment form.
         </tr>
     </tbody>
 </table>
-<?php echo $this->form; ?>
+
+<form name="new-Equipment-Search" method="Post" action="/equipment/search" id="new-Equipment-Search">
+<table width="80%" cellspacing="1" cellpadding="4" border="0" bgcolor="#cccccc" align="center">
+    <tbody>
+        <tr>
+            <td align="right" colspan="2">
+                <a href="/equipment/list">Exit</a>
+            </td>
+        </tr>
+        <tr>
+            <td width="300">
+                Owned By:
+            </td>
+            <td>
+                <input type="radio" checked="" value="Vendor" name="AppType" id="AppType">&nbsp; Owner Operator / Vendor
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" value="Company" name="AppType" id="AppType">&nbsp; Company
+            </td>
+        </tr>
+        <tr>
+            <td width="300">
+                Vehicle Identification Number:
+            </td>
+            <td>
+                <input type="text" name="VIN">
+                <font size="2" color="#000000"></font>
+            </td>
+        </tr>
+
+
+    <tr>
+        <td align="Left">
+            &nbsp;
+        </td>
+        <td align="right">
+            <a href="#" id="nextNewEquipmentStep1">Next</a>
+        </td>
+    </tr>
+
+
+</tbody>
+</table>
+</form>

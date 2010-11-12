@@ -11,24 +11,27 @@
     <title>National Safety Compliance, INC</title>
  <script>
 $(document).ready(function() {
-	  $("#new-Driver-Search").validate({
-	    rules: {
-	      d_Employment_Type: "required",
-	      d_Driver_SSN: {
-	        required: true,
-            minlength: 9,
-            maxlength: 9
-	      },
-	      d_Date_Of_Birth: {
-	        required: true
-	      },
-	    },
-	    messages: {
-	      comment: "Please check information."
-	    }
-	  });
-	});  
+  $("#new-Driver-Search").validate({
+    rules: {
+      d_Employment_Type: "required",
+      d_Driver_SSN: {
+        required: true,
+        minlength: 9,
+        maxlength: 9
+      },
+      d_Date_Of_Birth: {
+        required: true
+      }
+    },
+    messages: {
+      comment: "Please check information."
+    }
+  });
+});
   </script>
+
+<?php echo $this->headScript(); ?>
+    
 </head>
 <body>
         <?php
@@ -74,7 +77,14 @@ $(document).ready(function() {
             </li>
             <li><span class="left"><span class="right"><a href="/driver/index/index?status=2"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
             <li><span class="left"><span class="right"><a href="archives"><span class="left"><span class="right">Archives</span></span></a></span></span></li>
-            <li><span class="left"><span class="right"><a href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
+            <li><span class="le$(".btn-slide").click(function(){
+3
+        $("#panel").slideToggle("slow");
+4
+        $(this).toggleClass("active");
+5
+    });
+ft"><span class="right"><a href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
               <div class="top-pod-menu"><ul>
               <li><a href="#">SUMMARY  REPORTS</a><ul>
                 <li><a href="#">Summary Report</a></li></ul></li>

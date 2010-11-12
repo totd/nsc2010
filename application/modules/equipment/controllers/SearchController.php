@@ -23,13 +23,13 @@ class Equipment_SearchController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $form = new Equipment_Form_SearchEquipment();
         if ($this->_request->isPost()) {
-            if ($form->isValid($_POST)) {
+            if (isset($_POST['VIN'])) {
                 $equipment = new Equipment_Model_Equipment();
-                $searchResult = $equipment->findEquipmentByVIN($form->getValue('VIN'));
+                $vin = $_POST['VIN'];
+                $searchResult = $equipment->findEquipmentByVIN($vin);
 
-                $this->view->VIN = $form->getValue('VIN');
+                $this->view->VIN = $vin;
                 
                 if (is_null($searchResult)) {
                     $this->render('not_exist');
@@ -39,8 +39,8 @@ class Equipment_SearchController extends Zend_Controller_Action
                 return;
             }
         } else {
-            $form->setAction('/equipment/search');
-            $this->view->form = $form;
+            $this->view->headScript()->appendFile('/js/equipment_validate.js', 'text/javascript');
+            $this->view->formAction = '/equipment/search';
         }
 
         

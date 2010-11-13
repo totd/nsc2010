@@ -3,7 +3,21 @@
 
 Search equipment form.
 -->
-<?php $this->pageTitle = '<h1 class="page-title">NEW VEHICLE</h1>'; ?>
+
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!--TODO hak for diz-->
+</div>
 
 <div class="new-appl" id="main">
     <div class="parametr-top">
@@ -27,7 +41,7 @@ Search equipment form.
                         </label>
                         <input type="text" id="VIN" value="" name="VIN">
                         <p class="submit-button">
-                            <input type="submit" value="Next" id="nextNewEquipmentStep1">
+                            <input type="submit" value="Next">
                         </p>
                     </fieldset>
                 </form>

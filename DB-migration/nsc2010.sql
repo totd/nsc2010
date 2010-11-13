@@ -473,6 +473,7 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_Title_Status` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Picture` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `e_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `e_type_id` int(11) NOT NULL,
   PRIMARY KEY (`e_id`),
   UNIQUE KEY `e_Number` (`e_Number`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
@@ -481,6 +482,19 @@ CREATE TABLE IF NOT EXISTS `equipment` (
 -- Дамп данных таблицы `equipment`
 --
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `equipment_types`
+--
+DROP TABLE IF EXISTS `equipment_types`;
+CREATE TABLE IF NOT EXISTS `equipment_types` (
+  `et_id` int(11) NOT NULL AUTO_INCREMENT,
+  `et_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`et_id`),
+  UNIQUE KEY `et_type` (`et_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

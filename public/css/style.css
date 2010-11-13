@@ -249,6 +249,11 @@ h1.page-title {
 	float:left;
 	width:1148px;
 	padding:0 20px 5px;}
+
+.top-nav {
+	float:left;
+	width:1001px;
+	padding:20px 20px 5px;}
 	
 span.name-driver {
 	float:left;
@@ -285,10 +290,10 @@ form.status select, form.search select {
 	height:25px;
 	background:#fff;
 	border:1px solid #c9d0dc;
-    /*-moz-border-radius:12px;
+    -moz-border-radius:12px;
     -webkit-border-radius:12px;
     -khtml-border-radius:12px;
-    border-radius:12px;*/
+    border-radius:12px;
 	-moz-box-shadow:0px 2px 2px #9aa9bd inset;
 	-webkit-box-shadow:0px 2px 2px inset;
 	box-shadow:0px 2px 2px #9aa9bd inset;}
@@ -305,10 +310,10 @@ form.search input[type="text"] {
 	height:14px;
 	background:#fff;
 	border:1px solid #c9d0dc;
-    /*-moz-border-radius:12px;
+    -moz-border-radius:12px;
     -webkit-border-radius:12px;
     -khtml-border-radius:12px;
-    border-radius:12px;*/
+    border-radius:12px;
 	-moz-box-shadow:0px 2px 2px #9aa9bd inset;
 	-webkit-box-shadow:0px 2px 2px # inset;
 	box-shadow:0px 2px 2px #9aa9bd inset;}

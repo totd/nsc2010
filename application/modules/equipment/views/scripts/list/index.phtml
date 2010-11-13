@@ -8,7 +8,7 @@ Users list form.
     <form class="status" action="#">
         <fieldset>
             <label>Status:</label>
-            <select>
+            <select  class="rc10">
                 <option selected="selected" value="Pending">Pending</option>
                 <option value="Declined">Declined</option>
                 <option value="All">All</option>
@@ -19,7 +19,7 @@ Users list form.
     <form class="search" action="#">
         <fieldset>
             <label>Search By:</label>
-            <select name="SearchBy">
+            <select class="rc10" name="SearchBy">
                 <option selected="" value="-">-</option>
                 <option value="UnitNumber">ID</option>
                 <option value="VIN">VIN</option>
@@ -29,7 +29,7 @@ Users list form.
                 <option value="LicPlateNum">Lic. Plate #</option>
                 <option value="NumOfAxles"># of axles</option>
             </select>
-            <input type="text" value=""/>
+            <input type="text" class="rc10" value=""/>
             <input type="submit" value=""/>
         </fieldset>
     </form>
@@ -37,9 +37,16 @@ Users list form.
 <div class="breadcrumbs-left">
     <div class="breadcrumbs-right">
         <div class="breadcrumbs-middle">
-            <span><?php echo $this->breadcrumbs; ?></span>
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
         </div>
     </div>
+</div>
+
+<!--TODO hak for diz-->
 </div>
 
 

@@ -78,28 +78,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 
             $rowEquipment->save();
 
-            $db = $this->getAdapter();
-
-            $select = "SELECT e_id, e_Number, e_Entry_Date, enes_type
-                            FROM equipment
-                            JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id
-                            WHERE e_Number = '{$rowEquipment->e_Number}'";
-                            
-            // TODO implement using ZendDB->select()
-//            $select = $this->select()
-//                             ->from('equipment')
-//                             ->columns(array('e_Number', 'e_Entry_Date', 'enes_type'))
-//                             ->join('equipment__new_equipment_status', 'e_New_Equipment_Status = enes_id')
-//                             ->where('e_Number = ?', $rowEquipment->e_Number);
-//            $stmt = $select->query();
-
-            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
-            $stmt = $db->query($select);
-            
-            $resultArray = $stmt->fetchAll();
-            $result = (count($resultArray) > 0) ? $resultArray : null;
-
-            return $result[0];
+            return $this->findEquipmentByVIN($rowEquipment->e_Number);
         } else {
             throw new Zend_Exception("Could not create equipment!");
         }
@@ -116,14 +95,21 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
      */
     public function findEquipmentByVIN($valueVIN)
     {
-        $select = $this->select()
-                        ->where('e_Number = ?', $valueVIN);
+        $db = $this->getAdapter();
 
-        $stmt = $select->query();
+        $select = "SELECT *
+                    FROM equipment
+                    JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id
+                    LEFT JOIN equipment_types ON et_id = e_type_id
+                    WHERE e_Number = '$valueVIN'";
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $stmt = $db->query($select);
+
         $resultArray = $stmt->fetchAll();
         $result = (count($resultArray) > 0) ? $resultArray : null;
-        
-        return $result;
+
+        return $result[0];
     }
 
 

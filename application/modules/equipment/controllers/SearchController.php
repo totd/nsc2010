@@ -41,7 +41,7 @@ class Equipment_SearchController extends Zend_Controller_Action
         }
         $this->view->headScript()->appendFile('/js/equipment_validate.js', 'text/javascript');
         $this->view->formAction = '/equipment/search';
-        $this->view->breadcrumbs = "<a href='/equipment/list/index'>Equipments</a>&nbsp;&gt;&nbsp;New Equipment Search";
+        $this->view->breadcrumbs = '<a href="/equipment/list/index">Equipments</a>&nbsp;&gt;&nbsp;New Equipment Search';
         $this->view->pageTitle = 'NEW VEHICLE';
     }
 }

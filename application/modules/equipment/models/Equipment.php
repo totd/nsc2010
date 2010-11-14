@@ -38,26 +38,43 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
      *
      * Get all equipments from a storing.
      *
-     * @param <type> $status
-     * @param <type> $offset
-     * @param <type> $count
-     * @return <type>
+     * @param int $offset
+     * @param count $count
+     * @param mixed $filterOptions
+     *
+     * @return mixed
      */
-    public function getEquipmentList($status = 'Pending', $offset = 0, $count = 20)
+    public function getEquipmentList($offset = 0, $count = 20, $filterOptions = null)
     {
         $limit = "LIMIT $offset, $count";
-        $select  = "SELECT * FROM equipment";
+        $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
         $join = " JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id";
+        $where = "";
 
-        if ($status == 'All') {
-            $select .= " $join $limit";
-        } else {
-            $where = "WHERE enes_type = '$status'";
-            $select .= " $join $where $limit";
+        if (isset($filterOptions['Status'])) {
+            if ($filterOptions['Status'] != 'All') {
+                $where = "WHERE enes_type = '{$filterOptions['Status']}'";
+            }
         }
+
+        if (isset($filterOptions['SearchBy']) &&  $filterOptions['SearchBy'] != '-'
+                && isset($filterOptions['SearchBy'])) {
+            $where .= empty($where) ? "WHERE " : " AND ";
+            $where .= "{$filterOptions['SearchBy']} LIKE '{$filterOptions['SearchBy']}'";
+        }
+
+        $select .= " $join $where $limit";
         
         $stmt = $this->getDefaultAdapter()->query($select);
-        return $stmt->fetchAll();
+
+        $result['limitEquipments'] = $stmt->fetchAll();
+
+        $select = 'SELECT FOUND_ROWS()';
+        $stmt = $this->getDefaultAdapter()->query($select);
+        $totalCount = $stmt->fetchAll();
+        $result['totalCount'] = (isset($totalCount[0]['FOUND_ROWS()'])) ? $totalCount[0]['FOUND_ROWS()'] : $count;
+
+        return $result;
     }
 
     /**

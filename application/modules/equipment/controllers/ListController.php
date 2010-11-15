@@ -7,6 +7,10 @@
  */
 class Equipment_ListController extends Zend_Controller_Action
 {
+    public function preDispatch(){
+        $this->_helper->layout->setLayout('equipmentLayout');
+    }
+
     public function init()
     {
 
@@ -38,7 +42,7 @@ class Equipment_ListController extends Zend_Controller_Action
         if ((int) $this->_getParam('step') != null) {
             $step = $this->_getParam('step');
         } else {
-            $step = 3;
+            $step = 20;
         }
 
 

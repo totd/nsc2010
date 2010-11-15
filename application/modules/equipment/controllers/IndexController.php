@@ -6,6 +6,10 @@
  */
 class Equipment_IndexController extends Zend_Controller_Action
 {
+    public function preDispatch(){
+        $this->_helper->layout->setLayout('equipmentLayout');
+    }
+
     public function init()
     {
 

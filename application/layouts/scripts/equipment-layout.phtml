@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/zendcode.css" type="text/css" rel="stylesheet"/>
+    <script src="/js//jquery-latest.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <title>National Safety Compliance, INC</title>
+
+<?php
+    $this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js', 'text/javascript');
+    $this->headLink()->appendStylesheet('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/smoothness/jquery-ui.css');
+?>
+
+<?= $this->headScript(); ?>
+<?= $this->headLink(); ?>
+    
+</head>
+<body>
+        <?php
+            // TODO Research about possibility to check identity in the controller side
+            // Fetch the current instance of Zend_Auth
+            $auth = Zend_Auth::getInstance();
+
+            // Check whether an identity is set.
+            if ($auth->hasIdentity()) {
+                $this->identity = $auth->getIdentity();
+            }
+            if ($this->identity != null) {
+           # $this->_redirect("/user/login");
+        ?>
+  <div id="wrapper">
+      <div class="header-top">
+        <div class="services">
+          <span class="text"><span>Driver Qualification Services:  <?php echo $this->identity->vau_username; ?></span></span>
+        </div>
+        <div class="log-out">
+          <ul>
+            <li><a href='/user/logout'>Logout</a></li>
+            <li><a href="/DQF">DQF home page</a></li>
+          </ul>
+        </div>
+        <h1><span class="no-display">National Safety Compliance, INC</span></h1>
+      </div>
+      <div class="header-bottom">
+
+          <ul class="top-menu">
+            <li><span class="left"><span class="right"><a href="/driver/index/index?status=1"><span class="left"><span class="right">Drivers</span></span></a></span></span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/driver/index/index?status=1">Pending Drivers</a></li>
+                                <li><a href="/driver/new-driver/new-driver-search">Create New Driver</a></li>
+                                <li><a href="#">Search Drivers</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li><span class="left"><span class="right"><a href="/driver/index/index?status=2"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="archives"><span class="left"><span class="right">Archives</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
+              <div class="top-pod-menu"><ul>
+              <li><a href="#">SUMMARY  REPORTS</a><ul>
+                <li><a href="#">Summary Report</a></li></ul></li>
+              <li><a href="#">ACTIVITY  REPORTS</a><ul>
+                <li><a href="#">Activity Report</a></li>
+                <li><a href="#">Email Warning Report</a></li></ul></li>
+              <li><a href="#">GENERAL REPORTS</a><ul>
+                <li><a href="#">Driver List - Current Status Report</a></li>
+                <li><a href="#">Driver List - Active Drivers Report</a></li>
+                <li><a href="#">Driver List - By CDL class</a></li>
+                <li><a href="#">Driver's Expiration Report</a></li>
+                <li><a href="#">Get Driver's Expiration Report Letter</a></li>
+                <li><a href="#">Non-Compliant Detailed Report</a></li>
+                <li><a href="#">Non-Compliant by NSC check report</a></li>
+                <li><a href="#">Driver List - create your own look</a></li>
+                <li><a href="#">Vehicle Report</a></li></ul></li>
+              </ul></div>
+            </li>
+            <li style="background:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+              <li>
+                  <span class="left">
+                      <span class="right">
+                          <a href="/equipment/index/index/status/Pending">
+                              <span class="left">
+                                  <span class="right">
+                                      Equipment
+                                  </span>
+                              </span>
+                          </a>
+                      </span>
+                  </span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/equipment/list/index/status/Pending">Equipment List</a></li>
+                                <li><a href="/equipment/search/index">Create New Equipment</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+              </li>
+              <li>
+                  <span class="left">
+                      <span class="right">
+                          <a href="/user/index/index/status/1">
+                              <span class="left">
+                                  <span class="right">
+                                      Administration
+                                  </span>
+                              </span>
+                          </a>
+                      </span>
+                  </span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/user/list/index/status/1">User List</a></li>
+                                <li><a href="/user/create/index">Create New User</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+              </li>
+              <li><span class="left"><span class="right"><a href="/driver/index/index?status=1"><span class="left"><span class="right">Inspection</span></span></a></span></span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/driver/index/index?status=1">Inspection List</a></li>
+                                <li><a href="/driver/new-driver/new-driver-search">Create New Inspection</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+              <li><span class="left"><span class="right"><a href="/driver/index/index?status=1"><span class="left"><span class="right">Violation</span></span></a></span></span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/driver/index/index?status=1">Violation List</a></li>
+                                <li><a href="/driver/new-driver/new-driver-search">Create New Violation</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+              <li><span class="left"><span class="right"><a href="/driver/index/index?status=1"><span class="left"><span class="right">Incident</span></span></a></span></span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/driver/index/index?status=1">Incident List</a></li>
+                                <li><a href="/driver/new-driver/new-driver-search">Create New Incident</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <span class="left">
+                    <span class="right">
+                        <a href="/driver/index/index">
+                            <span class="left">
+                                <span class="right">
+                                    Service Provider Management
+                                </span>
+                            </span>
+                        </a>
+                    </span>
+                </span>
+            </li>
+          </ul>
+          <?php if(isset($this->pageTitle)){ ?><h1 class="page-title"><?php echo $this->pageTitle; ?></h1><?php } ?>
+          <?php echo $this->layout()->content ?>
+          <?php } else {?>
+    <div id="wrapper">
+      <div class="header-top">
+        <h1>
+          <span class="no-display">National Safety Compliance, INC</span>
+        </h1>
+      </div>
+      <div id="main" class="parametr-page">
+        <div class="parametr-top">
+          <div class="parametr-bottom">
+            <div class="parametr-middle">
+                <?php echo $this->layout()->content ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        <?php }?>
+
+    </div>
+  </div>
+</body>
+</html>
+

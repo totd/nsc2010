@@ -5,7 +5,7 @@ Users list form.
 -->
 
 <div class="bottom-nav">
-    <form class="search" method="post" action="/equipment/list/index">
+    <form class="search" method="post" action="/equipment/list/index" id="searchParameters">
         <fieldset>
             <label>Status:</label>
             <select  class="rc10" name="Status" id="Status">
@@ -32,6 +32,8 @@ Users list form.
                 ?>
             </select>
             <input type="text" class="rc10" value="<?= $this->searchText; ?>" id="SearchText" name="SearchText"/>
+            <input type="hidden" id="from" name="from" value=""/>
+            <input type="hidden" id="step" name="step" value=""/>
             <input type="submit" value=""/>
             
         </fieldset>

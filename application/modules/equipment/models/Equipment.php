@@ -60,7 +60,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         if (isset($filterOptions['SearchBy']) &&  $filterOptions['SearchBy'] != '-'
                 && isset($filterOptions['SearchBy'])) {
             $where .= empty($where) ? "WHERE " : " AND ";
-            $where .= "{$filterOptions['SearchBy']} LIKE '{$filterOptions['SearchBy']}'";
+            $where .= "{$filterOptions['SearchBy']} LIKE '%{$filterOptions['SearchText']}%'";
         }
 
         $select .= " $join $where $limit";

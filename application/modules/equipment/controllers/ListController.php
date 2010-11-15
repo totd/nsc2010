@@ -140,38 +140,10 @@ class Equipment_ListController extends Zend_Controller_Action
             }
         }
         $this->view->statuses = $statuses;
+
+        $this->view->headScript()->appendFile('/js/jquery.url.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/equipment/list.js', 'text/javascript');
+        
     }
-
-    /**
-     * @author Andryi Ilnytskyi 13.11.2010
-     *
-     * Filtered list of the actions according to the options.
-     *
-     * @param mixed $options
-     */
-    public function filterAction($options = null)
-    {
-        if (is_null($options)) {
-            if ($this->_request->isPost()) {
-                $options['SearchBy'] = $this->_request->getPost('SearchBy');
-                $options['SearchText'] = $this->_request->getPost('SearchText');
-                $options['Status'] = $this->_request->getPost('Status');
-            }
-        } elseif (!isset($options['SearchBy']) || !isset($options['Status']) || !isset($options['SearchText'])) {
-            $this->_redirect('/equipment/list');
-        }
-
-        $equipment = new Equipment_Model_Equipment();
-        $equipments = $equipment->getEquipmentList($status, $from, $step, $options);
-        if (sizeof($equipments) > 0) {
-            $this->view->equipments = $equipments;
-            $this->view->allEquipments = $equipment->getEquipmentList();
-        } else {
-            $this->view->equipments = null;
-        }
-
-        $this->render('index');
-    }
-
 }
 

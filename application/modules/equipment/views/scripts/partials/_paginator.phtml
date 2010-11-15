@@ -1,6 +1,7 @@
 <?php
 if ($this->equipmentsCount > $this->step) {
     $url = $_SERVER['REQUEST_URI'];
+//    $url = "";
     if (!isset($_GET['status']) || $_GET['status'] == null) {
         $url .= "?status={$this->status}";
     }
@@ -22,7 +23,8 @@ if ($this->equipmentsCount > $this->step) {
         $url = preg_replace("/from[=][0-9]+/", "from=" . $from . "", $url);
         $url = preg_replace("/step[=][0-9]+/", "step=" . $this->step, $url);
 ?>
-        <a href="<?php echo $url; ?>"><< Prev <?php echo $this->step; ?> records</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+<!--Hak to prohibit a crossing using a link-->
+        <a id="prevEquipments" onClick="location.href='#';return false;" href="<?php echo $url; ?>"><< Prev <?php echo $this->step; ?> records</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 <?php
     }
     if ($this->last < $this->equipmentsCount) {
@@ -33,7 +35,7 @@ if ($this->equipmentsCount > $this->step) {
         $url = preg_replace("/from[=][0-9]+/", "from=" . $from . "", $url);
         $url = preg_replace("/step[=][0-9]+/", "step=" . $this->step, $url);
 ?>
-        <a href="<?php echo $url; ?>">Next <?php echo $this->step; ?> records >></a>
+        <a id="nextEquipments" onClick="location.href='#';return false;" href="<?php echo $url; ?>">Next <?php echo $this->step; ?> records >></a>
 <?php
     }
 }

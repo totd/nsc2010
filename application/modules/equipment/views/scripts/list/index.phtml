@@ -71,6 +71,8 @@ Users list form.
         <?php
             if ($this->equipments != null) {
                 echo $this->partialLoop('partials/_equipment-row.phtml', $this->equipments);
+            } else {
+                echo '<tr><td>No Applications found </td></tr>';
             }
         ?>
         <tr>

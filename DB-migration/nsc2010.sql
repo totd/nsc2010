@@ -494,6 +494,28 @@ CREATE TABLE IF NOT EXISTS `equipment` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `equipment_types`
+--
+DROP TABLE IF EXISTS `equipment_types`;
+CREATE TABLE IF NOT EXISTS `equipment_types` (
+  `et_id` int(11) NOT NULL AUTO_INCREMENT,
+  `et_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`et_id`),
+  UNIQUE KEY `et_type` (`et_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Дамп данных таблицы `equipment_types`
+--
+
+INSERT INTO `equipment_types` (`et_type`) VALUES
+('Tractor'),
+('Straight Truck'),
+('Trailer'),
+('Dolly');
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `equipment_assignment`
 --
 
@@ -577,25 +599,6 @@ CREATE TABLE IF NOT EXISTS `equipment_maintenance` (
 
 --
 -- Дамп данных таблицы `equipment_maintenance`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `equipment_types`
---
-
-DROP TABLE IF EXISTS `equipment_types`;
-CREATE TABLE IF NOT EXISTS `equipment_types` (
-  `et_id` int(11) NOT NULL AUTO_INCREMENT,
-  `et_type` varchar(50) NOT NULL,
-  PRIMARY KEY (`et_id`),
-  UNIQUE KEY `et_type` (`et_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `equipment_types`
 --
 
 

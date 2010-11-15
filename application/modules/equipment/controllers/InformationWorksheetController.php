@@ -80,10 +80,54 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             //$this->_redirect('/equipment/search/index/VIN/' . $VIN);
         }
 
+        // create state select.
+        $stateModel = new State_Model_State();
+        $states = $stateModel->getList();
+        
+        $selectStateArray = array('' => array('text' => '-'));
+        foreach ($states as $state) {
+            $selectStateArray[$state->s_id] = array('text' => $state->s_name);
+        }
+
+        if (isset($equipmentRow['e_Registration_State']) && !is_null($equipmentRow['e_Registration_State'])) {
+            foreach ($selectStateArray as $key => &$value) {
+                if ($equipmentRow['e_Registration_State'] == $key) {
+                    $value['selected'] = true;
+                    break;
+                }
+            }
+        } else {
+            $filterFields['-']['selected'] = 'true';
+        }
+        $this->view->states = $selectStateArray;
+
+        // create equipment type select.
+        $equipmentTypeModel = new EquipmentType_Model_EquipmentType();
+        $equipmentTypes = $equipmentTypeModel->getList();
+
+        $selectEquipmentTypeArray = array('' => array('text' => '-'));
+        foreach ($equipmentTypes as $equipmentType) {
+            $selectEquipmentTypeArray[$equipmentType->et_id] = array('text' => $equipmentType->et_type);
+        }
+
+        if (isset($equipmentRow['e_type_id']) && !is_null($equipmentRow['e_type_id'])) {
+            foreach ($selectEquipmentTypeArray as $key => &$value) {
+                if ($equipmentRow['e_type_id'] == $key) {
+                    $value['selected'] = true;
+                    break;
+                }
+            }
+        } else {
+            $filterFields['-']['selected'] = 'true';
+        }
+        $this->view->equipmentTypes = $selectEquipmentTypeArray;
+
+
         $this->view->equipmentRow = $equipmentRow;
         $this->view->breadcrumbs = "<a href='/equipment/list/index'>Equipments</a>&nbsp;&gt;&nbsp;New Equipment View";
-        $this->view->action = "/equipment/save/id/{$equipmentRow->e_id}";
+        $this->view->action = "/equipment/save/id/{$equipmentRow['e_id']}";
         $this->view->pageTitle = 'UPDATE VEHICLE INFORMATION WORKSHEET';
+        $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
     }
 
     public function completedAction($id = null)

@@ -5,7 +5,7 @@
     <link href="/css/style.css" type="text/css" rel="stylesheet"/>
     <link href="/css/zendcode.css" type="text/css" rel="stylesheet"/>
     <link href="/css/calendar.css" type="text/css" rel="stylesheet"/>
-    <script src="/js/calendar.js"></script>
+<!--    <script src="/js/calendar.js"></script>-->
     <script src="/js//jquery-latest.js"></script>
     <script src="/js/jquery.form.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
@@ -31,7 +31,13 @@ $(document).ready(function() {
 });
   </script>
 
-<?php echo $this->headScript(); ?>
+<?php
+    $this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js', 'text/javascript');
+    $this->headLink()->appendStylesheet('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/smoothness/jquery-ui.css');
+?>
+
+<?= $this->headScript(); ?>
+<?= $this->headLink(); ?>
     
 </head>
 <body>

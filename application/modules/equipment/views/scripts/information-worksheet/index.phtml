@@ -1,26 +1,11 @@
 <div class="bottom-nav">
     <ul class="blue-nav">
-        <li>
-            <span>
-                <a href="/equipment/information-worksheet/completed/id/<?php echo $this->equipmentRow['e_id'] ?>">
-                    Complete
-                </a>
-            </span>
-        </li>
-        <li>
-            <span>
-                <a href="/equipment/information-worksheet/declined/id/<?php echo $this->equipmentRow['e_id'] ?>">
-                    Decline
-                </a>
-            </span>
-        </li>
-        <li>
-            <span>
-                <a href="/equipment/list">
-                    Exit
-                </a>
-            </span>
-        </li>
+        <?=
+            $this->partial('partials/_view_action.phtml', array(
+                'equipmentID' => $this->equipmentRow['e_id'],
+                'status' => $this->equipmentRow['enes_type']
+            ));
+        ?>
     </ul>
 </div>
 
@@ -222,27 +207,12 @@
 
     <div class="top-nav">
         <ul class="blue-nav">
-            <li>
-                <span>
-                    <a href="/equipment/information-worksheet/completed/id/<?php echo $this->equipmentRow['e_id'] ?>">
-                        Complete
-                    </a>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <a href="/equipment/information-worksheet/declined/id/<?php echo $this->equipmentRow['e_id'] ?>">
-                        Decline
-                    </a>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <a href="/equipment/list">
-                        Exit
-                    </a>
-                </span>
-            </li>
+            <?=
+                $this->partial('partials/_view_action.phtml', array(
+                    'equipmentID' => $this->equipmentRow['e_id'],
+                    'status' => $this->equipmentRow['enes_type']
+                ));
+            ?>
         </ul>
     </div>
 

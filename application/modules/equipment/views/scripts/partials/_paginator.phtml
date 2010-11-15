@@ -16,7 +16,7 @@ if ($this->equipmentsCount > $this->step) {
     }
 
     if ($this->from > 0) {
-        $from = $_GET['from'] - $this->step;
+        $from = $this->from - $this->step;
         if ($from < 0) {
             $from = 0;
         }
@@ -28,7 +28,7 @@ if ($this->equipmentsCount > $this->step) {
 <?php
     }
     if ($this->last < $this->equipmentsCount) {
-        $from = $_GET['from'] + $this->step;
+        $from = $this->from + $this->step;
         if ($from < 0) {
             $from = 0;
         }

@@ -124,13 +124,13 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         if (is_null($id)) {
             $id = $this->_request->getParam('id');
             if (is_null($id)) {
-                // TODO imlemen needed error handling.
                 $this->_redirect('/equipment/search');
             }
         }
 
         $equipmentModel = new Equipment_Model_Equipment();
         $equipmentModel->changeNewEquipmentStatus('Completed', $id);
+        return $this->_redirect('equipment/list');
     }
 
     public function declinedAction()
@@ -138,13 +138,27 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         if (is_null($id)) {
             $id = $this->_request->getParam('id');
             if (is_null($id)) {
-                // TODO imlemen needed error handling.
                 $this->_redirect('/equipment/search');
             }
         }
 
         $equipmentModel = new Equipment_Model_Equipment();
         $equipmentModel->changeNewEquipmentStatus('Declined', $id);
+        return $this->_redirect('equipment/list');
+    }
+    
+    public function reactivatedAction()
+    {
+        if (is_null($id)) {
+            $id = $this->_request->getParam('id');
+            if (is_null($id)) {
+                $this->_redirect('/equipment/search');
+            }
+        }
+
+        $equipmentModel = new Equipment_Model_Equipment();
+        $equipmentModel->changeNewEquipmentStatus('Pending', $id);
+        return $this->_redirect('equipment/list');
     }
 
     public function exitAction()

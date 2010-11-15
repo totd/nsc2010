@@ -63,60 +63,27 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             if (is_null($VIN)) {
                 $this->_redirect('/equipment/search');
             }
-
-            $equipmentModel->createEquipment($equipmentRow);
-
         }
 
-        $this->view->VIN = $VIN;
+        $equipmentModel = new Equipment_Model_Equipment();
+        $equipmentRow = $equipmentModel->findEquipmentByVIN($VIN);
 
-        $newStatus = new NewStatus_Model_NewStatus();
-        $listNewStatuses = $newStatus->getList();
 
-        $activeStatus = new ActiveStatus_Model_ActiveStatus();
-        $listActiveStatuses = $activeStatus->getList();
-
-        $equipmentForm = new Equipment_Form_EditInformationWorksheet($listNewStatuses, $listActiveStatuses);
-        if ($this->_request->isPost()) {
-            if ($equipmentForm->isValid($_POST)) {
-                $equipmentModel = new Equipment_Model_Equipment();
-                $equipmentRow = array(
-                    //'e_id' => $equipmentForm->getValue(''), //*/
-                    'e_Number' => $equipmentForm->getValue('VIN'), //*/
-                    //'e_Owner_Number' => $equipmentForm->getValue(''), //*/
-                    'e_Unit_Number' => $equipmentForm->getValue('UnitNumber'), //*/
-//                    'e_Alternate_ID' => $equipmentForm->getValue(''), //*/
-                    'e_RFID_No' => $equipmentForm->getValue('RFID'), //*/
-//                    'e_Entry_Date' => $equipmentForm->getValue(''), //*/
-                    'e_License_Number' => $equipmentForm->getValue('LicPlateNum'), //*/
-                    'e_License_Expiration_Date' => $equipmentForm->getValue('RegExpDate'), //*/
-//                    'e_Start_Mileage' => $equipmentForm->getValue(''), //*/
-                    'e_Registration_State' => $equipmentForm->getValue('State'), //*/
-                    'e_Gross_Vehicle_Weight_Rating' => $equipmentForm->getValue('GVW'), //*/
-                    'e_Gross_Vehicle_Registered_Weight' => $equipmentForm->getValue('GVRW'), //*/
-                    'e_Unladen_Weight' => $equipmentForm->getValue('UnladenWeight'), //*/
-                    'e_Axles' => $equipmentForm->getValue('NumOfAxles'), //*
-//                    'e_Name' => $equipmentForm->getValue(''), //*/
-                    'e_Year' => $equipmentForm->getValue('Year'), //*/
-                    'e_Make' => $equipmentForm->getValue('Make'), //*/
-                    'e_Color' => $equipmentForm->getValue('Color'), //*/
-                    'e_Model' => $equipmentForm->getValue('Model'), //*/
-//                    'e_Description' => $equipmentForm->getValue(''), //*/
-                    'e_New_Equipment_Status' => $equipmentForm->getValue('NewStatus'), /*/
-                    'e_Active_Status' => $equipmentForm->getValue('ActiveStatus'), /*/
-//                    'e_Fee' => $equipmentForm->getValue(''), /*/
-//                    'e_Title_Status' => $equipmentForm->getValue(''), /*/
-//                    'e_Picture' => $equipmentForm->getValue(''), /*
-//                    'e_DOT_Regulated'=> $equipmentForm->getValue(''), /*/
-//                    'e_type_id'=> $equipmentForm->getValue(''), /*/
+        if (is_null($equipmentRow)) {
+            $equipmentRow = array(
+                    'e_Number' => $VIN,
                 );
-                $equipmentModel->createEquipment($equipmentRow);
-                return $this->_redirect('equipment/list');
-            }
+            // Create equipment only with VIN value
+            $equipmentRow = $equipmentModel->createEquipment($equipmentRow);
+        } else {
+            // message about an existen equipment.
+            //$this->_redirect('/equipment/search/index/VIN/' . $VIN);
         }
-        $equipmentForm->setAction('/equipment/create');
 
-        $this->view->form = $equipmentForm;
+        $this->view->equipmentRow = $equipmentRow;
+        $this->view->breadcrumbs = "<a href='/equipment/list/index'>Equipments</a>&nbsp;&gt;&nbsp;New Equipment View";
+        $this->view->action = "/equipment/save/id/{$equipmentRow->e_id}";
+        $this->view->pageTitle = 'UPDATE VEHICLE INFORMATION WORKSHEET';
     }
 
     public function completedAction($id = null)

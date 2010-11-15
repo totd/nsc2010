@@ -41,10 +41,11 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
      * @param int $offset
      * @param count $count
      * @param mixed $filterOptions
+     * @param string $excludeStatus
      *
      * @return mixed
      */
-    public function getEquipmentList($offset = 0, $count = 20, $filterOptions = null)
+    public function getEquipmentList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Completed')
     {
         $limit = "LIMIT $offset, $count";
         $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
@@ -54,6 +55,8 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         if (isset($filterOptions['Status'])) {
             if ($filterOptions['Status'] != 'All') {
                 $where = "WHERE enes_type = '{$filterOptions['Status']}'";
+            } else {
+                $where = "WHERE enes_type <> '$excludeStatus'";
             }
         }
 

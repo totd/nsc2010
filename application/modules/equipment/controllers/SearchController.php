@@ -32,8 +32,10 @@ class Equipment_SearchController extends Zend_Controller_Action
                 $this->view->VIN = $vin;
                 
                 if (is_null($searchResult)) {
+                    $this->view->pageTitle = 'NEW APPLICATION - VEHICLE';
                     $this->render('not_exist');
                 } else {
+                    $this->view->pageTitle = 'NEW APPLICATION - VEHICLE';
                     $this->render('exist');
                 }
                 return;

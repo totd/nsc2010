@@ -89,7 +89,11 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
         $selectStateArray = array('' => array('text' => '-'));
         foreach ($states as $state) {
-            $selectStateArray[$state->s_id] = array('text' => $state->s_name);
+            if (is_object($state)) {
+                $selectStateArray[$state->s_id] = array('text' => $state->s_name);
+            } else {
+                $selectStateArray[$state['s_id']] = array('text' => $state['s_name']);
+            }
         }
 
         if (isset($equipmentRow['e_Registration_State']) && !is_null($equipmentRow['e_Registration_State'])) {
@@ -241,11 +245,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             
             // Drivers
             $this->view->drivers = $this->getSelectList('driver', 'd_ID', 'd_Driver_SSN',
-                        (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null),
-                        'getDrivers'
+                        (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
                     );
-
-
         }
 
         //$this->view->equipmentRow = $equipmentRow;

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Ноя 08 2010 г., 09:36
+-- Время создания: Ноя 16 2010 г., 16:09
 -- Версия сервера: 5.1.49
--- Версия PHP: 5.2.1
+-- Версия PHP: 5.3.2
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
@@ -77,12 +77,15 @@ CREATE TABLE IF NOT EXISTS `contacts_table` (
   `ct_URL` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `ct_Memo` text COLLATE latin1_general_ci,
   PRIMARY KEY (`ct_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `contacts_table`
 --
 
+INSERT INTO `contacts_table` (`ct_ID`, `ct_Contact`, `ct_Contact_Title`, `ct_Telephone_Number`, `ct_Contact_Fax`, `ct_Contact_Email`, `ct_Address1`, `ct_Address2`, `ct_City`, `ct_State`, `ct_Postal_Code`, `ct_Country_Code`, `ct_Start_Date`, `ct_Created_Date_Time`, `ct_URL`, `ct_Memo`) VALUES
+(1, 'qwe', 'qwe qwe', '12312312', '123123', 'qwe@qwe.qwe', 'qwqe qwsada sdqw d12', 'asd asd231d 2', 'Qweqw', 2, '12312', NULL, '2010-11-09', '2010-11-16 10:01:29', NULL, 'asd asjd lkasj hdasj flsadf jadsj fhdsa gfasdkfarskyeg ek fas fbdsdjf aksgf avskafshf kasjd'),
+(2, 'asd', 'asd', '123122221', '112311123', 'qqasa@assd.as', '12asd asd asds321 easd', NULL, 'Adsd-as', 22, '21221', NULL, '2010-11-03', '2010-11-16 13:41:39', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -184,14 +187,15 @@ CREATE TABLE IF NOT EXISTS `depot` (
   `d_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`d_id`),
   KEY `FK_Depot_2_HomeBase__h_id` (`d_HomeBase_Account_Number`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `depot`
 --
 
 INSERT INTO `depot` (`d_id`, `d_HomeBase_Account_Number`, `d_Name`, `d_Contact_Table_ID`, `d_Annual_Support`, `d_Road_Test_Record_Required`, `d_DOT_Regulated`) VALUES
-(1, 1, 'dep1', 0, '', '', '');
+(1, 1, 'dep1', 0, '', '', ''),
+(2, 1, 'dep2', 1, 'No', 'No', 'Yes');
 
 -- --------------------------------------------------------
 
@@ -202,6 +206,8 @@ INSERT INTO `depot` (`d_id`, `d_HomeBase_Account_Number`, `d_Name`, `d_Contact_T
 DROP TABLE IF EXISTS `driver`;
 CREATE TABLE IF NOT EXISTS `driver` (
   `d_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `d_homebase_ID` int(11) DEFAULT NULL,
+  `d_depot_ID` int(11) DEFAULT NULL,
   `d_Driver_Alternate_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `d_Driver_SSN` varchar(11) COLLATE latin1_general_ci DEFAULT NULL,
   `d_Entry_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -230,18 +236,20 @@ CREATE TABLE IF NOT EXISTS `driver` (
   `d_Medical_Card_Expiration_Date` date DEFAULT NULL,
   `d_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci DEFAULT NULL,
   PRIMARY KEY (`d_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `driver`
 --
 
-INSERT INTO `driver` (`d_ID`, `d_Driver_Alternate_ID`, `d_Driver_SSN`, `d_Entry_Date`, `d_Employment_Type`, `d_Account`, `d_First_Name`, `d_Middle_Name`, `d_Last_Name`, `d_Gender`, `d_Hair_Color`, `d_Eye_Color`, `d_Height_Feet`, `d_Height_Inches`, `d_Date_Of_Birth`, `d_Date_Of_Hire`, `d_Description`, `d_Telephone_Number1`, `d_Telephone_Number2`, `d_Telephone_Number3`, `d_Fax`, `d_Status`, `d_Total Miles Driven`, `d_Physical_Exam_Date`, `d_Doctor_Name`, `d_Medical_Card_Issue_Date`, `d_Medical_Card_Expiration_Date`, `d_DOT_Regulated`) VALUES
-(1, '123', '123-223-123', '2010-11-04 00:00:00', 4, NULL, 'test1', 'rr', 'test1', 1, 3, 1, 9, 3, '2010-11-01', '2010-11-03', 'test', '123123123', NULL, NULL, NULL, 1, 1122, '2010-11-03', 'doctor 1', '2010-11-03', '2010-11-30', 'Yes'),
-(2, NULL, '222-333-444', '2010-11-01 00:00:00', 4, NULL, 'driver nave 2', 'Driver-mid-name2', 'Driver-last-name2', 2, 1, 4, 3, 1, '1995-11-23', '2010-11-01', 'asdas dasd asd as', '123123123', NULL, NULL, NULL, 1, NULL, '2010-11-06', 'doctor name 2', '2010-11-01', '2010-11-30', 'No'),
-(3, NULL, '123456789', '2010-11-05 00:11:33', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, NULL, '123426789', '2010-11-05 00:12:25', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, NULL, '121212131', '2010-11-05 00:21:47', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1999-01-01', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `driver` (`d_ID`, `d_homebase_ID`, `d_depot_ID`, `d_Driver_Alternate_ID`, `d_Driver_SSN`, `d_Entry_Date`, `d_Employment_Type`, `d_Account`, `d_First_Name`, `d_Middle_Name`, `d_Last_Name`, `d_Gender`, `d_Hair_Color`, `d_Eye_Color`, `d_Height_Feet`, `d_Height_Inches`, `d_Date_Of_Birth`, `d_Date_Of_Hire`, `d_Description`, `d_Telephone_Number1`, `d_Telephone_Number2`, `d_Telephone_Number3`, `d_Fax`, `d_Status`, `d_Total Miles Driven`, `d_Physical_Exam_Date`, `d_Doctor_Name`, `d_Medical_Card_Issue_Date`, `d_Medical_Card_Expiration_Date`, `d_DOT_Regulated`) VALUES
+(1, 1, NULL, '123', '123-223-123', '2010-11-04 00:00:00', 4, NULL, 'test1', 'rr', 'test1', 1, 3, 1, 9, 3, '2010-11-01', '2010-11-03', 'test', '123123123', NULL, NULL, NULL, 1, 1122, '2010-11-03', 'doctor 1', '2010-11-03', '2010-11-30', 'Yes'),
+(2, 1, NULL, NULL, '222-333-444', '2010-11-01 00:00:00', 4, NULL, 'driver nave 2', 'Driver-mid-name2', 'Driver-last-name2', 2, 1, 4, 3, 1, '1995-11-23', '2010-11-01', 'asdas dasd asd as', '123123123', NULL, NULL, NULL, 1, NULL, '2010-11-06', 'doctor name 2', '2010-11-01', '2010-11-30', 'No'),
+(3, 1, NULL, NULL, '123456789', '2010-11-05 00:11:33', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 1, NULL, NULL, '123426789', '2010-11-05 00:12:25', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 1, NULL, NULL, '121212131', '2010-11-05 00:21:47', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1999-01-01', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 1, NULL, NULL, '123123111', '2010-11-15 22:27:09', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-11-10', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, NULL, NULL, NULL, '445456567', '2010-11-16 13:23:39', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-11-10', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -476,25 +484,12 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_type_id` int(11) NOT NULL,
   PRIMARY KEY (`e_id`),
   UNIQUE KEY `e_Number` (`e_Number`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `equipment`
 --
 
-
--- --------------------------------------------------------
-
---
--- Table structure for table `equipment_types`
---
-DROP TABLE IF EXISTS `equipment_types`;
-CREATE TABLE IF NOT EXISTS `equipment_types` (
-  `et_id` int(11) NOT NULL AUTO_INCREMENT,
-  `et_type` varchar(50) NOT NULL,
-  PRIMARY KEY (`et_id`),
-  UNIQUE KEY `et_type` (`et_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -588,6 +583,25 @@ CREATE TABLE IF NOT EXISTS `equipment_maintenance` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `equipment_types`
+--
+
+DROP TABLE IF EXISTS `equipment_types`;
+CREATE TABLE IF NOT EXISTS `equipment_types` (
+  `et_id` int(11) NOT NULL AUTO_INCREMENT,
+  `et_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`et_id`),
+  UNIQUE KEY `et_type` (`et_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Дамп данных таблицы `equipment_types`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `equipment__active_status`
 --
 
@@ -669,14 +683,17 @@ CREATE TABLE IF NOT EXISTS `homebase` (
   `h_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`h_id`),
   KEY `FK_HomeBase_2_Company__c_id` (`h_Company_Account_Number`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `homebase`
 --
 
 INSERT INTO `homebase` (`h_id`, `h_Company_Account_Number`, `h_Carrier_Number`, `h_Name`, `h_Contact_Table_ID`, `h_Annual_Support`, `h_Road_Test_Record_Required`, `h_DOT_Regulated`) VALUES
-(1, 1, 'hb1', 'hb1', 0, '', '', '');
+(1, 1, 'hb1', 'hb1', 1, '', '', ''),
+(2, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes'),
+(4, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes'),
+(5, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes');
 
 -- --------------------------------------------------------
 

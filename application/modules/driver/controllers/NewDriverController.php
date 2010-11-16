@@ -15,7 +15,10 @@ class Driver_NewDriverController extends Zend_Controller_Action
             return $this->_redirect('user/login');
         }
     }
-
+    
+    public function preDispatch(){
+        # $this->_helper->layout->setLayout('equipmentLayout');
+    }
     public function indexAction()
     {
         # returns list of temporary driver accounts
@@ -84,16 +87,17 @@ class Driver_NewDriverController extends Zend_Controller_Action
     public function driverInformationWorksheetViewAction()
     {
 
+        $this->view->headScript()->appendFile('/js/jQueryScripts/ajax_homebase2depot.js', 'text/javascript');
+        
         # Breadcrumbs goes here:
         $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;Driver Profile List";
 
         $driverID = (int)$this->_request->getParam('id');
         $driverInfo = driver_Model_Driver::getDriverInfo($driverID);
+        $homebaseList = Homebase_Model_Homebase::getHomebaseList($driverInfo['d_homebase_ID'],1);
+        print_r($homebaseList);
 
-        $driverPersonalInfo_Form = new driver_Form_DriverPersonalInformation();
-        $driverPersonalInfo_Form->getForm($driverInfo);
-        $driverPersonalInfo_Form->setAction('/driver/new-Driver/driver-Information-Worksheet-View/id/'.$driverID);
-
+        
         # checking incomind data for Application Information Form.
         # if data correct - saving changes to DB, else - show notification to user:
         if($_POST['form_id']=='driver_applicationInformation_Form'){
@@ -112,8 +116,8 @@ class Driver_NewDriverController extends Zend_Controller_Action
 
         
         $this->view->driverId = $driverID;
-        $this->view->driver_applicationInformation_Form = $driver_applicationInformation_Form;
-        $this->view->driverPersonalInfo_Form = $driverPersonalInfo_Form;
+        $this->view->driverInfo = $driverInfo;
+        $this->view->homebaseList = $homebaseList;
     }
 
 

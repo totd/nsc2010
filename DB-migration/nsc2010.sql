@@ -45,12 +45,6 @@ CREATE TABLE IF NOT EXISTS `company` (
   KEY `FK_Company_2_Parent_Company__pc_id` (`c_Parent_Company_Account_Number`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
 
---
--- Дамп данных таблицы `company`
---
-
-INSERT INTO `company` (`c_id`, `c_Parent_Company_Account_Number`, `c_Number`, `c_EIN`, `c_SSN`, `c_DOT_Number`, `c_Carrier_Number`, `c_Name`, `c_Contact_Table_ID`, `c_Annual_Support`, `c_DOT_Regulated`) VALUES
-(1, 1, 'c1', NULL, NULL, NULL, NULL, 'c1', 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -79,13 +73,6 @@ CREATE TABLE IF NOT EXISTS `contacts_table` (
   PRIMARY KEY (`ct_ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
---
--- Дамп данных таблицы `contacts_table`
---
-
-INSERT INTO `contacts_table` (`ct_ID`, `ct_Contact`, `ct_Contact_Title`, `ct_Telephone_Number`, `ct_Contact_Fax`, `ct_Contact_Email`, `ct_Address1`, `ct_Address2`, `ct_City`, `ct_State`, `ct_Postal_Code`, `ct_Country_Code`, `ct_Start_Date`, `ct_Created_Date_Time`, `ct_URL`, `ct_Memo`) VALUES
-(1, 'qwe', 'qwe qwe', '12312312', '123123', 'qwe@qwe.qwe', 'qwqe qwsada sdqw d12', 'asd asd231d 2', 'Qweqw', 2, '12312', NULL, '2010-11-09', '2010-11-16 10:01:29', NULL, 'asd asjd lkasj hdasj flsadf jadsj fhdsa gfasdkfarskyeg ek fas fbdsdjf aksgf avskafshf kasjd'),
-(2, 'asd', 'asd', '123122221', '112311123', 'qqasa@assd.as', '12asd asd asds321 easd', NULL, 'Adsd-as', 22, '21221', NULL, '2010-11-03', '2010-11-16 13:41:39', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -116,10 +103,6 @@ CREATE TABLE IF NOT EXISTS `custom_document` (
   KEY `fk_custom_document_homebase1` (`cd_Homebase_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
---
--- Дамп данных таблицы `custom_document`
---
-
 
 -- --------------------------------------------------------
 
@@ -134,14 +117,6 @@ CREATE TABLE IF NOT EXISTS `custom_document__fax_status` (
   PRIMARY KEY (`cdfs_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
---
--- Дамп данных таблицы `custom_document__fax_status`
---
-
-INSERT INTO `custom_document__fax_status` (`cdfs_id`, `cdfs_status`) VALUES
-(1, 'PENDING'),
-(2, 'SENT'),
-(3, 'ERROR');
 
 -- --------------------------------------------------------
 
@@ -156,19 +131,6 @@ CREATE TABLE IF NOT EXISTS `custom_document__form_status` (
   PRIMARY KEY (`cdfms_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
---
--- Дамп данных таблицы `custom_document__form_status`
---
-
-INSERT INTO `custom_document__form_status` (`cdfms_id`, `cdfms_status`) VALUES
-(4, 'Vehicle Registration'),
-(5, 'Vehicle Insurance'),
-(6, 'Vehicle Other'),
-(7, 'Vehicle State Inspection Report'),
-(8, 'Vehicle Federal Inspection Report'),
-(9, 'Vehicle Maintenance Report/Record'),
-(10, 'Vehicle Receipts of Repair'),
-(11, 'Vehicle Roadside Inspection Report');
 
 -- --------------------------------------------------------
 
@@ -189,13 +151,6 @@ CREATE TABLE IF NOT EXISTS `depot` (
   KEY `FK_Depot_2_HomeBase__h_id` (`d_HomeBase_Account_Number`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
---
--- Дамп данных таблицы `depot`
---
-
-INSERT INTO `depot` (`d_id`, `d_HomeBase_Account_Number`, `d_Name`, `d_Contact_Table_ID`, `d_Annual_Support`, `d_Road_Test_Record_Required`, `d_DOT_Regulated`) VALUES
-(1, 1, 'dep1', 0, '', '', ''),
-(2, 1, 'dep2', 1, 'No', 'No', 'Yes');
 
 -- --------------------------------------------------------
 
@@ -237,19 +192,6 @@ CREATE TABLE IF NOT EXISTS `driver` (
   `d_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci DEFAULT NULL,
   PRIMARY KEY (`d_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=8 ;
-
---
--- Дамп данных таблицы `driver`
---
-
-INSERT INTO `driver` (`d_ID`, `d_homebase_ID`, `d_depot_ID`, `d_Driver_Alternate_ID`, `d_Driver_SSN`, `d_Entry_Date`, `d_Employment_Type`, `d_Account`, `d_First_Name`, `d_Middle_Name`, `d_Last_Name`, `d_Gender`, `d_Hair_Color`, `d_Eye_Color`, `d_Height_Feet`, `d_Height_Inches`, `d_Date_Of_Birth`, `d_Date_Of_Hire`, `d_Description`, `d_Telephone_Number1`, `d_Telephone_Number2`, `d_Telephone_Number3`, `d_Fax`, `d_Status`, `d_Total Miles Driven`, `d_Physical_Exam_Date`, `d_Doctor_Name`, `d_Medical_Card_Issue_Date`, `d_Medical_Card_Expiration_Date`, `d_DOT_Regulated`) VALUES
-(1, 1, NULL, '123', '123-223-123', '2010-11-04 00:00:00', 4, NULL, 'test1', 'rr', 'test1', 1, 3, 1, 9, 3, '2010-11-01', '2010-11-03', 'test', '123123123', NULL, NULL, NULL, 1, 1122, '2010-11-03', 'doctor 1', '2010-11-03', '2010-11-30', 'Yes'),
-(2, 1, NULL, NULL, '222-333-444', '2010-11-01 00:00:00', 4, NULL, 'driver nave 2', 'Driver-mid-name2', 'Driver-last-name2', 2, 1, 4, 3, 1, '1995-11-23', '2010-11-01', 'asdas dasd asd as', '123123123', NULL, NULL, NULL, 1, NULL, '2010-11-06', 'doctor name 2', '2010-11-01', '2010-11-30', 'No'),
-(3, 1, NULL, NULL, '123456789', '2010-11-05 00:11:33', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 1, NULL, NULL, '123426789', '2010-11-05 00:12:25', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 1, NULL, NULL, '121212131', '2010-11-05 00:21:47', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1999-01-01', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 1, NULL, NULL, '123123111', '2010-11-15 22:27:09', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-11-10', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, NULL, NULL, NULL, '445456567', '2010-11-16 13:23:39', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-11-10', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -341,16 +283,6 @@ CREATE TABLE IF NOT EXISTS `driver__employment_type` (
   PRIMARY KEY (`det_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
---
--- Дамп данных таблицы `driver__employment_type`
---
-
-INSERT INTO `driver__employment_type` (`det_id`, `det_type`) VALUES
-(1, 'Company'),
-(2, 'Owner'),
-(3, 'Operator'),
-(4, 'Employer'),
-(5, 'Other');
 
 -- --------------------------------------------------------
 
@@ -365,16 +297,6 @@ CREATE TABLE IF NOT EXISTS `driver__eye_color` (
   PRIMARY KEY (`dhc_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
---
--- Дамп данных таблицы `driver__eye_color`
---
-
-INSERT INTO `driver__eye_color` (`dhc_id`, `dhc_type`) VALUES
-(1, 'Blue'),
-(2, 'Brown'),
-(3, 'Green'),
-(4, 'Hazle'),
-(5, 'Other');
 
 -- --------------------------------------------------------
 
@@ -389,13 +311,6 @@ CREATE TABLE IF NOT EXISTS `driver__gender` (
   PRIMARY KEY (`dg_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
---
--- Дамп данных таблицы `driver__gender`
---
-
-INSERT INTO `driver__gender` (`dg_id`, `dg_type`) VALUES
-(1, 'Male'),
-(2, 'Female');
 
 -- --------------------------------------------------------
 
@@ -410,17 +325,6 @@ CREATE TABLE IF NOT EXISTS `driver__hair_color` (
   PRIMARY KEY (`dhc_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
---
--- Дамп данных таблицы `driver__hair_color`
---
-
-INSERT INTO `driver__hair_color` (`dhc_id`, `dhc_type`) VALUES
-(1, 'Black'),
-(2, 'Brown'),
-(3, 'Blonde'),
-(4, 'White'),
-(5, 'Grey'),
-(6, 'Other');
 
 -- --------------------------------------------------------
 
@@ -434,17 +338,6 @@ CREATE TABLE IF NOT EXISTS `driver__status` (
   `ds_type` varchar(100) NOT NULL,
   PRIMARY KEY (`ds_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Дамп данных таблицы `driver__status`
---
-
-INSERT INTO `driver__status` (`ds_id`, `ds_type`) VALUES
-(1, 'Pending'),
-(2, 'Applicant'),
-(3, 'Hired - Active'),
-(4, 'Hired - Inactive'),
-(5, 'Terminated');
 
 -- --------------------------------------------------------
 
@@ -504,15 +397,6 @@ CREATE TABLE IF NOT EXISTS `equipment_types` (
   UNIQUE KEY `et_type` (`et_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Дамп данных таблицы `equipment_types`
---
-
-INSERT INTO `equipment_types` (`et_type`) VALUES
-('Tractor'),
-('Straight Truck'),
-('Trailer'),
-('Dolly');
 -- --------------------------------------------------------
 
 --
@@ -537,24 +421,6 @@ CREATE TABLE IF NOT EXISTS `equipment_assignment` (
   KEY `fk_homebase_id` (`ea_homebase_id`),
   KEY `fk_equipment_id` (`ea_equipment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `equipment_assignment`
---
-ALTER TABLE `equipment_assignment`
-  ADD CONSTRAINT `fk_owner_id` FOREIGN KEY (`ea_owner_id`) REFERENCES `equipment_owner` (`eo_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_homebase_id` FOREIGN KEY (`ea_homebase_id`) REFERENCES `homebase` (`h_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_equipment_id` FOREIGN KEY (`ea_equipment_id`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
-
---
--- Дамп данных таблицы `equipment_assignment`
---
-
 
 -- --------------------------------------------------------
 
@@ -597,11 +463,6 @@ CREATE TABLE IF NOT EXISTS `equipment_identifier` (
   KEY `fk_equipment_identifier_equipment1` (`ei_Equipment_Number_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
---
--- Дамп данных таблицы `equipment_identifier`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -626,10 +487,6 @@ CREATE TABLE IF NOT EXISTS `equipment_maintenance` (
   KEY `fk_equipment_maintenance_service_provider1` (`em_Service_Provider_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
---
--- Дамп данных таблицы `equipment_maintenance`
---
-
 
 -- --------------------------------------------------------
 
@@ -644,15 +501,6 @@ CREATE TABLE IF NOT EXISTS `equipment__active_status` (
   PRIMARY KEY (`eas_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
---
--- Дамп данных таблицы `equipment__active_status`
---
-
-INSERT INTO `equipment__active_status` (`eas_id`, `eas_type`) VALUES
-(1, 'In Service'),
-(2, 'Out of Service'),
-(3, 'Terminated');
-
 -- --------------------------------------------------------
 
 --
@@ -665,15 +513,6 @@ CREATE TABLE IF NOT EXISTS `equipment__new_equipment_status` (
   `enes_type` varchar(10) NOT NULL,
   PRIMARY KEY (`enes_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Дамп данных таблицы `equipment__new_equipment_status`
---
-
-INSERT INTO `equipment__new_equipment_status` (`enes_id`, `enes_type`) VALUES
-(1, 'Pending'),
-(2, 'Declined'),
-(3, 'Completed');
 
 -- --------------------------------------------------------
 
@@ -716,16 +555,6 @@ CREATE TABLE IF NOT EXISTS `homebase` (
   PRIMARY KEY (`h_id`),
   KEY `FK_HomeBase_2_Company__c_id` (`h_Company_Account_Number`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
-
---
--- Дамп данных таблицы `homebase`
---
-
-INSERT INTO `homebase` (`h_id`, `h_Company_Account_Number`, `h_Carrier_Number`, `h_Name`, `h_Contact_Table_ID`, `h_Annual_Support`, `h_Road_Test_Record_Required`, `h_DOT_Regulated`) VALUES
-(1, 1, 'hb1', 'hb1', 1, '', '', ''),
-(2, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes'),
-(4, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes'),
-(5, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes');
 
 -- --------------------------------------------------------
 
@@ -812,16 +641,6 @@ CREATE TABLE IF NOT EXISTS `incident__highway_street_travel_direction` (
   PRIMARY KEY (`ihstd_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
---
--- Дамп данных таблицы `incident__highway_street_travel_direction`
---
-
-INSERT INTO `incident__highway_street_travel_direction` (`ihstd_id`, `ihstd_type`) VALUES
-(1, 'North'),
-(2, 'South'),
-(3, 'East'),
-(4, 'West');
-
 -- --------------------------------------------------------
 
 --
@@ -834,25 +653,6 @@ CREATE TABLE IF NOT EXISTS `incident__incident_cause` (
   `iic_type` varchar(50) NOT NULL,
   PRIMARY KEY (`iic_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
-
---
--- Дамп данных таблицы `incident__incident_cause`
---
-
-INSERT INTO `incident__incident_cause` (`iic_id`, `iic_type`) VALUES
-(1, 'Weather'),
-(2, 'Alcohol'),
-(3, 'Drugs'),
-(4, 'Roadway Obstruction'),
-(5, 'Trip or Fall'),
-(6, 'Road Conditions'),
-(7, 'Traffic Conditions'),
-(8, 'Road Surf Cond'),
-(9, 'Traff Contr Devices'),
-(10, 'Lighting Conditions'),
-(11, 'HaxMat Spill'),
-(12, 'Fuel Spill'),
-(13, 'Construction');
 
 -- --------------------------------------------------------
 
@@ -974,15 +774,6 @@ CREATE TABLE IF NOT EXISTS `inspection__result` (
   PRIMARY KEY (`ir_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
---
--- Дамп данных таблицы `inspection__result`
---
-
-INSERT INTO `inspection__result` (`ir_id`, `ir_type`) VALUES
-(1, 'Passed'),
-(2, 'Failed - Out of Service'),
-(3, 'Failed – Defects Only');
-
 -- --------------------------------------------------------
 
 --
@@ -1052,13 +843,6 @@ CREATE TABLE IF NOT EXISTS `parent_company` (
   `pc_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`pc_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
-
---
--- Дамп данных таблицы `parent_company`
---
-
-INSERT INTO `parent_company` (`pc_id`, `pc_Account_Number`, `pc_EIN`, `pc_Name`, `pc_Telephone_Number`, `pc_Contact_Table_ID`, `pc_DOT_Regulated`) VALUES
-(1, 'pc1', '', 'pc1', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -1275,15 +1059,6 @@ CREATE TABLE IF NOT EXISTS `service_provider__type` (
   PRIMARY KEY (`spt_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
---
--- Дамп данных таблицы `service_provider__type`
---
-
-INSERT INTO `service_provider__type` (`spt_id`, `spt_type`) VALUES
-(1, 'Insurance'),
-(2, 'Tow Truck'),
-(3, 'Repair');
-
 -- --------------------------------------------------------
 
 --
@@ -1296,63 +1071,6 @@ CREATE TABLE IF NOT EXISTS `state` (
   `s_name` varchar(2) NOT NULL,
   PRIMARY KEY (`s_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
-
---
--- Дамп данных таблицы `state`
---
-
-INSERT INTO `state` (`s_id`, `s_name`) VALUES
-(1, 'AZ'),
-(2, 'AK'),
-(3, 'AL'),
-(4, 'AR'),
-(5, 'CA'),
-(6, 'CO'),
-(7, 'CT'),
-(8, 'DC'),
-(9, 'DE'),
-(10, 'FL'),
-(11, 'GA'),
-(12, 'HI'),
-(13, 'IA'),
-(14, 'ID'),
-(15, 'IL'),
-(16, 'IN'),
-(17, 'KS'),
-(18, 'KY'),
-(19, 'LA'),
-(20, 'MA'),
-(21, 'MD'),
-(22, 'ME'),
-(23, 'MI'),
-(24, 'MN'),
-(25, 'MO'),
-(26, 'MS'),
-(27, 'MT'),
-(28, 'NH'),
-(29, 'NC'),
-(30, 'ND'),
-(31, 'NE'),
-(32, 'NJ'),
-(33, 'NM'),
-(34, 'NV'),
-(35, 'NY'),
-(36, 'OH'),
-(37, 'OK'),
-(38, 'OR'),
-(39, 'PA'),
-(40, 'RI'),
-(41, 'SC'),
-(42, 'SD'),
-(43, 'TN'),
-(44, 'TX'),
-(45, 'UT'),
-(46, 'VA'),
-(47, 'VT'),
-(48, 'WA'),
-(49, 'WI'),
-(50, 'WV'),
-(51, 'WY');
 
 -- --------------------------------------------------------
 
@@ -1397,15 +1115,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `fk_user_depot1` (`u_Depot_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
 
---
--- Дамп данных таблицы `user`
---
-
-INSERT INTO `user` (`u_ID`, `u_User_ID`, `u_Parent_Company_ID`, `u_Company_ID`, `u_Homebase_ID`, `u_Depot_ID`, `u_Role_ID`, `u_User_Name`, `u_Password`, `u_Status`, `u_Title`, `u_Date_Created`, `u_Allowed_Access_To_DQF`, `u_Allowed_Access_To_VIM`, `u_Allowed_Access_To_Accident`, `u_First_Name`, `u_Last_Name`, `u_Email`, `u_Telephone_Number`, `u_Fax`, `u_Address1`, `u_Address2`, `u_City`, `u_State`, `u_Postal_Code`) VALUES
-(1, NULL, 1, 1, 1, 1, 1, 'root', 'root', 1, NULL, '2010-10-28 14:15:10', '', '', '', 'Admin', 'Super', '', '', NULL, '', NULL, '', 1, ''),
-(2, NULL, 1, 1, 1, 1, 11, 'user', 'user', 1, NULL, '2010-10-28 15:17:59', '', '', '', 'User', 'Simple', '', '', NULL, '', NULL, '', 2, ''),
-(3, NULL, 1, 1, 1, 1, 11, 'test', 'test', 1, '', '2010-10-26 10:10:10', '', '', '', 'test', 'test', '', '', '', '', '', '', 3, '');
-
 -- --------------------------------------------------------
 
 --
@@ -1420,23 +1129,6 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   PRIMARY KEY (`ur_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=12 ;
 
---
--- Дамп данных таблицы `user_role`
---
-
-INSERT INTO `user_role` (`ur_ID`, `ur_role`, `ur_title`) VALUES
-(1, 'NSC_USERS__Level_0', 'NSC SuperAdmin'),
-(2, 'NSC_USERS__Level_1', 'NSC Admin'),
-(3, 'NSC_USERS__Level_2', 'NSC Office'),
-(4, 'NSC_USERS__Level_3', 'NSC Auditor'),
-(5, 'NSC_USERS__Level_4', 'NSC Checker'),
-(6, 'CUSTOMER_USERS__Level_0', 'Client User SuperAdmin'),
-(7, 'CUSTOMER_USERS__Level_1', 'Client User NationalAdmin'),
-(8, 'CUSTOMER_USERS__Level_2', 'Client User RegionalAdmin'),
-(9, 'CUSTOMER_USERS__Level_3', 'Client User LocalAdmin'),
-(10, 'CUSTOMER_USERS__Level_4', 'Client User Office'),
-(11, 'CUSTOMER_USERS__Level_5', 'DEMO');
-
 -- --------------------------------------------------------
 
 --
@@ -1449,15 +1141,6 @@ CREATE TABLE IF NOT EXISTS `user__status` (
   `us_type` varchar(50) NOT NULL,
   PRIMARY KEY (`us_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Дамп данных таблицы `user__status`
---
-
-INSERT INTO `user__status` (`us_id`, `us_type`) VALUES
-(1, 'ACTIVE'),
-(2, 'INACTIVE'),
-(3, 'TERMINATED');
 
 -- --------------------------------------------------------
 
@@ -1504,125 +1187,4 @@ join `user_role` on((`user`.`u_Role_ID` = `user_role`.`ur_ID`)))
 join `homebase` on((`user`.`u_Homebase_ID` = `homebase`.`h_id`)))
 left join `depot` on((`user`.`u_Depot_ID` = `depot`.`d_id`)));
 
---
--- Ограничения внешнего ключа сохраненных таблиц
---
-
---
--- Ограничения внешнего ключа таблицы `company`
---
-ALTER TABLE `company`
-  ADD CONSTRAINT `FK_Company_2_Parent_Company__pc_id` FOREIGN KEY (`c_Parent_Company_Account_Number`) REFERENCES `parent_company` (`pc_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `custom_document`
---
-ALTER TABLE `custom_document`
-  ADD CONSTRAINT `fk_custom_document_company1` FOREIGN KEY (`cd_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_custom_document_driver1` FOREIGN KEY (`cd_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_custom_document_homebase1` FOREIGN KEY (`cd_Homebase_ID`) REFERENCES `homebase` (`h_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `depot`
---
-ALTER TABLE `depot`
-  ADD CONSTRAINT `depot_ibfk_1` FOREIGN KEY (`d_HomeBase_Account_Number`) REFERENCES `homebase` (`h_id`) ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `driver_address_history`
---
-ALTER TABLE `driver_address_history`
-  ADD CONSTRAINT `fk_driver_address_history_driver1` FOREIGN KEY (`dah_Driver_ID`) REFERENCES `driver` (`d_ID`) ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `driver_service_hours`
---
-ALTER TABLE `driver_service_hours`
-  ADD CONSTRAINT `fk_driver_service_hours_driver1` FOREIGN KEY (`dsh_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `equipment_assignment`
---
-ALTER TABLE `equipment_assignment`
-  ADD CONSTRAINT `fk_equipment_assignment_driver1` FOREIGN KEY (`ea_Driver_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_equipment_assignment_equipment1` FOREIGN KEY (`ea_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_equipment_assignment_homebase1` FOREIGN KEY (`ea_Homebase_Number`) REFERENCES `homebase` (`h_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `equipment_identifier`
---
-ALTER TABLE `equipment_identifier`
-  ADD CONSTRAINT `fk_equipment_identifier_equipment1` FOREIGN KEY (`ei_Equipment_Number_ID`) REFERENCES `equipment` (`e_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `equipment_maintenance`
---
-ALTER TABLE `equipment_maintenance`
-  ADD CONSTRAINT `fk_equipment_maintenance_equipment1` FOREIGN KEY (`em_Equipment_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_equipment_maintenance_service_provider1` FOREIGN KEY (`em_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `homebase`
---
-ALTER TABLE `homebase`
-  ADD CONSTRAINT `homebase_ibfk_1` FOREIGN KEY (`h_Company_Account_Number`) REFERENCES `company` (`c_id`) ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `incident_cause`
---
-ALTER TABLE `incident_cause`
-  ADD CONSTRAINT `fk_incident_cause_incident1` FOREIGN KEY (`ic_Incident_ID`) REFERENCES `incident` (`i_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_incident_cause_witness1` FOREIGN KEY (`ic_Witness_ID`) REFERENCES `witness` (`w_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `incident__investigator`
---
-ALTER TABLE `incident__investigator`
-  ADD CONSTRAINT `fk_incident__investigator_company1` FOREIGN KEY (`ii_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_incident__investigator_driver1` FOREIGN KEY (`ii_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `incident__passenger`
---
-ALTER TABLE `incident__passenger`
-  ADD CONSTRAINT `fk_incident__passenger_equipment1` FOREIGN KEY (`ip_Equipment_Number`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_incident__passenger_passenger1` FOREIGN KEY (`ip_Passenger _Number`) REFERENCES `passenger` (`p_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `inspection`
---
-ALTER TABLE `inspection`
-  ADD CONSTRAINT `fk_inspection_equipment1` FOREIGN KEY (`i_Equipment_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_inspection_inspection_types1` FOREIGN KEY (`i_Type_ID`) REFERENCES `inspection_types` (`it_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `previous_employment`
---
-ALTER TABLE `previous_employment`
-  ADD CONSTRAINT `fk_previous_employment_driver1` FOREIGN KEY (`pe_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `service_provider__company_assignment`
---
-ALTER TABLE `service_provider__company_assignment`
-  ADD CONSTRAINT `fk_service_provider__company_assignment_company1` FOREIGN KEY (`spсa_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_service_provider__company_assignment_service_provider1` FOREIGN KEY (`spсa_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `service_provider__insurance`
---
-ALTER TABLE `service_provider__insurance`
-  ADD CONSTRAINT `fk_service_provider__insurance_insurance1` FOREIGN KEY (`spi_Insurance_Company_ID`) REFERENCES `insurance` (`i_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_service_provider__insurance_service_provider1` FOREIGN KEY (`spi_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `fk_user_company1` FOREIGN KEY (`u_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_depot1` FOREIGN KEY (`u_Depot_ID`) REFERENCES `depot` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_homebase1` FOREIGN KEY (`u_Homebase_ID`) REFERENCES `homebase` (`h_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_parent_company1` FOREIGN KEY (`u_Parent_Company_ID`) REFERENCES `parent_company` (`pc_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_user_role1` FOREIGN KEY (`u_Role_ID`) REFERENCES `user_role` (`ur_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;

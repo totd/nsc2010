@@ -527,6 +527,7 @@ CREATE TABLE IF NOT EXISTS `equipment_assignment` (
   `ea_depot_id` int(11) DEFAULT NULL,
   `ea_equipment_id` int(11) NOT NULL,
   `ea_owner_id` int(11) NOT NULL,
+  `ea_driver_id` int(11) DEFAULT NULL,
   `ea_start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `ea_end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ea_mileage` int(11) DEFAULT NULL,

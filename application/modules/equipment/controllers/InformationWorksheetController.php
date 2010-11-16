@@ -100,7 +100,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 }
             }
         } else {
-            $filterFields['-']['selected'] = 'true';
+            $selectStateArray['']['selected'] = true;
         }
         $this->view->states = $selectStateArray;
 
@@ -121,7 +121,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 }
             }
         } else {
-            $filterFields['-']['selected'] = 'true';
+            $selectEquipmentTypeArray['']['selected'] = true;
         }
         $this->view->equipmentTypes = $selectEquipmentTypeArray;
 
@@ -200,6 +200,93 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             
             return $this->_redirect('equipment/list');
         }
+    }
+
+    public function addAssignmentAction($equipmentId = null)
+    {
+        if (is_null($equipmentId)) {
+            $equipmentId = $this->_request->getParam('equipmentId');
+        }
+
+        if (is_null($equipmentId)) {
+            $this->view->errorMessage = "Equipment is undefined";
+        } else {
+            $equipmentModel = new Equipment_Model_Equipment();
+            $this->view->VIN = $equipmentModel->getVIN($equipmentId);
+
+            $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
+            $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentId);
+
+            if (is_null($equipmentAssigmentRow)) {
+                $equipmentAssigmentRow['e_id'] = $equipmentId;
+                $equipmentAssigmentRow['ea_Equipment_id'] = $equipmentId;
+            }
+
+            // Prepearing data for the form
+
+            // Homebases
+            $this->view->homebases = $this->getSelectList('homebase', 'h_id', 'h_Name',
+                        (isset($equipmentAssigmentRow['ea_homebase_id']) ? $equipmentAssigmentRow['ea_homebase_id'] : null)
+                    );
+
+            // Depots
+            $this->view->depots = $this->getSelectList('depot', 'd_id', 'd_Name',
+                        (isset($equipmentAssigmentRow['ea_depot_id']) ? $equipmentAssigmentRow['ea_depot_id'] : null)
+                    );
+
+            // Owners
+            $this->view->owners = $this->getSelectList('equipmentOwner', 'eo_id', 'eo_name',
+                        (isset($equipmentAssigmentRow['ea_owner_id']) ? $equipmentAssigmentRow['ea_owner_id'] : null)
+                    );
+            
+            // Drivers
+            $this->view->drivers = $this->getSelectList('driver', 'd_ID', 'd_Driver_SSN',
+                        (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null),
+                        'getDrivers'
+                    );
+
+
+        }
+
+        //$this->view->equipmentRow = $equipmentRow;
+        $this->view->breadcrumbs = "<a href='/equipment/list/index'>Equipments</a>&nbsp;&gt;&nbsp;New Equipment View";
+        $this->view->pageTitle = 'UPDATE EQUIPMENT ASSIGNMENT';
+        $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
+    }
+
+    public function viewAssignmentAction()
+    {
+
+    }
+
+    private function getSelectList($entity, $valueField, $textField, $selectedValue = null, $methodName = 'getList')
+    {
+        $modelName = ucfirst($entity) . '_Model_' . ucfirst($entity);
+
+        $entityModel = new $modelName();
+        $entities = $entityModel->$methodName();
+
+        $selectArray = array('' => array('text' => '-'));
+        foreach ($entities as $row) {
+            if (is_object($row)) {
+                $selectArray[$row->$valueField] = array('text' => $row->$textField);
+            } elseif (is_array($row)) {
+                $selectArray[$row[$valueField]] = array('text' => $row[$textField]);
+            }
+        }
+
+        if (!is_null($selectedValue)) {
+            foreach ($selectArray as $key => &$value) {
+                if ($selectedValue == $key) {
+                    $value['selected'] = true;
+                    break;
+                }
+            }
+        } else {
+            $selectArray['']['selected'] = true;
+        }
+
+        return $selectArray;
     }
 
 }

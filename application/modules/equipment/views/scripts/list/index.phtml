@@ -69,7 +69,7 @@ Users list form.
             <td>#Axles</td>
             <td>Vendor Code</td>
             <td>Status</td>
-            <td>Action</td>
+            <td colspan="2">Action</td>
         </tr>
         <?php
             if ($this->equipments != null) {
@@ -79,12 +79,12 @@ Users list form.
             }
         ?>
         <tr>
-            <td class="page" colspan="9">
+            <td class="page" colspan="10">
                 Equipment  <?php echo $this->from; ?> to <?php echo $this->from + $this->step; ?>  ( <?php echo $this->allEquipments; ?> )
             </td>
         </tr>
         <tr>
-            <td class="page" colspan="9">
+            <td class="page" colspan="10">
                 <?php
                 echo $this->partial('partials/_paginator.phtml', array(
                     'equipmentsCount' => $this->allEquipments,

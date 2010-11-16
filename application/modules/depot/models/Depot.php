@@ -56,4 +56,17 @@ class Depot_Model_Depot extends Zend_Db_Table_Abstract
         return null;
     }
 
+    /**
+     * @author Andriy Ilnytskyi 16.11.2010
+     *
+     * Get all depots from a storing.
+     *
+     * @return mixed
+     */
+    public function getList()
+    {
+        $select = $this->select();
+        return $this->fetchAll($select);
+    }
+
 }

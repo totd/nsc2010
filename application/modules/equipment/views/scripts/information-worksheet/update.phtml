@@ -36,7 +36,7 @@
     <div class="post-top">
         <div class="post-bottom">
             <div class="post-middle">
-                <form id="updateVIM" method="post" action="/equipment/information-worksheet/save/id/<?php echo $this->equipmentRow['e_id']; ?>">
+                <form id="updateVIM" method="post" action="/equipment/information-worksheet/save-vim/id/<?php echo $this->equipmentRow['e_id']; ?>">
                     <table class="first">
                         <tbody>
                             <tr>
@@ -282,10 +282,6 @@
                                         <input type="text" value="<?= $this->equipmentRow['e_RFID_No']; ?>"
                                                id="e_RFID_No" name="e_RFID_No" />
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
                                 </tr>
                             </tbody>
                         </table>

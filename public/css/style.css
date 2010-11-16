@@ -706,7 +706,7 @@ form.select-parametr select {
 	
 form.select-parametr option { padding:1px 1px 1px 5px;}	
 
-form.select-parametr input[type="submit"], .check-box form input[type="submit"]{
+form.select-parametr input[type="submit"], .check-box form input[type="submit"], form.select-parametr2 input[type="submit"]{
 	background:url(../images/parametr-submit.gif) no-repeat;
 	width:131px;
 	height:29px;
@@ -953,6 +953,17 @@ span.blue-button a {
 	display: inline;
 	padding-left: 30px;
 	padding-bottom:10px;
-	padding-top: 3px;
-
+	text-align:left;
+	width: 350px;
 }
+
+.error{
+	background: url(../images/error.png) no-repeat 0px 0px; 
+	display: inline;
+	padding-left: 30px;
+	padding-bottom:10px;
+	text-align:left;
+	width: 350px;
+}
+
+.clear { clear:both;}

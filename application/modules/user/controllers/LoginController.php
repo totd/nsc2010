@@ -58,7 +58,7 @@ class User_LoginController extends Zend_Controller_Action
                 
                 // TODO Implement a forwarding or redirecting to the needed action.
                 //return $this->_forward('list', 'index', 'user');
-                return $this->_redirect('user/list'); 
+                return $this->_redirect('index/index');
             } else {
                 $this->view->loginMessage = "Sorry, a data you have input is incorrect";
             }

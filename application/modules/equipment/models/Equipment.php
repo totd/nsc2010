@@ -3,6 +3,13 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 {
     protected $_name = 'equipment';
 
+    public function getVIN($equipmentId)
+    {
+        $row = $this->fetchRow("e_id = $equipmentId");
+
+        return $row->e_Number;
+    }
+
     /**
      * @author Andryi Ilnytskyi 08.11.2010
      *
@@ -50,6 +57,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         $limit = "LIMIT $offset, $count";
         $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
         $join = " JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id";
+        $join .= " LEFT JOIN state ON e_Registration_State = s_id";
         $where = "";
 
         if (isset($filterOptions['Status'])) {

@@ -43,7 +43,18 @@ class Homebase_Model_Homebase extends Zend_Db_Table_Abstract
         return $stmt = $db->fetchAssoc($select);
     }
     
-
+    /**
+     * @author Andriy Ilnytskyi 16.11.2010
+     *
+     * Get all homebases from a storing.
+     *
+     * @return mixed
+     */
+    public function getList()
+    {
+        $select = $this->select();
+        return $this->fetchAll($select);
+    }
 
 }
 

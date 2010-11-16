@@ -96,7 +96,7 @@ class Driver_NewDriverController extends Zend_Controller_Action
         $driverID = (int)$this->_request->getParam('id');
         $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
         $homebaseList = Homebase_Model_Homebase::getHomebaseList($driverInfo['d_homebase_ID'],1);
-        $stateList = User_Model_State::getList();
+        $stateList = State_Model_State::getList();
         
         # checking incomind data for Application Information Form.
         # if data correct - saving changes to DB, else - show notification to user:

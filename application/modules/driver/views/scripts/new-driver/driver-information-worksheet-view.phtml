@@ -183,8 +183,9 @@
                                 <h3 style="color:#F00"> Please fill in Addresses for the last 3 years.</h3>
                                 <fieldset>
                                     <legend>Add Address:</legend>
+                                    <span id="error" style="color:#ff0000;"></span>
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
-                                    <FORM id='NewDIW_Address' method="Post" name="SaveForm">
+                                    <FORM id='NewDIW_Address' name="NewDIW_Address">
                                         <INPUT type="hidden" id="dah_Driver_ID" name="dah_Driver_ID"	value="<?php echo $this->driverId;?>">
                                         <tr height=30 valign=middle>
                                             <td class="MainText" width="150">Street:</td>
@@ -207,27 +208,27 @@
                                                     }
                                                 ?>
                                                 </SELECT>&nbsp;&nbsp;&nbsp;
-                                                Zip: <Input type="text" name="Zip" size=10 maxlength="20">
+                                                Zip: <Input type="text" name="dah_Postal_Code" size=10 maxlength="20">
                                             </td>
                                         </tr>
                                         <tr height=30 valign=middle>
                                             <td class="MainText">Phone:</td>
-                                            <td class="MainText"><Input type="text" name="Phone" size=30></td>
+                                            <td class="MainText"><Input type="text" name="dah_Phone" size=30></td>
                                         </tr>
                                         <tr height=30 valign=middle>
                                             <td class="MainText">At Address:</td>
                                             <td class="MainText">
-                                                From Date: <Input type="text" name="FromDate" size=10 maxlength=10>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                To Date: <Input type="text" name="FromDate" size=10 maxlength=10>
+                                                From Date: <Input type="text" name="dah_Start_Date" size=10 maxlength=10>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                To Date: <Input type="text" name="dah_End_Date" size=10 maxlength=10>
                                                 
                                             </td>
                                         </tr>
                                         <tr height=30 valign=middle>
                                             <td class="MainText">Is this current Address:</td>
                                             <td class="MainText">
-                                                <select name="CurrAddress">
-                                                    <option value="No" selected>No</option>
-                                                    <option value="Yes">Yes</option>
+                                                <select name="dah_Current_Address">
+                                                    <option value="NO" selected>No</option>
+                                                    <option value="YES">Yes</option>
                                                 </select>
                                             </td>
                                         </tr>

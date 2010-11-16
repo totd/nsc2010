@@ -10,7 +10,7 @@ class Driver_NewDriverController extends Zend_Controller_Action
         // Check whether an identity is set.
         if ($auth->hasIdentity()) {
             $this->view->identity = $auth->getIdentity();
-            $this->driver = new driver_Model_Driver(); 
+            $this->driver = new Driver_Model_Driver(); 
         }else{
             return $this->_redirect('user/login');
         }
@@ -49,12 +49,12 @@ class Driver_NewDriverController extends Zend_Controller_Action
             $NewDriverSearch_form->setAction('/driver/new-Driver/new-Driver-Search');
         
             if ($this->_request->isPost() && $NewDriverSearch_form->isValid($_POST)) {
-                if(driver_Model_Driver::searchNewDriver($NewDriverSearch_form->getValues())==true)
+                if(Driver_Model_Driver::searchNewDriver($NewDriverSearch_form->getValues())==true)
                 {
                     # process creating of new Driver
-                    $driver = driver_Model_Driver::createPendingDriver($_POST);
+                    $driver = Driver_Model_Driver::createPendingDriver($_POST);
                     return $this->_redirect('/driver/new-Driver/driver-Information-Worksheet-View/id/'.$driver);
-                 }elseif(driver_Model_Driver::searchNewDriver($NewDriverSearch_form->getValues())==false){
+                 }elseif(Driver_Model_Driver::searchNewDriver($NewDriverSearch_form->getValues())==false){
                     # Show message, that Driver with such SSN exist in DB
                     $d_Driver_SSN = $_POST['$d_Driver_SSN'];
                     $this->view->driver_exist = true;
@@ -86,17 +86,17 @@ class Driver_NewDriverController extends Zend_Controller_Action
      */
     public function driverInformationWorksheetViewAction()
     {
-
+        isset($_POST['form_id'])?/**/:$_POST['form_id']=null;
         $this->view->headScript()->appendFile('/js/jQueryScripts/ajax_homebase2depot.js', 'text/javascript');
-        
+        $this->view->headScript()->appendFile('/js/jQueryScripts/ajax_driverAddressHistory.js', 'text/javascript');
+
         # Breadcrumbs goes here:
         $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;Driver Profile List";
 
         $driverID = (int)$this->_request->getParam('id');
-        $driverInfo = driver_Model_Driver::getDriverInfo($driverID);
+        $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
         $homebaseList = Homebase_Model_Homebase::getHomebaseList($driverInfo['d_homebase_ID'],1);
-        print_r($homebaseList);
-
+        $stateList = User_Model_State::getList();
         
         # checking incomind data for Application Information Form.
         # if data correct - saving changes to DB, else - show notification to user:
@@ -118,6 +118,7 @@ class Driver_NewDriverController extends Zend_Controller_Action
         $this->view->driverId = $driverID;
         $this->view->driverInfo = $driverInfo;
         $this->view->homebaseList = $homebaseList;
+        $this->view->stateList = $stateList;
     }
 
 

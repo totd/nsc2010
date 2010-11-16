@@ -176,7 +176,78 @@
                             <td></td>
                             <td></td>
                         </tr>
+                        <tr>
+                            <td colspan="4">
+                                <br/>
+                                <hr/>
+                                <h3 style="color:#F00"> Please fill in Addresses for the last 3 years.</h3>
+                                <fieldset>
+                                    <legend>Add Address:</legend>
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+                                    <FORM id='NewDIW_Address' method="Post" name="SaveForm">
+                                        <INPUT type="hidden" id="dah_Driver_ID" name="dah_Driver_ID"	value="<?php echo $this->driverId;?>">
+                                        <tr height=30 valign=middle>
+                                            <td class="MainText" width="150">Street:</td>
+                                            <td class="MainTextB">
+                                                <Input type="text" name="dah_Address1" size=50 maxlength=200>
+                                            </td>
+                                        </tr><tr height=30 valign=middle>
+                                            <td class="MainText">City:</td>
+                                            <td class="MainText">
+                                                <Input type="text" name="dah_City" size=15 maxlength="50">&nbsp;&nbsp;&nbsp;
+                                                State:
+                                                <SELECT name='dah_State'>
+                                                    <OPTION value='-' selected>-</OPTION>
+                                                <?php 
+                                                    foreach($this->stateList as $k => $v)
+                                                    {
+                                                ?>
+                                                    <option label="<?php echo $v['s_name'];?>" value="<?php echo $k;?>" ><?php echo $v['s_name'];?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                                </SELECT>&nbsp;&nbsp;&nbsp;
+                                                Zip: <Input type="text" name="Zip" size=10 maxlength="20">
+                                            </td>
+                                        </tr>
+                                        <tr height=30 valign=middle>
+                                            <td class="MainText">Phone:</td>
+                                            <td class="MainText"><Input type="text" name="Phone" size=30></td>
+                                        </tr>
+                                        <tr height=30 valign=middle>
+                                            <td class="MainText">At Address:</td>
+                                            <td class="MainText">
+                                                From Date: <Input type="text" name="FromDate" size=10 maxlength=10>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                To Date: <Input type="text" name="FromDate" size=10 maxlength=10>
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr height=30 valign=middle>
+                                            <td class="MainText">Is this current Address:</td>
+                                            <td class="MainText">
+                                                <select name="CurrAddress">
+                                                    <option value="No" selected>No</option>
+                                                    <option value="Yes">Yes</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr height=40 valign=middle>
+                                            <td class="MainText" align=center>&nbsp;</td>
+                                            <td class="MainText" align=left>
+                                                <a onclick="addAddressHistoryRecord();" class="MainLink2">
+                                                    <font color="#0000cc">Click here to Save new Address</font></a>
+                                            </td>
+                                        </tr>
+
+                                    </FORM>
+                                    </table>
+                                </fieldset>
+                            </td>
+                        </tr>
                     </table>
+                    <br/>
+                    <hr/>
+                
 <input type="submit" value="Save" id="Driver_Personal_Information" name="Driver_Personal_Information">
             </form>
         </td>

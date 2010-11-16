@@ -6,9 +6,9 @@ class Ajax_HomebaseController extends Zend_Controller_Action
     public function init()
     {
         // Turn off autorender of templites
-                        $this->_helper->viewRenderer->setNoRender();
-                        // turn of templites
-                        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        // turn of templites
+        $this->_helper->layout()->disableLayout();
     }
 
     public function indexAction()

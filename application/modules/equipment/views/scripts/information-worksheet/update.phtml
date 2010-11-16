@@ -2,7 +2,7 @@
     <ul class="blue-nav">
         <li>
             <span>
-                <a href="/equipment/information-worksheet/save/id/<?php echo $this->equipmentRow['e_id']; ?>">
+                <a id="equipmentSaveLink1" href="#">
                     Save
                 </a>
             </span>
@@ -22,7 +22,7 @@
         <div class="breadcrumbs-middle">
             <span>
                 <?php
-                    echo $this->breadcrumbs;
+                echo $this->breadcrumbs;
                 ?>
             </span>
         </div>
@@ -33,270 +33,273 @@
 </div>
 
 <div class="driver-information vehicle" id="main">
-    <div class="post-top"><div class="post-bottom"><div class="post-middle">
-        <table class="first">
-            <tbody>
-                <tr>
-                    <td>VIN</td>
-                    <td>
-                        <input type="text" disabled="disabled" value="<?= $this->equipmentRow['e_Number']; ?>"
-                               id="e_Number" name="e_Number" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Entry Date</td>
-                    <td>
-                        <input type="text" disabled="disabled" value="<?= $this->equipmentRow['e_Entry_Date']; ?>"
-                               id="e_Entry_Date" name="e_Entry_Date" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Status</td>
-                    <td>
-                        <input type="text" disabled="disabled" value="<?= $this->equipmentRow['enes_type']; ?>"
-                               id="enes_type" name="enes_type" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    <div class="second">
-        <table cellspacing="0" class="inform">
-            <tbody>
-                <tr>
-                    <th colspan="2">Vehicle Information</th>
-                </tr>
-                <tr>
-                    <td>Unit</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['enes_type']; ?>"
-                               id="e_Unit_Number" name="e_Unit_Number" />
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Vehicle Type</td>
-                    <td>
-                        <select  class="rc10" name="et_id" id="et_id">
-                            <?php
-                            foreach ($this->equipmentTypes as $key => $value) {
-                                if (isset($value['selected']) && $value['selected']) {
-                                    echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
-                                } else {
-                                    echo '<option value="' . $key . '">' . $value['text'] . '</option>';
-                                }
-                            }
-                            ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>DOT Regulated</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_DOT_Regulated']; ?>"
-                               id="e_DOT_Regulated" name="e_DOT_Regulated" />
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Owner Number</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Owner_Number']; ?>"
-                               id="e_Owner_Number" name="e_Owner_Number" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Alternate ID</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Alternate_ID']; ?>"
-                               id="e_Alternate_ID" name="e_Alternate_ID" />
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Start Mileage</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Start_Mileage']; ?>"
-                               id="e_Start_Mileage" name="e_Start_Mileage" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Registration State</td>
-                    <td>
-                        <select  class="rc10" name="e_Registration_State" id="e_Registration_State">
-                            <?php
-                            foreach ($this->states as $key => $value) {
-                                if (isset($value['selected']) && $value['selected']) {
-                                    echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
-                                } else {
-                                    echo '<option value="' . $key . '">' . $value['text'] . '</option>';
-                                }
-                            }
-                            ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Name</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Name']; ?>"
-                                   id="e_Name" name="e_Name" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Description']; ?>"
-                                   id="e_Description" name="e_Description" />
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Active Status</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Active_Status']; ?>"
-                                   id="e_Active_Status" name="e_Active_Status" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Fee</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Fee']; ?>"
-                                   id="e_Fee" name="e_Fee" />
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Title Status</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Title_Status']; ?>"
-                                   id="e_Title_Status" name="e_Title_Status" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Picture</td>
-<!--                    TODO It's needed to join the picture here?-->
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Picture']; ?>"
-                                   id="e_Picture" name="e_Picture" />
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Model</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Model']; ?>"
-                                   id="e_Model" name="e_Model" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Year</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Year']; ?>"
-                                   id="e_Year" name="e_Year" />
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Make</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Make']; ?>"
-                                   id="e_Make" name="e_Make" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Color</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Color']; ?>"
-                                   id="e_Color" name="e_Color" />
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Unladen Weight</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Unladen_Weight']; ?>"
-                                   id="e_Unladen_Weight" name="e_Unladen_Weight" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Gross Vehicle Weight</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Gross_Vehicle_Weight_Rating']; ?>"
-                                   id="e_Gross_Vehicle_Weight_Rating" name="e_Gross_Vehicle_Weight_Rating" />
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Gross Vehicle Registered Weight</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Gross_Vehicle_Registered_Weight']; ?>"
-                                   id="e_Gross_Vehicle_Registered_Weight" name="e_Gross_Vehicle_Registered_Weight" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Number Of Axles</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_Axles']; ?>"
-                                   id="e_Axles" name="e_Axles" />
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>License Plate Number</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_License_Number']; ?>"
-                                   id="e_License_Number" name="e_License_Number" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>License Expiration Date</td>
-                    <td>
-                        <input type="text" value="" id="e_License_Expiration_Date" name="e_License_Expiration_Date" />
-                        <span class="form_element_tip">
-                            (yyyy-mm-dd)
-                        </span>
-                    </td>
-                </tr>
-                <tr class="color-dark">
-                    <td>Radio Frequency Identify</td>
-                    <td>
-                        <input type="text" value="<?= $this->equipmentRow['e_RFID_No']; ?>"
-                                   id="e_RFID_No" name="e_RFID_No" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div></div></div>
-
-    <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                <div class="second post">
-                    <h2>Last Vehicle Inspection Information </h2>
-                    <span class="blue-button"><span><a href="#">Enter New Vehicle Inspection Information</a></span></span>
-                    <span class="text-red">There is no state vehicle inspection records</span>
-                    <span class="text-red">There is no state vehicle inspection records</span>
-                </div>
-            </div></div></div>
-
-    <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                <div class="second post">
-                    <h2>Vendor - Vendor Information </h2>
-                    <span class="blue-button"><span><a href="#">Join The Vendor</a></span></span>
-                    <p>There is no vendor joined to the truck</p>
-                </div>
-            </div></div></div>
-
     <div class="post-top">
         <div class="post-bottom">
             <div class="post-middle">
-                <div class="second post">
-                    <h2>Driver Information </h2>
-                    <span class="blue-button"><span><a href="#">Add Driver</a></span></span>
-                    <p class="borderon">No drivers joined to the truck</p>
-                </div>
+                <form id="updateVIM" method="post" action="/equipment/information-worksheet/save/id/<?php echo $this->equipmentRow['e_id']; ?>">
+                    <table class="first">
+                        <tbody>
+                            <tr>
+                                <td>VIN</td>
+                                <td>
+                                    <input type="hidden" value="<?= $this->equipmentRow['e_id']; ?>" id="e_id" name="e_id" />
+                                    <input type="text" disabled="disabled" value="<?= $this->equipmentRow['e_Number']; ?>"
+                                           id="e_Number" name="e_Number" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Entry Date</td>
+                                <td>
+                                    <input type="text" disabled="disabled" value="<?= $this->equipmentRow['e_Entry_Date']; ?>"
+                                           id="e_Entry_Date" name="e_Entry_Date" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td>
+                                    <input type="text" disabled="disabled" value="<?= $this->equipmentRow['enes_type']; ?>"
+                                           id="e_New_Equipment_Status" name="e_New_Equipment_Status" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="second">
+                        <table cellspacing="0" class="inform">
+                            <tbody>
+                                <tr>
+                                    <th colspan="2">Vehicle Information</th>
+                                </tr>
+                                <tr>
+                                    <td>Unit</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Unit_Number']; ?>"
+                                               id="e_Unit_Number" name="e_Unit_Number" />
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Vehicle Type</td>
+                                    <td>
+                                        <select  class="rc10" name="e_type_id" id="e_type_id">
+                                            <?php
+                                            foreach ($this->equipmentTypes as $key => $value) {
+                                                if (isset($value['selected']) && $value['selected']) {
+                                                    echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                                                } else {
+                                                    echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>DOT Regulated</td>
+                                    <td>
+
+                                        <span class="radio-button">
+                                            <?php if ($this->equipmentRow['e_DOT_Regulated'] == 'Yes') : ?>
+                                                <input type="radio" name="e_DOT_Regulated" id="e_DOT_Regulated" value="Yes" checked="checked">
+                                            <?php else : ?>
+                                                <input type="radio" name="e_DOT_Regulated" id="e_DOT_Regulated" value="Yes">
+                                            <?php endif; ?>
+                                            &nbsp;Yes
+                                        </span>
+                                        <span class="radio-button">
+                                            <?php if ($this->equipmentRow['e_DOT_Regulated'] == 'Yes') : ?>
+                                                <input type="radio" name="e_DOT_Regulated" id="e_DOT_Regulated" value="No" checked="checked">
+                                            <?php else : ?>
+                                                <input type="radio" name="e_DOT_Regulated" id="e_DOT_Regulated" value="No">
+                                            <?php endif; ?>
+                                            &nbsp;No
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Owner Number</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Owner_Number']; ?>"
+                                               id="e_Owner_Number" name="e_Owner_Number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Alternate ID</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Alternate_ID']; ?>"
+                                               id="e_Alternate_ID" name="e_Alternate_ID" />
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Start Mileage</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Start_Mileage']; ?>"
+                                               id="e_Start_Mileage" name="e_Start_Mileage" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Registration State</td>
+                                    <td>
+                                        <select  class="rc10" name="e_Registration_State" id="e_Registration_State">
+                                            <?php
+                                            foreach ($this->states as $key => $value) {
+                                                if (isset($value['selected']) && $value['selected']) {
+                                                    echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                                                } else {
+                                                    echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Name</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Name']; ?>"
+                                               id="e_Name" name="e_Name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Description</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Description']; ?>"
+                                               id="e_Description" name="e_Description" />
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Active Status</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Active_Status']; ?>"
+                                               id="e_Active_Status" name="e_Active_Status" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fee</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Fee']; ?>"
+                                               id="e_Fee" name="e_Fee" />
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Title Status</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Title_Status']; ?>"
+                                               id="e_Title_Status" name="e_Title_Status" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table cellspacing="0" class="inform">
+                            <tbody>
+                                <tr>
+                                    <th colspan="2">
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>Picture</td>
+                                    <!--                    TODO It's needed to join the picture here?-->
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Picture']; ?>"
+                                               id="e_Picture" name="e_Picture" />
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Model</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Model']; ?>"
+                                               id="e_Model" name="e_Model" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Year</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Year']; ?>"
+                                               id="e_Year" name="e_Year" />
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Make</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Make']; ?>"
+                                               id="e_Make" name="e_Make" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Color</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Color']; ?>"
+                                               id="e_Color" name="e_Color" />
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Unladen Weight</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Unladen_Weight']; ?>"
+                                               id="e_Unladen_Weight" name="e_Unladen_Weight" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gross Vehicle Weight</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Gross_Vehicle_Weight_Rating']; ?>"
+                                               id="e_Gross_Vehicle_Weight_Rating" name="e_Gross_Vehicle_Weight_Rating" />
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Gross Vehicle Registered Weight</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Gross_Vehicle_Registered_Weight']; ?>"
+                                               id="e_Gross_Vehicle_Registered_Weight" name="e_Gross_Vehicle_Registered_Weight" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Number Of Axles</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_Axles']; ?>"
+                                               id="e_Axles" name="e_Axles" />
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>License Plate Number</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_License_Number']; ?>"
+                                               id="e_License_Number" name="e_License_Number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>License Expiration Date</td>
+                                    <td>
+                                        <input type="text" value="" id="e_License_Expiration_Date" name="e_License_Expiration_Date" />
+                                        <span class="form_element_tip">
+                                            (yyyy-mm-dd)
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Radio Frequency Identify</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_RFID_No']; ?>"
+                                               id="e_RFID_No" name="e_RFID_No" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <div class="top-nav">
-        <ul class="blue-nav">
+    <div class="blue-nav">
+        <ul>
             <li>
                 <span>
-                    <a href="/equipment/information-worksheet/save/id/<?php echo $this->e_id ?>">
+                    <a id="equipmentSaveLink2" href="#">
                         Save
                     </a>
                 </span>

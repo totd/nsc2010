@@ -7,7 +7,9 @@
  */
 class Equipment_InformationWorksheetController extends Zend_Controller_Action
 {
-    public function preDispatch(){
+
+    public function preDispatch()
+    {
         $this->_helper->layout->setLayout('equipmentLayout');
     }
 
@@ -31,8 +33,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
         if (is_null($equipmentRow)) {
             $equipmentRow = array(
-                    'e_Number' => $VIN,
-                );
+                'e_Number' => $VIN,
+            );
             // Create equipment only with VIN value
             $equipmentRow = $equipmentModel->createEquipment($equipmentRow);
         } else {
@@ -47,8 +49,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->action = '/equipment/update-status/';
         $this->view->pageTitle = 'VEHICLE INFORMATION WORKSHEET';
     }
-
-
 
     /**
      * @author Andryi Ilnytskiy 04.11.2010
@@ -74,8 +74,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
         if (is_null($equipmentRow)) {
             $equipmentRow = array(
-                    'e_Number' => $VIN,
-                );
+                'e_Number' => $VIN,
+            );
             // Create equipment only with VIN value
             $equipmentRow = $equipmentModel->createEquipment($equipmentRow);
         } else {
@@ -86,7 +86,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         // create state select.
         $stateModel = new State_Model_State();
         $states = $stateModel->getList();
-        
+
         $selectStateArray = array('' => array('text' => '-'));
         foreach ($states as $state) {
             $selectStateArray[$state->s_id] = array('text' => $state->s_name);
@@ -138,12 +138,13 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         if (is_null($id)) {
             $id = $this->_request->getParam('id');
             if (is_null($id)) {
-                $this->_redirect('/equipment/search');
+                $this->_redirect('/equipment/list');
             }
         }
 
-        $equipmentModel = new Equipment_Model_Equipment();
-        $equipmentModel->changeNewEquipmentStatus('Completed', $id);
+        // TODO implement comlete action.
+//        $equipmentModel = new Equipment_Model_Equipment();
+//        $equipmentModel->changeNewEquipmentStatus('Completed', $id);
         return $this->_redirect('equipment/list');
     }
 
@@ -152,7 +153,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         if (is_null($id)) {
             $id = $this->_request->getParam('id');
             if (is_null($id)) {
-                $this->_redirect('/equipment/search');
+                $this->_redirect('/equipment/list');
             }
         }
 
@@ -160,13 +161,13 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $equipmentModel->changeNewEquipmentStatus('Declined', $id);
         return $this->_redirect('equipment/list');
     }
-    
+
     public function reactivatedAction()
     {
         if (is_null($id)) {
             $id = $this->_request->getParam('id');
             if (is_null($id)) {
-                $this->_redirect('/equipment/search');
+                $this->_redirect('/equipment/list');
             }
         }
 
@@ -175,9 +176,30 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         return $this->_redirect('equipment/list');
     }
 
-    public function exitAction()
+    /**
+     * @author Andryi Ilnytskyi 16.11.2010
+     *
+     * Updated VIM
+     * 
+     * @return mixed 
+     */
+    public function saveVimAction()
     {
-        // TODO Implementation needed.
+        if ($this->_request->isPost()) {
+            $equipmentModel = new Equipment_Model_Equipment();
+
+            $data = array();
+            // TODO implement filling manual all table fealds with validating.
+            foreach ($this->_request->getPost() as $key => $value) {
+                $data[$key] = $value;
+            }
+
+            $where = $equipmentModel->getAdapter()->quoteInto('e_id = ?', $this->_request->getPost('e_id'));
+
+            $equipmentModel->update($data, $where);
+            
+            return $this->_redirect('equipment/list');
+        }
     }
 
 }

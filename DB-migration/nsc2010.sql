@@ -516,42 +516,70 @@ INSERT INTO `equipment_types` (`et_type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `equipment_assignment`
+-- Table structure for table `equipment_assignment`
 --
 
 DROP TABLE IF EXISTS `equipment_assignment`;
 CREATE TABLE IF NOT EXISTS `equipment_assignment` (
-  `ea_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `ea_Company_Company_Number` int(11) DEFAULT NULL,
-  `ea_Driver_Driver_ID` int(11) DEFAULT NULL,
-  `ea_Homebase_Number` int(11) DEFAULT NULL,
-  `ea_Equipment_Number` int(11) DEFAULT NULL,
-  `ea_Equipment_Assignment_Start_Date` date NOT NULL,
-  `ea_Equipment_Assignment_End_Date` date NOT NULL,
-  `ea_Equipment_Assignment_Mileage` date DEFAULT NULL,
-  `ea_Equipment_Owner_Number` int(12) DEFAULT NULL,
-  `ea_Equipment_Owner_Code` int(12) DEFAULT NULL,
-  `ea_Equipment_Owner_SSN` int(12) DEFAULT NULL,
-  `ea_Equipment_Owner_Federal_ID_Number` int(12) NOT NULL,
-  `ea_Equipment_Owner_Name` int(255) NOT NULL,
-  `ea_Equipment_Owner_Contact` int(255) NOT NULL,
-  `ea_Equipment_Owner_Telephone_Number` int(15) NOT NULL,
-  `ea_Equipment_Owner_Fax` int(15) DEFAULT NULL,
-  `ea_Equipment_Owner_Address1` int(255) NOT NULL,
-  `ea_Equipment_Owner_Address2` int(255) DEFAULT NULL,
-  `ea_Equipment_Owner_City` int(255) NOT NULL,
-  `ea_Equipment_Owner_State` tinyint(2) NOT NULL,
-  `ea_Equipment_Owner_Postal_Code` int(10) NOT NULL,
-  `ea_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`ea_ID`),
-  KEY `fk_equipment_assignment_driver1` (`ea_Driver_Driver_ID`),
-  KEY `fk_equipment_assignment_homebase1` (`ea_Homebase_Number`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+  `ea_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ea_company_id` int(11) DEFAULT NULL,
+  `ea_homebase_id` int(11) NOT NULL,
+  `ea_depot_id` int(11) DEFAULT NULL,
+  `ea_equipment_id` int(11) NOT NULL,
+  `ea_owner_id` int(11) NOT NULL,
+  `ea_start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ea_end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `ea_mileage` int(11) DEFAULT NULL,
+  `ea_DOT_regulated` enum('Yes','No') NOT NULL,
+  PRIMARY KEY (`ea_id`),
+  KEY `fk_owner_id` (`ea_owner_id`),
+  KEY `fk_homebase_id` (`ea_homebase_id`),
+  KEY `fk_equipment_id` (`ea_equipment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `equipment_assignment`
+--
+ALTER TABLE `equipment_assignment`
+  ADD CONSTRAINT `fk_owner_id` FOREIGN KEY (`ea_owner_id`) REFERENCES `equipment_owner` (`eo_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_homebase_id` FOREIGN KEY (`ea_homebase_id`) REFERENCES `homebase` (`h_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_equipment_id` FOREIGN KEY (`ea_equipment_id`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
 
 --
 -- Дамп данных таблицы `equipment_assignment`
 --
 
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `equipment_owner`
+--
+
+DROP TABLE IF EXISTS `equipment_owner`;
+CREATE TABLE IF NOT EXISTS `equipment_owner` (
+  `eo_id` int(11) NOT NULL AUTO_INCREMENT,
+  `eo_number` varchar(12) DEFAULT NULL,
+  `eo_code` varchar(12) DEFAULT NULL,
+  `eo_SSN` int(11) DEFAULT NULL,
+  `eo_federal_id` int(11) NOT NULL,
+  `eo_name` varchar(255) NOT NULL,
+  `eo_contact` varchar(250) NOT NULL,
+  `eo_phone` int(11) NOT NULL,
+  `eo_fax` int(11) DEFAULT NULL,
+  `eo_address1` varchar(250) NOT NULL,
+  `eo_address2` varchar(250) DEFAULT NULL,
+  `eo_city` varchar(250) NOT NULL,
+  `eo_state_id` int(11) NOT NULL,
+  `eo_postal_code` int(11) NOT NULL,
+  PRIMARY KEY (`eo_id`),
+  UNIQUE KEY `eo_number` (`eo_number`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

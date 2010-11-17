@@ -1,18 +1,29 @@
 <?php
 
-class driver_Model_Driver extends Zend_Db_Table_Abstract
+class Driver_Model_Driver extends Zend_Db_Table_Abstract
 {
 
     protected $_name = 'driver';
     public function init()
     {
-        $_SESSION['driver_info']['DriverEmploymentType_list'] = driver_Model_DriverEmploymentType::getAll();
-        $_SESSION['driver_info']['DriverEyeColor_list'] = driver_Model_DriverEyeColor::getAll();
-        $_SESSION['driver_info']['DriverGender_list'] = driver_Model_DriverGender::getAll();
-        $_SESSION['driver_info']['DriverHairColor_list'] = driver_Model_DriverHairColor::getAll();
-        $_SESSION['driver_info']['DriverStatus_list'] = driver_Model_DriverStatus::getAll();
+        $_SESSION['driver_info']['DriverEmploymentType_list'] = Driver_Model_DriverEmploymentType::getAll();
+        $_SESSION['driver_info']['DriverEyeColor_list'] = Driver_Model_DriverEyeColor::getAll();
+        $_SESSION['driver_info']['DriverGender_list'] = Driver_Model_DriverGender::getAll();
+        $_SESSION['driver_info']['DriverHairColor_list'] = Driver_Model_DriverHairColor::getAll();
+        $_SESSION['driver_info']['DriverStatus_list'] = Driver_Model_DriverStatus::getAll();
     }
 
+    /**
+     * @author Vlad Skachkov 04.11.2010
+     *
+     * get all drivers list
+     *
+     * @return mixed
+     */
+    public function getList(){
+        $select = $this->select();
+        return $this->fetchAll($select);
+    }
     /**
      * @author Vlad Skachkov 04.11.2010
      *

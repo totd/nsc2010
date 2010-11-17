@@ -3,12 +3,22 @@
 Set content for the row in the users list.
 -->
 <tr>
-    <td><?php echo $this->e_Unit_Number;?></td>
-    <td><?php echo '&nbsp;'; // TODO  Veh. Type? ?></td>
-    <td><?php echo $this->e_Number; // VIN ?></td>
-    <td><?php echo $this->e_license_Number . '/' . $this->e_Registration_State; // Lic. Plate #/State ?></td>
-    <td><?php echo $this->e_Gross_Vehicle_Weight_Rating; //  GVW ?></td>
-    <td><?php echo $this->e_Axles; // #Axles ?></td>
-    <td><?php echo '&nbsp;'; // TODO  Vendor Code? ?></td>
-    <td><?php echo $this->e_Active_Status; // Status ?></td>
+    <td><?= $this->e_Unit_Number;?></td>
+    <td><?= '&nbsp;'; // TODO  Veh. Type? ?></td>
+    <td><?= $this->e_Number; // VIN ?></td>
+    <td>
+        <?php
+            if (!is_null($this->e_license_Number) || !is_null($this->s_name)) {
+                echo $this->e_license_Number . ' / ' . $this->s_name; // Lic. Plate #/State
+            } else {
+                echo '&nbsp;';
+            }
+        ?>
+    </td>
+
+    <td><?= $this->e_Gross_Vehicle_Weight_Rating; //  GVW ?></td>
+    <td><?= $this->e_Axles; // #Axles ?></td>
+    <td><?= '&nbsp;'; // TODO  Vendor Code? ?></td>
+    <td><?= $this->enes_type; // Status ?></td>
+    <td><a href="/equipment/information-worksheet/index/VIN/<?= $this->e_Number; ?>">View</a></td>
 </tr>

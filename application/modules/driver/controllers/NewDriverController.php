@@ -10,12 +10,15 @@ class Driver_NewDriverController extends Zend_Controller_Action
         // Check whether an identity is set.
         if ($auth->hasIdentity()) {
             $this->view->identity = $auth->getIdentity();
-            $this->driver = new driver_Model_Driver(); 
+            $this->driver = new Driver_Model_Driver(); 
         }else{
             return $this->_redirect('user/login');
         }
     }
-
+    
+    public function preDispatch(){
+        # $this->_helper->layout->setLayout('equipmentLayout');
+    }
     public function indexAction()
     {
         # returns list of temporary driver accounts
@@ -42,16 +45,16 @@ class Driver_NewDriverController extends Zend_Controller_Action
 
             
         
-            $NewDriverSearch_form = new driver_Form_NewDriverSearch();
+            $NewDriverSearch_form = new Driver_Form_NewDriverSearch();
             $NewDriverSearch_form->setAction('/driver/new-Driver/new-Driver-Search');
         
             if ($this->_request->isPost() && $NewDriverSearch_form->isValid($_POST)) {
-                if(driver_Model_Driver::searchNewDriver($NewDriverSearch_form->getValues())==true)
+                if(Driver_Model_Driver::searchNewDriver($NewDriverSearch_form->getValues())==true)
                 {
                     # process creating of new Driver
-                    $driver = driver_Model_Driver::createPendingDriver($_POST);
+                    $driver = Driver_Model_Driver::createPendingDriver($_POST);
                     return $this->_redirect('/driver/new-Driver/driver-Information-Worksheet-View/id/'.$driver);
-                 }elseif(driver_Model_Driver::searchNewDriver($NewDriverSearch_form->getValues())==false){
+                 }elseif(Driver_Model_Driver::searchNewDriver($NewDriverSearch_form->getValues())==false){
                     # Show message, that Driver with such SSN exist in DB
                     $d_Driver_SSN = $_POST['$d_Driver_SSN'];
                     $this->view->driver_exist = true;
@@ -83,17 +86,18 @@ class Driver_NewDriverController extends Zend_Controller_Action
      */
     public function driverInformationWorksheetViewAction()
     {
+        isset($_POST['form_id'])?/**/:$_POST['form_id']=null;
+        $this->view->headScript()->appendFile('/js/jQueryScripts/ajax_homebase2depot.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/jQueryScripts/ajax_driverAddressHistory.js', 'text/javascript');
 
         # Breadcrumbs goes here:
         $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;Driver Profile List";
 
         $driverID = (int)$this->_request->getParam('id');
-        $driverInfo = driver_Model_Driver::getDriverInfo($driverID);
-
-        $driverPersonalInfo_Form = new driver_Form_DriverPersonalInformation();
-        $driverPersonalInfo_Form->getForm($driverInfo);
-        $driverPersonalInfo_Form->setAction('/driver/new-Driver/driver-Information-Worksheet-View/id/'.$driverID);
-
+        $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
+        $homebaseList = Homebase_Model_Homebase::getHomebaseList($driverInfo['d_homebase_ID'],1);
+        $stateList = State_Model_State::getList();
+        
         # checking incomind data for Application Information Form.
         # if data correct - saving changes to DB, else - show notification to user:
         if($_POST['form_id']=='driver_applicationInformation_Form'){
@@ -112,8 +116,9 @@ class Driver_NewDriverController extends Zend_Controller_Action
 
         
         $this->view->driverId = $driverID;
-        $this->view->driver_applicationInformation_Form = $driver_applicationInformation_Form;
-        $this->view->driverPersonalInfo_Form = $driverPersonalInfo_Form;
+        $this->view->driverInfo = $driverInfo;
+        $this->view->homebaseList = $homebaseList;
+        $this->view->stateList = $stateList;
     }
 
 

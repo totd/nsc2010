@@ -7,6 +7,9 @@
  */
 class Equipment_SearchController extends Zend_Controller_Action
 {
+    public function preDispatch(){
+        $this->_helper->layout->setLayout('equipmentLayout');
+    }
 
     public function init()
     {
@@ -23,28 +26,30 @@ class Equipment_SearchController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $form = new Equipment_Form_SearchEquipment();
         if ($this->_request->isPost()) {
-            if ($form->isValid($_POST)) {
+            if (isset($_REQUEST['VIN'])) {
                 $equipment = new Equipment_Model_Equipment();
-                $searchResult = $equipment->findEquipmentByVIN($form->getValue('VIN'));
+                $vin = $_POST['VIN'];
+                $searchResult = $equipment->findEquipmentByVIN($vin);
 
-                $this->view->VIN = $form->getValue('VIN');
+                $this->view->VIN = $vin;
+
                 
                 if (is_null($searchResult)) {
+                    $this->view->pageTitle = 'NEW APPLICATION - VEHICLE';
                     $this->render('not_exist');
                 } else {
+                    $this->view->pageTitle = 'NEW APPLICATION - VEHICLE';
+                    $this->view->newStatus = $searchResult['enes_type'];
                     $this->render('exist');
                 }
                 return;
             }
-        } else {
-            $form->setAction('/equipment/search');
-            $this->view->form = $form;
         }
-
-        
+        $this->view->headScript()->appendFile('/js/equipment_validate.js', 'text/javascript');
+        $this->view->formAction = '/equipment/search';
+        $this->view->breadcrumbs = '<a href="/equipment/list/index">Equipments</a>&nbsp;&gt;&nbsp;New Equipment Search';
+        $this->view->pageTitle = 'NEW VEHICLE';
     }
-
 }
 

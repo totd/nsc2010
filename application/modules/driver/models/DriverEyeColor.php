@@ -1,6 +1,6 @@
 <?php
 
-class driver_Model_DriverEyeColor extends Zend_Db_Table_Abstract
+class Driver_Model_DriverEyeColor extends Zend_Db_Table_Abstract
 {
   protected $_name = 'driver__eye_color';
 

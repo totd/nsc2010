@@ -1,37 +1,99 @@
 <!--
-@author Andryi Ilnytskyi 04.11.2010
+@author Andryi Ilnytskyi 0.11.2010
 
 Users list form.
 -->
 
-<?php
-    echo $this->navigation()->menu()->render(); ?>
-<h2>Equipment List</h2>
-<?php
-if ($this->equipments != null) {
-?>
-    <table border='1' cellpadding="0" cellspacing="0" width="1100px">
-        <tr>
-            <th>Unit #</th>
-            <th>Veh. Type</th>
-            <th>VIN</th>
-            <th>Lic. Plate #/State</th>
-            <th>GVW</th>
-            <th>#Axles</th>
-            <th>Vendor Code</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-        <?php echo $this->partialLoop('partials/_equipment-row.phtml', $this->equipments); ?>
-    </table>
-<?php
-} else {
-?>
-    <p>You do not have any equipments yet.</p>
-<?php
-}
-if ($this->display_create_link) {
-    echo '<p><a href="/equipment/search">Create a new equipment</a></p>';
-}
-?>
+<div class="bottom-nav">
+    <ul class="blue-nav">
+      <li><span><a href="/equipment/search/index">Add New Equipment</a></span></li>
+    </ul>
+    <form class="search" method="post" action="/equipment/list/index" id="searchParameters">
+        <fieldset>
+            <label>Status:</label>
+            <select  class="rc10" name="Status" id="Status">
+                <?php
+                foreach ($this->statuses as $key => $value) {
+                    if (isset($value['selected']) && $value['selected']) {
+                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                    } else {
+                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                    }
+                }
+                ?>
+            </select>
+            <label>Search By:</label>
+            <select class="rc10" name="SearchBy">
+                <?php
+                foreach ($this->filterFields as $key => $value) {
+                    if (isset($value['selected']) && $value['selected']) {
+                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                    } else {
+                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                    }
+                }
+                ?>
+            </select>
+            <input type="text" class="rc10" value="<?= $this->searchText; ?>" id="SearchText" name="SearchText"/>
+            <input type="hidden" id="from" name="from" value=""/>
+            <input type="hidden" id="step" name="step" value=""/>
+            <input type="submit" value=""/>
+            
+        </fieldset>
+    </form>
+</div>
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
 
+<!--TODO hak for diz-->
+</div>
+
+
+<div id="main" class="driver-profile">
+    <table class="application-forms" cellspacing="0">
+        <tr class="table-title">
+            <td>Unit #</td>
+            <td>Veh. Type</td>
+            <td>VIN</td>
+            <td>Lic. Plate #/State</td>
+            <td>GVW</td>
+            <td>#Axles</td>
+            <td>Vendor Code</td>
+            <td>Status</td>
+            <td colspan="2">Action</td>
+        </tr>
+        <?php
+            if ($this->equipments != null) {
+                echo $this->partialLoop('partials/_equipment-row.phtml', $this->equipments);
+            } else {
+                echo '<tr><td>No Applications found </td></tr>';
+            }
+        ?>
+        <tr>
+            <td class="page" colspan="9">
+                Equipment  <?php echo $this->from; ?> to <?php echo $this->from + $this->step; ?>  ( <?php echo $this->allEquipments; ?> )
+            </td>
+        </tr>
+        <tr>
+            <td class="page" colspan="9">
+                <?php
+                echo $this->partial('partials/_paginator.phtml', array(
+                    'equipmentsCount' => $this->allEquipments,
+                    'from' => $this->from,
+                    'last' => $this->from + $this->step,
+                    'step' => $this->step,
+                    'status' => $this->status));
+                ?>
+            </td>
+        </tr>
+    </table>
+</div>

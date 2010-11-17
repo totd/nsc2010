@@ -23,9 +23,9 @@ class Driver_DriverController extends Zend_Controller_Action
 
 
         $driverID = (int)$this->_request->getParam('id');
-        $driverInfo = driver_Model_Driver::getDriverInfo($driverID);
+        $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
 
-        $driverPersonalInfo_Form = new driver_Form_DriverPersonalInformation();
+        $driverPersonalInfo_Form = new Driver_Form_DriverPersonalInformation();
         $driverPersonalInfo_Form->getForm($driverInfo);
         $driverPersonalInfo_Form->setAction('/driver/new-Driver/driver-Information-Worksheet-View/id/'.$driverID);
 

@@ -19,7 +19,10 @@ class User_CreateController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $userForm = new User_Form_User();
+        $role = new Role_Model_Role();
+        $roles = $role->getList();
+
+        $userForm = new User_Form_User($roles);
         if ($this->_request->isPost()) {
             if ($userForm->isValid($_POST)) {
                 $userModel = new User_Model_User();

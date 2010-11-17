@@ -7,28 +7,38 @@
     <link href="/css/calendar.css" type="text/css" rel="stylesheet"/>
     <script src="/js/calendar.js"></script>
     <script src="/js//jquery-latest.js"></script>
+    <script src="/js/jquery.form.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
     <title>National Safety Compliance, INC</title>
  <script>
 $(document).ready(function() {
-	  $("#new-Driver-Search").validate({
-	    rules: {
-	      d_Employment_Type: "required",
-	      d_Driver_SSN: {
-	        required: true,
-            minlength: 9,
-            maxlength: 9
-	      },
-	      d_Date_Of_Birth: {
-	        required: true
-	      },
-	    },
-	    messages: {
-	      comment: "Please check information."
-	    }
-	  });
-	});  
+  $("#new-Driver-Search").validate({
+    rules: {
+      d_Employment_Type: "required",
+      d_Driver_SSN: {
+        required: true,
+        minlength: 9,
+        maxlength: 9
+      },
+      d_Date_Of_Birth: {
+        required: true
+      }
+    },
+    messages: {
+      comment: "Please check information."
+    }
+  });
+});
   </script>
+
+<?php
+    $this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js', 'text/javascript');
+    $this->headLink()->appendStylesheet('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/smoothness/jquery-ui.css');
+?>
+
+<?= $this->headScript(); ?>
+<?= $this->headLink(); ?>
+    
 </head>
 <body>
         <?php
@@ -59,7 +69,7 @@ $(document).ready(function() {
       <div class="header-bottom">
 
           <ul class="top-menu">
-            <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Drivers</span></span></a></span></span>
+            <li><span class="left"><span class="right"><a href="/driver/index/index?status=1"><span class="left"><span class="right">Drivers</span></span></a></span></span>
                 <div class="top-pod-menu">
                     <ul>
                         <li>
@@ -94,19 +104,53 @@ $(document).ready(function() {
               </ul></div>
             </li>
             <li style="background:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Equipment</span></span></a></span></span>
+              <li>
+                  <span class="left">
+                      <span class="right">
+                          <a href="/equipment/index/index/status/Pending">
+                              <span class="left">
+                                  <span class="right">
+                                      Equipment
+                                  </span>
+                              </span>
+                          </a>
+                      </span>
+                  </span>
                 <div class="top-pod-menu">
                     <ul>
                         <li>
                             <ul>
-                                <li><a href="/driver/index/index?status=1">Equipment List</a></li>
-                                <li><a href="/driver/new-driver/new-driver-search">Create New Equipment</a></li>
+                                <li><a href="/equipment/list/index/status/Pending">Equipment List</a></li>
+                                <li><a href="/equipment/search/index">Create New Equipment</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
-            </li>
-              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Inspaction</span></span></a></span></span>
+              </li>
+              <li>
+                  <span class="left">
+                      <span class="right">
+                          <a href="/user/index/index/status/1">
+                              <span class="left">
+                                  <span class="right">
+                                      Administration
+                                  </span>
+                              </span>
+                          </a>
+                      </span>
+                  </span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/user/list/index/status/1">User List</a></li>
+                                <li><a href="/user/create/index">Create New User</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+              </li>
+              <li><span class="left"><span class="right"><a href="/driver/index/index?status=1"><span class="left"><span class="right">Inspection</span></span></a></span></span>
                 <div class="top-pod-menu">
                     <ul>
                         <li>
@@ -118,7 +162,7 @@ $(document).ready(function() {
                     </ul>
                 </div>
             </li>
-              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Violation</span></span></a></span></span>
+              <li><span class="left"><span class="right"><a href="/driver/index/index?status=1"><span class="left"><span class="right">Violation</span></span></a></span></span>
                 <div class="top-pod-menu">
                     <ul>
                         <li>
@@ -130,7 +174,7 @@ $(document).ready(function() {
                     </ul>
                 </div>
             </li>
-              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Incident</span></span></a></span></span>
+              <li><span class="left"><span class="right"><a href="/driver/index/index?status=1"><span class="left"><span class="right">Incident</span></span></a></span></span>
                 <div class="top-pod-menu">
                     <ul>
                         <li>
@@ -145,10 +189,9 @@ $(document).ready(function() {
               <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Service Provider Management</span></span></a></span></span></li>
           </ul>
           <?php if(isset($this->pageTitle)){ ?><h1 class="page-title"><?php echo $this->pageTitle; ?></h1><?php } ?>
-          <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
+<!--          <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
               <span><?php echo $this->breadcrumbs; ?></span>
-          </div></div></div>
-           <!--     </div> -->
+          </div></div></div>-->
 
         <?php echo $this->layout()->content ?>
         <?php } else {?>
@@ -171,6 +214,7 @@ $(document).ready(function() {
         <?php }?>
 
     </div>
+  </div>
 </body>
 </html>
 

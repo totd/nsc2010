@@ -6,7 +6,7 @@ del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
+form, label, 
 table, caption, tbody, tfoot, thead, tr, th, td {
 	background: transparent;
 	border: 0;
@@ -239,6 +239,7 @@ ul .top-pod-menu ul ul li a:hover {color:#1c357c;}
 
 h1.page-title {
 	clear:both;
+	text-transform:uppercase;
 	padding: 0 0 10px 0;
 	text-align:center;
 	font-size:14px;
@@ -248,7 +249,12 @@ h1.page-title {
 .bottom-nav {
 	float:left;
 	width:1148px;
-	padding:0 20px 5px;}
+	padding:0 20px;}
+
+.top-nav {
+	float:left;
+	width:1001px;
+	padding:20px 20px;}
 	
 span.name-driver {
 	float:left;
@@ -285,11 +291,9 @@ form.status select, form.search select {
 	height:25px;
 	background:#fff;
 	border:1px solid #c9d0dc;
-    /*-moz-border-radius:12px;
+    -moz-border-radius:12px;
     -webkit-border-radius:12px;
-    -khtml-border-radius:12px;
-    border-radius:12px;*/
-	-moz-box-shadow:0px 2px 2px #9aa9bd inset;
+    -moz-box-shadow:0px 2px 2px #9aa9bd inset;
 	-webkit-box-shadow:0px 2px 2px inset;
 	box-shadow:0px 2px 2px #9aa9bd inset;}
 
@@ -305,10 +309,10 @@ form.search input[type="text"] {
 	height:14px;
 	background:#fff;
 	border:1px solid #c9d0dc;
-    /*-moz-border-radius:12px;
+    -moz-border-radius:12px;
     -webkit-border-radius:12px;
     -khtml-border-radius:12px;
-    border-radius:12px;*/
+    border-radius:12px;
 	-moz-box-shadow:0px 2px 2px #9aa9bd inset;
 	-webkit-box-shadow:0px 2px 2px # inset;
 	box-shadow:0px 2px 2px #9aa9bd inset;}
@@ -328,20 +332,20 @@ form.status input[type="submit"], form.search input[type="submit"] {
 ul.blue-nav {
 	float:right;}
 	
-.blue-nav li {
+.blue-nav li, span.blue-button {
 	float:left;
 	height:29px;
 	background:	url(../images/blue-nav-left.gif) no-repeat;
 	padding-left:4px;
 	margin-left:2px;}
 
-.blue-nav li span {
+.blue-nav li span, span.blue-button span {
 	float:left;
 	height:29px;
 	background:url(../images/blue-nav-right.gif) 100% 0 no-repeat;
 	padding-right:3px;}
 
-.blue-nav li a {
+.blue-nav li a, span.blue-button a {
 	float:left;
 	height:29px;
 	line-height:29px;
@@ -350,11 +354,11 @@ ul.blue-nav {
 	color:#fff;
 	text-decoration:none;}
 	
-.blue-nav li:hover {
+.blue-nav li:hover, span.blue-button:hover {
 	opacity:0.8;
 	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80);	}
 
-.blue-nav li:hover a {text-decoration:none;}			
+.blue-nav li:hover a, span.blue-button:hover a {text-decoration:none;}			
 
 .breadcrumbs-left {
 	float:left;
@@ -400,7 +404,8 @@ a.show-legend {
 	text-decoration:underline;
 	height:42px;
 	text-transform:uppercase;
-	//margin-top:-32px;}	
+/*	margin-top:-32px;*/
+}	
 	
 a.show-legend:hover {text-decoration:none;}	
 
@@ -466,6 +471,8 @@ div.blue-nav {
 	overflow:hidden;
 	padding-top:35px;}
 	
+#main div.blue-nav { margin-bottom:50px;}
+	
 .red {
 	color:#ff4425;
 	text-transform:none;
@@ -483,6 +490,7 @@ table.inform .title-dark td {
 	
 table.inform th .discr {
 	float:left;
+	color:#1c357c;
 	margin:-20px 0 10px 0;
 	font-size:12px;
 	text-transform:none;
@@ -651,9 +659,17 @@ form.select-parametr.new-appl label{
 
 form.select-parametr.new-appl label span { color:red;}
 
-form.select-parametr.new-appl span.radio-button { float:left;}
+form.select-parametr.new-appl span.radio-button {
+	float:left;
+	height:18px;
+	padding-right:10px;
+	line-height:18px;}
 
-form.select-parametr.new-appl input[type="radio"] { margin:3px 0 0;}
+form.select-parametr.new-appl span.radio-button input { 
+	height:13px;
+	line-height:13px;
+	float:left;
+	//margin-top:3px;}
 
 form.select-parametr.new-appl input[type="text"] {
 	float:left;
@@ -666,17 +682,14 @@ form.select-parametr.new-appl input[type="text"] {
 	padding:2px 5px;
 	height:14px;}	
 	
-form.select-parametr.new-appl p.link-app { float:left;}	
-	
-form.select-parametr.new-appl p.link-app a { 
-	border-right:1px solid #aab4ce;
-	padding:0 10px;}
-
-form.select-parametr.new-appl p.link-app a:last-child { border-right:none;}		
+form.select-parametr.new-appl p.link-app { 
+	float:left;
+	color:#aab3cf;}		
 
 form.select-parametr.new-appl p.link-app span{
 	float:left;
 	text-align:right;
+	padding-right:10px;
 	width:240px;
 	color:#1c357c;}
 
@@ -693,7 +706,7 @@ form.select-parametr select {
 	
 form.select-parametr option { padding:1px 1px 1px 5px;}	
 
-form.select-parametr input[type="submit"], .check-box form input[type="submit"]{
+form.select-parametr input[type="submit"], .check-box form input[type="submit"], form.select-parametr2 input[type="submit"]{
 	background:url(../images/parametr-submit.gif) no-repeat;
 	width:131px;
 	height:29px;
@@ -725,8 +738,8 @@ form.select-parametr.new-appl input[type="submit"] {
 	text-align:center;}	
 	
 .check-box div {
-	width:180px;
-	padding-right:30px;
+	width:185px;
+	padding-right:25px;
 	float:left;}		
 	
 .check-box h2 { 
@@ -735,7 +748,12 @@ form.select-parametr.new-appl input[type="submit"] {
 	font-size:14px;
 	font-weight:bold;}
 
-.check-box input[type="checkbox"] { float:left; margin:5px 0;}
+.check-box input {
+	float:left;
+	display:inline;
+	margin:5px 5px 5px 0;
+	height:13px;
+	width:13px;}
 
 .check-box label {
 	float:left;
@@ -745,7 +763,207 @@ form.select-parametr.new-appl input[type="submit"] {
 	height:24px;}	
 	
 .check-box p {
+	width:185px;
+	float:left;
+	line-height:23px;}
+
+.check-box p.submit {
 	width:780px;
 	text-align:center;
 	float:left;
 	margin:30px 0 50px;}	
+	
+form.information-form {
+	float:left;
+	width:889px;
+	padding:25px 0 50px;
+	background:url(../images/form-big-gradient.gif) repeat-x #e1e5ef;
+	text-align:center;}
+
+form.information-form h2{
+	font-size:14px;
+	text-transform:uppercase;
+	font-weight:bold;
+	padding-bottom:10px;}
+
+form.information-form h2 span.data { font-weight:normal;}
+
+form.information-form .discr { padding-bottom:25px;}
+
+form.information-form label {
+	width:180px;
+	height:18px;
+	margin:5px 0;
+	line-height:18px;
+	float:left;
+	text-align:right;
+	padding-right:15px;}
+	
+form.information-form input[type="text"] {
+	float:left;
+	height:14px;
+	padding:2px 5px;
+	margin:5px 0;
+	background:none;
+	width:185px;
+	border:1px solid #9398a7;
+	font-family:Arial;
+	font-size:12px;
+	color:#1c357c;}	
+	
+form.information-form input[type="checkbox"] {
+	width:13px;
+	height:13px;
+	padding:0;
+	float:left;
+	margin:5px 0}	
+	
+form.information-form .name input { width:70px;}
+form.information-form .name label { 
+	width:50px;
+	padding-right:10px;}
+form.information-form .name label:first-child {
+	width:205px;
+	padding-right:15px;}
+	
+form.information-form p label:first-child { width:205px;} 
+
+
+form.information-form fieldset { padding:0 35px;}
+
+form.information-form .bold {
+	padding-right:10px;
+	font-weight:bold;}
+
+form.information-form .red { float:none;} 
+
+form.information-form .name, form.information-form p {
+	float:left;
+	width:100%;}
+
+form.information-form .code {
+	float:left;
+	line-height:18px;
+	margin:5px 0;}
+
+form.information-form span.checkbox {
+	float:left;
+	padding-left:220px;}
+
+form.information-form span.checkbox label {
+	width:250px;
+	line-height:14px;}
+
+form.information-form p.submit { text-align:center;}
+
+form.information-form input[type="submit"]{
+	background:url(../images/parametr-submit.gif) no-repeat;
+	width:100px;
+	height:27px;
+	margin:30px 2px 0 0;
+	padding-bottom:3px;
+	border:none;
+	font-family:Verdana;
+	font-size:11px;
+	float:none;
+	color:#fff;
+	cursor:pointer;}
+	
+#main.driver-information.form { padding-bottom:50px;}
+
+table.first {
+	float:left;
+	width:100%;
+	padding:10px 45px;
+	margin-top:-2px;
+	background:#DEE2EC;}
+
+table.first tr td:first-child {
+	padding:8px 0;
+	width:215px;}
+	
+.vehicle .inform {
+	float:left;
+	width:440px;}
+	
+.vehicle .second table:first-child {
+	margin-right:9px;
+	display:inline;}
+
+span.blue-button {
+	height:30px;
+	float:right;
+	margin-right:35px;
+	display:inline;}	
+	
+span.blue-button a {
+	font-size:11px;
+	font-family:Verdana;
+	font-weight:normal;
+	text-transform:none;}	
+	
+.vehicle .second{
+	float:left;
+	background:url(../images/gradient-table-second.gif) repeat-x #f7f7fb;}
+	
+.vehicle .blue-nav { width:330px;}
+
+.second.post {
+	background:url(../images/gradient-second.gif) repeat-x #f7f7fb;
+	float:left;
+	width:844px;
+	height:142px;}
+	
+.second.post h2 {
+	float:left;
+	padding-bottom:12px;}	
+	
+.second.post .blue-button { margin-top:25px}
+
+.second.post .text-red {
+	border:1px solid #9398a7;
+	color:#fa1212;
+	width:400px;
+	padding:0 5px;
+	float:left;
+	font-size:10px;
+	font-family:Arial;
+	clear:both;
+	margin:4px 0;
+	height:15px;
+	line-height:15px;}
+	
+.second.post p {
+	display:block;
+	float:left;
+	clear:both;}	
+	
+.second.post p.borderon {
+	float:left;
+	width:400px;
+	clear:both;
+	border:1px solid #9398a7;
+	padding:0 5px;;
+	margin:4px 0;
+	height:18px;
+	line-height:18px;}
+	
+.warning{
+	background: url(../images/attention.png) no-repeat 0px 0px;
+	display: inline;
+	padding-left: 30px;
+	padding-bottom:10px;
+	padding-top: 3px;
+
+}
+
+.error{
+	background: url(../images/error.png) no-repeat 0px 0px; 
+	display: inline;
+	padding-left: 30px;
+	padding-bottom:10px;
+	text-align:left;
+	width: 350px;
+}
+
+.clear { clear:both;}

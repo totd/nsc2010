@@ -21,61 +21,41 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         // set up acl
         $acl = new Zend_Acl();
 
-        // add the roles
-        $acl->addRole(new Zend_Acl_Role('Guest'));
+        $permission = new Permission_Model_Permission();
 
-        // TODO implement roles hierarchy
-        $acl->addRole(new Zend_Acl_Role('CUSTOMER_USERS__Level_5'), 'Guest');   // DEMO
-        $acl->addRole(new Zend_Acl_Role('CUSTOMER_USERS__Level_4'), 'Guest');   // Client User Office
-        $acl->addRole(new Zend_Acl_Role('CUSTOMER_USERS__Level_3'), 'Guest');   // Client User LocalAdmin
-        $acl->addRole(new Zend_Acl_Role('CUSTOMER_USERS__Level_2'), 'Guest');   // Client User RegionalAdmin
-        $acl->addRole(new Zend_Acl_Role('CUSTOMER_USERS__Level_1'), 'Guest');   // Client User NationalAdmin
-        $acl->addRole(new Zend_Acl_Role('CUSTOMER_USERS__Level_0'), 'Guest');   // Client User SuperAdmin
-        $acl->addRole(new Zend_Acl_Role('NSC_USERS__Level_4'), 'Guest');        // NSC Checker
-        $acl->addRole(new Zend_Acl_Role('NSC_USERS__Level_3'), 'Guest');        // NSC Auditor  
-        $acl->addRole(new Zend_Acl_Role('NSC_USERS__Level_2'), 'Guest');        // NSC Office
-        $acl->addRole(new Zend_Acl_Role('NSC_USERS__Level_1'), 'Guest');        // NSC Admin
-        $acl->addRole(new Zend_Acl_Role('NSC_USERS__Level_0'), 'Guest');        // NSC SuperAdmin
-        
+        // add the roles
+        $roles = $permission->getRoles();
+        foreach ($roles as $role) {
+            $acl->addRole(new Zend_Acl_Role($role));
+        }
+
 
         // add the resources
-        $acl->add(new Zend_Acl_Resource('index'));
-        $acl->add(new Zend_Acl_Resource('error'));
-        $acl->add(new Zend_Acl_Resource('user'))
-                ->add(new Zend_Acl_Resource('user:index'), 'user')
-                ->add(new Zend_Acl_Resource('user:login'), 'user')
-                ->add(new Zend_Acl_Resource('user:create'), 'user')
-                ->add(new Zend_Acl_Resource('user:logout'), 'user')
-                ->add(new Zend_Acl_Resource('user:list'), 'user');
-        $acl->add(new Zend_Acl_Resource('equipment'))
-                ->add(new Zend_Acl_Resource('equipment:index'), 'equipment')
-                ->add(new Zend_Acl_Resource('equipment:create'), 'equipment')
-                ->add(new Zend_Acl_Resource('equipment:list'), 'equipment');
+        $resources = $permission->getAllResources();
+        foreach ($resources as $resource) {
+            if (isset($resource['module'])) {
+                $acl->add(new Zend_Acl_Resource($resource['resource']), $resource['module']);
+            } else {
+                $acl->add(new Zend_Acl_Resource($resource['resource']));
+            }
+        }
 
         // set up the access rules
-        $acl->allow(null, array('index', 'error'));
-        // a guest can only read content and login
-        $acl->allow('Guest', array('user:login', 'user:index'));
-
-        // users logout permissions
-        $acl->allow(array(
-                            'NSC_USERS__Level_1',
-                            'NSC_USERS__Level_2',
-                            'NSC_USERS__Level_3',
-                            'NSC_USERS__Level_4',
-                            'CUSTOMER_USERS__Level_0',
-                            'CUSTOMER_USERS__Level_1',
-                            'CUSTOMER_USERS__Level_2',
-                            'CUSTOMER_USERS__Level_3',
-                            'CUSTOMER_USERS__Level_4',
-                            'CUSTOMER_USERS__Level_5',
-                         ), array('user:logout', 'user:list', 'equipment:list', 'equipment:index'));
-
-        // users CRUD operations
-        $acl->allow('NSC_USERS__Level_0', array('user:create', 'equipment:create'));
-
-        // administrators can do anything
-        $acl->allow('NSC_USERS__Level_0', null);
+        $permissionMatrix = $permission->getList();
+        foreach ($permissionMatrix as $role => $value) {
+            $resources = array();
+            foreach ($value['resources'] as $resource) {
+                $resources[] = $resource['resource'];
+                if (isset ($resource['action'])) {
+                    $actions[] = $resource['action'];
+                }
+            }
+            if (isset ($actions) && count($actions)) {
+                $acl->allow($role, $resources, $actions);
+            } else {
+                $acl->allow($role, $resources);
+            }
+        }
 
         // fetch the current user
         $auth = Zend_Auth::getInstance();

@@ -8,7 +8,7 @@ class Driver_IndexController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $this->view->identity = $auth->getIdentity();
-            $this->driver = new driver_Model_Driver();
+            $this->driver = new Driver_Model_Driver();
         }else{
             return $this->_redirect('user/login');
         }

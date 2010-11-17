@@ -13,12 +13,15 @@ class User_ListController extends Zend_Controller_Action
     }
 
     /**
-     * @author Andryi Ilnytskyi 25-10.-2010.
+     * @author Andryi Ilnytskyi 25-10-2010.
      * 
      * Default action.
      */
     public function indexAction()
     {
+        # Breadcrumbs goes here:
+        $this->view->breadcrumbs = "<a href='#'>Archives</a>&nbsp;&gt;&nbsp;User Profile";
+        
         $currentUsers = User_Model_User::getUsers();
         if ($currentUsers->count() > 0) {
             $this->view->users = $currentUsers;
@@ -26,16 +29,24 @@ class User_ListController extends Zend_Controller_Action
             $this->view->users = null;
         }
 
-        // TODO implement hiden CreteUser link if user hasn't permission
-        $this->view->display_create_link = true;
+        // Check whether the user has permission to create users.
+        $display_create_link = false;
 
-        # Breadcrumbs goes here:
-        $this->view->breadcrumbs = "<a href='#'>Archives</a>&nbsp;&gt;&nbsp;User Profile";
+        $auth = Zend_Auth::getInstance();
 
-        //$partial = array('partial/_Header.phtml', 'default');
-        //$this->view->navigation()->menu()->setPartial($partial);
+        if ($auth->hasIdentity()) {
+            $this->identity = $auth->getIdentity();
+
+            $permission = new Permission_Model_Permission();
+            if ($permission->doesRoleHaveResource($this->identity->vau_role, 'user/create')) {
+                $display_create_link = true;
+            }
+        }
+
+        $this->view->display_create_link = $display_create_link;
+
+        
     }
 
 
 }
-

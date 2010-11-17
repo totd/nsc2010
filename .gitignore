@@ -3,5 +3,10 @@ nbproject/*
 nbproject/project.properties
 nbproject/project.xml
 *.orig
+.idea/
+.idea/*
+
+
+
 
 

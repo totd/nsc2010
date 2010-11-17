@@ -3,11 +3,49 @@
 
 Search equipment form.
 -->
-<table width="80%" cellspacing="" cellpadding="0" border="0" bgcolor="#0000cc" align="center">
-    <tbody>
-        <tr height="30">
-            <td align="center">NEW EQUIPMENT</td>
-        </tr>
-    </tbody>
-</table>
-<?php echo $this->form; ?>
+
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!--TODO hak for diz-->
+</div>
+
+<div class="new-appl" id="main">
+    <div class="parametr-top">
+        <div class="parametr-bottom">
+            <div class="parametr-middle">
+                <form name="new-Equipment-Search" method="post" action="/equipment/search" id="new-Equipment-Search" class="select-parametr new-appl">
+                    <fieldset>
+<!--                        <label>
+                            <span>*</span> Owned By:
+                        </label>
+                        <span class="radio-button">
+                          <input type="radio" name="AppType" id="AppType" value="Employee" checked="checked">
+                          &nbsp;Employee
+                        </span>
+                        <span class="radio-button">
+                          <input type="radio" name="AppType" id="AppType" value="Contractor">
+                          &nbsp;Contractor
+                        </span>-->
+                        <label>
+                            <span>*</span>Vehicle Identification Number:
+                        </label>
+                        <input type="text" id="VIN" value="" name="VIN">
+                        <p class="submit-button">
+                            <input type="submit" value="Next">
+                        </p>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

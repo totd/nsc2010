@@ -108,12 +108,6 @@ class Equipment_ListController extends Zend_Controller_Action
             'e_Number' => array(
                     'text' => 'VIN'
                 ),
-            'et_type' => array(
-                    'text' => 'Veh. Type'
-                ),
-            'vendor_id' => array(
-                    'text' => 'Vendor Code'
-                ),
             'e_Gross_Vehicle_Weight_Rating' => array(
                     'text' => 'GVW'
                 ),

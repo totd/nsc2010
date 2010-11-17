@@ -69,7 +69,7 @@
                             </tr>
                             <tr>
                                 <td>Registration State</td>
-                                <td><span><?= $this->equipmentRow['e_Registration_State']; ?></span></td>
+                                <td><span><?= $this->equipmentRow['s_name']; ?></span></td>
                             </tr>
                             <tr class="color-dark">
                                 <td>Name</td>
@@ -178,34 +178,54 @@
         </div>
     </div>
 
-    <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                <div class="second post">
-                    <h2>Last Vehicle Inspection Information </h2>
-                    <span class="blue-button"><span><a href="#">Enter New Vehicle Inspection Information</a></span></span>
-                    <span class="text-red">There is no state vehicle inspection records</span>
-                    <span class="text-red">There is no state vehicle inspection records</span>
-                </div>
-            </div></div></div>
-
-    <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                <div class="second post">
-                    <h2>Vendor - Vendor Information </h2>
-                    <span class="blue-button"><span><a href="#">Join The Vendor</a></span></span>
-                    <p>There is no vendor joined to the truck</p>
-                </div>
-            </div></div></div>
 
     <div class="post-top">
         <div class="post-bottom">
             <div class="post-middle">
                 <div class="second post">
-                    <h2>Driver Information </h2>
-                    <span class="blue-button"><span><a href="#">Add Driver</a></span></span>
-                    <p class="borderon">No drivers joined to the truck</p>
+                    <h2>Equipment Assignment</h2>
+                    <span class="blue-button">
+                        <span>
+                            <a href="/equipment/information-worksheet/add-assignment/equipmentId/<?= $this->equipmentRow['e_id']; ?>">
+                                Enter Equipment Assignment Information
+                            </a>
+                        </span>
+                    </span>
+                    <span class="text-red">There is no equipment assignment </span>
                 </div>
             </div>
         </div>
     </div>
+
+    <!--    <div class="post-top"><div class="post-bottom"><div class="post-middle">
+                    <div class="second post">
+                        <h2>Last Vehicle Inspection Information </h2>
+                        <span class="blue-button"><span><a href="#">Enter New Vehicle Inspection Information</a></span></span>
+                        <span class="text-red">There is no state vehicle inspection records</span>
+                        <span class="text-red">There is no state vehicle inspection records</span>
+
+                    </div>
+                </div></div></div>
+
+        <div class="post-top"><div class="post-bottom"><div class="post-middle">
+                    <div class="second post">
+                        <h2>Vendor - Vendor Information </h2>
+                        <span class="blue-button"><span><a href="#">Join The Vendor</a></span></span>
+                        <p>There is no vendor joined to the truck</p>
+                    </div>
+                </div></div></div>
+
+        <div class="post-top">
+            <div class="post-bottom">
+                <div class="post-middle">
+                    <div class="second post">
+                        <h2>Driver Information </h2>
+                        <span class="blue-button"><span><a href="#">Add Driver</a></span></span>
+                        <p class="borderon">No drivers joined to the truck</p>
+                    </div>
+                </div>
+            </div>
+        </div>-->
 
     <div class="blue-nav">
         <ul>

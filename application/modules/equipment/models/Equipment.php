@@ -129,6 +129,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
                     FROM equipment
                     JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id
                     LEFT JOIN equipment_types ON et_id = e_type_id
+                    LEFT JOIN state ON e_Registration_State = s_id
                     WHERE e_Number = '$valueVIN'";
 
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();

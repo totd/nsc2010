@@ -45,7 +45,7 @@ class Driver_NewDriverController extends Zend_Controller_Action
 
             
         
-            $NewDriverSearch_form = new driver_Form_NewDriverSearch();
+            $NewDriverSearch_form = new Driver_Form_NewDriverSearch();
             $NewDriverSearch_form->setAction('/driver/new-Driver/new-Driver-Search');
         
             if ($this->_request->isPost() && $NewDriverSearch_form->isValid($_POST)) {

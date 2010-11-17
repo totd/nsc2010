@@ -21,9 +21,4 @@ Set content for the row in the users list.
     <td><?= '&nbsp;'; // TODO  Vendor Code? ?></td>
     <td><?= $this->enes_type; // Status ?></td>
     <td><a href="/equipment/information-worksheet/index/VIN/<?= $this->e_Number; ?>">View</a></td>
-    <?php if (is_null($this->ea_id)) : ?>
-        <td><a href="/equipment/information-worksheet/add-assignment/equipmentId/<?= $this->e_id; ?>">Add Assign</a></td>
-    <?php else : ?>
-        <td><a href="/equipment/information-worksheet/view-assignment/equipmentId/<?= $this->e_id; ?>">View Assign</a></td>
-    <?php   endif; ?>
 </tr>

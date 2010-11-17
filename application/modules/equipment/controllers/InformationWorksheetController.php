@@ -247,6 +247,16 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $this->view->drivers = $this->getSelectList('driver', 'd_ID', 'd_Driver_SSN',
                         (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
                     );
+
+            // Service providers
+            $this->view->serviceProviders = $this->getSelectList('serviceProvider', 'sp_ID', 'sp_Name',
+                        (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
+                    );
+
+            // Incidents
+            $this->view->incidents = $this->getSelectList('incident', 'i_ID', 'i_Violation_ID',
+                        (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
+                    );
         }
 
         //$this->view->equipmentRow = $equipmentRow;

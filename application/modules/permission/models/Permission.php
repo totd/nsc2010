@@ -137,7 +137,8 @@ class Permission_Model_Permission
                 'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
                 'user/list' => array('resource' => 'user:list', 'module' => 'user'),
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
+                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
+                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment', 'action' => 'index')
             )
         ),
         'Guest' => array(

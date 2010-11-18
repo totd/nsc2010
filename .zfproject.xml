@@ -360,6 +360,8 @@
               <actionMethod actionName="addRecord"/>
               <actionMethod actionName="getDriverAddressHistoryList"/>
               <actionMethod actionName="deleteRecord"/>
+              <actionMethod actionName="updateRecord"/>
+              <actionMethod actionName="getRecord"/>
             </controllerFile>
             <controllerFile controllerName="DriverSearch">
               <actionMethod actionName="index"/>
@@ -402,6 +404,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="DriverSearch">
                 <viewScriptFile forActionName="search"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="DriverAddressHistory">
+                <viewScriptFile forActionName="updateRecord"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="DriverAddressHistory">
+                <viewScriptFile forActionName="getRecord"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

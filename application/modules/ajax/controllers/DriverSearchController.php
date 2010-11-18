@@ -1,4 +1,5 @@
 <?php
+
 class Ajax_DriverSearchController extends Zend_Controller_Action
 {
 

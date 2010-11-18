@@ -1,26 +1,26 @@
-        <tr>
-          <td><?php echo $this->d_First_Name; ?></td>
-          <td><?php echo $this->d_Last_Name; ?></td>
-          <td><?php echo $this->d_Driver_SSN; ?></td>
-          <td>
-            <?php
-                $arr=explode("-",$this->d_Date_Of_Birth);
-                echo $arr[1]."/".$arr[2]."/".$arr[0];
-            ?>
-          </td>
-          <td><?php echo $_SESSION['driver_info']['DriverStatus_list'][$this->d_Status]; ?></td>
-          <td>
-            <?php
-                echo $_SESSION['driver_info']['DriverEmploymentType_list'][$this->d_Employment_Type]." / ";
-                if($this->d_Date_Of_Hire!=null)
-                {
-                    $arr=explode("-",$this->d_Date_Of_Hire);
-                    echo $arr[1]."/".$arr[2]."/".$arr[0];
-                }else
-                {
-                    echo "N/A";
-                };
-            ?>
-          </td>
-          <td class="link-profile"><a href="/driver/new-Driver/driver-Information-Worksheet-View/id/<?php echo $this->d_ID;?>" >Profile</a>&nbsp;|&nbsp;<a href="#">DQF</a></td>
-        </tr>
+<tr>
+    <td><?php echo $this->d_First_Name; ?></td>
+    <td><?php echo $this->d_Last_Name; ?></td>
+    <td><?php echo $this->d_Driver_SSN; ?></td>
+    <td>
+    <?php
+    $date = new Zend_Date($this->d_Date_Of_Birth);
+    echo  $date->toString("MM/dd/YYYY");
+    ?>
+    </td>
+    <td><?php echo $_SESSION['driver_info']['DriverStatus_list'][$this->d_Status]; ?></td>
+    <td>
+    <?php
+                    echo $_SESSION['driver_info']['DriverEmploymentType_list'][$this->d_Employment_Type]." / ";
+    if($this->d_Date_Of_Hire!=null)
+    {
+        $date->set($this->d_Date_Of_Hire);
+        echo  $date->toString("MM/dd/YYYY");
+    }else
+    {
+        echo "N/A";
+    };
+    ?>
+    </td>
+    <td class="link-profile"><a href="/driver/new-Driver/driver-Information-Worksheet-View/id/<?php echo $this->d_ID;?>" >Profile</a>&nbsp;|&nbsp;<a href="#">DQF</a></td>
+</tr>

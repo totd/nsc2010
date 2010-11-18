@@ -2,11 +2,12 @@
 $driverAddressHistoryList = $this->layout()->driverAddressHistoryList;
 $stateList = $this->layout()->stateList;
 $previousAddressCount=0;
+$date = new Zend_Date();
 foreach($driverAddressHistoryList as $k => $v)
 {
     $previousAddressCount++;
     ?>
-    <fieldset  class="hasBorder">
+    <fieldset  class="hasBorder" id="addressRecordID_<?php echo $v['dah_ID'];?>">
         <legend><b><?php
         if($v['dah_Current_Address']=="YES"){
             echo "Current Address";
@@ -36,10 +37,18 @@ foreach($driverAddressHistoryList as $k => $v)
             <tr height=25 valign=middle>
                 <td class="MainText" valign="top">At Address:</td>
                 <td class="MainTextB">
-                    <font color="#000000">From Date:</font> <?php echo $v['dah_Start_Date']; ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <font color="#000000">From Date:</font>
+                <?php
+                    $date->set($v['dah_Start_Date']);
+                    echo $date->toString("MM/dd/YYYY");
+                ?>&nbsp;&nbsp;&nbsp;&nbsp;
                 <?php
                                 if($v['dah_Current_Address']!="YES"){ ?>
-                    <font color="#000000">To Date:</font> <?php echo $v['dah_End_Date']; ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <font color="#000000">To Date:</font>
+                <?php
+                    $date->set($v['dah_End_Date']);
+                    echo $date->toString("MM/dd/YYYY");
+                ?>&nbsp;&nbsp;&nbsp;&nbsp;
                     <br/><font color="#000000">Total:</font>
                 <?php
                                         $fromDate = explode("-",$v['dah_Start_Date']);
@@ -58,9 +67,9 @@ foreach($driverAddressHistoryList as $k => $v)
             <tr height=40 valign=middle>
                 <td class="MainText" align=center>&nbsp;</td>
                 <td class="MainText" align=left>
-                    <a href='javascript:editAddressHistoryRecord(<?php echo $v['dah_ID'];?>)' class="MainLink2">
+                    <a href='javascript:editAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)' class="MainLink2">
                         <font color="#0000cc">Update this Address</font></a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href='javascript:deleteAddressHistoryRecord(<?php echo $v['dah_ID'];?>)' class="MainLink2">
+                    <a href='javascript:deleteAddressHistoryRecord(<?php echo $v["dah_ID"].",".$v["dah_Driver_ID"];?>)' class="MainLink2">
                         <font color="#0000cc">Delete this Address</font></a>
                 </td>
             </tr>

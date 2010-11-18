@@ -18,6 +18,9 @@
         </div>
     </div>
 </div>
+<?php
+    $date = new Zend_Date();
+?>
 <table border="1" width="100%">
     <tr>
         <td colspan="2" bgcolor="#ccffcc"><b>Driver Information:</b></td>
@@ -48,7 +51,11 @@
                                 <label class="optional" for="entrydate">Entry Date</label>
                             </td>
                             <td>
-                                <?php echo $this->driverInfo['d_Entry_Date']?>
+                                <?php
+
+                                    $date->set($this->driverInfo['d_Entry_Date']);
+                                    echo  $date->toString("MM/dd/YYYY H:m:s");
+                                ?>
                             </td>
                         </tr>
                         <tr>
@@ -137,9 +144,8 @@
                             <td><label class="required" >Date Of Birth:</label></td>
                             <td>
                             <?php
-                                $arr = explode("-",$this->driverInfo['d_Date_Of_Birth']);
-                                $this->driverInfo['d_Date_Of_Birth'] = $arr[1]."/".$arr[2]."/".$arr[0];
-                                echo $this->driverInfo['d_Date_Of_Birth'];
+                                $date->set($this->driverInfo['d_Date_Of_Birth']);
+                                echo  $date->toString("MM/ddYYYY");
                             ?>
                             </td>
                             <td><label class="d_Height_Feet" for="d_Height_Feet">Height Feet</label></td>

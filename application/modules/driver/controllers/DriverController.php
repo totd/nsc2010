@@ -78,7 +78,6 @@ class Driver_DriverController extends Zend_Controller_Action
         unset($_POST['Driver_Personal_Information']);
         if(Driver_Model_Driver::saveDriverInfo($_POST)==true){
             $this->_redirect("/driver/new-Driver/driver-Information-Worksheet-View/id/".$driverID);
-#            $this->_forward("driver-Information-Worksheet-View","new-Driver","driver",array("id" => $driverID));
         }
     }
 

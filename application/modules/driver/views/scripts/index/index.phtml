@@ -19,34 +19,41 @@
                 <label>Search By:</label>
                 <select>
                   <option selected="selected"> - </option>
-                  <option>Category 1</option>
-                  <option>Category 2</option>
-                  <option>Category 3</option></select>
+                  <option>All</option>
+                  <option>Name</option>
+                  <option>SSN</option>
+                  <option>Date Of Birth</option>
+                </select>
                 <input type="text" value=""/>
                 <input type="submit" value=""/>
               </fieldset>
             </form>
           </div>
-
-          <!--
-          <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
-              <span><?php // echo $this->breadcrumbs; ?></span>
-              <div style="float:right;"><a href="/driver/index/new-Driver-Search">New Driver</a></div>
-              </div></div></div>
-              -->
-          </div>
-
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+<ul class="blue-nav">
+   <li><span><a href="/driver/new-driver/new-driver-search">Add New Driver</a></span></li>
+</ul>
     <div id="main" class="driver-profile">
 
       <table class="application-forms" cellspacing="0">
       <tr class="table-title">
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>SSN</td>
-          <td>DOB</td>
-          <td>Status</td>
-          <td>Employment Type / Date of Hire</td>
-          <td>Action</td>
+          <td><a href="" class="whiteLink" >First Name</a></td>
+          <td><a href="" class="whiteLink" >Last Name</a></td>
+          <td><a href="" class="whiteLink" >SSN</a></td>
+          <td><a href="" class="whiteLink" >DOB</a></td>
+          <td><a href="" class="whiteLink" >Status</a></td>
+          <td><a href="" class="whiteLink" >Employment Type</a> / <a href="" class="whiteLink" >Date of Hire</a></td>
+          <td><a href=""  class="whiteLink">Action</a></td>
         </tr>
 
 <?php

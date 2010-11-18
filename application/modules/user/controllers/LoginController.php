@@ -1,15 +1,18 @@
 <?php
 /**
  * @author Andryi Ilnytskiy 23.10.2010
- * 
+ *
  * Handler of the user login.
  */
 class User_LoginController extends Zend_Controller_Action
 {
+    public function preDispatch(){
+        $this->_helper->layout->setLayout('loginLayout');
+    }
 
     public function init()
     {
-       
+
     }
 
     /**
@@ -21,7 +24,7 @@ class User_LoginController extends Zend_Controller_Action
     {
         $loginForm = new User_Form_Login();
         $loginForm->setAction('/user/login');
-        
+
         if ($this->_request->isPost() && $loginForm->isValid($_POST)) {
             $data = $loginForm->getValues();
             $db = Zend_Db_Table::getDefaultAdapter();
@@ -49,13 +52,13 @@ class User_LoginController extends Zend_Controller_Action
 
             // Check an authentication.
             $result = $authAdapter->authenticate();
-            
+
             if ($result->isValid()) {
                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(
                         array('vau_role_id', 'vau_role', 'vau_role_title', 'vau_username', 'vau_password')));
-                
+
                 // TODO Implement a forwarding or redirecting to the needed action.
                 //return $this->_forward('list', 'index', 'user');
                 return $this->_redirect('index/index');

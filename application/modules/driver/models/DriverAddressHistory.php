@@ -15,7 +15,6 @@ class Driver_Model_DriverAddressHistory extends Zend_Db_Table_Abstract
      */
     public function getList($iDriverID=null)
     {
-        echo $iDriverID;
         $table = new Driver_Model_DriverAddressHistory();
         if((int)$iDriverID==null){
             $row = $table->fetchAll(" dah_ID <> 0 "," dah_row_created DESC ");
@@ -39,5 +38,18 @@ class Driver_Model_DriverAddressHistory extends Zend_Db_Table_Abstract
     {
         $table = new Driver_Model_DriverAddressHistory();
         return $table->insert($mData);
+    }
+    /**
+     * @author Vlad Skachkov 16.11.2010
+     *
+     * delete driver address history record
+     *
+     * @param int $iRecord
+     * @return mixed
+     */
+    public function deleteRecord($iRecord)
+    {
+        $table = new Driver_Model_DriverAddressHistory();
+        return $table->delete("dah_ID =".$iRecord);
     }
 }

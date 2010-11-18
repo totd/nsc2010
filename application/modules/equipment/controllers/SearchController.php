@@ -26,6 +26,8 @@ class Equipment_SearchController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+        $this->view->breadcrumbs = "<a href='/user/login#'>Login</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment List</a>&nbsp;&gt;&nbsp;Equipment Search";
+
         if ($this->_request->isPost()) {
             if (isset($_REQUEST['VIN'])) {
                 $equipment = new Equipment_Model_Equipment();

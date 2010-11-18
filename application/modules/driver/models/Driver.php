@@ -63,30 +63,21 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
      *
      * Check New Driver for existing in DB
      *
-     * @param array $searchData Array which contains value of the fields
+     * @param string $d_Driver_SSN Array which contains value of the fields
      * @return mixed
      */
-     public static function searchNewDriver($searchData)
+     public static function searchNewDriver($d_Driver_SSN)
     {
          $db = Zend_Db_Table_Abstract::getDefaultAdapter();
          $stmt = $db->query('
                       SELECT
                         d_ID, d_Driver_SSN, d_Date_Of_Birth 	
                       FROM driver
-                      WHERE d_Driver_SSN = "' . $searchData['d_Driver_SSN'] . '" 
+                      WHERE d_Driver_SSN = "' . $d_Driver_SSN . '" 
 
         ');
          $row = $stmt->fetchAll();
-         if(sizeof($row)>0){
-             for($i=0;$i<sizeof($row);$i++){
-                 if($row[$i]['d_Driver_SSN']==$searchData['d_Driver_SSN']){
-                     return false; # driver with such SSN found in DB. Proceed is impossible;
-                 }
-             }
-         }else{
-              return true;
-         }
-         return 'error';
+         return $row;
     }
     
     /**
@@ -100,6 +91,8 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
      public static function createPendingDriver($driverData)
     {
          $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+         $arr=explode("/",$driverData['d_Date_Of_Birth']);
+         $driverData['d_Date_Of_Birth'] = $arr[2]."-".$arr[0]."-".$arr[1];
          $stmt = $db->query('
                       INSERT INTO driver(d_Driver_SSN,d_Employment_Type,d_Date_Of_Birth,d_Status)
                       VALUES("' . $driverData['d_Driver_SSN'] . '","' . $driverData['d_Employment_Type'] . '","' . $driverData['d_Date_Of_Birth'] . '",1)
@@ -134,6 +127,21 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
         ');
          $row = $stmt->fetch();
          return $row;
+    }
+    /**
+     * @author Vlad Skachkov 04.11.2010
+     *
+     * save driver information
+     *
+     * @param mixed $data
+     * @return mixed
+     */
+    public function saveDriverInfo($data)
+    {
+        $db = new Driver_Model_Driver();
+        
+        $w = 'd_ID = '.$data['d_ID'];
+       return $db->update($data,$w);
     }
 
 }

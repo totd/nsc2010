@@ -1,41 +1,54 @@
-<!--
-          <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
-              <span><?php echo $this->breadcrumbs; ?></span>
-          </div></div></div>
-          -->
 
-<h2>NEW DRIVER - LOOK FOR A DRIVER</h2>
-<?php if ($this->driver_exist==true) {
- ?>
-    <p><?php echo $this->partial('partials/_searchDriver-error-driverExist.phtml', $this->d_Driver_SSN); ?></p>
-<?php
-} ?>
-<?php if ($this->systemMessage==true) {
- ?>
-    <p><?php echo $this->systemMessage; ?></p>
-<?php
-} ?>
-
-<form action="/driver/new-Driver/new-Driver-Search" method="post" enctype="application/x-www-form-urlencoded" id="new-Driver-Search">
-    <div class="zend_form">
-        <div class="form_element">
-           <label class="required">Application for:</label><br/>
-           <label><input type="radio" value="4" id="d_Employment_Type-4" name="d_Employment_Type" />Employee</label>
-           <label><input type="radio" value="3" id="d_Employment_Type-3" name="d_Employment_Type" />Contractor</label>
-        </div>
-        <div class="form_element">
-            <label class="required" for="d_Driver_SSN">Driver SSN: </label>
-            <br/>
-            <input type="text" value="" id="d_Driver_SSN" name="d_Driver_SSN" /><span class="form_element_tip">(only numbers)</span>
-        </div>
-        <div class="form_element">
-            <label class="required" for="d_Date_Of_Birth" />Driver Date Of Birth: </label>
-            <br/>
-            <input type="text" value="" id="d_Date_Of_Birth" name="d_Date_Of_Birth" readonly="readonly" onfocus='showCalendar("",this,this,"","d_Date_Of_Birth",0,30,1)' /><span class="form_element_tip">(yyyy-mm-dd)</span>
-        </div>
-        <div class="form_element">
-            <input type="submit" value="By Driver" id="Driver" name="Driver" />
-            <input type="submit" value="By Administrator" id="Administrator" name="Administrator"/>
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
         </div>
     </div>
-</form>
+</div>
+
+<div class="new-appl" id="main">
+    <div class="parametr-top"><div class="parametr-bottom"><div class="parametr-middle">
+      <form action="/driver/new-Driver/new-Driver-Search" class="select-parametr new-appl" method="post" enctype="application/x-www-form-urlencoded" id="new-Driver-Search">
+        <h2>NEW APPLICATION - LOOK FOR A DRIVER</h2>
+        <div style="color:#cc0000; text-align:left; margin-left:100px;">
+            <?php
+             if(isset($this->systemMessage)){ echo $this->systemMessage;}
+            ?>
+        </div>
+        <span class="discr">(Select Parameters)</span>
+        <fieldset>
+            <label><span>*</span> Application for :</label>
+              <span class="radio-button"><input type="radio" value="4" id="d_Employment_Type-4" name="d_Employment_Type" />&nbsp;Employee</span>
+              <span class="radio-button"><input type="radio" value="3" id="d_Employment_Type-3" name="d_Employment_Type" />&nbsp;Contractor</span>
+            <label for="d_Driver_SSN"><span>*</span>Driver SSN :</label>
+                <input type="text" id="d_Driver_SSN" value="numbers only" name="d_Driver_SSN" onfocus="if(this.value=='numbers only'){this.value='';}"/>
+            <label for="d_Date_Of_Birth"><span>*</span>Driver Date Of Birth:</label>
+                <input type="text" id="d_Date_Of_Birth" value="mm/dd/yyyy" name="d_Date_Of_Birth" onfocus="if(this.value=='mm/dd/yyyy'){this.value='';}"  />
+
+            <p class="link-app"><span>Application Form to be filled:</span></p>
+			<div class="clear"></div>
+			<br><br>
+			<center>
+            <table>
+				<tbody><tr>
+					<td><span class="blue-button"><input class="blue_button_input" type="submit" value="By Driver" id="Driver" name="Driver"/></span></td>
+					<td><span class="blue-button"><input class="blue_button_input" type="submit" value="By Administrator" id="Administrator" name="Administrator"/></span>
+				</td></tr>
+			</tbody></table>
+			</center>
+        </fieldset>
+      </form>
+    </div></div></div>
+
+<script type="text/javascript">
+$(function() {
+  $("#d_Date_Of_Birth").datepicker();
+});
+
+</script>
+    </div>

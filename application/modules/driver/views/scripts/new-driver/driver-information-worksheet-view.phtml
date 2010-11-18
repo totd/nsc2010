@@ -1,22 +1,30 @@
-<?php
-    echo $this->navigation()->menu()->render(); ?>
+
+<div class="bottom-nav">
+    <ul class="blue-nav">
+      <li><span><a href="/driver/new-Driver/new-Driver-Complete/id/<?php echo $this->driverId;?>" >Complete</a></span></li>
+    </ul>
+    <ul class="blue-nav">
+      <li><span><a href="/driver/new-Driver/new-Driver-Decline/id/<?php echo $this->driverId;?>" >Decline</a></li>
+    </ul>
+</div>
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
 <table border="1" width="100%">
-    <tr>
-        <td colspan="2" align="center"><h2 style="background:#00f; color:#FFF;">DRIVER INFORMATION WORKSHEET</h2></td>
-    </tr>
-    <tr>
-        <td width="300px"><b>Driver:</b></td>
-        <td width="300px" align="right">
-            <a href="/driver/new-Driver/new-Driver-Complete/id/<?php echo $this->driverId;?>" >Complete</a> |
-            <a href="/driver/new-Driver/new-Driver-Decline/id/<?php echo $this->driverId;?>" >Decline</a> |
-        </td>
-    </tr>
     <tr>
         <td colspan="2" bgcolor="#ccffcc"><b>Driver Information:</b></td>
     </tr>
     <tr>
         <td colspan="2">
-                <form action="/driver/new-Driver/new-Driver-Complete/id/6" method="post" enctype="application/x-www-form-urlencoded" id="driver_DriverPersonalInformation_Form">
+                <form action="/driver/Driver/save-Driver-Information/id/<?php echo $this->driverId;?>" method="post" enctype="application/x-www-form-urlencoded" id="driver_DriverPersonalInformation_Form">
                     <table width="100%" border="1" cellpadding="5" cellspacing="0">
                         <tr>
                             <td>
@@ -65,6 +73,12 @@
                             <td>
                                 <select id="d_depot_ID" name="d_depot_ID">
                                     <option value="">- Select HomeBase first -</option>
+                            <?php
+                                foreach($this->depotList as $k => $v)
+                                {
+                            ?>
+                                    <option class="d_depot_ID_item" label="<?php echo $v['d_Name'];?>" id="<?php echo $k;?>" value="<?php echo $k;?>" <?php if($k==$this->driverInfo['d_depot_ID']){ echo "selected='selected'";} ?>   ><?php echo $v['d_Name'];?></option>
+                            <?php } ?>
                                 </select>
                             </td>
                         </tr>
@@ -75,7 +89,7 @@
                     <table width="100%" border="1" cellpadding="5" cellspacing="0">
                         <tr>
                             <td><label class="required" for="d_First_Name">First Name:</label></td>
-                            <td><input type="text" value="" id="d_First_Name" name="d_First_Name"></td>
+                            <td><input type="text" value="<?php echo $this->driverInfo['d_First_Name']; ?>" id="d_First_Name" name="d_First_Name"></td>
                            <td><label class="required" for="d_Gender">Sex</label></td>
                             <td>
                                 <select id="d_Gender" name="d_Gender">
@@ -90,7 +104,7 @@
                         </tr>
                         <tr>
                             <td><label class="optional" for="d_Middle_Name">Middle Name:</label></td>
-                            <td><input type="text" value="" id="d_Middle_Name" name="d_Middle_Name"></td>
+                            <td><input type="text" value="<?php echo $this->driverInfo['d_Middle_Name']; ?>" id="d_Middle_Name" name="d_Middle_Name"></td>
                             <td><label class="d_Hair_Color" for="d_Hair_Color">Hair Color</label></td>
                             <td>
                                 <select id="d_Hair_Color" name="d_Hair_Color" class="optional">
@@ -99,14 +113,14 @@
                                 foreach($_SESSION['driver_info']['DriverHairColor_list'] as $k => $v)
                                 {
                             ?>
-                                    <option label="<?php echo $v;?>" value="<?php echo $k;?>"><?php echo $v;?></option>
+                                    <option label="<?php echo $v;?>" value="<?php echo $k;?>" <?php if($k==$this->driverInfo['d_Hair_Color']){ echo "selected='selected'";} ?>><?php echo $v;?></option>
                             <?php } ?>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td><label class="required" for="d_Last_Name">Last Name:</label></td>
-                            <td><input type="text" value="" id="d_Last_Name" name="d_Last_Name"></td>
+                            <td><input type="text" value="<?php echo $this->driverInfo['d_Last_Name']; ?>" id="d_Last_Name" name="d_Last_Name"></td>
                             <td><label class="d_Eye_Color" for="d_Eye_Color">Eye Color</label></td>
                             <td>
                                 <select id="d_Eye_Color" name="d_Eye_Color" class="optional">
@@ -115,14 +129,20 @@
                                 foreach($_SESSION['driver_info']['DriverEyeColor_list'] as $k => $v)
                                 {
                             ?>
-                                    <option label="<?php echo $v;?>" value="<?php echo $k;?>"><?php echo $v;?></option>
+                                    <option label="<?php echo $v;?>" value="<?php echo $k;?>" <?php if($k==$this->driverInfo['d_Eye_Color']){ echo "selected='selected'";} ?>><?php echo $v;?></option>
                             <?php } ?>
                                 </select>
                             </td>
                         </tr>
                         <tr>
-                            <td><label class="required" for="d_Date_Of_Birth">Date Of Birth:</label></td>
-                            <td><input type="text" value="<?php echo $this->driverInfo['d_Date_Of_Birth']?>" id="d_Date_Of_Birth" name="d_Date_Of_Birth"  onfocus='showCalendar("",this,this,"","d_Date_Of_Birth",0,30,1)' readonly="readonly" style="background:#fff;" /></td>
+                            <td><label class="required" >Date Of Birth:</label></td>
+                            <td>
+                            <?php
+                                $arr = explode("-",$this->driverInfo['d_Date_Of_Birth']);
+                                $this->driverInfo['d_Date_Of_Birth'] = $arr[1]."/".$arr[2]."/".$arr[0];
+                                echo $this->driverInfo['d_Date_Of_Birth'];
+                            ?>
+                            </td>
                             <td><label class="d_Height_Feet" for="d_Height_Feet">Height Feet</label></td>
                             <td>
                                 <select id="d_Height_Feet" name="d_Height_Feet" class="optional">
@@ -131,13 +151,13 @@
                                 for($i=1;$i<=9;$i++)
                                 {
                             ?>
-                                    <option label="<?php echo $i;?>" value="<?php echo $i;?>"><?php echo $i;?></option>
+                                    <option label="<?php echo $i;?>" value="<?php echo $i;?>" <?php if($i==$this->driverInfo['d_Height_Feet']){ echo "selected='selected'";} ?>><?php echo $i;?></option>
                             <?php } ?>
                                 </select>
                             </td>
                         </tr>
                         <tr>
-                            <td><label class="required" for="d_Driver_SSN">Social Security #:</label></td>
+                            <td><label class="required" >Social Security #:</label></td>
                             <td><?php echo $this->driverInfo['d_Driver_SSN']?></td>
                             <td><label class="d_Height_Inches" for="d_Height_Inches">Height Inches</label></td>
                             <td>
@@ -147,41 +167,45 @@
                                 for($i=1;$i<=11;$i++)
                                 {
                             ?>
-                                    <option label="<?php echo $i;?>" value="<?php echo $i;?>"><?php echo $i;?></option>
+                                    <option label="<?php echo $i;?>" value="<?php echo $i;?>" <?php if($i==$this->driverInfo['d_Height_Inches']){ echo "selected='selected'";} ?>><?php echo $i;?></option>
                             <?php } ?>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td><label class="required" for="d_Telephone_Number1">#1 Telephone_Number:</label></td>
-                            <td><input type="text" value="" id="d_Telephone_Number1" name="d_Telephone_Number1"></td>
+                            <td><input type="text" value="<?php echo $this->driverInfo['d_Telephone_Number1']; ?>" id="d_Telephone_Number1" name="d_Telephone_Number1"></td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td><label class="optional" for="d_Telephone_Number2">#2 Telephone_Number:</label></td>
-                            <td><input type="text" value="" id="d_Telephone_Number2" name="d_Telephone_Number2"></td>
+                            <td><input type="text" value="<?php echo $this->driverInfo['d_Telephone_Number2']; ?>" id="d_Telephone_Number2" name="d_Telephone_Number2"></td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td><label class="optional" for="d_Telephone_Number3">#3 Telephone_Number:</label></td>
-                            <td><input type="text" value="" id="d_Telephone_Number3" name="d_Telephone_Number3"></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><label class="required" for="d_Telephone_Number1">1 Telephone_Number:</label></td>
-                            <td><input type="text" value="" id="d_Telephone_Number1" name="d_Telephone_Number1"></td>
+                            <td><input type="text" value="<?php echo $this->driverInfo['d_Telephone_Number3']; ?>" id="d_Telephone_Number3" name="d_Telephone_Number3"></td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td colspan="4">
+                            <input type="submit" value="Save" id="Driver_Personal_Information" name="Driver_Personal_Information" />
                                 <br/>
                                 <hr/>
+                        </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
                                 <h3 style="color:#F00"> Please fill in Addresses for the last 3 years.</h3>
-                                <fieldset>
+                                <div id="currentDriverAddressHistoryList"></div>
+                                <script type="text/javascript">
+                                        refreshAddressHistoryRecords(<?php echo $this->driverId;?>);
+                                </script>
+                                <fieldset class="hasBorder">
                                     <legend>Add Address:</legend>
                                     <span id="error" style="color:#ff0000;"></span>
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
@@ -218,8 +242,8 @@
                                         <tr height=30 valign=middle>
                                             <td class="MainText">At Address:</td>
                                             <td class="MainText">
-                                                From Date: <Input type="text" readonly="readonly" name="dah_Start_Date" size=10 maxlength=10 onfocus='showCalendar("",this,this,"","dah_Start_Date",-100,10,1)'  />&nbsp;&nbsp;&nbsp;&nbsp;
-                                                To Date: <Input type="text" readonly="readonly" name="dah_End_Date" size=10 maxlength=10 onfocus='showCalendar("",this,this,"","dah_End_Date",-104,10,1)'  />
+                                                From Date: <Input type="text" readonly="readonly" id="dah_Start_Date" name="dah_Start_Date" size=10 maxlength=10   />&nbsp;&nbsp;&nbsp;&nbsp;
+                                                To Date: <Input type="text" readonly="readonly" id="dah_End_Date"name="dah_End_Date" size=10 maxlength=10 />
                                                 
                                             </td>
                                         </tr>
@@ -248,12 +272,18 @@
                     </table>
                     <br/>
                     <hr/>
-                
-<input type="submit" value="Save" id="Driver_Personal_Information" name="Driver_Personal_Information">
-            </form>
         </td>
     </tr>
     <tr>
         <td colspan="2">&nbsp;</td>
     </tr>
 </table>
+
+<script type="text/javascript">
+$(function() {
+  $("#d_Date_Of_Birth").datepicker();
+  $("#dah_Start_Date").datepicker();
+  $("#dah_End_Date").datepicker();
+});
+
+</script>

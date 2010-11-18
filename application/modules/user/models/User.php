@@ -48,6 +48,20 @@ class User_Model_User extends Zend_Db_Table_Abstract
         $select = $userModel->select();
         return $userModel->fetchAll($select);
     }
+    /**
+     * @author Vladislav Skachkov 15.11.2010
+     *
+     * Get user.
+     *
+     * @param int $id
+     * @return mixed
+     */
+    public static function getUser($id)
+    {
+        $userModel = new self();
+        $select = $userModel->select();
+        return $userModel->fetchAll($select);
+    }
 
 }
 

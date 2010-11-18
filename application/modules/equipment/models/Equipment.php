@@ -58,6 +58,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
         $join = " JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id";
         $join .= " LEFT JOIN state ON e_Registration_State = s_id";
+        $join .= " LEFT JOIN equipment_types ON e_type_id = et_id";
         $where = "";
 
         if (isset($filterOptions['Status'])) {

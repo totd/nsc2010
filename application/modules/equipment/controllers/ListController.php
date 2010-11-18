@@ -24,7 +24,7 @@ class Equipment_ListController extends Zend_Controller_Action
     public function indexAction($options = null)
     {
         # TODO implement filling breadcrumbs.
-        $this->view->breadcrumbs = "<a href='#'>Archives</a>&nbsp;&gt;&nbsp;Equipment Profile";
+        $this->view->breadcrumbs = "<a href='/user/login#'>Login</a>&nbsp;&gt;&nbsp;Equipment List";
 
         // Set parameters for paginator
         if ($this->_getParam('status') != null) {
@@ -103,7 +103,10 @@ class Equipment_ListController extends Zend_Controller_Action
                     'text' => '-'
                 ),
             'e_Unit_Number' => array(
-                    'text' => 'ID'
+                    'text' => 'Unit #'
+                ),
+            'et_type' => array(
+                    'text' => 'Veh. Type'
                 ),
             'e_Number' => array(
                     'text' => 'VIN'
@@ -114,10 +117,14 @@ class Equipment_ListController extends Zend_Controller_Action
             'e_license_Number' => array(
                     'text' => 'Lic. Plate #'
                 ),
+            's_Name' => array(
+                    'text' => 'State'
+                ),
             'e_Axles' => array(
-                    'text' => '# of axles'
+                    'text' => '#Axles'
                 )
         );
+        
         if (isset($options['SearchBy']) && isset($options['SearchText'])) {
             foreach ($filterFields as $key => &$value) {
                 if ($options['SearchBy'] == $key) {

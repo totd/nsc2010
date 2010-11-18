@@ -5,31 +5,12 @@
     <link href="/css/style.css" type="text/css" rel="stylesheet"/>
     <link href="/css/zendcode.css" type="text/css" rel="stylesheet"/>
     <link href="/css/calendar.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/vlad.css" type="text/css" rel="stylesheet"/>
     <script src="/js/calendar.js"></script>
     <script src="/js//jquery-latest.js"></script>
     <script src="/js/jquery.form.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
     <title>National Safety Compliance, INC</title>
- <script>
-$(document).ready(function() {
-  $("#new-Driver-Search").validate({
-    rules: {
-      d_Employment_Type: "required",
-      d_Driver_SSN: {
-        required: true,
-        minlength: 9,
-        maxlength: 9
-      },
-      d_Date_Of_Birth: {
-        required: true
-      }
-    },
-    messages: {
-      comment: "Please check information."
-    }
-  });
-});
-  </script>
 
 <?php
     $this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js', 'text/javascript');

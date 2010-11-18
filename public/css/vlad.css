@@ -1,0 +1,44 @@
+.required{
+    font-weight:bold;
+}
+.tip{
+    color:#ccc;
+}
+.hasBorder{
+    border:1px solid #ccc;
+    padding:5px;
+    margin:5px;
+}
+.whiteLink{
+    color:#FFF;
+}
+
+.blue_button_input{
+	background:url(../images/parametr-submit.gif) no-repeat !important;
+	width:131px !important;
+	height:29px !important;
+	margin:0 !important;
+	padding-bottom:0 !important;
+	border:none !important;
+	font-family:Verdana !important;
+	font-size:11px !important;
+	color:#fff !important;
+	cursor:pointer !important;
+}
+
+span.blue-button .blue_button_input {
+font-family:Verdana !important;
+font-size:11px !important;
+font-weight:normal !important;
+text-transform:none !important;
+}
+
+span.blue-button .blue_button_input {
+background:url("../images/blue-nav-middle.gif") repeat-x scroll 0 0 transparent !important;
+color:#FFFFFF !important;
+float:left !important;
+height:29px !important;
+line-height:29px !important;
+padding:0 30px !important;
+text-decoration:none !important;
+}

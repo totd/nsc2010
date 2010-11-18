@@ -20,6 +20,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
     public function indexAction($VIN = null)
     {
+        $this->view->breadcrumbs = "<a href='/user/login#'>Login</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment List</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment Search</a>&nbsp;&gt;&nbsp;Equipment VIM";
+
         if (is_null($VIN)) {
             $VIN = $this->_request->getParam('VIN');
             if (is_null($VIN)) {
@@ -43,9 +45,14 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
 
 
+        if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
+            $myDate = new Zend_Date(strtotime($equipmentRow['e_License_Expiration_Date']));
+            $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
+        } else {
+            $equipmentRow['e_License_Expiration_Date'] = '';
+        }
 
         $this->view->equipmentRow = $equipmentRow;
-        $this->view->breadcrumbs = "<a href='/equipment/list/index'>Equipments</a>&nbsp;&gt;&nbsp;New Equipment View";
         $this->view->action = '/equipment/update-status/';
         $this->view->pageTitle = 'VEHICLE INFORMATION WORKSHEET';
     }
@@ -67,6 +74,12 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $this->_redirect('/equipment/search');
             }
         }
+
+        $this->view->breadcrumbs = '<a href="/user/login">Login</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;VIM Update';
 
         $equipmentModel = new Equipment_Model_Equipment();
         $equipmentRow = $equipmentModel->findEquipmentByVIN($VIN);
@@ -130,9 +143,14 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->equipmentTypes = $selectEquipmentTypeArray;
 
 
+        if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
+            $myDate = new Zend_Date(strtotime($equipmentRow['e_License_Expiration_Date']));
+            $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
+        } else {
+            $equipmentRow['e_License_Expiration_Date'] = '';
+        }
+
         $this->view->equipmentRow = $equipmentRow;
-        $this->view->breadcrumbs = "<a href='/equipment/list/index'>Equipments</a>&nbsp;&gt;&nbsp;New Equipment View";
-        $this->view->action = "/equipment/save/id/{$equipmentRow['e_id']}";
         $this->view->pageTitle = 'UPDATE VEHICLE INFORMATION WORKSHEET';
         $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
     }
@@ -195,7 +213,16 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $data = array();
             // TODO implement filling manual all table fealds with validating.
             foreach ($this->_request->getPost() as $key => $value) {
-                $data[$key] = $value;
+                if ($key == 'e_License_Expiration_Date') {
+                    try {
+                     $myDate = new Zend_Date(strtotime($value));
+                     $data[$key] = $myDate->toString("YYYY-MM-dd");
+                    } catch (Exception $e) {
+                        
+                    }
+                } else {
+                    $data[$key] = $value;
+                }
             }
 
             $where = $equipmentModel->getAdapter()->quoteInto('e_id = ?', $this->_request->getPost('e_id'));
@@ -206,11 +233,20 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
     }
 
-    public function addAssignmentAction($equipmentId = null)
+    public function addAssignmentAction($equipmentId = null, $VIN = null)
     {
+        
+
         if (is_null($equipmentId)) {
             $equipmentId = $this->_request->getParam('equipmentId');
+            $VIN = $this->_request->getParam('VIN');
         }
+
+        $this->view->breadcrumbs = '<a href="/user/login">Login</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;Assignment Update';
 
         if (is_null($equipmentId)) {
             $this->view->errorMessage = "Equipment is undefined";
@@ -260,7 +296,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
 
         //$this->view->equipmentRow = $equipmentRow;
-        $this->view->breadcrumbs = "<a href='/equipment/list/index'>Equipments</a>&nbsp;&gt;&nbsp;New Equipment View";
         $this->view->pageTitle = 'UPDATE EQUIPMENT ASSIGNMENT';
         $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
     }

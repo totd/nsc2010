@@ -142,6 +142,8 @@
             <controllerFile controllerName="Driver">
               <actionMethod actionName="index"/>
               <actionMethod actionName="editDriverInformation"/>
+              <actionMethod actionName="saveDriverInformation"/>
+              <actionMethod actionName="viewDriverInformation"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory>
@@ -187,6 +189,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Driver">
                 <viewScriptFile forActionName="editDriverInformation"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Driver">
+                <viewScriptFile forActionName="saveDriverInformation"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Driver">
+                <viewScriptFile forActionName="viewDriverInformation"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -337,6 +345,7 @@
               <actionMethod actionName="index"/>
               <actionMethod actionName="addRecord"/>
               <actionMethod actionName="getDriverAddressHistoryList"/>
+              <actionMethod actionName="deleteRecord"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -366,6 +375,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="DriverAddressHistory">
                 <viewScriptFile forActionName="getDriverAddressHistoryList"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="DriverAddressHistory">
+                <viewScriptFile forActionName="deleteRecord"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

@@ -5,10 +5,10 @@ class Ajax_DriverAddressHistoryController extends Zend_Controller_Action
 
     public function init()
     {
-         //Turn off autorender of templites
-         $this->_helper->viewRenderer->setNoRender();
-         // turn of templites
-         $this->_helper->layout()->disableLayout();
+        //Turn off autorender of templites
+        $this->_helper->viewRenderer->setNoRender();
+        // turn of templites
+        $this->_helper->layout()->disableLayout();
     }
 
     public function indexAction()
@@ -18,8 +18,8 @@ class Ajax_DriverAddressHistoryController extends Zend_Controller_Action
 
     public function addRecordAction()
     {
-        $dah_Driver_ID = $_REQUEST['dah_Driver_ID'];
         $dah_Address1 = $_REQUEST['dah_Address1'];
+        $dah_Driver_ID = $_REQUEST['dah_Driver_ID'];
         $dah_City = $_REQUEST['dah_City'];
         $dah_State = $_REQUEST['dah_State'];
         $dah_Postal_Code = $_REQUEST['dah_Postal_Code'];
@@ -69,14 +69,14 @@ class Ajax_DriverAddressHistoryController extends Zend_Controller_Action
         if($dah_Start_Date==null){
             $errors++;
             $msg=$msg."Please select From Date!<br/>";
-        }elseif(preg_match("/[\d]{4}\-[\d]{2}\-[\d]{2}/",$dah_Start_Date)==0){
+        }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$dah_Start_Date)==0){
             $errors++;
             $msg=$msg.'Please, select correct date (yyyy-mm-dd)!<br/>';
         }
         if($dah_End_Date==null){
             $errors++;
             $msg=$msg."Please select To Date!<br/>";
-        }elseif(preg_match("/[\d]{4}\-[\d]{2}\-[\d]{2}/",$dah_End_Date)==0){
+        }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$dah_End_Date)==0){
             $errors++;
             $msg=$msg.'Please, select correct date (yyyy-mm-dd)!<br/>';
         }
@@ -94,30 +94,49 @@ class Ajax_DriverAddressHistoryController extends Zend_Controller_Action
             $data['dah_State']=$dah_State;
             $data['dah_Postal_Code']=$dah_Postal_Code ;
             $data['dah_Phone']=$dah_Phone ;
-            $data['dah_Start_Date']=$dah_Start_Date ;
-            $data['dah_End_Date']=$dah_End_Date;
+
+            $arr = explode('/', $dah_Start_Date);
+            $data['dah_Start_Date']=$arr[2].'-'.$arr[0].'-'.$arr[1];
+            $arr = explode('/', $dah_End_Date);
+            $data['dah_End_Date']=$arr[2].'-'.$arr[0].'-'.$arr[1];
+
             $data['dah_Current_Address']=$dah_Current_Address;
 
             Driver_Model_DriverAddressHistory::createRecord($data);
             echo 1;
         }
     }
-
-    public function getDriverAddressHistoryListAction()
-    {
+    public function getDriverAddressHistoryListAction(){
         $dah_Driver_ID = $_REQUEST['dah_Driver_ID'];
         $arr = new Driver_Model_DriverAddressHistory();
-      /*  $layout = new Zend_Layout();
-        $layout->setLayoutPath('/ajax/views/scripts/driverArddressHistory');
+        $stateList = State_Model_State::getList();
+        /*
+                $view = new Zend_View();
+                $view->addScriptPath('/ajax/views/scripts/driver-address-history/');
+                $view->arr=$arr;
+                echo $view->render('get-driver-address-history-list.phtml');
+        */
+
+        $layout = new Zend_Layout();
+        $layout->setLayoutPath(APPLICATION_PATH.'/modules/ajax/views/scripts/driver-address-history/');
         $layout->setLayout('get-driver-address-history-list');
-        $layout->content = $arr;
-        echo $layout->render('/_history-item');
-//        $view->*/
-        print_r($arr->getList($dah_Driver_ID));
+        $layout->driverAddressHistoryList = $arr->getList($dah_Driver_ID);
+        $layout->stateList = $stateList;
+        echo $layout->render();
+        # return $layout->render();
+        //        $view->*/
+    }
+
+    public function deleteRecordAction()
+    {
+        $dah_ID = $_REQUEST['dah_ID'];
+        Driver_Model_DriverAddressHistory::deleteRecord($dah_ID);
     }
 
 
 }
+
+
 
 
 

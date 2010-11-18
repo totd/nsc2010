@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="/css/style.css" type="text/css" rel="stylesheet"/>
+        <title>National Safety Compliance, INC</title>
+
+        <?php
+        $this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js', 'text/javascript');
+        $this->headLink()->appendStylesheet('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/smoothness/jquery-ui.css');
+        ?>
+
+        <?= $this->headScript(); ?>
+        <?= $this->headLink(); ?>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div class="header-top">
+                <h1>
+                    <span class="no-display">National Safety Compliance, INC</span>
+                </h1>
+            </div>
+            <?php echo $this->layout()->content ?>
+            
+        </div>
+    </body>
+
+
+</html>

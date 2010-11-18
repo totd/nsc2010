@@ -3,6 +3,40 @@ class EquipmentAssignment_Model_EquipmentAssignment extends Zend_Db_Table_Abstra
 {
     protected $_name = 'equipment_assignment';
 
+    public function findRow($field, $value)
+    {
+        $result = false;
+
+        $rowTable = $this->fetchRow("$field = $value");
+        if ($rowTable) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    public function saveAssignment($saveRow)
+    {
+        if (isset($saveRow['ea_id'])) {
+            $rowTable = $this->fetchRow("ea_id = {$this->getDefaultAdapter()->quote($saveRow['ea_id'])}");
+            unset($saveRow['ea_id']);
+        } else {
+            $rowTable = $this->createRow();
+        }
+
+        if ($rowTable) {
+            foreach ($saveRow as $key => $value) {
+                $rowTable->$key = $value;
+            }
+
+            $rowTable->save();
+            //return the new user
+            return $rowTable;
+        } else {
+            throw new Zend_Exception("Could not save equipment assignment!");
+        }
+    }
+
     public function getAssignment($equipmentId)
     {
         $select = "SELECT *
@@ -17,7 +51,7 @@ class EquipmentAssignment_Model_EquipmentAssignment extends Zend_Db_Table_Abstra
             LEFT JOIN inspection ON e_id = i_Equipment_ID
             LEFT JOIN equipment_maintenance ON e_id = em_Equipment_ID
             LEFT JOIN incident__passenger ON e_id = ip_Equipment_Number
-            where e_id = $equipmentId
+            where e_id = {$this->getDefaultAdapter()->quote($equipmentId)}
         ";
 
         $stmt = $this->getDefaultAdapter()->query($select);

@@ -39,12 +39,12 @@ class Driver_NewDriverController extends Zend_Controller_Action
         # Breadcrumbs & page title goes here:
         $this->view->breadcrumbs = "<a href='/driver/index/index'>DQF</a>&nbsp;&gt;&nbsp;New Driver - Look for a New Driver";
         $this->view->pageTitle = "NEW DRIVER - LOOK FOR A DRIVER";
-        
+
         # origin - http://www.driverqualificationonline.com/ProdClient/Application/NewDriverSearch.asp
         # pre-create Driver search. If there no such Driver in DB - offer to create new one.
         $auth = Zend_Auth::getInstance();
 
-        
+
         $this->view->systemMessage = "";
 
         if ($auth->hasIdentity()) {
@@ -97,6 +97,7 @@ class Driver_NewDriverController extends Zend_Controller_Action
             return $this->_redirect('user/login');
         }
     }
+    
 
     public function newDriverCompleteAction()
     {
@@ -117,7 +118,7 @@ class Driver_NewDriverController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/jQueryScripts/ajax_driverAddressHistory.js', 'text/javascript');
 
         # Breadcrumbs & page title goes here:
-        $this->view->breadcrumbs = "<a href='/driver/new-driver/new-driver-search'>New Driver</a>&nbsp;&gt;&nbsp;Driver Information Worksheet";
+        $this->view->breadcrumbs = "<a href='/driver/new-Driver/new-driver-search'>New Driver</a>&nbsp;&gt;&nbsp;Driver Information Worksheet";
         $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET";
 
         $driverID = (int)$this->_request->getParam('id');
@@ -128,22 +129,6 @@ class Driver_NewDriverController extends Zend_Controller_Action
         $stateList = State_Model_State::getList();
         $currentDriverHistoryList = new Driver_Model_DriverAddressHistory();
         $currentDriverHistoryList->getList($driverID);
-
-        # checking incomind data for Application Information Form.
-        # if data correct - saving changes to DB, else - show notification to user:
-        if($_POST['form_id']=='driver_applicationInformation_Form'){
-            if ($this->_request->isPost() && $driver_applicationInformation_Form->isValid($_POST)) {
-                # TODO: create action in Model to save changes
-            }
-        }
-
-        # checking incomind data for Application Information Form.
-        # if data correct - saving changes to DB, else - show notification to user:
-        if($_POST['form_id']=='driver_applicationInformation_Form'){
-            if ($this->_request->isPost() && $driverPersonalInfo_Form->isValid($_POST)) {
-                # TODO: create action in Model to save changes
-            }
-        }
 
 
         $this->view->driverId = $driverID;

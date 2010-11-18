@@ -29,30 +29,30 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
      *
      * get drivers list
      *
-     * @param int: $iStatus, $iFrom
+     * @param int: $iStatus - status ID, $iPage
+     * @param nixed: $mOrderBy - array('field'=>'field_name','sort' => 'ASC|DESC')
      * @return mixed
      */
-    public static function getDrivers($iStatus=1,$iFrom=0,$iLimit=20)
+    # public static function getDrivers($iStatus=1,$mOrderBy=array('field'=>'d_Entry_Date','sort' => 'DESC'),$iFrom=0,$iLimit=20)
+    public static function getDrivers($sWhere="1",$mOrderBy=array('d_Entry_Date','DESC'),$iPage = 0)
     {
-        if($iStatus==0){
-            $sWhere =" WHERE 1";
+        $Where =" WHERE ".$sWhere;
+        $sOrderBy =" ORDER BY ".$mOrderBy[0]." ".$mOrderBy[1];
+        if($iPage==0){
+            $sLimit = "";
+        }elseif($iPage==1){
+            $sLimit = "LIMIT 0,6";;
         }else{
-            $sWhere =" WHERE d_Status = " . $iStatus . "";
+            $sLimit = "LIMIT ".(6*($iPage-1)).",6";
         }
-        if((isset($iFrom)) && (isset($iLimit))){
-            $sLimit = "LIMIT ".$iFrom.",".$iLimit."";
-        }else{
-            $sLimit = "LIMIT 0,20";
-        }
-         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
          $stmt = $db->query('
                       SELECT
                         *
                       FROM driver
-                      ' . $sWhere . '
+                      ' . $Where . '
+                      ' . $sOrderBy . '
                       ' . $sLimit . '
-
-
         ');
          $row = $stmt->fetchAll();
         return $row;

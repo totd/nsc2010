@@ -72,13 +72,12 @@
                             <td><label class="optional" for="d_depot_ID">Depot</label></td>
                             <td>
                                 <select id="d_depot_ID" name="d_depot_ID">
-                                    <option value="">- Select HomeBase first -</option>
                             <?php
                                 foreach($this->depotList as $k => $v)
                                 {
                             ?>
-                                    <option class="d_depot_ID_item" label="<?php echo $v['d_Name'];?>" id="<?php echo $k;?>" value="<?php echo $k;?>" <?php if($k==$this->driverInfo['d_depot_ID']){ echo "selected='selected'";} ?>   ><?php echo $v['d_Name'];?></option>
-                            <?php } ?>
+                                  <option class="d_depot_ID_item" label="<?php  echo $v['d_Name'];?>" id="<?php  echo $k;?>" value="<?php  echo $k;?>" <?php  if($k==$this->driverInfo['d_depot_ID']){ echo "selected='selected'";} ?>   ><?php  echo $v['d_Name'];?></option>
+                            <?php  } ?>
                                 </select>
                             </td>
                         </tr>

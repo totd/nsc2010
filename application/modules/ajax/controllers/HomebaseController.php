@@ -1,5 +1,4 @@
 <?php
-
 class Ajax_HomebaseController extends Zend_Controller_Action
 {
 
@@ -23,15 +22,15 @@ class Ajax_HomebaseController extends Zend_Controller_Action
     {
         
         $id = $_REQUEST['id'];
-        $homebaseList = Depot_Model_Depot::getDepotList($id,1);
+        $depotList = Depot_Model_Depot::getDepotList($id,1);
         $options="";
-        if(sizeof($homebaseList)>0){
-            foreach($homebaseList as $k => $v)
+        if(sizeof($depotList)>0){
+            foreach($depotList as $k => $v)
             {
                 $options=$options."<option label='".$v['d_Name']."' value='".$k."' >".$v['d_Name']."</option>";
             }
         }else{
-             $options=$options."<option value=''>- No Depots Aviable in this Homebase -</option>";
+             $options=$options."";
         }
         echo $options;
     }

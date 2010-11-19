@@ -52,13 +52,13 @@ class Driver_DriverController extends Zend_Controller_Action
         $errors = "";
         if($_POST['d_First_Name']==""){
             $errors = $errors."First Name - is required!<br/>";    
-        }
+        }/*
         if($_POST['d_Date_Of_Birth']==""){
             $errors = $errors."DOB - is required!<br/>";
         }else{
             $arr = explode("/",$_POST['d_Date_Of_Birth']);
             $_POST['d_Date_Of_Birth'] = $arr[2]."-".$arr[0]."-".$arr[1];
-        }
+        }*/
         if($_POST['d_Last_Name']==""){
             $errors = $errors."Last Name - is required!<br/>";
         }
@@ -78,7 +78,9 @@ class Driver_DriverController extends Zend_Controller_Action
         unset($_POST['Driver_Personal_Information']);
         if(Driver_Model_Driver::saveDriverInfo($_POST)==true){
             $this->_redirect("/driver/new-Driver/driver-Information-Worksheet-View/id/".$driverID);
-#            $this->_forward("driver-Information-Worksheet-View","new-Driver","driver",array("id" => $driverID));
+        }
+        elseif(Driver_Model_Driver::saveDriverInfo($_POST)==0){
+            $this->_redirect("/driver/new-Driver/driver-Information-Worksheet-View/id/".$driverID);
         }
     }
 

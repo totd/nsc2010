@@ -412,15 +412,15 @@ CREATE TABLE IF NOT EXISTS `equipment_assignment` (
   `ea_equipment_id` int(11) NOT NULL,
   `ea_owner_id` int(11) NOT NULL,
   `ea_driver_id` int(11) DEFAULT NULL,
-  `ea_start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `ea_end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `ea_start_date` date NOT NULL,
+  `ea_end_date` date NOT NULL,
   `ea_mileage` int(11) DEFAULT NULL,
   `ea_DOT_regulated` enum('Yes','No') NOT NULL,
   PRIMARY KEY (`ea_id`),
   KEY `fk_owner_id` (`ea_owner_id`),
   KEY `fk_homebase_id` (`ea_homebase_id`),
   KEY `fk_equipment_id` (`ea_equipment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

@@ -6,7 +6,7 @@ del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
-form, label, fieldset, 
+fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
 	background: transparent;
 	border: 0;
@@ -224,11 +224,30 @@ ul .top-pod-menu ul ul {
 	float:left;
 	width:256px;
 	background:none;
-	padding:0;}
+	padding:0;
+}
 
 ul .top-pod-menu ul ul li {
 	background:none;
 	padding:0;
+	font-weight:normal;
+	text-transform:none;}
+
+ul .top-pod-menu ul ul li.lvl2 a {
+    width:223px;
+}
+ul .top-pod-menu ul ul li.lvl3 a {
+    width:213px;
+}
+ul .top-pod-menu ul ul li.lvl2 {
+	background:none;
+    padding-left:10px;
+	font-weight:normal;
+	text-transform:none;}
+
+ul .top-pod-menu ul ul li.lvl3 {
+	background:none;
+    padding-left:20px;
 	font-weight:normal;
 	text-transform:none;}
 
@@ -312,9 +331,9 @@ form.search input[type="text"] {
     -webkit-border-radius:12px;
     -khtml-border-radius:12px;
     border-radius:12px;
-	-moz-box-shadow:0px 2px 2px #9aa9bd inset;
-	-webkit-box-shadow:0px 2px 2px # inset;
-	box-shadow:0px 2px 2px #9aa9bd inset;}
+    -moz-box-shadow:0px 2px 2px #9aa9bd inset;
+    -webkit-box-shadow:0px 2px 2px #9aa9bd inset;
+    box-shadow:0px 2px 2px #9aa9bd inset;}
 
 form.status input[type="submit"], form.search input[type="submit"] {
 	background:url(../images/submit-bg.gif) no-repeat;
@@ -665,11 +684,11 @@ form.select-parametr.new-appl span.radio-button {
 	line-height:18px;}
 
 form.select-parametr.new-appl span.radio-button input { 
-	height:13px;
-	line-height:13px;
-	float:left;
-	//margin-top:3px;}
-
+    height:13px;
+    line-height:13px;
+    float:left;
+    /*	//margin-top:3px;}*/
+}
 form.select-parametr.new-appl input[type="text"] {
 	float:left;
 	background:none;
@@ -956,13 +975,22 @@ span.blue-button a {
 
 }
 
-.error{
+/*.error{
 	background: url(../images/error.png) no-repeat 0px 0px; 
 	display: inline;
 	padding-left: 30px;
 	padding-bottom:10px;
 	text-align:left;
 	width: 350px;
+}*/
+
+.error_custom{
+    background: url(../images/error.png) no-repeat 0px 0px;
+    display: inline;
+    padding-left: 30px;
+    padding-bottom:10px;
+    text-align:left;
+    width: 350px;
 }
 
 .clear { clear:both;}

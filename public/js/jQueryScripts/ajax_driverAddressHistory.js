@@ -1,6 +1,6 @@
 
 function clearNewDriverAddressForm(){
-    document.getElementById("error").innerHTML="";
+    document.getElementById("error_custom").innerHTML="";
     document.getElementsByName("dah_Address1")[0].value="";
     document.getElementsByName("dah_City")[0].value="";
     document.getElementsByName("dah_State")[0].value="";
@@ -11,7 +11,7 @@ function clearNewDriverAddressForm(){
     document.getElementsByName("dah_Current_Address")[0].value="";
 }
 function addAddressHistoryRecord(){
-    document.getElementById("error").innerHTML="";
+    document.getElementById("error_custom").innerHTML="";
     dah_Driver_ID = document.getElementsByName("dah_Driver_ID")[0].value;
     dah_Address1 = document.getElementsByName("dah_Address1")[0].value;
     dah_City = document.getElementsByName("dah_City")[0].value;
@@ -35,12 +35,12 @@ function addAddressHistoryRecord(){
             dah_Current_Address: ""+dah_Current_Address+""
         }, function(data){
             if(data==1){
-                document.getElementById("error").innerHTML="";
+                document.getElementById("error_custom").innerHTML="";
                 refreshAddressHistoryRecords(dah_Driver_ID);
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                document.getElementById("error").innerHTML=""+data+"";
+                document.getElementById("error_custom").innerHTML=""+data+"";
             }
            });
 }
@@ -81,13 +81,13 @@ function editAddressHistoryRecord(record_id,dah_Driver_ID){
                 return true;
             }if(data==false){
                 alert("asd");
-                document.getElementById("error").innerHTML=""+data+"";
+                document.getElementById("error_custom").innerHTML=""+data+"";
             }
            });
 }
 function updateAddressHistoryRecord(dah_ID){
 
-    document.getElementById("error").innerHTML="";
+    document.getElementById("error_custom").innerHTML="";
     dah_ID = document.getElementsByName("edit_dah_ID")[0].value;
     dah_Driver_ID = document.getElementsByName("edit_dah_Driver_ID")[0].value;
     dah_Address1 = document.getElementsByName("edit_dah_Address1")[0].value;
@@ -113,12 +113,12 @@ function updateAddressHistoryRecord(dah_ID){
             dah_Current_Address: ""+dah_Current_Address+""
         }, function(data){
             if(data==1){
-                document.getElementById("error").innerHTML="";
+                document.getElementById("error_custom").innerHTML="";
                 refreshAddressHistoryRecords(dah_Driver_ID);
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                document.getElementById("error").innerHTML=""+data+"";
+                document.getElementById("error_custom").innerHTML=""+data+"";
             }
            });
     

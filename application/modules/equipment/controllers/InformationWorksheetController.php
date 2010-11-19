@@ -20,7 +20,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
     public function indexAction($VIN = null)
     {
-        $this->view->breadcrumbs = "<a href='/user/login#'>Login</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment List</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment Search</a>&nbsp;&gt;&nbsp;Equipment VIM";
+        $this->view->breadcrumbs = "<a href='/equipment/index'>Equipment Management</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment List</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment Search</a>&nbsp;&gt;&nbsp;Equipment VIM";
 
         if (is_null($VIN)) {
             $VIN = $this->_request->getParam('VIN');
@@ -52,6 +52,9 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $equipmentRow['e_License_Expiration_Date'] = '';
         }
 
+        $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
+        $this->view->equipmentHasAssignment = $equipmentAssignmentModel->findRow('ea_equipment_id', $equipmentRow['e_id']);
+
         $this->view->equipmentRow = $equipmentRow;
         $this->view->action = '/equipment/update-status/';
         $this->view->pageTitle = 'VEHICLE INFORMATION WORKSHEET';
@@ -75,7 +78,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             }
         }
 
-        $this->view->breadcrumbs = '<a href="/user/login">Login</a>&nbsp;&gt;';
+        $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';
@@ -233,6 +236,38 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
     }
 
+    public function saveAssignmentAction()
+    {
+        if ($this->_request->isPost()) {
+            $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
+            $cols = $equipmentAssignmentModel->info(Zend_Db_Table_Abstract::COLS);
+
+            $data = array();
+            // TODO implement filling manual all table fealds with validating.
+            foreach ($this->_request->getPost() as $key => $value) {
+                if (in_array($key, $cols)) {
+
+                    if (empty($value) || is_null($value)) {
+                        continue;
+                    } elseif ($key == 'ea_start_date' || $key == 'ea_end_date') {
+                        try {
+                            $myDate = new Zend_Date(strtotime($value));
+                            $data[$key] = $myDate->toString("YYYY-MM-dd");
+                        } catch (Exception $e) {
+
+                        }
+                    } else {
+                        $data[$key] = $value;
+                    }
+                }
+            }
+
+            $equipmentAssignmentModel->saveAssignment($data);
+
+            return $this->_redirect('equipment/list');
+        }
+    }
+
     public function addAssignmentAction($equipmentId = null, $VIN = null)
     {
         
@@ -242,7 +277,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $VIN = $this->_request->getParam('VIN');
         }
 
-        $this->view->breadcrumbs = '<a href="/user/login">Login</a>&nbsp;&gt;';
+        $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';
@@ -257,9 +292,28 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
             $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentId);
 
-            if (is_null($equipmentAssigmentRow)) {
+            if (is_null($equipmentAssigmentRow) || empty($equipmentAssigmentRow)) {
                 $equipmentAssigmentRow['e_id'] = $equipmentId;
-                $equipmentAssigmentRow['ea_Equipment_id'] = $equipmentId;
+                $equipmentAssigmentRow['ea_equipment_id'] = $equipmentId;
+
+                $this->view->equipmentAssignmentRow = $equipmentAssigmentRow;
+            } elseif (is_array($equipmentAssigmentRow) && count($equipmentAssigmentRow)) {
+                if (!empty($equipmentAssigmentRow['ea_start_date']) && $equipmentAssigmentRow['ea_start_date'] != '0000-00-00') {
+                    $dateObj = new Zend_Date(strtotime($equipmentAssigmentRow['ea_start_date']));
+                    $equipmentAssigmentRow['ea_start_date'] = $dateObj->toString("MM/dd/YYYY");
+                } else {
+                    $equipmentAssigmentRow['ea_start_date'] = '';
+                }
+
+                if (!empty($equipmentAssigmentRow['ea_end_date']) && $equipmentAssigmentRow['ea_end_date'] != '0000-00-00') {
+                    $dateObj = new Zend_Date(strtotime($equipmentAssigmentRow['ea_end_date']));
+                    $equipmentAssigmentRow['ea_end_date'] = $dateObj->toString("MM/dd/YYYY");
+                } else {
+                    $equipmentAssigmentRow['ea_end_date'] = '';
+                }
+
+
+                $this->view->equipmentAssignmentRow = $equipmentAssigmentRow;
             }
 
             // Prepearing data for the form
@@ -293,6 +347,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $this->view->incidents = $this->getSelectList('incident', 'i_ID', 'i_Violation_ID',
                         (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
                     );
+
+
         }
 
         //$this->view->equipmentRow = $equipmentRow;

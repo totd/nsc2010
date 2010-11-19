@@ -1,6 +1,6 @@
 function empty (param) {
     if (param === "" || param === 0 ||  param === "0" ||  param === null ||  param === false 
-            || typeof mixed_var === 'undefined') {
+        || typeof mixed_var === 'undefined') {
         return true;
     }
 
@@ -17,7 +17,7 @@ function setHiddenFieldFromUrlQuery(id, url) {
 
 
 $(document).ready(function() {
-    $("#prevEquipments").click(function(){
+    $("#prevEquipments").click(function() {
         url = $("#prevEquipments").attr("href");
         $("#prevEquipments").attr("href", "");
         setHiddenFieldFromUrlQuery("from", url);
@@ -25,7 +25,7 @@ $(document).ready(function() {
         submitSearchParameters();
     });
 
-    $("#nextEquipments").click(function(){
+    $("#nextEquipments").click(function() {
         url = $("#nextEquipments").attr("href");
         $("#nextEquipments").attr("href", "");
         setHiddenFieldFromUrlQuery("from", url);
@@ -40,6 +40,10 @@ $(document).ready(function() {
     if (!empty($("#step").val())) {
         jQuery.url.param("step", $("#step").val());
     }
+
+    $("#Status").change(function() {
+        submitSearchParameters();
+    });
 
 });
 

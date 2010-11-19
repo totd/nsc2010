@@ -24,7 +24,7 @@ class Equipment_ListController extends Zend_Controller_Action
     public function indexAction($options = null)
     {
         # TODO implement filling breadcrumbs.
-        $this->view->breadcrumbs = "<a href='/user/login#'>Login</a>&nbsp;&gt;&nbsp;Equipment List";
+        $this->view->breadcrumbs = "<a href='/equipment/index'>Equipment Management</a>&nbsp;&gt;&nbsp;Equipment List";
 
         // Set parameters for paginator
         if ($this->_getParam('status') != null) {

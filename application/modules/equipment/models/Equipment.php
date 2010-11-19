@@ -52,7 +52,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
      *
      * @return mixed
      */
-    public function getEquipmentList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Completed')
+    public function getEquipmentList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Completed', $orderFeald = 'enes_type')
     {
         $limit = "LIMIT $offset, $count";
         $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
@@ -60,12 +60,13 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         $join .= " LEFT JOIN state ON e_Registration_State = s_id";
         $join .= " LEFT JOIN equipment_types ON e_type_id = et_id";
         $where = "";
+        $orderBy = " ORDER BY $orderFeald";
 
         if (isset($filterOptions['Status'])) {
             if ($filterOptions['Status'] != 'All') {
-                $where = "WHERE enes_type = '{$filterOptions['Status']}'";
+                $where = "WHERE enes_type = {$this->getDefaultAdapter()->quote($filterOptions['Status'])}";
             } else {
-                $where = "WHERE enes_type <> '$excludeStatus'";
+                $where = "WHERE enes_type <> {$this->getDefaultAdapter()->quote($excludeStatus)}";
             }
         }
 
@@ -75,7 +76,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
             $where .= "{$filterOptions['SearchBy']} LIKE '%{$filterOptions['SearchText']}%'";
         }
 
-        $select .= " $join $where $limit";
+        $select .= " $join $where $orderBy $limit";
         
         $stmt = $this->getDefaultAdapter()->query($select);
 

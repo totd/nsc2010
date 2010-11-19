@@ -20,7 +20,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
     public function indexAction($VIN = null)
     {
-        $this->view->breadcrumbs = "<a href='/user/login#'>Login</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment List</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment Search</a>&nbsp;&gt;&nbsp;Equipment VIM";
+        $this->view->breadcrumbs = "<a href='/equipment/index'>Equipment Management</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment List</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment Search</a>&nbsp;&gt;&nbsp;Equipment VIM";
 
         if (is_null($VIN)) {
             $VIN = $this->_request->getParam('VIN');
@@ -78,7 +78,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             }
         }
 
-        $this->view->breadcrumbs = '<a href="/user/login">Login</a>&nbsp;&gt;';
+        $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';
@@ -277,7 +277,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $VIN = $this->_request->getParam('VIN');
         }
 
-        $this->view->breadcrumbs = '<a href="/user/login">Login</a>&nbsp;&gt;';
+        $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';

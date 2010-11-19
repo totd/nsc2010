@@ -2,7 +2,7 @@
 @author Andryi Ilnytskyi 04.11.2010
 Set content for the row in the users list.
 -->
-<tr>
+<tr class="<?php print ($this->partialCounter % 2 == 0) ? 'color-dark' : ''; ?>">
     <td><?= $this->e_Unit_Number;?></td>
     <td><?= $this->et_type; ?></td>
     <td><?= $this->e_Number; ?></td>

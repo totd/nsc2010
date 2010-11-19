@@ -1,16 +1,21 @@
 function changeType() {
     var text = $('#e_type_id :selected').text();
-    if (text == "Tractor") {
-        $("#e_Axles").val("");
+    $(".second *").show();
+
+    if (text == "Straight Truck") {
         $("#e_Axles").parents("tr").hide();
 
-        $("#e_Gross_Vehicle_Registered_Weight").val("");
         $("#e_Gross_Vehicle_Registered_Weight").parents("tr").hide();
 
-        $("#e_Color").val("");
+    }
+
+    if (text == "Tractor") {
+        $("#e_Axles").parents("tr").hide();
+
+        $("#e_Gross_Vehicle_Registered_Weight").parents("tr").hide();
+
         $("#e_Color").parents("tr").hide();
 
-        $("#e_Make").val("");
         $("#e_Make").parents("tr").hide();
     }
 }

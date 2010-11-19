@@ -1,4 +1,5 @@
 <?php
+
 class Ajax_DriverAddressHistoryController extends Zend_Controller_Action
 {
 
@@ -26,6 +27,7 @@ class Ajax_DriverAddressHistoryController extends Zend_Controller_Action
         $dah_Start_Date = $_REQUEST['dah_Start_Date'];
         $dah_End_Date = $_REQUEST['dah_End_Date'];
         $dah_Current_Address = $_REQUEST['dah_Current_Address'];
+
 
         $errors=0;
         $msg = "";

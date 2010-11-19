@@ -1,9 +1,19 @@
-.required{
+.required span{
     font-weight:bold;
+    color:#ff0000;
+    padding-right:2px;
+}
+#error_custom{
+    color:#f00;
 }
 .tip{
     color:#ccc;
 }
+.top_menu_delimiter a{
+    cursor:default;
+    font-weight:bold;
+}
+
 .hasBorder{
     border:1px solid #ccc;
     padding:5px;

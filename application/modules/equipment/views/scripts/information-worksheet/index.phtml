@@ -191,7 +191,11 @@
                             </a>
                         </span>
                     </span>
+                    <?php if(!$this->equipmentHasAssignment) : ?>
                     <span class="text-red">There is no equipment assignment </span>
+                    <?php else : ?>
+                    <span class="text-red" style="color: #1226fa;">Equipment assignment exists</span>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

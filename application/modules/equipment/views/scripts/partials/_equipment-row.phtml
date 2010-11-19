@@ -8,8 +8,8 @@ Set content for the row in the users list.
     <td><?= $this->e_Number; ?></td>
     <td>
         <?php
-            if (!is_null($this->e_license_Number) || !is_null($this->s_name)) {
-                echo $this->e_license_Number . ' / ' . $this->s_name; // Lic. Plate #/State
+            if (!is_null($this->e_License_Number) || !is_null($this->s_name)) {
+                echo $this->e_License_Number . ' / ' . $this->s_name; // Lic. Plate #/State
             } else {
                 echo '&nbsp;';
             }

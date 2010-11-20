@@ -355,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_RFID_No` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Entry_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `e_License_Number` varchar(50) COLLATE latin1_general_ci NOT NULL,
-  `e_License_Expiration_Date` date NOT NULL,
+  `e_License_Expiration_Date` date NOT NULL DEFAULT '0000-00-00',
   `e_Start_Mileage` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Registration_State` tinyint(2) NOT NULL,
   `e_Gross_Vehicle_Weight_Rating` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
@@ -375,9 +375,13 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_Picture` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `e_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
   `e_type_id` int(11) NOT NULL,
+  `e_activation_date` date NOT NULL,
+  `e_activation_comment` tinytext COLLATE latin1_general_ci NOT NULL,
+  `a_change_active_status_date` date NOT NULL,
+  `a_change_active_status_comment` tinytext COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`e_id`),
   UNIQUE KEY `e_Number` (`e_Number`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `equipment`

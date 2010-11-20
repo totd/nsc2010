@@ -55,6 +55,12 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
         $this->view->equipmentHasAssignment = $equipmentAssignmentModel->findRow('ea_equipment_id', $equipmentRow['e_id']);
 
+        if (isset($equipmentRow['enes_type']) && $equipmentRow['enes_type'] == 'Completed') {
+            $this->view->equipmentStatus = (isset($equipmentRow['eas_type'])) ? $equipmentRow['eas_type'] : '';
+        } else {
+            $this->view->equipmentStatus = (isset($equipmentRow['enes_type'])) ? $equipmentRow['enes_type'] : '';
+        }
+
         $this->view->equipmentRow = $equipmentRow;
         $this->view->action = '/equipment/update-status/';
         $this->view->pageTitle = 'VEHICLE INFORMATION WORKSHEET';

@@ -24,6 +24,45 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         'e_RFID_No' => 'radio frequency identify'
     );
 
+    public function getTruckFilesList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Terminated', $orderField = 'eas_type')
+    {
+        $limit = "LIMIT $offset, $count";
+        $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
+        $join = " JOIN equipment__active_status ON e_Active_Status = eas_id";
+        $join .= " JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id";
+        $join .= " LEFT JOIN state ON e_Registration_State = s_id";
+        $join .= " LEFT JOIN equipment_types ON e_type_id = et_id";
+        $where = " WHERE enes_type = 'Completed'";
+        $orderBy = " ORDER BY $orderField";
+
+        if (isset($filterOptions['Status'])) {
+            if ($filterOptions['Status'] != 'All') {
+                $where .= " AND eas_type = {$this->getDefaultAdapter()->quote($filterOptions['Status'])}";
+            } else {
+                $where .= " AND eas_type <> {$this->getDefaultAdapter()->quote($excludeStatus)}";
+            }
+        }
+
+        if (isset($filterOptions['SearchBy']) &&  $filterOptions['SearchBy'] != '-'
+                && isset($filterOptions['SearchBy'])) {
+            $where .= empty($where) ? "WHERE " : " AND ";
+            $where .= "{$filterOptions['SearchBy']} LIKE '%{$filterOptions['SearchText']}%'";
+        }
+
+        $select .= " $join $where $orderBy $limit";
+
+        $stmt = $this->getDefaultAdapter()->query($select);
+
+        $result['limitEquipments'] = $stmt->fetchAll();
+
+        $select = 'SELECT FOUND_ROWS()';
+        $stmt = $this->getDefaultAdapter()->query($select);
+        $totalCount = $stmt->fetchAll();
+        $result['totalCount'] = (isset($totalCount[0]['FOUND_ROWS()'])) ? $totalCount[0]['FOUND_ROWS()'] : $count;
+
+        return $result;
+    }
+
     public function completeEquipment($saveRow)
     {
         $rowTable = $this->fetchRow("e_id = {$this->getDefaultAdapter()->quote($saveRow['e_id'])}");
@@ -115,7 +154,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
      *
      * @return mixed
      */
-    public function getEquipmentList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Completed', $orderFeald = 'enes_type')
+    public function getEquipmentList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Completed', $orderField = 'enes_type')
     {
         $limit = "LIMIT $offset, $count";
         $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
@@ -123,7 +162,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         $join .= " LEFT JOIN state ON e_Registration_State = s_id";
         $join .= " LEFT JOIN equipment_types ON e_type_id = et_id";
         $where = "";
-        $orderBy = " ORDER BY $orderFeald";
+        $orderBy = " ORDER BY $orderField";
 
         if (isset($filterOptions['Status'])) {
             if ($filterOptions['Status'] != 'All') {
@@ -192,6 +231,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 
         $select = "SELECT *
                     FROM equipment
+                    LEFT JOIN equipment__active_status ON e_Active_Status = eas_id
                     JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id
                     LEFT JOIN equipment_types ON et_id = e_type_id
                     LEFT JOIN state ON e_Registration_State = s_id

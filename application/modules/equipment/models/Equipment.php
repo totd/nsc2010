@@ -3,6 +3,67 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 {
     protected $_name = 'equipment';
 
+    protected $_requiredCopleteFields = array (
+        'e_Unit_Number' => 'unit',
+        'e_License_Expiration_Date' => 'license expiration date',
+        'e_License_Number' => 'license plate number',
+        'e_Start_Mileage' => 'start mileage',
+        'e_Registration_State' => 'registration state',
+        'e_Gross_Vehicle_Weight_Rating' => 'gross vehicle weight',
+        'e_Gross_Vehicle_Registered_Weight' => 'gross vehicle registered weight',
+        'e_Unladen_Weight' => 'unladen weight',
+        'e_Axles' => 'number of axles',
+        'e_Name' => 'name',
+        'e_Make' => 'make',
+        'e_Color' => 'color',
+        'e_Model' => 'model',
+        'e_Year' => 'year of manufacturing',
+        'e_Description' => 'description',
+        'e_DOT_Regulated' => 'DOT regulated',
+        'e_type_id' => 'type',
+        'e_RFID_No' => 'radio frequency identify'
+    );
+
+    public function completeEquipment($saveRow)
+    {
+        $rowTable = $this->fetchRow("e_id = {$this->getDefaultAdapter()->quote($saveRow['e_id'])}");
+        unset($saveRow['e_id']);
+
+        if ($rowTable) {
+            foreach ($saveRow as $key => $value) {
+                $rowTable[$key] = $value;
+            }
+
+            $rowTable->save();
+
+            $rowTable = $this->changeNewEquipmentStatus('Completed', $rowTable->e_id);
+            //return the new user
+            return $rowTable;
+        } else {
+            throw new Zend_Exception("Could not save equipment assignment!");
+        }
+    }
+
+    public function getRow($id)
+    {
+        $row = $this->fetchRow("e_id = $id");
+
+        return $row;
+    }
+
+    public function checkCompletedFields($id)
+    {
+        $row = $this->getRow($id);
+
+        foreach ($row as $field => $value) {
+            if ((empty($value) || is_null($field)) && key_exists($field, $this->_requiredCopleteFields))  {
+                $result[$field] = $this->_requiredCopleteFields[$field];
+            }
+        }
+
+        return (isset($result)) ? $result : null;
+    }
+
     public function getVIN($equipmentId)
     {
         $row = $this->fetchRow("e_id = $equipmentId");
@@ -27,17 +88,19 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         $stmt = $db->query($select);
         $result = $stmt->fetch();
 
-        $returnResult = 0;
-
         if (count($result) > 0) {
-            $data = array(
-                    'e_New_Equipment_Status' => $result['enes_id']
-                );
-            $where = $this->getAdapter()->quoteInto('e_id = ?', $id);
-            $returnResult = $this->update($data, $where);
-        }
+            $rowTable = $this->fetchRow("e_id = {$this->getDefaultAdapter()->quote($id)}");
 
-        return $returnResult;
+            if ($rowTable) {
+                $rowTable['e_New_Equipment_Status'] = $result['enes_id'];
+                $rowTable->save();
+            return $rowTable;
+            } else {
+                throw new Zend_Exception("Could not change equipment status!");
+            }
+
+            
+        }
     }
 
     /**

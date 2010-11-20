@@ -57,11 +57,12 @@ class User_LoginController extends Zend_Controller_Action
                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(
-                        array('vau_role_id', 'vau_role', 'vau_role_title', 'vau_username', 'vau_password')));
+                        array('vau_role_id', 'vau_role', 'vau_role_title', 'vau_username', 'vau_password', 
+                                'vau_First_Name', 'vau_Last_Name')));
 
                 // TODO Implement a forwarding or redirecting to the needed action.
                 //return $this->_forward('list', 'index', 'user');
-                return $this->_redirect('index/index');
+                return $this->_redirect('/index/index');
             } else {
                 $this->view->loginMessage = "Sorry, a data you have input is incorrect";
             }

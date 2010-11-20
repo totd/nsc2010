@@ -1172,12 +1172,13 @@ CREATE TABLE IF NOT EXISTS `witness` (
 --
 -- Структура для представления `vauthuser`
 --
-DROP TABLE IF EXISTS `vauthuser`;
+DROP VIEW IF EXISTS `vauthuser`;
 CREATE VIEW `vauthuser` AS
 select
 `user`.`u_ID` AS `vau_ID`,`user`.`u_User_Name` AS `vau_username`,`user`.`u_Password` AS `vau_password`,
 `user`.`u_Role_ID` AS `vau_role_id`,`user_role`.`ur_title` AS `vau_role_title`,`user_role`.`ur_role` AS `vau_role`,
-`user`.`u_Homebase_ID` AS `vau_homebase_id`,`homebase`.`h_Name` AS `vau_homebase_code`,
+`user`.`u_Homebase_ID` AS `vau_homebase_id`, `user`.`u_First_Name` AS `vau_First_Name`,
+`user`.`u_Last_Name` AS `vau_Last_Name`, `homebase`.`h_Name` AS `vau_homebase_code`,
 `user`.`u_Company_ID` AS `vau_company_id`,`company`.`c_Name` AS `vau_company_code`,`depot`.`d_Name` AS `vau_depot_name`,
 `parent_company`.`pc_Name` AS `vau_parent_company_code`
 from

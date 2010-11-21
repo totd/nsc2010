@@ -24,6 +24,63 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         'e_RFID_No' => 'radio frequency identify'
     );
 
+    public function getArchivesList($offset = 0, $count = 20, $filterOptions = null, $orderField = 'eas_type')
+    {
+        $limit = "LIMIT $offset, $count";
+        $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
+        $join = " JOIN equipment__active_status ON e_Active_Status = eas_id";
+        $join .= " JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id";
+        $join .= " LEFT JOIN state ON e_Registration_State = s_id";
+        $join .= " LEFT JOIN equipment_types ON e_type_id = et_id";
+        $where = " WHERE enes_type = 'Completed'";
+        $orderBy = " ORDER BY $orderField";
+
+        if (isset($filterOptions['Status'])) {
+            if ($filterOptions['Status'] != 'All') {
+                $where .= " AND eas_type = {$this->getDefaultAdapter()->quote($filterOptions['Status'])}";
+            } else {
+                // TODO refactor if status Denied will be used.
+                $where .= " AND eas_type = 'Terminated'";
+            }
+        }
+
+        if (isset($filterOptions['SearchBy']) &&  $filterOptions['SearchBy'] != '-'
+                && isset($filterOptions['SearchBy'])) {
+            $where .= empty($where) ? "WHERE " : " AND ";
+            $where .= "{$filterOptions['SearchBy']} LIKE '%{$filterOptions['SearchText']}%'";
+        }
+
+        $select .= " $join $where $orderBy $limit";
+
+        $stmt = $this->getDefaultAdapter()->query($select);
+
+        $result['limitEquipments'] = $stmt->fetchAll();
+
+        $select = 'SELECT FOUND_ROWS()';
+        $stmt = $this->getDefaultAdapter()->query($select);
+        $totalCount = $stmt->fetchAll();
+        $result['totalCount'] = (isset($totalCount[0]['FOUND_ROWS()'])) ? $totalCount[0]['FOUND_ROWS()'] : $count;
+
+        return $result;
+    }
+
+    public function saveEquipment($saveRow) {
+        if (isset($saveRow['e_id'])) {
+            $rowTable = $this->fetchRow("e_id = {$this->getDefaultAdapter()->quote($saveRow['e_id'])}");
+            if ($rowTable) {
+                unset($saveRow['e_id']);
+            }
+
+            foreach ($saveRow as $key => $value) {
+                $rowTable[$key] = $value;
+            }
+            
+            $rowTable->save();
+
+            return $rowTable;
+        }
+    }
+
     public function getTruckFilesList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Terminated', $orderField = 'eas_type')
     {
         $limit = "LIMIT $offset, $count";

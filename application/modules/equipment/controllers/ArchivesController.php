@@ -1,0 +1,126 @@
+<?php
+
+class Equipment_ArchivesController extends Zend_Controller_Action
+{
+    public function preDispatch(){
+        $this->_helper->layout->setLayout('equipmentLayout');
+    }
+
+    public function init()
+    {
+
+    }
+
+    public function indexAction($options = null)
+    {
+        # TODO implement filling breadcrumbs.
+        $this->view->breadcrumbs = "<a href='/equipment/index'>Equipment Management</a>&nbsp;&gt;&nbsp;Arhives";
+
+        // Set parameters for paginator
+        if ($this->_getParam('status') != null) {
+            $status = $this->_getParam('status');
+        } else {
+            $status = 'Terminated';
+        }
+
+        if ((int) $this->_getParam('from') != null) {
+            $from = $this->_getParam('from');
+        } else {
+            $from = 0;
+        }
+
+        if ((int) $this->_getParam('step') != null) {
+            $step = $this->_getParam('step');
+        } else {
+            $step = 20;
+        }
+
+
+        if (is_null($options)) {
+            if ($this->_request->isPost()) {
+                $options['SearchBy'] = $this->_request->getPost('SearchBy');
+                $options['SearchText'] = $this->_request->getPost('SearchText');
+                $status = $options['Status'] = $this->_request->getPost('Status');
+            }
+        } elseif (!isset($options['SearchBy']) || !isset($options['Status']) || !isset($options['SearchText'])) {
+            $this->_redirect('/equipment/archives');
+        }
+
+        $this->view->status = $status;
+        $this->view->from = $from;
+        $this->view->step = $step;
+
+        $equipment = new Equipment_Model_Equipment();
+        $options['Status'] = $status;
+        $equipments = $equipment->getArchivesList($from, $step, $options);
+        if (sizeof($equipments) > 0) {
+            $this->view->equipments = $equipments['limitEquipments'];
+            $this->view->allEquipments = $equipments['totalCount'];
+        } else {
+            $this->view->equipments = null;
+        }
+
+        $this->view->pageTitle = 'Archives';
+        $statuses = array(
+            'Terminated' => array(
+                'text' => 'Terminated'
+            ),
+            'All' => array(
+                'text' => 'All'
+            )
+        );
+
+        $filterFields = array(
+            '-' => array(
+                'text' => '-'
+            ),
+            'e_Unit_Number' => array(
+                'text' => 'Unit #'
+            ),
+            'et_type' => array(
+                'text' => 'Veh. Type'
+            ),
+            'e_Number' => array(
+                'text' => 'VIN'
+            ),
+            'e_Gross_Vehicle_Weight_Rating' => array(
+                'text' => 'GVW'
+            ),
+            'e_license_Number' => array(
+                'text' => 'Lic. Plate #'
+            ),
+            's_Name' => array(
+                'text' => 'State'
+            ),
+            'e_Axles' => array(
+                'text' => '#Axles'
+            )
+        );
+
+        if (isset($options['SearchBy']) && isset($options['SearchText'])) {
+            foreach ($filterFields as $key => &$value) {
+                if ($options['SearchBy'] == $key) {
+                    $value['selected'] = true;
+                    $this->view->searchText = $options['SearchText'];
+                    break;
+                }
+            }
+        } else {
+            $filterFields['-']['selected'] = 'true';
+        }
+        $this->view->filterFields = $filterFields;
+
+        foreach ($statuses as $key => &$value) {
+            if ($status == $key) {
+                $value['selected'] = true;
+                break;
+            }
+        }
+        $this->view->statuses = $statuses;
+
+        $this->view->headScript()->appendFile('/js/jquery.url.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/equipment/list.js', 'text/javascript');
+    }
+
+}
+

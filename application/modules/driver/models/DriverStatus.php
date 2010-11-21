@@ -10,18 +10,18 @@ class Driver_Model_DriverStatus extends Zend_Db_Table_Abstract
      *
      * get driver status list
      *
-     * @param string $sStatus
+     * @param int $iReverse if ==1 then key=>value pair become value=>key 
      * @return mixed
      */
-    public static function getAll()
+    public static function getAll($iReverse=0)
     {
-         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
-         $stmt = $db->query('
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $stmt = $db->query('
                       SELECT
                        *
                       FROM driver__status
         ');
-         $row = $stmt->fetchAll();
+        $row = $stmt->fetchAll();
         $arr = array();
         $arr[]=null;
         foreach($row as $k => $v){
@@ -32,7 +32,10 @@ class Driver_Model_DriverStatus extends Zend_Db_Table_Abstract
             }
         }
         unset($arr[0]);
-         return $arr;
+        if($iReverse==1){
+            return array_flip($arr);
+        }
+        return $arr;
     }
 
 }

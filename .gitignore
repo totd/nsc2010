@@ -5,8 +5,4 @@ nbproject/project.xml
 *.orig
 .idea/
 .idea/*
-
-
-
-
-
+*._bak

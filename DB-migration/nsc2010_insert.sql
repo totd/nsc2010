@@ -50,7 +50,6 @@ INSERT INTO `depot` (`d_id`, `d_HomeBase_Account_Number`, `d_Name`, `d_Contact_T
 (1, 1, 'dep1', 0, '', '', ''),
 (2, 1, 'dep2', 1, 'No', 'No', 'Yes');
 
-
 --
 -- `driver`
 --
@@ -63,6 +62,16 @@ INSERT INTO `driver` (`d_ID`, `d_homebase_ID`, `d_depot_ID`, `d_Driver_Alternate
 (5, 1, NULL, NULL, '121212131', '2010-11-05 00:21:47', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1999-01-01', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
 (6, 1, NULL, NULL, '123123111', '2010-11-15 22:27:09', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-11-10', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
 (7, NULL, NULL, NULL, '445456567', '2010-11-16 13:23:39', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-11-10', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+
+--
+-- `driver_address_history`
+--
+
+INSERT INTO `driver_address_history` (`dah_ID`, `dah_Driver_ID`, `dah_Start_Date`, `dah_End_Date`, `dah_Current_Address`, `dah_Address1`, `dah_Address2`, `dah_City`, `dah_State`, `dah_Postal_Code`, `dah_Country_Code`, `dah_Phone`, `dah_row_created`) VALUES
+(1, 7, '2010-11-11', '2010-11-10', 'YES', 'erewr wer wrw#%$', NULL, 'w2', 3, '33433', NULL, '652323231', '2010-11-16 12:23:22'),
+(2, 7, '2010-11-11', '2010-12-11', 'NO', 'erewr we23', NULL, 'wsad', 3, '33433', NULL, '652323231', '2010-11-17 11:11:11');
+
+
 
 --
 -- `driver__employment_type`
@@ -306,5 +315,12 @@ INSERT INTO `user__status` (`us_id`, `us_type`) VALUES
 (1, 'ACTIVE'),
 (2, 'INACTIVE'),
 (3, 'TERMINATED');
+
+--
+-- Dumping data for table `equipment_owner`
+--
+
+INSERT INTO `equipment_owner` (`eo_id`, `eo_number`, `eo_code`, `eo_SSN`, `eo_federal_id`, `eo_name`, `eo_contact`, `eo_phone`, `eo_fax`, `eo_address1`, `eo_address2`, `eo_city`, `eo_state_id`, `eo_postal_code`)
+VALUES (NULL, '1', '1', '1', '1', 'TestOwner', '1', '1', '1', '1', '1', '1', '1', '1');
 
 COMMIT;

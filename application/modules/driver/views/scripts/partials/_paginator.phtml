@@ -1,0 +1,29 @@
+<?php
+
+$pages_num = ceil(sizeof($this->drivers)/6);
+
+if(sizeof($this->drivers>6)){
+    $url = $_SERVER['REQUEST_URI'];
+    if($_GET['status']==null){
+        $url = $url."?status=Pending";
+    }
+    if($_GET['page']==null){
+        $url = $url."&page=2";
+    }else{
+        $url = preg_replace("/page[=][0-9]+/","page=".($_GET['page']+1)."",$url);
+    }
+    if($this->page>1){
+        if($_GET['page']<1){$_GET['page']=1;}
+        $url = preg_replace("/page[=][0-9]+/","page=".($_GET['page']-1)."",$url);
+?>
+        <a href="<?php echo $url;?>"><< Prev 6 records</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+<?php
+    }
+    if($this->page<$pages_num){
+        $url = preg_replace("/page[=][0-9]+/","page=".($this->page+1)."",$url);
+        ?>
+        <a href="<?php echo $url;?>">Next 6 records >></a>
+        <?php
+    }
+}
+?>

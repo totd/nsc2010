@@ -30,6 +30,7 @@ ALTER TABLE `depot`
 --
 -- Ограничения внешнего ключа таблицы `driver_address_history`
 --
+ALTER TABLE `driver_address_history` ADD `dah_row_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE `driver_address_history`
   ADD CONSTRAINT `fk_driver_address_history_driver1` FOREIGN KEY (`dah_Driver_ID`) REFERENCES `driver` (`d_ID`) ON UPDATE CASCADE;
 

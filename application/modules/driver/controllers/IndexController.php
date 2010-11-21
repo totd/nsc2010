@@ -18,32 +18,38 @@ class Driver_IndexController extends Zend_Controller_Action
     {
 
         # Breadcrumbs goes here:
-        $this->view->breadcrumbs = "<a href='/driver/index/index'>Drivers</a>&nbsp;&gt;&nbsp;Driver Profile List";
+        $this->view->breadcrumbs = "<a href='/driver/index/index'>DQF</a>&nbsp;&gt;&nbsp;Driver Profile List";
 
-        if((int)$this->_getParam('status')!=null){
-            $status = $this->_getParam('status');
+
+        $driverStatusListR = Driver_Model_DriverStatus::getAll(1);
+        $this->view->driverStatusList = Driver_Model_DriverStatus::getAll(0);
+        if (array_key_exists($this->_getParam('status'), $driverStatusListR)) {
+            $where =" d_Status =" . $driverStatusListR[$this->_getParam('status')];
+            $this->view->statusId = $driverStatusListR[$this->_getParam('status')];
         }else{
-            $status=0;
+            $where=" d_Status <> 0";
+            $this->view->statusId = 0;
         }
-        if((int)$this->_getParam('from')!=null){
-            $from = $this->_getParam('from');
+        if(preg_match("/[0-9]+/",$this->_getParam('page'))){$page = $this->_getParam('page');}
+        if(!isset($_REQUEST['page'])){$page=1;}
+
+        $orderBy = explode("-",$_REQUEST['order_by']);
+        $order_by=preg_match("/[a-zA-Z0-9_\-]+/",$orderBy[0]);
+        if($order_by==1 &&(strtolower(($orderBy[1])=="asc")||(strtolower($orderBy[1])=="desc"))){
         }else{
-            $from = 0;
+            unset($orderBy);
+            $orderBy=array('d_Entry_Date','DESC');
         }
-        if((int)$this->_getParam('step')!=null){
-            $step = $this->_getParam('step');
-        }else{
-            $step = 3;
-        }
-        $this->view->status = $status;
-        $this->view->from = $from;
-        $this->view->step = $step;
-        
+
+        $this->view->status = $this->_getParam('status');
+        $this->view->page = $page;
+
+
         # returns list of temporary driver accounts
-        $Drivers = $this->driver->getDrivers($status,$from,$step);
+        $Drivers = $this->driver->getDrivers($where,$orderBy,$page);
         if (sizeof($Drivers) > 0) {
             $this->view->Drivers = $Drivers;
-            $this->view->allDrivers = $this->driver->getDrivers($status,0,20);
+            $this->view->allDrivers = $this->driver->getDrivers($where,$orderBy,0);
         } else {
             $this->view->Drivers = null;
         }

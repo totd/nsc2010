@@ -9,6 +9,9 @@ $_SESSION['driver_info']['DriverGender_list'] # contains gender list
 $_SESSION['driver_info']['DriverHairColor_list'] # contains list of hair colors
 $_SESSION['driver_info']['DriverStatus_list'] # contains list of driver status
 
+$_SESSION['logined_user_info'] # contains list of driver status
+
+
 
 
 

@@ -1,0 +1,81 @@
+<?php
+$driverAddressHistoryList = $this->layout()->driverAddressHistoryList;
+$stateList = $this->layout()->stateList;
+$previousAddressCount=0;
+$date = new Zend_Date();
+foreach($driverAddressHistoryList as $k => $v)
+{
+    $previousAddressCount++;
+    ?>
+    <fieldset  class="hasBorder" id="addressRecordID_<?php echo $v['dah_ID'];?>">
+        <legend><b><?php
+        if($v['dah_Current_Address']=="YES"){
+            echo "Current Address";
+        }
+        else{
+            echo "Previous Address";
+        }
+        ?>
+            #<?php echo $previousAddressCount;?>
+
+
+        <?php
+        if($previousAddressCount!=1 && $v['dah_Current_Address']=="YES"){
+            echo "<font color='#ff0000'><b>Current address should be the most recent one.</b></font>";
+        }
+        ?></b></legend>
+        <div>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+            <tr height=25 valign=middle>
+                <td class="MainText" width="150">Street: </td>
+                <td class="MainTextB"><?php echo $v['dah_Address1']; ?>&nbsp;&nbsp;&nbsp;
+                    <font color="#000000">City:</font> <?php echo $v['dah_City']; ?>&nbsp;&nbsp;&nbsp;
+                    <font color="#000000">State:</font> <?php echo $stateList[$v['dah_State']]['s_name']; ?>&nbsp;&nbsp;&nbsp;
+                    <font color="#000000">Zip:</font> <?php echo $v['dah_Postal_Code']; ?>
+                </td>
+            </tr>
+            <tr height=25 valign=middle>
+                <td class="MainText" valign="top">At Address:</td>
+                <td class="MainTextB">
+                    <font color="#000000">From Date:</font>
+                <?php
+                    $date->set($v['dah_Start_Date']);
+                    echo $date->toString("MM/dd/YYYY");
+                ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                <?php
+                                if($v['dah_Current_Address']!="YES"){ ?>
+                    <font color="#000000">To Date:</font>
+                <?php
+                    $date->set($v['dah_End_Date']);
+                    echo $date->toString("MM/dd/YYYY");
+                ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <br/><font color="#000000">Total:</font>
+                <?php
+                                        $fromDate = explode("-",$v['dah_Start_Date']);
+                $toDate = explode("-",$v['dah_End_Date']);
+                echo " Year(s): ".($toDate[0]-$fromDate[0]);
+                echo " ";
+                echo " Month(s): ".($toDate[1]-$fromDate[1]);
+                }
+                ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+            </tr>
+            <tr height=25 valign=middle>
+                <td class="MainText">Is this current Address:</td>
+                <td class="MainTextB"><?php echo ucwords(strtolower($v['dah_Current_Address'])); ?></td>
+            </tr>
+            <tr height=40 valign=middle>
+                <td class="MainText" align=center>&nbsp;</td>
+                <td class="MainText" align=left>
+                    <a href='javascript:editAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)' class="MainLink2">
+                        <font color="#0000cc">Update this Address</font></a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href='javascript:deleteAddressHistoryRecord(<?php echo $v["dah_ID"].",".$v["dah_Driver_ID"];?>)' class="MainLink2">
+                        <font color="#0000cc">Delete this Address</font></a>
+                </td>
+            </tr>
+        </table>
+            </div>
+    </fieldset>
+    <?php
+        }
+?>

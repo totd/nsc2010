@@ -29,30 +29,30 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
      *
      * get drivers list
      *
-     * @param int: $iStatus, $iFrom
+     * @param int: $iStatus - status ID, $iPage
+     * @param nixed: $mOrderBy - array('field'=>'field_name','sort' => 'ASC|DESC')
      * @return mixed
      */
-    public static function getDrivers($iStatus=1,$iFrom=0,$iLimit=20)
+    # public static function getDrivers($iStatus=1,$mOrderBy=array('field'=>'d_Entry_Date','sort' => 'DESC'),$iFrom=0,$iLimit=20)
+    public static function getDrivers($sWhere="1",$mOrderBy=array('d_Entry_Date','DESC'),$iPage = 0)
     {
-        if($iStatus==0){
-            $sWhere =" WHERE 1";
+        $Where =" WHERE ".$sWhere;
+        $sOrderBy =" ORDER BY ".$mOrderBy[0]." ".$mOrderBy[1];
+        if($iPage==0){
+            $sLimit = "";
+        }elseif($iPage==1){
+            $sLimit = "LIMIT 0,6";;
         }else{
-            $sWhere =" WHERE d_Status = " . $iStatus . "";
+            $sLimit = "LIMIT ".(6*($iPage-1)).",6";
         }
-        if((isset($iFrom)) && (isset($iLimit))){
-            $sLimit = "LIMIT ".$iFrom.",".$iLimit."";
-        }else{
-            $sLimit = "LIMIT 0,20";
-        }
-         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
          $stmt = $db->query('
                       SELECT
                         *
                       FROM driver
-                      ' . $sWhere . '
+                      ' . $Where . '
+                      ' . $sOrderBy . '
                       ' . $sLimit . '
-
-
         ');
          $row = $stmt->fetchAll();
         return $row;
@@ -63,30 +63,21 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
      *
      * Check New Driver for existing in DB
      *
-     * @param array $searchData Array which contains value of the fields
+     * @param string $d_Driver_SSN Array which contains value of the fields
      * @return mixed
      */
-     public static function searchNewDriver($searchData)
+     public static function searchNewDriver($d_Driver_SSN)
     {
          $db = Zend_Db_Table_Abstract::getDefaultAdapter();
          $stmt = $db->query('
                       SELECT
                         d_ID, d_Driver_SSN, d_Date_Of_Birth 	
                       FROM driver
-                      WHERE d_Driver_SSN = "' . $searchData['d_Driver_SSN'] . '" 
+                      WHERE d_Driver_SSN = "' . $d_Driver_SSN . '" 
 
         ');
          $row = $stmt->fetchAll();
-         if(sizeof($row)>0){
-             for($i=0;$i<sizeof($row);$i++){
-                 if($row[$i]['d_Driver_SSN']==$searchData['d_Driver_SSN']){
-                     return false; # driver with such SSN found in DB. Proceed is impossible;
-                 }
-             }
-         }else{
-              return true;
-         }
-         return 'error';
+         return $row;
     }
     
     /**
@@ -100,6 +91,8 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
      public static function createPendingDriver($driverData)
     {
          $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+         $arr=explode("/",$driverData['d_Date_Of_Birth']);
+         $driverData['d_Date_Of_Birth'] = $arr[2]."-".$arr[0]."-".$arr[1];
          $stmt = $db->query('
                       INSERT INTO driver(d_Driver_SSN,d_Employment_Type,d_Date_Of_Birth,d_Status)
                       VALUES("' . $driverData['d_Driver_SSN'] . '","' . $driverData['d_Employment_Type'] . '","' . $driverData['d_Date_Of_Birth'] . '",1)
@@ -134,6 +127,22 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
         ');
          $row = $stmt->fetch();
          return $row;
+    }
+    /**
+     * @author Vlad Skachkov 04.11.2010
+     *
+     * save driver information
+     *
+     * @param mixed $data
+     * @return mixed
+     */
+    public function saveDriverInfo($data)
+    {
+        $db = new Driver_Model_Driver();
+        
+        $w = 'd_ID = '.$data['d_ID'];
+       echo $db->update($data,$w);
+       return $db->update($data,$w);
     }
 
 }

@@ -4,12 +4,13 @@
               <fieldset>
                 <label>Status:</label>
                 <select name="status" onmousedown="">
-                  <option value="0" <?php if($this->status==0){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">All</option>
-                  <option value="1" <?php if($this->status==1){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Pending</option>
-                  <option value="2" <?php if($this->status==2){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Applicant</option>
-                  <option value="3" <?php if($this->status==3){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Hired - Active</option>
-                  <option value="4" <?php if($this->status==4){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Hired - Inactive</option>
-                  <option value="5" <?php if($this->status==5){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Terminated</option>
+                  <option value="All" <?php if($this->statusId==0){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">All</option>
+                <?php
+                    foreach($this->driverStatusList as $k => $v){?>
+                        <option value="<?php echo $v;?>" <?php if($v == $this->status){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();"><?php echo $v;?></option>
+                <?php
+                  }
+                  ?>
                 </select>
               </fieldset>
             </form>
@@ -17,36 +18,42 @@
             <form class="search" action="#">
               <fieldset>
                 <label>Search By:</label>
-                <select>
-                  <option selected="selected"> - </option>
-                  <option>Category 1</option>
-                  <option>Category 2</option>
-                  <option>Category 3</option></select>
-                <input type="text" value=""/>
+                <select name="search_by" id="search_by">
+                  <option selected="selected" value="all">All</option>
+                  <option value="name">Name</option>
+                  <option value="ssn">SSN</option>
+                  <option value="dob">Date Of Birth</option>
+                </select>
+                <input type="text" id="search_by_value" name="search_by_value" value=""/>
                 <input type="submit" value=""/>
               </fieldset>
             </form>
           </div>
-
-          <!--
-          <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">
-              <span><?php // echo $this->breadcrumbs; ?></span>
-              <div style="float:right;"><a href="/driver/index/new-Driver-Search">New Driver</a></div>
-              </div></div></div>
-              -->
-          </div>
-
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+<ul class="blue-nav">
+   <li><span><a href="/driver/new-driver/new-driver-search">Add New Driver</a></span></li>
+</ul>
     <div id="main" class="driver-profile">
 
       <table class="application-forms" cellspacing="0">
       <tr class="table-title">
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>SSN</td>
-          <td>DOB</td>
-          <td>Status</td>
-          <td>Employment Type / Date of Hire</td>
-          <td>Action</td>
+          <td><a href="" class="whiteLink" >First Name</a></td>
+          <td><a href="" class="whiteLink" >Last Name</a></td>
+          <td><a href="" class="whiteLink" >SSN</a></td>
+          <td><a href="" class="whiteLink" >DOB</a></td>
+          <td><a href="" class="whiteLink" >Status</a></td>
+          <td><a href="" class="whiteLink" >Employment Type</a> / <a href="" class="whiteLink" >Date of Hire</a></td>
+          <td><a href=""  class="whiteLink">Action</a></td>
         </tr>
 
 <?php
@@ -56,8 +63,26 @@
         <?php echo $this->partialLoop('partials/_driver-row.phtml', $this->Drivers); ?>
 
     <?php } ?>
-<tr><td class="page" colspan="7"> DQF  <?php echo $this->from;?> to <?php echo $this->from+$this->step;?>  ( <?php echo sizeof($this->allDrivers);?> )</td></tr>
-<tr><td class="page" colspan="7">  <?php echo $this->partial('partials/_pagignator.phtml',array('drivers' => $this->allDrivers, 'from' => $this->from, 'last' => $this->from+$this->step, 'step' => $this->step, 'status' => $this->status)); ?></td></tr>
+<tr><td class="page" colspan="7"> DQF
+    <?php
+        if($this->page=="1")
+        {
+            echo $this->page;
+        }elseif($this->page>1)
+        {
+            echo (6*($this->page-1));
+        }
+    ?> to <?php
+        if((6*($this->page))<sizeof($this->allDrivers)){
+            echo (6*($this->page));
+        }else{
+            echo sizeof($this->allDrivers);
+        }
+    ?>  ( <?php echo sizeof($this->allDrivers);?> )</td></tr>
+<tr>
+    <td class="page" id="paginator" colspan="7">
+        <?php echo $this->partial('partials/_paginator.phtml',array('drivers' => $this->allDrivers, 'page' => $this->page, 'status' => $this->status)); ?>
+    </td></tr>
 		</Table>
 
 

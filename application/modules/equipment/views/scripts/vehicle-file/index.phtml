@@ -1,0 +1,194 @@
+
+<div class="bottom-nav">
+    <table class="inform">
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <h2>
+                        Vehicle type: &nbsp;
+                        <span class="data">
+                            <?= (isset($this->equipmentRow['et_type'])) ? $this->equipmentRow['et_type'] : ''; ?>
+                        </span>
+                    </h2>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h2>
+                        VIN:&nbsp;
+                        <span class="data">
+                            <?php echo ((isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : '')
+                                . ' - ' .
+                                ((isset($this->equipmentRow['eas_type'])) ? $this->equipmentRow['eas_type'] : '');
+                            ?>
+                        </span>
+                    </h2>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!--TODO hak for diz-->
+</div>
+
+<div id="main" class="driver-profile">
+    <table class="application-forms" cellspacing="0">
+        <tr class="table-title">
+            <th  colspan="8">
+                Required Forms and Documents
+            </th>
+        </tr>
+        <tr  class="table-title">
+            <td>Form name</td>
+            <td>Status</td>
+            <td>Date Request</td>
+            <td>Date Completed</td>
+            <td>Scan</td>
+            <td>View</td>
+            <td>Delete</td>
+            <td>Archived</td>
+        </tr>
+    </table>
+
+    <div class="driver-information">
+        <div class="post-top">
+            <div class="post-bottom">
+                <div class="post-middle">
+                    <h2>Other Available Actions</h2>
+                    <h3>Vehicle Actions</h3>
+                    <span class="blue-button">
+                        <span>
+                            <a href="/equipment/information-worksheet/index/VIN/<?= (isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : ''; ?>">
+                                View/Update Truck Profile 
+                            </a>
+                        </span>
+                    </span>
+                    <span class="blue-button">
+                        <span>
+                            <a href="/equipment/information-worksheet/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/Out%20of%20Service">
+                                Put vehicle out of service
+                            </a>
+                        </span>
+                    </span>
+                    <span class="blue-button">
+                        <span>
+                            <a href="/equipment/information-worksheet/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/Terminated">
+                                Terminate Vehicle
+                            </a>
+                        </span>
+                    </span>
+                    <h3>Documents Actions</h3>
+                    <span class="blue-button">
+                        <span>
+                            <a href="/documents/scan">
+                                Scan Other Documents
+                            </a>
+                        </span>
+                    </span>
+                    <span class="blue-button">
+                        <span>
+                            <a href="/documents/scan">
+                                Scan Truck Picture
+                            </a>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<div class="driver-information" id="main">
+    <div class="post-top">
+        <div class="post-bottom">
+            <div class="post-middle">
+                <br>
+                <br>
+                
+
+                <div class="clear"></div>
+                <div class="second">
+                    <form class="select-parametr2" id="completeForm" method="post" action="/equipment/information-worksheet/completed/id/<?= (isset($this->equipmentRow->e_id)) ? $this->equipmentRow->e_id : ''; ?>">
+                        <input type="hidden" id="e_id" name="e_id" value="<?= (isset($this->equipmentRow->e_id)) ? $this->equipmentRow->e_id : ''; ?>" />
+                        <table cellspacing="0" class="inform">
+                            <tbody>
+                                <tr>
+                                    <th colspan="2">APPLICATION INFORMATION</th>
+                                </tr>
+                                <tr>
+                                    <td>Application Date</td>
+                                    <td><input disabled="disabled" id="e_Entry_Date" name="e_Entry_Date" value="<?= (isset($this->equipmentRow->e_Entry_Date)) ? $this->equipmentRow->e_Entry_Date : ''; ?>" /></td>
+                                </tr>
+                                <tr>
+                                    <td><label><span>*</span>Date Of Vehicle Activation</label></td>
+                                    <td>
+                                        <input id="e_activation_date" name="e_activation_date" value="<?= (isset($this->currentDate)) ? $this->currentDate : ''; ?>" />
+                                        <br />
+                                        <label for="e_activation_date" generated="true" class="error" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">COMPLETION INFORMATION</th>
+                                </tr>
+                                <tr>
+                                    <td>Name of person completing the application</td>
+                                    <td><?= (isset($this->person)) ? $this->person : ''; ?></td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td></td>
+                                    <td><span><label>*</label></span>
+                                        <input id="wantCopleteCheckBox"  name="wantCopleteCheckBox" type="checkbox"> <b>Yes, I want to complete application for vehicle</b>
+                                        <br />
+                                        <label for="wantCopleteCheckBox" generated="true" class="error" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Comment</td>
+                                    <td><textarea id="e_activation_comment" name="e_activation_comment"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <input type="submit" value="Cancel">
+                                        <input type="submit" value="Complete">
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                    </form>
+                    <div class="blue-nav">
+                        <ul>
+                            <li>
+                                <span>
+                                    <a id="completeLink">
+                                        Save
+                                    </a>
+                                </span>
+                            </li>
+                            <li>
+                                <span>
+                                    <a href="/equipment/information-worksheet/validate-completed/id/<?= (isset($this->equipmentRow->e_id)) ? $this->equipmentRow->e_id : ''; ?>">
+                                        Exit
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->

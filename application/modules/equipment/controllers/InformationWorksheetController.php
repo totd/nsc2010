@@ -434,18 +434,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
     public function showCompleteFormAction($id = null)
     {
-        if (is_null($equipmentId)) {
-            $equipmentId = $this->_request->getParam('id');
-            $VIN = $this->_request->getParam('VIN');
-        }
-
-        $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/validate-completed/id/' . $equipmentId . '/VIN/' . $VIN . '">Validate Complete Action</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;Complete Action';
-
         if (is_null($id)) {
             $id = $this->_request->getParam('id');
         }

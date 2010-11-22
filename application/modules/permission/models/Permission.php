@@ -16,7 +16,36 @@ class Permission_Model_Permission
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
                 'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
                 'equipment/search' => array('resource' => 'equipment:search', 'module' => 'equipment'),
-                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment')
+                'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'add-assignment',
+                                                                    'completed',
+                                                                    'declined',
+                                                                    'index',
+                                                                    'reactivated',
+                                                                    'save-assignment',
+                                                                    'save-vim',
+                                                                    'show-complete-form',
+                                                                    'update',
+                                                                    'validate-completed'
+                                                                )
+                    ),
+                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'change-active-status'
+                                                                )
+                    ),
+                'equipment/archives' => array( 'resource' => 'equipment:archives',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'terminate'
+                                                                )
+                    ),
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
             )
         ),
         'NSC_USERS__Level_1' => array(
@@ -137,8 +166,7 @@ class Permission_Model_Permission
                 'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
                 'user/list' => array('resource' => 'user:list', 'module' => 'user'),
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
-                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment', 'action' => 'index')
+                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
             )
         ),
         'Guest' => array(
@@ -194,11 +222,12 @@ class Permission_Model_Permission
      * Check whether the role has a defined resource
      * 
      * @param string $role
-     * @param string $resourceKey
+     * @param string $resourceKey Controller or Module/Controller
+     * @param mixed $action
      *
      * @return boolean
      */
-    public function doesRoleHaveResource($role, $resourceKey)
+    public function doesRoleHaveResource($role, $resourceKey, $action = null)
     {
         if (!array_key_exists($role, $this->_permissions)) {
             throw new Exception('Undefined role');
@@ -207,7 +236,14 @@ class Permission_Model_Permission
         $result = false;
 
         if (array_key_exists($resourceKey, $this->_permissions[$role]['resources'])) {
-            $result = true;
+            if (!is_null($action)) {
+                if (isset($this->_permissions[$role][$resourceKey]['actions']) &&
+                        in_array($action, $this->_permissions[$role][$resourceKey]['actions'])) {
+                    $result = true;
+                }
+            } else {
+                $result = true;
+            }
         }
 
         return $result;

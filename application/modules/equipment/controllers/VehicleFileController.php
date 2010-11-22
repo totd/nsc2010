@@ -126,19 +126,12 @@ class Equipment_VehicleFileController extends Zend_Controller_Action
                 switch ($status) {
                     case 'In Service':
                         $this->view->actionLabel = 'Put in Service';
-
                         break;
                     case 'Out of Service':
                         $this->view->actionLabel = 'Out of Service';
-
-                        break;
-                    case 'Terminated':
-                        $this->view->actionLabel = 'Terminate';
                         break;
                 }
             }
-
-
         } else {
             $this->_redirect("/equipment/truck-files");
         }

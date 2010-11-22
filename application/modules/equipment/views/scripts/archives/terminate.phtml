@@ -52,7 +52,7 @@
                 </table>
                 <div class="clear"></div>
                 <div class="second">
-                    <form class="select-parametr2" id="changeActiveStatusForm" method="post" action="/equipment/vehicle-file/change-active-status">
+                    <form class="select-parametr2" id="terminateForm" method="post" action="/equipment/archives/termiante">
                         <input type="hidden" id="e_id" name="e_id" value="<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>" />
                         <input type="hidden" id="e_Active_Status" name="e_Active_Status" value="<?= (isset($this->statusToChange)) ? $this->statusToChange : ''; ?>" />
                         <table cellspacing="0" class="inform">

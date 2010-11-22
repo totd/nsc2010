@@ -397,10 +397,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
     }
 
-    public function viewAssignmentAction()
-    {
-
-    }
 
     private function getSelectList($entity, $valueField, $textField, $selectedValue = null, $methodName = 'getList')
     {
@@ -496,7 +492,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
                 }
             }
-            
+
             if (isset($data['e_activation_comment'])) {
                 $row['e_activation_comment'] = $data['e_activation_comment'];
             }

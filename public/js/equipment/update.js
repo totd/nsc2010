@@ -3,20 +3,20 @@ function changeType() {
     $(".second *").show();
 
     if (text == "Straight Truck") {
-        $("#e_Axles").parents("tr").hide();
+        $("#e_Owner_Number").parents("tr").hide();
 
-        $("#e_Gross_Vehicle_Registered_Weight").parents("tr").hide();
+        $("#e_Alternate_ID").parents("tr").hide();
 
     }
 
     if (text == "Tractor") {
-        $("#e_Axles").parents("tr").hide();
+        $("#e_Alternate_ID").parents("tr").hide();
 
-        $("#e_Gross_Vehicle_Registered_Weight").parents("tr").hide();
+        $("#e_Fee").parents("tr").hide();
 
-        $("#e_Color").parents("tr").hide();
+        $("#e_Title_Status").parents("tr").hide();
 
-        $("#e_Make").parents("tr").hide();
+        $("#e_RFID_No").parents("tr").hide();
     }
 }
 

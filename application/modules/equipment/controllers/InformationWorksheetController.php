@@ -450,12 +450,12 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $selectArray = array('' => array('text' => '-'));
             if (!is_null($depotList)) {
                 foreach ($depotList as $depot) {
-                    $selectArray[$depot['dp_id']] = array('text' => $depot['s_name']);
+                    $selectArray[$depot['dp_id']] = array('text' => $depot['dp_Name']);
                 }
 
                 if (isset($equipmentAssigmentRow['ea_depot_id']) && !is_null($equipmentAssigmentRow['ea_depot_id'])) {
                     foreach ($selectArray as $key => &$value) {
-                        if ($equipmentRow['ea_depot_id'] == $key) {
+                        if ($equipmentAssigmentRow['ea_depot_id'] == $key) {
                             $value['selected'] = true;
                             break;
                         }
@@ -467,9 +467,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
             $this->view->depots = $selectArray;
 
-//                    $this->getSelectList('depot', 'dp_id', 'dp_Name',
-//                        (isset($equipmentAssigmentRow['ea_depot_id']) ? $equipmentAssigmentRow['ea_depot_id'] : null)
-//                    );
             // Owners
             $this->view->owners = $this->getSelectList('equipmentOwner', 'eo_id', 'eo_name',
                             (isset($equipmentAssigmentRow['ea_owner_id']) ? $equipmentAssigmentRow['ea_owner_id'] : null)
@@ -579,7 +576,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
                 $this->view->person = "{$identity->vau_First_Name} {$identity->vau_Last_Name}";
             }
-
 
             $date = new Zend_Date();
             $this->view->currentDate = $date->toString("MM/dd/YYYY");

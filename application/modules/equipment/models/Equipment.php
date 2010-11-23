@@ -20,8 +20,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         'e_Year' => 'year of manufacturing',
         'e_Description' => 'description',
         'e_DOT_Regulated' => 'DOT regulated',
-        'e_type_id' => 'type',
-        'e_RFID_No' => 'radio frequency identify'
+        'e_type_id' => 'type'
     );
 
     public function getArchivesList($offset = 0, $count = 20, $filterOptions = null, $orderField = 'eas_type')

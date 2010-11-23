@@ -35,23 +35,46 @@ class Equipment_ArchivesController extends Zend_Controller_Action
             $step = 20;
         }
 
+        if ($this->_getParam('orderBy') != null) {
+            $orderBy = $this->_getParam('orderBy');
+        } else {
+            $orderBy = 'eas_type';
+        }
+
+        if ($this->_getParam('orderWay') != null) {
+            $orderWay = $this->_getParam('orderWay');
+        } else {
+            $orderWay = 'ASC';
+        }
+
 
         if (is_null($options)) {
             if ($this->_request->isPost()) {
                 $options['SearchBy'] = $this->_request->getPost('SearchBy');
                 $options['SearchText'] = $this->_request->getPost('SearchText');
-                $status = $options['Status'] = $this->_request->getPost('Status');
+                $status = $this->_request->getPost('Status');
+                $orderBy = $this->_request->getPost('orderBy');
+                $orderWay = $this->_request->getPost('orderWay');
             }
-        } elseif (!isset($options['SearchBy']) || !isset($options['Status']) || !isset($options['SearchText'])) {
-            $this->_redirect('/equipment/archives');
+        } elseif (!isset($options['SearchBy']) ||
+                    !isset($options['Status']) ||
+                    !isset($options['SearchText']) ||
+                    !isset($options['orderBy']) ||
+                    !isset($options['orderWay'])
+                ) {
+            $this->_redirect('/equipment/truckFiles');
         }
 
         $this->view->status = $status;
         $this->view->from = $from;
         $this->view->step = $step;
+        $this->view->orderBy = $orderBy;
+        $this->view->orderWay = $orderWay;
 
         $equipment = new Equipment_Model_Equipment();
         $options['Status'] = $status;
+        $options['orderBy'] = $orderBy;
+        $options['orderWay'] = $orderWay;
         $equipments = $equipment->getArchivesList($from, $step, $options);
         if (sizeof($equipments) > 0) {
             $this->view->equipments = $equipments['limitEquipments'];

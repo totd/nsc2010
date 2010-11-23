@@ -459,6 +459,12 @@ table.inform th{
 	
 table.inform tr.color-dark td { background:#e6e8ee;}	
 
+table.inform td span.red {
+    color: #ff0000;
+    padding: 5px;
+    margin: 0px;
+}
+
 div.blue-nav {
 	margin:0 auto;
 	width:220px;
@@ -512,7 +518,9 @@ table.application-forms tr.table-title	td {
 	background:#949aa9;
 	color:#fefeff;
 	font-size:13px;
-	font-weight:bold;}
+	font-weight:bold;
+    cursor: pointer;
+}
 
 table.application-forms td {
 	padding:0 10px;
@@ -628,7 +636,7 @@ form.select-parametr .time  input {
 	height:14px;
 	padding:2px 5px;
 	border:1px solid #9398a7;
-	background:none;
+	background:#FFFFFF;
 	color:#1c357c;
 	font-size:12px;}
 	
@@ -667,7 +675,7 @@ form.select-parametr.new-appl span.radio-button input {
 
 form.select-parametr.new-appl input[type="text"] {
 	float:left;
-	background:none;
+	background:#FFFFFF;
 	border:1px solid #9398a7;
 	color:#9398a7;
 	font-size:12px;
@@ -700,9 +708,7 @@ form.select-parametr select {
 	
 form.select-parametr option { padding:1px 1px 1px 5px;}	
 
-form.select-parametr input[type="submit"], .check-box form input[type="submit"], form.select-parametr2 input[type="submit"],
-form.select-parametr2 input[type="button"]
-{
+form.select-parametr input[type="submit"], .check-box form input[type="submit"], form.select-parametr2 input[type="submit"]{
 	background:url(../images/parametr-submit.gif) no-repeat;
 	width:131px;
 	height:29px;
@@ -793,7 +799,7 @@ form.information-form input[type="text"] {
 	height:14px;
 	padding:2px 5px;
 	margin:5px 0;
-	background:none;
+	background:#FFFFFF;
 	width:185px;
 	border:1px solid #9398a7;
 	font-family:Arial;
@@ -947,7 +953,7 @@ span.blue-button a {
 	width: 350px;
 }
 
-.error_custom{
+.error{
 	background: url(../images/error.png) no-repeat 0px 0px; 
 	display: inline;
 	padding-left: 30px;

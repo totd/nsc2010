@@ -294,6 +294,10 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             foreach ($this->_request->getPost() as $key => $value) {
                 if (in_array($key, $cols)) {
 
+                    if ($key == 'ea_driver_id' || $key == 'ea_depot_id') {
+                        $data[$key] = null;
+                    }
+
                     if (empty($value) || is_null($value)) {
                         continue;
                     } elseif ($key == 'ea_start_date' || $key == 'ea_end_date') {
@@ -308,6 +312,15 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     }
                 }
             }
+
+            if (!array_key_exists('ea_depot_id', $this->_request->getPost())) {
+                $data['ea_depot_id'] = null;
+            }
+
+            if (!array_key_exists('ea_driver_id', $this->_request->getPost())) {
+                $data['ea_driver_id'] = null;
+            }
+
 
             $equipmentAssignmentModel->saveAssignment($data);
 
@@ -371,9 +384,32 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     );
 
             // Depots
-            $this->view->depots = $this->getSelectList('depot', 'dp_id', 'dp_Name',
-                        (isset($equipmentAssigmentRow['ea_depot_id']) ? $equipmentAssigmentRow['ea_depot_id'] : null)
-                    );
+            $depotModel = new Depot_Model_Depot();
+            $depotList = $depotModel->getDepotList($equipmentAssigmentRow['ea_homebase_id']);
+            
+            $selectArray = array('' => array('text' => '-'));
+            if (!is_null($depotList)) {
+                foreach ($depotList as $depot) {
+                    $selectArray[$depot['dp_id']] = array('text' => $depot['s_name']);
+                }
+
+                if (isset($equipmentAssigmentRow['ea_depot_id']) && !is_null($equipmentAssigmentRow['ea_depot_id'])) {
+                    foreach ($selectArray as $key => &$value) {
+                        if ($equipmentRow['ea_depot_id'] == $key) {
+                            $value['selected'] = true;
+                            break;
+                        }
+                    }
+                } else {
+                    $selectArray['']['selected'] = true;
+                }
+            }
+
+            $this->view->depots = $selectArray;
+
+//                    $this->getSelectList('depot', 'dp_id', 'dp_Name',
+//                        (isset($equipmentAssigmentRow['ea_depot_id']) ? $equipmentAssigmentRow['ea_depot_id'] : null)
+//                    );
 
             // Owners
             $this->view->owners = $this->getSelectList('equipmentOwner', 'eo_id', 'eo_name',

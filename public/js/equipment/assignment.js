@@ -22,5 +22,16 @@ $(function() {
             document.getElementById("updateAsignment").submit();
         }
     });
+
+    $("#ea_homebase_id").change(function() {
+        $.get("/ajax/homebase/get-Depot-List/", {id: $("#ea_homebase_id").val()}, function(data){
+            $('#ea_depot_id option').remove();
+            /*var options = {
+                "" : "-"
+            }
+            $("#ea_depot_id").addOption(options, false);*/
+            $('#ea_depot_id').append(""+data+"");
+        });
+    });
 });
 

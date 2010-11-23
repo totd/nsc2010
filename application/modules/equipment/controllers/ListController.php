@@ -85,7 +85,7 @@ class Equipment_ListController extends Zend_Controller_Action
         }
 
         $this->view->display_search_link = $display_search_link;
-        $this->view->pageTitle = 'LIST OF VENDORS NOT JOINED TO THE VEHICLE';
+        $this->view->pageTitle = 'LIST OF EQUIPMENT';
         $statuses = array(
             'Pending' => array(
                 'text' => 'Pending'

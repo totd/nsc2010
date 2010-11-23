@@ -16,36 +16,7 @@ class Permission_Model_Permission
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
                 'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
                 'equipment/search' => array('resource' => 'equipment:search', 'module' => 'equipment'),
-                'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
-                                                            'module' => 'equipment',
-                                                            'actions' => array(
-                                                                    'add-assignment',
-                                                                    'completed',
-                                                                    'declined',
-                                                                    'index',
-                                                                    'reactivated',
-                                                                    'save-assignment',
-                                                                    'save-vim',
-                                                                    'show-complete-form',
-                                                                    'update',
-                                                                    'validate-completed'
-                                                                )
-                    ),
-                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
-                                                            'module' => 'equipment',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'change-active-status'
-                                                                )
-                    ),
-                'equipment/archives' => array( 'resource' => 'equipment:archives',
-                                                            'module' => 'equipment',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'terminate'
-                                                                )
-                    ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment')
             )
         ),
         'NSC_USERS__Level_1' => array(
@@ -166,7 +137,8 @@ class Permission_Model_Permission
                 'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
                 'user/list' => array('resource' => 'user:list', 'module' => 'user'),
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
+                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
+                'equipment/information-worksheet/index' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment', 'action' => 'index')
             )
         ),
         'Guest' => array(
@@ -181,22 +153,22 @@ class Permission_Model_Permission
 
     /**
      * @author Andryi Ilnytskyi 09.11.2010
-     * 
+     *
      * Get list of the role-resource matrix.
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function getList()
     {
         return $this->_permissions;
     }
-    
+
     /**
      * @author Andryi Ilnytskyi 09.11.2010
-     * 
+     *
      * Get list of the roles
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function getRoles()
     {
@@ -205,11 +177,11 @@ class Permission_Model_Permission
 
     /**
      * @author Andryi Ilnytskyi 09.11.2010
-     * 
+     *
      * Get list of the available resources. Since superadmin has all the rights, the
      * function returns all available resources.
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function getAllResources()
     {
@@ -218,32 +190,24 @@ class Permission_Model_Permission
 
     /**
      * @author Andryi Ilnytskyi 09.11.2010
-     * 
+     *
      * Check whether the role has a defined resource
-     * 
+     *
      * @param string $role
-     * @param string $resourceKey Controller or Module/Controller
-     * @param mixed $action
+     * @param string $resourceKey
      *
      * @return boolean
      */
-    public function doesRoleHaveResource($role, $resourceKey, $action = null)
+    public function doesRoleHaveResource($role, $resourceKey)
     {
         if (!array_key_exists($role, $this->_permissions)) {
             throw new Exception('Undefined role');
         }
-        
+
         $result = false;
 
         if (array_key_exists($resourceKey, $this->_permissions[$role]['resources'])) {
-            if (!is_null($action)) {
-                if (isset($this->_permissions[$role][$resourceKey]['actions']) &&
-                        in_array($action, $this->_permissions[$role][$resourceKey]['actions'])) {
-                    $result = true;
-                }
-            } else {
-                $result = true;
-            }
+            $result = true;
         }
 
         return $result;

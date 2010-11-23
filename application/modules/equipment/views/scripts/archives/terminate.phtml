@@ -52,13 +52,13 @@
                 </table>
                 <div class="clear"></div>
                 <div class="second">
-                    <form class="select-parametr2" id="terminateForm" method="post" action="/equipment/archives/termiante">
+                    <form class="select-parametr2" id="terminateForm" method="post" action="/equipment/archives/terminate">
                         <input type="hidden" id="e_id" name="e_id" value="<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>" />
                         <input type="hidden" id="e_Active_Status" name="e_Active_Status" value="<?= (isset($this->statusToChange)) ? $this->statusToChange : ''; ?>" />
                         <table cellspacing="0" class="inform">
                             <tbody>
                                 <tr>
-                                    <td><label><span>*</span>Date Of Status Change</label></td>
+                                    <td><span class="red">*</span>Date Of Status Change</td>
                                     <td>
                                         <input id="e_change_active_status_date" name="e_change_active_status_date" value="<?= (isset($this->currentDate)) ? $this->currentDate : ''; ?>" />
                                         <br />
@@ -73,27 +73,15 @@
                                     <td>Comment</td>
                                     <td><textarea id="e_change_active_status_comment" name="e_change_active_status_comment"></textarea></td>
                                 </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <input type="button" name="cancelTerminateSubmit" id="cancelTerminateSubmit" value="Cancel">
+                                        <input type="button" name="terminateSubmit" id="terminateSubmit" value="<?= $this->actionLabel; ?>">
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </form>
-                    <div class="blue-nav">
-                        <ul>
-                            <li>
-                                <span>
-                                    <a id="changeStatusLink">
-                                        <?= $this->actionLabel; ?>
-                                    </a>
-                                </span>
-                            </li>
-                            <li>
-                                <span>
-                                    <a href="/equipment/vehicle-file/index/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>">
-                                        Exit
-                                    </a>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
                     <br><br>
                 </div>
             </div>

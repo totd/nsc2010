@@ -122,7 +122,7 @@ class Equipment_ArchivesController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/equipment/list.js', 'text/javascript');
     }
 
-    public function terminateAction($id)
+    public function terminateAction($id = null, $status = null)
     {
         $equipmentModel = new Equipment_Model_Equipment();
 
@@ -154,7 +154,7 @@ class Equipment_ArchivesController extends Zend_Controller_Action
 
             $equipmentModel->saveEquipment($row);
 
-            $this->_redirect("/equipment/truck-files");
+            $this->_redirect("/equipment/archives");
         }
 
         if (is_null($id)) {
@@ -175,7 +175,7 @@ class Equipment_ArchivesController extends Zend_Controller_Action
 
             if (!$equipmentRow) {
                 $this->view->errorMessage = "Equipment doesn't exist.";
-                $this->_redirect("/equipment/truck-files");
+                $this->_redirect("/equipment/archives");
             }
 
             $row = $equipmentModel->findEquipmentByVIN($equipmentRow->e_Number);
@@ -200,13 +200,14 @@ class Equipment_ArchivesController extends Zend_Controller_Action
             $this->view->currentDate = $date->toString("MM/dd/YYYY");
 
             $this->view->pageTitle = 'Change Vehicle Status';
-            $this->view->headScript()->appendFile('/js/equipment/change-active-status.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/equipment/terminate.js', 'text/javascript');
+            $this->view->headLink()->appendStylesheet('/css/main.css');
 
 
             $this->view->actionLabel = 'Terminate';
 
         } else {
-            $this->_redirect("/equipment/truck-files");
+            $this->_redirect("/equipment/archives");
         }
     }
 }

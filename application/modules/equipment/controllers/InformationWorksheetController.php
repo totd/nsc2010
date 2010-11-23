@@ -162,6 +162,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->equipmentRow = $equipmentRow;
         $this->view->pageTitle = 'UPDATE VEHICLE INFORMATION WORKSHEET';
         $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
+        $this->view->headLink()->appendStylesheet('/css/main.css');
     }
 
     public function validateCompletedAction($id = null)
@@ -395,6 +396,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         //$this->view->equipmentRow = $equipmentRow;
         $this->view->pageTitle = 'UPDATE EQUIPMENT ASSIGNMENT';
         $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
+        $this->view->headLink()->appendStylesheet('/css/main.css');
     }
 
 
@@ -471,6 +473,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $this->view->equipmentRow = $equipmentRow;
             $this->view->pageTitle = 'COMPLETE VEHICLE APPLICATION';
             $this->view->headScript()->appendFile('/js/equipment/show-complete-form.js', 'text/javascript');
+            $this->view->headLink()->appendStylesheet('/css/main.css');
         }
     }
 

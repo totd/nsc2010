@@ -10,7 +10,10 @@
     </div>
 </div>
 
+</div>
+
 <div class="driver-information" id="main">
+
     <div class="post-top">
         <div class="post-bottom">
             <div class="post-middle">
@@ -19,48 +22,34 @@
                 <table class="inform">
                     <tbody>
                         <tr>
-                            <td colspan="2">
-                                <h2>
-                                    Vehicle type: &nbsp;
-                                    <span class="data">
+                            <td colspan="2"><h2>Vehicle type:&nbsp;<span class="data">
                                         <?= (isset($this->equipmentRow['et_type'])) ? $this->equipmentRow['et_type'] : ''; ?>
-                                    </span>
-                                </h2>
-                            </td>
+                                    </span></h2></td>
                         </tr>
+                        <tr><td colspan="2"><h2>VIN:&nbsp;<span class="data">
+                                        <?= ((isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : ''); ?>
+                                    </span></h2></td></tr>
                         <tr>
-                            <td colspan="2">
-                                <h2>
-                                    VIN:&nbsp;
-                                    <span class="data">
-                                        <?php echo ((isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : ''); ?>
-                                    </span>
-                                </h2>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <h2>
-                                    Status: &nbsp;
-                                    <span class="data">
+                            <td colspan="2"><h2>Status:&nbsp;<span class="data">
                                         <?= (isset($this->equipmentRow['eas_type'])) ? $this->equipmentRow['eas_type'] : ''; ?>
-                                    </span>
-                                </h2>
-                            </td>
+                                    </span></h2></td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="clear"></div>
                 <div class="second">
-                    <form class="select-parametr2" id="changeActiveStatusForm" method="post" action="/equipment/vehicle-file/change-active-status">
+                    <form class="select-parametr2" id="changeActiveStatusForm" method="post"
+                          action="/equipment/vehicle-file/change-active-status">
                         <input type="hidden" id="e_id" name="e_id" value="<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>" />
                         <input type="hidden" id="e_Active_Status" name="e_Active_Status" value="<?= (isset($this->statusToChange)) ? $this->statusToChange : ''; ?>" />
                         <table cellspacing="0" class="inform">
                             <tbody>
                                 <tr>
-                                    <td><label><span>*</span>Date Of Status Change</label></td>
+                                    <td><span class="red">*</span>Date Of Status Change</td>
                                     <td>
-                                        <input id="e_change_active_status_date" name="e_change_active_status_date" value="<?= (isset($this->currentDate)) ? $this->currentDate : ''; ?>" />
+                                        <input id="e_change_active_status_date" 
+                                               name="e_change_active_status_date"
+                                               value="<?= (isset($this->currentDate)) ? $this->currentDate : ''; ?>" />
                                         <br />
                                         <label for="e_change_active_status_date" generated="true" class="error" />
                                     </td>
@@ -71,32 +60,26 @@
                                 </tr>
                                 <tr>
                                     <td>Comment</td>
-                                    <td><textarea id="e_change_active_status_comment" name="e_change_active_status_comment"></textarea></td>
+                                    <td>
+                                        <textarea id="e_change_active_status_comment"
+                                                  name="e_change_active_status_comment"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <input type="button" name="cancelChangeSubmit" id="cancelChangeSubmit" value="Cancel">
+                                        <input type="button" name="changeSubmit" id="changeSubmit" value="<?= $this->actionLabel; ?>">
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </form>
-                    <div class="blue-nav">
-                        <ul>
-                            <li>
-                                <span>
-                                    <a id="changeStatusLink">
-                                        <?= $this->actionLabel; ?>
-                                    </a>
-                                </span>
-                            </li>
-                            <li>
-                                <span>
-                                    <a href="/equipment/vehicle-file/index/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>">
-                                        Exit
-                                    </a>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <br><br>
+                    <br>
+                    <br>
                 </div>
             </div>
         </div>
     </div>
+
+
 </div>

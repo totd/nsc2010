@@ -1,4 +1,9 @@
 .required {
     font-weight:bold;
-    
+}
+
+table.inform td span.red {
+    color: #ff4425;
+    padding: 7px 0px;
+    margin: 0px;
 }

@@ -7,10 +7,14 @@ $(function() {
         }
     });
 
-    $("#changeStatusLink").click(function() {
+    $("#changeSubmit").click(function() {
         if ($("#changeActiveStatusForm").valid()) {
             document.getElementById("changeActiveStatusForm").submit();
         }
+    });
+
+    $("#cancelChangeSubmit").click(function() {
+        window.location.href='/equipment/vehicle-file/index/id/' + $("#e_id").val();
     });
 });
 

@@ -7,6 +7,7 @@
  */
 class Equipment_InformationWorksheetController extends Zend_Controller_Action
 {
+    const uploadPath = "upload/";
 
     public function preDispatch()
     {
@@ -66,9 +67,12 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
 
         $this->view->equipmentRow = $equipmentRow;
+        $this->view->uploadPath = self::uploadPath;
         $this->view->action = '/equipment/update-status/';
         $this->view->pageTitle = 'VEHICLE INFORMATION WORKSHEET';
         $this->view->headLink()->appendStylesheet('/css/main.css');
+        $this->view->headScript()->appendFile('/js/imgpreview.min.0.22.jquery.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/equipment/index.js', 'text/javascript');
     }
 
     /**
@@ -191,7 +195,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $equipmentRow->e_Number . '">Equipment VIM</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;Validate Complete Action';
 
-        
+
         $this->view->pageTitle = 'COMPLETE VEHICLE APPLICATION';
         $VIN = $equipmentRow->e_Number;
         $this->view->VIN = $equipmentRow->e_Number;
@@ -262,24 +266,81 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
             $data = array();
             // TODO implement filling manual all table fields with validating.
-            foreach ($this->_request->getPost() as $key => $value) {
+            $data = $this->_request->getPost();
+            foreach ($data as $key => $value) {
                 if ($key == 'e_License_Expiration_Date') {
                     try {
                         $myDate = new Zend_Date($value, "MM/dd/YYYY");
                         $data[$key] = $myDate->toString("YYYY-MM-dd");
                     } catch (Exception $e) {
-                        
+
                     }
                 } else {
                     $data[$key] = $value;
                 }
             }
 
+            if (isset($_FILES['e_Picture'])) {
+                $fileName = $this->saveUploadData('e_Picture');
+                if (!is_null($fileName)) {
+                    $data['e_Picture'] = $fileName;
+                }
+            }
+
             $where = $equipmentModel->getAdapter()->quoteInto('e_id = ?', $this->_request->getPost('e_id'));
 
             $equipmentModel->update($data, $where);
-            
+
             return $this->_redirect('equipment/list');
+        }
+    }
+
+    private function saveUploadData($fieldName)
+    {
+        if ((($_FILES[$fieldName]["type"] == "image/tiff")
+                || ($_FILES[$fieldName]["type"] == "image/jpeg"))
+                && ($_FILES[$fieldName]["size"] < 2097152)) {
+            if ($_FILES[$fieldName]["error"] > 0) {
+//                throw new Exception("Return Code: " . $_FILES[$fieldName]["error"] . "<br />");
+                return null;
+            } else {
+                $extension= end(explode(".", $_FILES[$fieldName]['name']));
+
+                $userId = '';
+                $auth = Zend_Auth::getInstance();
+                if ($auth->hasIdentity()) {
+                    $identity = $auth->getIdentity();
+                    $userId = $identity->vau_username;
+                }
+
+                $currentDate = new Zend_Date();
+                $strDate =  $currentDate->toString("dd") . "_" .
+                            $currentDate->toString("MM") . "_" .
+                            $currentDate->toString("YYYY") . "_" .
+                            $currentDate->toString("HH") . "_" .
+                            $currentDate->toString("mm") . "_" .
+                            $currentDate->toString("ss");
+                $randomVal = rand(0, 9999);
+                $storeName = $userId . "_" . $strDate . "_" . $randomVal;
+                if (!empty($extension)) {
+                    $storeName .= ".$extension";
+                }
+                
+                if (file_exists(self::uploadPath . $storeName)) {
+//                    throw new Exception("$storeName already exists. ");
+                    return null;
+                } else {
+                    $result = move_uploaded_file($_FILES[$fieldName]["tmp_name"],
+                            self::uploadPath . $storeName);
+                    if ($result) {
+                        return $storeName;
+                    } else {
+                        return null;
+                    }
+                }
+            }
+        } else {
+            return null;
         }
     }
 
@@ -330,7 +391,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
     public function addAssignmentAction($equipmentId = null, $VIN = null)
     {
-        
+
 
         if (is_null($equipmentId)) {
             $equipmentId = $this->_request->getParam('equipmentId');
@@ -377,16 +438,15 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             }
 
             // Prepearing data for the form
-
             // Homebases
             $this->view->homebases = $this->getSelectList('homebase', 'h_id', 'h_Name',
-                        (isset($equipmentAssigmentRow['ea_homebase_id']) ? $equipmentAssigmentRow['ea_homebase_id'] : null)
-                    );
+                            (isset($equipmentAssigmentRow['ea_homebase_id']) ? $equipmentAssigmentRow['ea_homebase_id'] : null)
+            );
 
             // Depots
             $depotModel = new Depot_Model_Depot();
             $depotList = $depotModel->getDepotList($equipmentAssigmentRow['ea_homebase_id']);
-            
+
             $selectArray = array('' => array('text' => '-'));
             if (!is_null($depotList)) {
                 foreach ($depotList as $depot) {
@@ -410,28 +470,25 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 //                    $this->getSelectList('depot', 'dp_id', 'dp_Name',
 //                        (isset($equipmentAssigmentRow['ea_depot_id']) ? $equipmentAssigmentRow['ea_depot_id'] : null)
 //                    );
-
             // Owners
             $this->view->owners = $this->getSelectList('equipmentOwner', 'eo_id', 'eo_name',
-                        (isset($equipmentAssigmentRow['ea_owner_id']) ? $equipmentAssigmentRow['ea_owner_id'] : null)
-                    );
-            
+                            (isset($equipmentAssigmentRow['ea_owner_id']) ? $equipmentAssigmentRow['ea_owner_id'] : null)
+            );
+
             // Drivers
             $this->view->drivers = $this->getSelectList('driver', 'd_ID', array('d_Driver_SSN', 'd_Last_Name'),
-                        (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
-                    );
+                            (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
+            );
 
             // Service providers
             $this->view->serviceProviders = $this->getSelectList('serviceProvider', 'sp_ID', 'sp_Name',
-                        (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
-                    );
+                            (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
+            );
 
             // Incidents
             $this->view->incidents = $this->getSelectList('incident', 'i_ID', 'i_Violation_ID',
-                        (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
-                    );
-
-
+                            (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
+            );
         }
 
         //$this->view->equipmentRow = $equipmentRow;
@@ -439,7 +496,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
         $this->view->headLink()->appendStylesheet('/css/main.css');
     }
-
 
     private function getSelectList($entity, $valueField, $textField, $selectedValue = null, $methodName = 'getList')
     {
@@ -461,7 +517,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     $selectArray[$row->$valueField] = array('text' => $row->$textField);
                 }
             } elseif (is_array($row)) {
-                 if (is_array($textField)) {
+                if (is_array($textField)) {
                     $value = '';
                     foreach ($textField as $field) {
                         $value .= $row->$field . ' ';

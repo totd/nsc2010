@@ -121,7 +121,15 @@
                             </tr>
                             <tr>
                                 <td>Picture</td>
-                                <td><span><?= $this->equipmentRow['e_Picture']; ?></span></td>
+                                <td>
+                                    <?php if (isset($this->equipmentRow['e_Picture']) && !empty($this->equipmentRow['e_Picture'])) : ?>
+                                        <span>
+                                            <a id="attachFile" href="/<?= $this->uploadPath . $this->equipmentRow['e_Picture']; ?>">
+                                                Attached file
+                                            </a>
+                                        </span>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                             <tr class="color-dark">
                                 <td>Model</td>
@@ -129,7 +137,7 @@
                             </tr>
                             <tr>
                                 <td>Year</td>
-                                <td><span><?= $this->equipmentRow['e_Year']; ?></span></td>
+                                <td><span><?= ($this->equipmentRow['e_Year'] == '0000') ? '' : $this->equipmentRow['e_Year']; ?></span></td>
                             </tr>
                             <tr class="color-dark">
                                 <td>Make</td>
@@ -153,7 +161,7 @@
                             </tr>
                             <tr>
                                 <td>Number Of Axles</td>
-                                <td><span><?= $this->equipmentRow['e_Axles']; ?></span></td>
+                                <td><span><?= ($this->equipmentRow['e_Axles'] == '0') ? '' : $this->equipmentRow['e_Axles']; ?></span></td>
                             </tr>
                             <tr class="color-dark">
                                 <td>License Plate Number</td>
@@ -194,8 +202,6 @@
                     <?php
                         
                         if(is_array($this->equipmentAssignmentRow)) {
-                            echo '<span class="text-blue">Equipment assignment exists</span>';
-
                             if (!empty($this->equipmentAssignmentRow['h_Name'])) {
                                 echo '<span class="text-blue">Homebase: ' . $this->equipmentAssignmentRow['h_Name'] . '</span>';
                             }

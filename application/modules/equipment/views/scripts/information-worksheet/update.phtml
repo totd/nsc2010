@@ -36,7 +36,9 @@
     <div class="post-top">
         <div class="post-bottom">
             <div class="post-middle">
-                <form id="updateVIM" method="post" action="/equipment/information-worksheet/save-vim/id/<?php echo $this->equipmentRow['e_id']; ?>">
+                <form id="updateVIM" method="post"
+                      enctype="multipart/form-data"
+                      action="/equipment/information-worksheet/save-vim/id/<?php echo $this->equipmentRow['e_id']; ?>">
                     <table class="first">
                         <tbody>
                             <tr>
@@ -201,8 +203,9 @@
                                 <tr>
                                     <td>Picture</td>
                                     <td>
-                                        <input type="text" value="<?= $this->equipmentRow['e_Picture']; ?>"
+                                        <input type="file" value="<?= $this->equipmentRow['e_Picture']; ?>"
                                                id="e_Picture" name="e_Picture" />
+                                        <label>Size limit is 2mb (jpeg or tiff only)</label>
                                     </td>
                                 </tr>
                                 <tr class="color-dark">

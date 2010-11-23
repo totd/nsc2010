@@ -901,7 +901,8 @@ span.blue-button a {
 	background:url(../images/gradient-second.gif) repeat-x #f7f7fb;
 	float:left;
 	width:844px;
-	height:142px;}
+	padding-bottom:20px;
+	}
 	
 .second.post h2 {
 	float:left;
@@ -956,4 +957,3 @@ span.blue-button a {
 }
 
 .clear { clear:both;}
-

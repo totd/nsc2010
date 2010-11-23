@@ -1,0 +1,120 @@
+
+<div class="bottom-nav">
+    <table class="inform">
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <h2>
+                        Vehicle type: &nbsp;
+                        <span class="data">
+                            <?= (isset($this->equipmentRow['et_type'])) ? $this->equipmentRow['et_type'] : ''; ?>
+                        </span>
+                    </h2>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h2>
+                        VIN:&nbsp;
+                        <span class="data">
+                            <?php echo ((isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : '')
+                                . ' - ' .
+                                ((isset($this->equipmentRow['eas_type'])) ? $this->equipmentRow['eas_type'] : '');
+                            ?>
+                        </span>
+                    </h2>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!--TODO hak for diz-->
+</div>
+
+<div id="main" class="driver-profile">
+    <table class="application-forms" cellspacing="0">
+        <tr class="table-title">
+            <th  colspan="8">
+                Required Forms and Documents
+            </th>
+        </tr>
+        <tr  class="table-title">
+            <td>Form name</td>
+            <td>Status</td>
+            <td>Date Request</td>
+            <td>Date Completed</td>
+            <td>Scan</td>
+            <td>View</td>
+            <td>Delete</td>
+            <td>Archived</td>
+        </tr>
+    </table>
+
+    <?php if (isset($this->equipmentRow['eas_type']) && $this->equipmentRow['eas_type'] != 'Terminated') : ?>
+    <div class="driver-information">
+        <div class="post-top">
+            <div class="post-bottom">
+                <div class="post-middle">
+                    <h2>Other Available Actions</h2>
+                    <h3>Vehicle Actions</h3>
+                    <span class="blue-button">
+                        <span>
+                            <a href="/equipment/information-worksheet/index/VIN/<?= (isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : ''; ?>">
+                                View/Update Truck Profile 
+                            </a>
+                        </span>
+                    </span>
+                    <span class="blue-button">
+                        <span>
+                            <?php if (isset($this->equipmentRow['eas_type']) && $this->equipmentRow['eas_type'] == 'In Service') : ?>
+                                <a href="/equipment/vehicle-file/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/Out%20of%20Service">
+                                    Put vehicle out of service
+                                </a>
+                            <?php elseif (isset($this->equipmentRow['eas_type']) && $this->equipmentRow['eas_type'] == 'Out of Service') : ?>
+                                <a href="/equipment/vehicle-file/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/In%20Service">
+                                    Activate vehicle
+                                </a>
+                            <?php endif; ?>
+                        </span>
+                    </span>
+                    <span class="blue-button">
+                        <span>
+                            <a href="/equipment/vehicle-file/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/Terminated">
+                                Terminate Vehicle
+                            </a>
+                        </span>
+                    </span>
+                    <h3>Documents Actions</h3>
+                    <span class="blue-button">
+                        <span>
+                            <a href="/documents/scan">
+                                Scan Other Documents
+                            </a>
+                        </span>
+                    </span>
+                    <span class="blue-button">
+                        <span>
+                            <a href="/documents/scan">
+                                Scan Truck Picture
+                            </a>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>

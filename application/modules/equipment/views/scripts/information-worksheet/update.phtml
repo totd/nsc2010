@@ -2,7 +2,7 @@
     <ul class="blue-nav">
         <li>
             <span>
-                <a id="equipmentSaveLink1" href="#">
+                <a id="equipmentSaveLink1">
                     Save
                 </a>
             </span>
@@ -165,25 +165,25 @@
                                                id="e_Description" name="e_Description" />
                                     </td>
                                 </tr>
-                                <tr class="color-dark">
-                                    <td><label class="required"><span>*</span>Active Status</label></td>
-                                    <td>
-                                        <input type="text" value="<?= $this->equipmentRow['e_Active_Status']; ?>"
-                                               id="e_Active_Status" name="e_Active_Status" />
-                                    </td>
-                                </tr>
-                                <tr>
+                                <tr  class="color-dark">
                                     <td>Fee</td>
                                     <td>
                                         <input type="text" value="<?= $this->equipmentRow['e_Fee']; ?>"
                                                id="e_Fee" name="e_Fee" />
                                     </td>
                                 </tr>
-                                <tr  class="color-dark">
+                                <tr>
                                     <td>Title Status</td>
                                     <td>
                                         <input type="text" value="<?= $this->equipmentRow['e_Title_Status']; ?>"
                                                id="e_Title_Status" name="e_Title_Status" />
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>Radio Frequency Identify</td>
+                                    <td>
+                                        <input type="text" value="<?= $this->equipmentRow['e_RFID_No']; ?>"
+                                               id="e_RFID_No" name="e_RFID_No" />
                                     </td>
                                 </tr>
                             </tbody>
@@ -273,13 +273,7 @@
                                         <input type="text" value="<?= $this->equipmentRow['e_License_Expiration_Date']; ?>" id="e_License_Expiration_Date" name="e_License_Expiration_Date" />
                                     </td>
                                 </tr>
-                                <tr class="color-dark">
-                                    <td>Radio Frequency Identify</td>
-                                    <td>
-                                        <input type="text" value="<?= $this->equipmentRow['e_RFID_No']; ?>"
-                                               id="e_RFID_No" name="e_RFID_No" />
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -292,7 +286,7 @@
         <ul>
             <li>
                 <span>
-                    <a id="equipmentSaveLink2" href="#">
+                    <a id="equipmentSaveLink2" href="">
                         Save
                     </a>
                 </span>

@@ -3,7 +3,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/css/style.css" type="text/css" rel="stylesheet"/>
-    <link href="/css/zendcode.css" type="text/css" rel="stylesheet"/>
     <script src="/js//jquery-latest.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
     <title>National Safety Compliance, INC</title>
@@ -45,7 +44,8 @@
       </div>
       <div class="header-bottom">
 
-          <ul class="top-menu"><li><span class="left"><span class="right"><a href="/driver/index/index?status=Pending"><span class="left"><span class="right">Drivers</span></span></a></span></span>
+          <ul class="top-menu">
+            <li><span class="left"><span class="right"><a href="/driver/index/index?status=Pending"><span class="left"><span class="right">Drivers</span></span></a></span></span>
                 <div class="top-pod-menu">
                     <ul>
                         <li>
@@ -115,6 +115,8 @@
                         <li>
                             <ul>
                                 <li><a href="/equipment/list/index/status/Pending">Equipment List</a></li>
+                                <li><a href="/equipment/truck-files/index/status/In%20Service">Truck Files</a></li>
+                                <li><a href="/equipment/archives/index/status/Terminated">Archives</a></li>
                                 <li><a href="/equipment/search/index">Create New Equipment</a></li>
                             </ul>
                         </li>
@@ -180,19 +182,7 @@
                     </ul>
                 </div>
             </li>
-            <li>
-                <span class="left">
-                    <span class="right">
-                        <a href="/driver/index/index">
-                            <span class="left">
-                                <span class="right">
-                                    Service Provider Management
-                                </span>
-                            </span>
-                        </a>
-                    </span>
-                </span>
-            </li>
+              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Service Provider Management</span></span></a></span></span></li>
           </ul>
           <?php if(isset($this->pageTitle)){ ?><h1 class="page-title"><?php echo $this->pageTitle; ?></h1><?php } ?>
           <?php echo $this->layout()->content ?>

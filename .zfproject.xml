@@ -168,6 +168,8 @@
             <modelFile modelName="DriverStatus"/>
             <modelFile modelName="MedicalHistory"/>
             <modelFile modelName="DriverAddressHistory"/>
+            <modelFile modelName="DriverServiceHours"/>
+            <modelFile modelName="DriverPreviousEmployment"/>
           </modelsDirectory>
           <viewsDirectory>
             <viewScriptsDirectory>
@@ -367,6 +369,15 @@
               <actionMethod actionName="index"/>
               <actionMethod actionName="search"/>
             </controllerFile>
+            <controllerFile controllerName="HoursOfService">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="getDriverHoSList"/>
+            </controllerFile>
+            <controllerFile controllerName="PreviousEmployment">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="getPreviouseEmploymentList"/>
+              <actionMethod actionName="editPreviouseEmployment"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
           <layoutsDirectory enabled="false"/>
@@ -410,6 +421,21 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="DriverAddressHistory">
                 <viewScriptFile forActionName="getRecord"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="HoursOfService">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="HoursOfService">
+                <viewScriptFile forActionName="getDriverHoSList"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
+                <viewScriptFile forActionName="getPreviouseEmploymentList"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
+                <viewScriptFile forActionName="editPreviouseEmployment"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -561,6 +587,8 @@
           <testApplicationControllerFile filesystemName="DriverAddressHistoryControllerTest.php"/>
           <testApplicationControllerFile filesystemName="SearchControllerTest.php"/>
           <testApplicationControllerFile filesystemName="DriverSearchControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="HoursOfServiceControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="PreviousEmploymentControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

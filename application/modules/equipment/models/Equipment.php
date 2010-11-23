@@ -3,6 +3,163 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 {
     protected $_name = 'equipment';
 
+    protected $_requiredCopleteFields = array (
+        'e_Unit_Number' => 'unit',
+        'e_License_Expiration_Date' => 'license expiration date',
+        'e_License_Number' => 'license plate number',
+        'e_Start_Mileage' => 'start mileage',
+        'e_Registration_State' => 'registration state',
+        'e_Gross_Vehicle_Weight_Rating' => 'gross vehicle weight',
+        'e_Gross_Vehicle_Registered_Weight' => 'gross vehicle registered weight',
+        'e_Unladen_Weight' => 'unladen weight',
+        'e_Axles' => 'number of axles',
+        'e_Name' => 'name',
+        'e_Make' => 'make',
+        'e_Color' => 'color',
+        'e_Model' => 'model',
+        'e_Year' => 'year of manufacturing',
+        'e_Description' => 'description',
+        'e_DOT_Regulated' => 'DOT regulated',
+        'e_type_id' => 'type',
+        'e_RFID_No' => 'radio frequency identify'
+    );
+
+    public function getArchivesList($offset = 0, $count = 20, $filterOptions = null, $orderField = 'eas_type')
+    {
+        $limit = "LIMIT $offset, $count";
+        $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
+        $join = " JOIN equipment__active_status ON e_Active_Status = eas_id";
+        $join .= " JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id";
+        $join .= " LEFT JOIN state ON e_Registration_State = s_id";
+        $join .= " LEFT JOIN equipment_types ON e_type_id = et_id";
+        $where = " WHERE enes_type = 'Completed'";
+        $orderBy = " ORDER BY $orderField";
+
+        if (isset($filterOptions['Status'])) {
+            if ($filterOptions['Status'] != 'All') {
+                $where .= " AND eas_type = {$this->getDefaultAdapter()->quote($filterOptions['Status'])}";
+            } else {
+                // TODO refactor if status Denied will be used.
+                $where .= " AND eas_type = 'Terminated'";
+            }
+        }
+
+        if (isset($filterOptions['SearchBy']) &&  $filterOptions['SearchBy'] != '-'
+                && isset($filterOptions['SearchBy'])) {
+            $where .= empty($where) ? "WHERE " : " AND ";
+            $where .= "{$filterOptions['SearchBy']} LIKE '%{$filterOptions['SearchText']}%'";
+        }
+
+        $select .= " $join $where $orderBy $limit";
+
+        $stmt = $this->getDefaultAdapter()->query($select);
+
+        $result['limitEquipments'] = $stmt->fetchAll();
+
+        $select = 'SELECT FOUND_ROWS()';
+        $stmt = $this->getDefaultAdapter()->query($select);
+        $totalCount = $stmt->fetchAll();
+        $result['totalCount'] = (isset($totalCount[0]['FOUND_ROWS()'])) ? $totalCount[0]['FOUND_ROWS()'] : $count;
+
+        return $result;
+    }
+
+    public function saveEquipment($saveRow) {
+        if (isset($saveRow['e_id'])) {
+            $rowTable = $this->fetchRow("e_id = {$this->getDefaultAdapter()->quote($saveRow['e_id'])}");
+            if ($rowTable) {
+                unset($saveRow['e_id']);
+            }
+
+            foreach ($saveRow as $key => $value) {
+                $rowTable[$key] = $value;
+            }
+            
+            $rowTable->save();
+
+            return $rowTable;
+        }
+    }
+
+    public function getTruckFilesList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Terminated', $orderField = 'eas_type')
+    {
+        $limit = "LIMIT $offset, $count";
+        $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
+        $join = " JOIN equipment__active_status ON e_Active_Status = eas_id";
+        $join .= " JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id";
+        $join .= " LEFT JOIN state ON e_Registration_State = s_id";
+        $join .= " LEFT JOIN equipment_types ON e_type_id = et_id";
+        $where = " WHERE enes_type = 'Completed'";
+        $orderBy = " ORDER BY $orderField";
+
+        if (isset($filterOptions['Status'])) {
+            if ($filterOptions['Status'] != 'All') {
+                $where .= " AND eas_type = {$this->getDefaultAdapter()->quote($filterOptions['Status'])}";
+            } else {
+                $where .= " AND eas_type <> {$this->getDefaultAdapter()->quote($excludeStatus)}";
+            }
+        }
+
+        if (isset($filterOptions['SearchBy']) &&  $filterOptions['SearchBy'] != '-'
+                && isset($filterOptions['SearchBy'])) {
+            $where .= empty($where) ? "WHERE " : " AND ";
+            $where .= "{$filterOptions['SearchBy']} LIKE '%{$filterOptions['SearchText']}%'";
+        }
+
+        $select .= " $join $where $orderBy $limit";
+
+        $stmt = $this->getDefaultAdapter()->query($select);
+
+        $result['limitEquipments'] = $stmt->fetchAll();
+
+        $select = 'SELECT FOUND_ROWS()';
+        $stmt = $this->getDefaultAdapter()->query($select);
+        $totalCount = $stmt->fetchAll();
+        $result['totalCount'] = (isset($totalCount[0]['FOUND_ROWS()'])) ? $totalCount[0]['FOUND_ROWS()'] : $count;
+
+        return $result;
+    }
+
+    public function completeEquipment($saveRow)
+    {
+        $rowTable = $this->fetchRow("e_id = {$this->getDefaultAdapter()->quote($saveRow['e_id'])}");
+        unset($saveRow['e_id']);
+
+        if ($rowTable) {
+            foreach ($saveRow as $key => $value) {
+                $rowTable[$key] = $value;
+            }
+
+            $rowTable->save();
+
+            $rowTable = $this->changeNewEquipmentStatus('Completed', $rowTable->e_id);
+            //return the new user
+            return $rowTable;
+        } else {
+            throw new Zend_Exception("Could not save equipment assignment!");
+        }
+    }
+
+    public function getRow($id)
+    {
+        $row = $this->fetchRow("e_id = $id");
+
+        return $row;
+    }
+
+    public function checkCompletedFields($id)
+    {
+        $row = $this->getRow($id);
+
+        foreach ($row as $field => $value) {
+            if ((empty($value) || is_null($field)) && key_exists($field, $this->_requiredCopleteFields))  {
+                $result[$field] = $this->_requiredCopleteFields[$field];
+            }
+        }
+
+        return (isset($result)) ? $result : null;
+    }
+
     public function getVIN($equipmentId)
     {
         $row = $this->fetchRow("e_id = $equipmentId");
@@ -27,17 +184,19 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         $stmt = $db->query($select);
         $result = $stmt->fetch();
 
-        $returnResult = 0;
-
         if (count($result) > 0) {
-            $data = array(
-                    'e_New_Equipment_Status' => $result['enes_id']
-                );
-            $where = $this->getAdapter()->quoteInto('e_id = ?', $id);
-            $returnResult = $this->update($data, $where);
-        }
+            $rowTable = $this->fetchRow("e_id = {$this->getDefaultAdapter()->quote($id)}");
 
-        return $returnResult;
+            if ($rowTable) {
+                $rowTable['e_New_Equipment_Status'] = $result['enes_id'];
+                $rowTable->save();
+            return $rowTable;
+            } else {
+                throw new Zend_Exception("Could not change equipment status!");
+            }
+
+            
+        }
     }
 
     /**
@@ -52,7 +211,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
      *
      * @return mixed
      */
-    public function getEquipmentList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Completed', $orderFeald = 'enes_type')
+    public function getEquipmentList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Completed', $orderField = 'enes_type')
     {
         $limit = "LIMIT $offset, $count";
         $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM equipment";
@@ -60,7 +219,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         $join .= " LEFT JOIN state ON e_Registration_State = s_id";
         $join .= " LEFT JOIN equipment_types ON e_type_id = et_id";
         $where = "";
-        $orderBy = " ORDER BY $orderFeald";
+        $orderBy = " ORDER BY $orderField";
 
         if (isset($filterOptions['Status'])) {
             if ($filterOptions['Status'] != 'All') {
@@ -129,6 +288,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 
         $select = "SELECT *
                     FROM equipment
+                    LEFT JOIN equipment__active_status ON e_Active_Status = eas_id
                     JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id
                     LEFT JOIN equipment_types ON et_id = e_type_id
                     LEFT JOIN state ON e_Registration_State = s_id

@@ -430,7 +430,7 @@ a.show-legend:hover {text-decoration:none;}
 #main {
 	float:left;
 	width:1188px;
-	margin:0 6px;
+/*	margin:0 6px;*/
 	padding-bottom:40px;
 	background:url(../images/wrapper-bg.gif) #f2f4f8 no-repeat;}		
 	
@@ -471,7 +471,11 @@ table.inform td {
 table.inform td span {
 	color:#b95700;
 	padding-right:25px;}
-	
+
+table.inform td label.required span {
+	color:#ff0000;
+	padding-right:5px;}
+
 table.inform th{
 	line-height:30px;
 	width:844px;

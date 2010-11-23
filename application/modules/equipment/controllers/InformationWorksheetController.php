@@ -46,7 +46,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
 
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
-            $myDate = new Zend_Date(strtotime($equipmentRow['e_License_Expiration_Date']));
+            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date']);
             $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
         } else {
             $equipmentRow['e_License_Expiration_Date'] = '';
@@ -54,6 +54,12 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
         $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
         $this->view->equipmentHasAssignment = $equipmentAssignmentModel->findRow('ea_equipment_id', $equipmentRow['e_id']);
+
+        if (isset($equipmentRow['enes_type']) && $equipmentRow['enes_type'] == 'Completed') {
+            $this->view->equipmentStatus = (isset($equipmentRow['eas_type'])) ? $equipmentRow['eas_type'] : '';
+        } else {
+            $this->view->equipmentStatus = (isset($equipmentRow['enes_type'])) ? $equipmentRow['enes_type'] : '';
+        }
 
         $this->view->equipmentRow = $equipmentRow;
         $this->view->action = '/equipment/update-status/';
@@ -147,7 +153,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
 
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
-            $myDate = new Zend_Date(strtotime($equipmentRow['e_License_Expiration_Date']));
+            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date']);
             $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
         } else {
             $equipmentRow['e_License_Expiration_Date'] = '';
@@ -158,7 +164,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
     }
 
-    public function completedAction($id = null)
+    public function validateCompletedAction($id = null)
     {
         if (is_null($id)) {
             $id = $this->_request->getParam('id');
@@ -167,10 +173,45 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             }
         }
 
+        $equipmentModel = new Equipment_Model_Equipment();
+        $equipmentRow = $equipmentModel->getRow($id);
+        if (is_null($equipmentRow)) {
+            $this->_redirect('/equipment/list');
+        }
+
+        $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $equipmentRow->e_Number . '">Equipment VIM</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;Validate Complete Action';
+
+        
+        $this->view->pageTitle = 'COMPLETE VEHICLE APPLICATION';
+        $VIN = $equipmentRow->e_Number;
+        $this->view->VIN = $equipmentRow->e_Number;
+        $this->view->UnitNumber = $equipmentRow->e_Unit_Number;
+        $this->view->ID = $equipmentRow->e_id;
+
+
+        $warningFields = $equipmentModel->checkCompletedFields($id);
+
+        $inspectionModel = new Inspection_Model_Inspection();
+        $hasInspection = $inspectionModel->equipmentIsInspected($equipmentRow->e_id);
+        $this->view->hasInspection = $hasInspection;
+
+        if (is_null($warningFields) && $hasInspection) {
+            $this->render('completed_no_errors');
+        } else {
+            if ($warningFields) {
+                $this->view->warningArray = $warningFields;
+            }
+            $this->render('completed_errors');
+        }
+
         // TODO implement comlete action.
 //        $equipmentModel = new Equipment_Model_Equipment();
 //        $equipmentModel->changeNewEquipmentStatus('Completed', $id);
-        return $this->_redirect('equipment/list');
+        //return $this->_redirect('equipment/list');
     }
 
     public function declinedAction()
@@ -214,12 +255,12 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $equipmentModel = new Equipment_Model_Equipment();
 
             $data = array();
-            // TODO implement filling manual all table fealds with validating.
+            // TODO implement filling manual all table fields with validating.
             foreach ($this->_request->getPost() as $key => $value) {
                 if ($key == 'e_License_Expiration_Date') {
                     try {
-                     $myDate = new Zend_Date(strtotime($value));
-                     $data[$key] = $myDate->toString("YYYY-MM-dd");
+                        $myDate = new Zend_Date($value, "MM/dd/YYYY");
+                        $data[$key] = $myDate->toString("YYYY-MM-dd");
                     } catch (Exception $e) {
                         
                     }
@@ -243,7 +284,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $cols = $equipmentAssignmentModel->info(Zend_Db_Table_Abstract::COLS);
 
             $data = array();
-            // TODO implement filling manual all table fealds with validating.
+            // TODO implement filling manual all table fields with validating.
             foreach ($this->_request->getPost() as $key => $value) {
                 if (in_array($key, $cols)) {
 
@@ -251,7 +292,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                         continue;
                     } elseif ($key == 'ea_start_date' || $key == 'ea_end_date') {
                         try {
-                            $myDate = new Zend_Date(strtotime($value));
+                            $myDate = new Zend_Date($value, "MM/dd/YYYY");
                             $data[$key] = $myDate->toString("YYYY-MM-dd");
                         } catch (Exception $e) {
 
@@ -299,15 +340,15 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $this->view->equipmentAssignmentRow = $equipmentAssigmentRow;
             } elseif (is_array($equipmentAssigmentRow) && count($equipmentAssigmentRow)) {
                 if (!empty($equipmentAssigmentRow['ea_start_date']) && $equipmentAssigmentRow['ea_start_date'] != '0000-00-00') {
-                    $dateObj = new Zend_Date(strtotime($equipmentAssigmentRow['ea_start_date']));
+                    $dateObj = new Zend_Date($equipmentAssigmentRow['ea_start_date'], "YYYY-MM-dd");
                     $equipmentAssigmentRow['ea_start_date'] = $dateObj->toString("MM/dd/YYYY");
                 } else {
                     $equipmentAssigmentRow['ea_start_date'] = '';
                 }
 
                 if (!empty($equipmentAssigmentRow['ea_end_date']) && $equipmentAssigmentRow['ea_end_date'] != '0000-00-00') {
-                    $dateObj = new Zend_Date(strtotime($equipmentAssigmentRow['ea_end_date']));
-                    $equipmentAssigmentRow['ea_end_date'] = $dateObj->toString("MM/dd/YYYY");
+                    $dateObj = new Zend_Date($equipmentAssigmentRow['ea_end_date']);
+                    $equipmentAssigmentRow['ea_end_date'] = $dateObj->toString("MM/dd/YYYY", "YYYY-MM-dd");
                 } else {
                     $equipmentAssigmentRow['ea_end_date'] = '';
                 }
@@ -389,6 +430,87 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
 
         return $selectArray;
+    }
+
+    public function showCompleteFormAction($id = null)
+    {
+        if (is_null($id)) {
+            $id = $this->_request->getParam('id');
+        }
+
+        if (!is_null($id) && !empty($id)) {
+            $equipmentModel = new Equipment_Model_Equipment();
+            $equipmentRow = $equipmentModel->getRow($id);
+
+            if (!$equipmentRow) {
+                $this->view->errorMessage = "Equipment doesn't exist.";
+                $this->_redirect("/equipment/list");
+            }
+
+            $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
+            $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
+            $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
+            $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $equipmentRow->e_Number . '">Equipment VIM</a>&nbsp;&gt;';
+            $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/validate-completed/id/' . $id . '">Validate Complete Action</a>&nbsp;&gt;';
+            $this->view->breadcrumbs .= '&nbsp;Validate Complete Action';
+
+            $inspectionModel = new Inspection_Model_Inspection();
+            $hasInspection = $inspectionModel->equipmentIsInspected($id);
+            if (!$hasInspection) {
+                $this->_redirect("/equipment/information-worksheet/validate-completed/id/{$equipmentRow->e_id}");
+            }
+
+            $auth = Zend_Auth::getInstance();
+
+            // Check whether an identity is set.
+            if ($auth->hasIdentity()) {
+                $identity = $auth->getIdentity();
+
+                $this->view->person = "{$identity->vau_First_Name} {$identity->vau_Last_Name}";
+            }
+
+
+            $date = new Zend_Date();
+            $this->view->currentDate = $date->toString("MM/dd/YYYY");
+            $this->view->equipmentRow = $equipmentRow;
+            $this->view->pageTitle = 'COMPLETE VEHICLE APPLICATION';
+            $this->view->headScript()->appendFile('/js/equipment/show-complete-form.js', 'text/javascript');
+        }
+    }
+
+    public function completedAction()
+    {
+        $equipmentModel = new Equipment_Model_Equipment();
+
+        if ($this->_request->isPost()) {
+            $data = $this->_request->getPost();
+            if (isset($data['e_id'])) {
+                $row['e_id'] = $data['e_id'];
+            }
+
+            if (isset($data['e_activation_date'])) {
+                try {
+                    $myDate = new Zend_Date($data['e_activation_date'], "MM/dd/YYYY");
+                    $row['e_activation_date'] = $myDate->toString("YYYY-MM-dd");
+                } catch (Exception $e) {
+
+                }
+            }
+            
+            if (isset($data['e_activation_comment'])) {
+                $row['e_activation_comment'] = $data['e_activation_comment'];
+            }
+
+            $equipmentActiveStatus = new ActiveStatus_Model_ActiveStatus();
+            $activeStatusRecord = $equipmentActiveStatus->getRowByStatus('In Service');
+            if ($activeStatusRecord) {
+                $row['e_Active_Status'] = $activeStatusRecord->eas_id;
+            }
+
+            $equipmentModel->completeEquipment($row);
+
+            $this->_redirect("/equipment/list");
+        }
     }
 
 }

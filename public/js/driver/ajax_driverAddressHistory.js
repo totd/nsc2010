@@ -1,6 +1,6 @@
 
 function clearNewDriverAddressForm(){
-    document.getElementById("error_custom").innerHTML="";
+    document.getElementById("error_custom_add_Address_Table").innerHTML="";
     document.getElementsByName("dah_Address1")[0].value="";
     document.getElementsByName("dah_City")[0].value="";
     document.getElementsByName("dah_State")[0].value="";
@@ -11,7 +11,7 @@ function clearNewDriverAddressForm(){
     document.getElementsByName("dah_Current_Address")[0].value="";
 }
 function addAddressHistoryRecord(){
-    document.getElementById("error_custom").innerHTML="";
+    document.getElementById("error_custom_add_Address_Table").innerHTML="";
     dah_Driver_ID = document.getElementsByName("dah_Driver_ID")[0].value;
     dah_Address1 = document.getElementsByName("dah_Address1")[0].value;
     dah_City = document.getElementsByName("dah_City")[0].value;
@@ -35,12 +35,12 @@ function addAddressHistoryRecord(){
             dah_Current_Address: ""+dah_Current_Address+""
         }, function(data){
             if(data==1){
-                document.getElementById("error_custom").innerHTML="";
+                document.getElementById("error_custom_add_Address_Table").innerHTML="";
                 refreshAddressHistoryRecords(dah_Driver_ID);
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                document.getElementById("error_custom").innerHTML=""+data+"";
+                document.getElementById("error_custom_add_Address_Table").innerHTML=""+data+"";
             }
            });
 }
@@ -59,8 +59,10 @@ function refreshAddressHistoryRecords(dah_Driver_ID) {
         {
             dah_Driver_ID: dah_Driver_ID
         }, function(data){
+                $("#currentDriverAddressHistoryList").hide(250);
                 document.getElementById("currentDriverAddressHistoryList").innerHTML=data;
-                clearNewDriverAddressForm();
+                $("#currentDriverAddressHistoryList").show(250);
+            clearNewDriverAddressForm();
                 return true;
            });
 }
@@ -80,14 +82,14 @@ function editAddressHistoryRecord(record_id,dah_Driver_ID){
                 //refreshAddressHistoryRecords(dah_Driver_ID);
                 return true;
             }if(data==false){
-                alert("asd");
-                document.getElementById("error_custom").innerHTML=""+data+"";
+               // alert("asd");
+                document.getElementById("error_custom_add_Address_Table").innerHTML=""+data+"";
             }
            });
 }
 function updateAddressHistoryRecord(dah_ID){
 
-    document.getElementById("error_custom").innerHTML="";
+    document.getElementById("error_custom_add_Address_Table").innerHTML="";
     dah_ID = document.getElementsByName("edit_dah_ID")[0].value;
     dah_Driver_ID = document.getElementsByName("edit_dah_Driver_ID")[0].value;
     dah_Address1 = document.getElementsByName("edit_dah_Address1")[0].value;
@@ -113,12 +115,12 @@ function updateAddressHistoryRecord(dah_ID){
             dah_Current_Address: ""+dah_Current_Address+""
         }, function(data){
             if(data==1){
-                document.getElementById("error_custom").innerHTML="";
+                document.getElementById("error_custom_add_Address_Table").innerHTML="";
                 refreshAddressHistoryRecords(dah_Driver_ID);
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                document.getElementById("error_custom").innerHTML=""+data+"";
+                document.getElementById("error_custom_add_Address_Table").innerHTML=""+data+"";
             }
            });
     

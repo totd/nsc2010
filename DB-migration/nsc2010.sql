@@ -140,16 +140,16 @@ CREATE TABLE IF NOT EXISTS `custom_document__form_status` (
 
 DROP TABLE IF EXISTS `depot`;
 CREATE TABLE IF NOT EXISTS `depot` (
-  `d_id` int(11) NOT NULL AUTO_INCREMENT,
-  `d_HomeBase_Account_Number` int(11) NOT NULL,
-  `d_Name` varchar(250) COLLATE latin1_general_ci NOT NULL,
-  `d_Contact_Table_ID` int(11) NOT NULL,
-  `d_Annual_Support` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `d_Road_Test_Record_Required` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `d_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`d_id`),
-  KEY `FK_Depot_2_HomeBase__h_id` (`d_HomeBase_Account_Number`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
+  `dp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dp_HomeBase_Account_Number` int(11) NOT NULL,
+  `dp_Name` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `dp_Contact_Table_ID` int(11) NOT NULL,
+  `dp_Annual_Support` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `dp_Road_Test_Record_Required` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `dp_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`dp_id`),
+  KEY `FK_Depot_2_HomeBase__h_id` (`dp_HomeBase_Account_Number`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------
@@ -201,6 +201,7 @@ CREATE TABLE IF NOT EXISTS `driver` (
 
 DROP TABLE IF EXISTS `driver_address_history`;
 CREATE TABLE IF NOT EXISTS `driver_address_history` (
+  `dah_ID` int(11) NOT NULL AUTO_INCREMENT,
   `dah_Driver_ID` int(11) NOT NULL,
   `dah_Start_Date` date NOT NULL,
   `dah_End_Date` date NOT NULL,
@@ -212,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `driver_address_history` (
   `dah_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `dah_Country_Code` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `dah_Phone` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
-  `dah_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `dah_row_created`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`dah_ID`),
   KEY `fk_driver_address_history_driver1` (`dah_Driver_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
@@ -354,30 +355,34 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_Alternate_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `e_RFID_No` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Entry_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `e_License_Number` varchar(50) COLLATE latin1_general_ci NOT NULL,
-  `e_License_Expiration_Date` date NOT NULL,
+  `e_License_Number` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_License_Expiration_Date` date NOT NULL DEFAULT '0000-00-00',
   `e_Start_Mileage` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
-  `e_Registration_State` tinyint(2) NOT NULL,
+  `e_Registration_State` tinyint(2) DEFAULT NULL,
   `e_Gross_Vehicle_Weight_Rating` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Gross_Vehicle_Registered_Weight` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Unladen_Weight` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Axles` tinyint(2) DEFAULT NULL,
-  `e_Name` varchar(250) COLLATE latin1_general_ci NOT NULL,
-  `e_Year` year(4) NOT NULL,
-  `e_Make` varchar(12) COLLATE latin1_general_ci NOT NULL,
-  `e_Color` varchar(12) COLLATE latin1_general_ci NOT NULL,
-  `e_Model` varchar(12) COLLATE latin1_general_ci NOT NULL,
-  `e_Description` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `e_New_Equipment_Status` tinyint(4) NOT NULL DEFAULT '1',
+  `e_Name` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Year` year(4) DEFAULT NULL,
+  `e_Make` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Color` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Model` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Description` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_New_Equipment_Status` tinyint(4) DEFAULT '1',
   `e_Active_Status` tinyint(4) DEFAULT NULL,
   `e_Fee` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Title_Status` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Picture` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `e_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `e_type_id` int(11) NOT NULL,
+  `e_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci DEFAULT NULL,
+  `e_type_id` int(11) DEFAULT NULL,
+  `e_activation_date` date DEFAULT NULL,
+  `e_activation_comment` tinytext COLLATE latin1_general_ci,
+  `e_change_active_status_date` date DEFAULT NULL,
+  `e_change_active_status_comment` tinytext COLLATE latin1_general_ci,
   PRIMARY KEY (`e_id`),
   UNIQUE KEY `e_Number` (`e_Number`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `equipment`
@@ -920,12 +925,24 @@ CREATE TABLE IF NOT EXISTS `role` (
   `r_Homebase_ID` int(11) DEFAULT NULL,
   PRIMARY KEY (`r_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
+-- --------------------------------------------------------
 --
--- Дамп данных таблицы `role`
+-- `License`
 --
 
-
+DROP TABLE IF EXISTS `License`;
+CREATE TABLE `License` (
+`l_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`l_Driver_License_Number` VARCHAR( 24 ) NOT NULL ,
+`l_Driver_Issue_State_id` INT NOT NULL ,
+`l_Driver_ID` INT NOT NULL ,
+`l_Class` ENUM( 'A', 'B', 'C', 'D', 'E', 'M' ) NOT NULL ,
+`l_Expiration_Date` DATE NOT NULL ,
+`l_License_Endorsements` SET( 'P', 'T', 'H', 'N', 'X' ) NOT NULL ,
+`l_License_Restrictions` VARCHAR( 100 ) NOT NULL ,
+`l_Points_Score` VARCHAR( 10 ) NOT NULL ,
+`l_DOT_Regulated` SET( 'YES', 'NO' ) NOT NULL
+) ENGINE = InnoDB;
 -- --------------------------------------------------------
 
 --
@@ -1070,7 +1087,35 @@ CREATE TABLE IF NOT EXISTS `state` (
   `s_id` int(11) NOT NULL AUTO_INCREMENT,
   `s_name` varchar(2) NOT NULL,
   PRIMARY KEY (`s_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+
+-- --------------------------------------------------------
+--
+-- Структура таблицы `Violation`
+--
+
+DROP TABLE IF EXISTS `Violation`;
+CREATE TABLE `Violation` (
+`v_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`v_Inspection_Number_id` INT NOT NULL ,
+`v_Violation_Number` VARCHAR( 12 ) NOT NULL ,
+`v_Equipment_Number_id` INT NOT NULL ,
+`v_Driver_Number_id` INT NOT NULL ,
+`v_Company_Number_id` INT NOT NULL ,
+`v_DOT_Regulated` SET( 'YES', 'NO' ) NOT NULL
+) ENGINE = InnoDB  ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+--
+-- Структура таблицы `Violation_Type`
+--
+
+DROP TABLE IF EXISTS `Violation_Type`;
+CREATE TABLE `nsc2010`.`Violation_Type` (
+`vt_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`vt_Item` VARCHAR( 100 ) NOT NULL DEFAULT "'turn signal', 'brakes', 'steering', 'left front turn signal', 'rear turn signal trailer', 'etc'",
+`vt_Item_Specific` VARCHAR( 100 ) NOT NULL DEFAULT "'Right', 'left', 'Right Front', 'Left Rear', 'etc.'"
+) ENGINE = InnoDB;
 
 -- --------------------------------------------------------
 
@@ -1172,19 +1217,20 @@ CREATE TABLE IF NOT EXISTS `witness` (
 --
 -- Структура для представления `vauthuser`
 --
-DROP TABLE IF EXISTS `vauthuser`;
+DROP VIEW IF EXISTS `vauthuser`;
 CREATE VIEW `vauthuser` AS
 select
 `user`.`u_ID` AS `vau_ID`,`user`.`u_User_Name` AS `vau_username`,`user`.`u_Password` AS `vau_password`,
 `user`.`u_Role_ID` AS `vau_role_id`,`user_role`.`ur_title` AS `vau_role_title`,`user_role`.`ur_role` AS `vau_role`,
-`user`.`u_Homebase_ID` AS `vau_homebase_id`,`homebase`.`h_Name` AS `vau_homebase_code`,
-`user`.`u_Company_ID` AS `vau_company_id`,`company`.`c_Name` AS `vau_company_code`,`depot`.`d_Name` AS `vau_depot_name`,
+`user`.`u_Homebase_ID` AS `vau_homebase_id`, `user`.`u_First_Name` AS `vau_First_Name`,
+`user`.`u_Last_Name` AS `vau_Last_Name`, `homebase`.`h_Name` AS `vau_homebase_code`,
+`user`.`u_Company_ID` AS `vau_company_id`,`company`.`c_Name` AS `vau_company_code`,`depot`.`dp_Name` AS `vau_depot_name`,
 `parent_company`.`pc_Name` AS `vau_parent_company_code`
 from
 (((((`user` join `company` on((`user`.`u_Company_ID` = `company`.`c_id`)))
 left join `parent_company` on((`company`.`c_Parent_Company_Account_Number` = `parent_company`.`pc_id`)))
 join `user_role` on((`user`.`u_Role_ID` = `user_role`.`ur_ID`)))
 join `homebase` on((`user`.`u_Homebase_ID` = `homebase`.`h_id`)))
-left join `depot` on((`user`.`u_Depot_ID` = `depot`.`d_id`)));
+left join `depot` on((`user`.`u_Depot_ID` = `depot`.`dp_id`)));
 
 COMMIT;

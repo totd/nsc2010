@@ -18,7 +18,6 @@ INSERT INTO `contacts_table` (`ct_ID`, `ct_Contact`, `ct_Contact_Title`, `ct_Tel
 (1, 'qwe', 'qwe qwe', '12312312', '123123', 'qwe@qwe.qwe', 'qwqe qwsada sdqw d12', 'asd asd231d 2', 'Qweqw', 2, '12312', NULL, '2010-11-09', '2010-11-16 10:01:29', NULL, 'asd asjd lkasj hdasj flsadf jadsj fhdsa gfasdkfarskyeg ek fas fbdsdjf aksgf avskafshf kasjd'),
 (2, 'asd', 'asd', '123122221', '112311123', 'qqasa@assd.as', '12asd asd asds321 easd', NULL, 'Adsd-as', 22, '21221', NULL, '2010-11-03', '2010-11-16 13:41:39', NULL, NULL);
 
-
 --
 -- `custom_document__fax_status`
 --
@@ -27,8 +26,6 @@ INSERT INTO `custom_document__fax_status` (`cdfs_id`, `cdfs_status`) VALUES
 (1, 'PENDING'),
 (2, 'SENT'),
 (3, 'ERROR');
-
-
 
 --
 -- `custom_document__form_status`
@@ -45,12 +42,11 @@ INSERT INTO `custom_document__form_status` (`cdfms_id`, `cdfms_status`) VALUES
 (11, 'Vehicle Roadside Inspection Report');
 
 
-
 --
 -- `depot`
 --
 
-INSERT INTO `depot` (`d_id`, `d_HomeBase_Account_Number`, `d_Name`, `d_Contact_Table_ID`, `d_Annual_Support`, `d_Road_Test_Record_Required`, `d_DOT_Regulated`) VALUES
+INSERT INTO `depot` (`dp_id`, `dp_HomeBase_Account_Number`, `dp_Name`, `dp_Contact_Table_ID`, `dp_Annual_Support`, `dp_Road_Test_Record_Required`, `dp_DOT_Regulated`) VALUES
 (1, 1, 'dep1', 0, '', '', ''),
 (2, 1, 'dep2', 1, 'No', 'No', 'Yes');
 
@@ -100,7 +96,6 @@ INSERT INTO `driver__eye_color` (`dhc_id`, `dhc_type`) VALUES
 (4, 'Hazle'),
 (5, 'Other');
 
-
 --
 -- `driver__gender`
 --
@@ -122,8 +117,6 @@ INSERT INTO `driver__hair_color` (`dhc_id`, `dhc_type`) VALUES
 (5, 'Grey'),
 (6, 'Other');
 
-
-
 --
 -- `driver__status`
 --
@@ -135,10 +128,6 @@ INSERT INTO `driver__status` (`ds_id`, `ds_type`) VALUES
 (4, 'Hired - Inactive'),
 (5, 'Terminated');
 
-
-
-
-
 --
 -- `equipment_types`
 --
@@ -149,6 +138,7 @@ INSERT INTO `equipment_types` (`et_type`) VALUES
 ('Trailer'),
 ('Dolly');
 
+
 --
 -- `equipment__active_status`
 --
@@ -157,6 +147,7 @@ INSERT INTO `equipment__active_status` (`eas_id`, `eas_type`) VALUES
 (1, 'In Service'),
 (2, 'Out of Service'),
 (3, 'Terminated');
+
 
 --
 -- `equipment__new_equipment_status`
@@ -170,6 +161,7 @@ INSERT INTO `equipment__new_equipment_status` (`enes_id`, `enes_type`) VALUES
 --
 -- `homebase`
 --
+
 INSERT INTO `homebase` (`h_id`, `h_Company_Account_Number`, `h_Carrier_Number`, `h_Name`, `h_Contact_Table_ID`, `h_Annual_Support`, `h_Road_Test_Record_Required`, `h_DOT_Regulated`) VALUES
 (1, 1, 'hb1', 'hb1', 1, '', '', ''),
 (2, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes'),
@@ -323,5 +315,12 @@ INSERT INTO `user__status` (`us_id`, `us_type`) VALUES
 (1, 'ACTIVE'),
 (2, 'INACTIVE'),
 (3, 'TERMINATED');
+
+--
+-- Dumping data for table `equipment_owner`
+--
+
+INSERT INTO `equipment_owner` (`eo_id`, `eo_number`, `eo_code`, `eo_SSN`, `eo_federal_id`, `eo_name`, `eo_contact`, `eo_phone`, `eo_fax`, `eo_address1`, `eo_address2`, `eo_city`, `eo_state_id`, `eo_postal_code`)
+VALUES (NULL, '1', '1', '1', '1', 'TestOwner', '1', '1', '1', '1', '1', '1', '1', '1');
 
 COMMIT;

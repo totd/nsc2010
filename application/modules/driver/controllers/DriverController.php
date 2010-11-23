@@ -87,17 +87,28 @@ class Driver_DriverController extends Zend_Controller_Action
     public function viewDriverInformationAction()
     {
         $driverID = (int)$this->_request->getParam('id');
+        $this->view->headScript()->appendFile('/js/driver/ajax_driverAddressHistory.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/driver/ajax_employment_history.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
         # Breadcrumbs & page title goes here:
-        $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
-        $this->view->pageTitle = "SAVE DRIVER INFORMATION";
+        $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
+        $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-information/id/".$driverID."' >DQF</a>&nbsp;&gt;&nbsp;Driver Profile";
+
+        $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
+        $homebase = Homebase_Model_Homebase::getHomebase($driverInfo['d_homebase_ID']);
+        $depot = Depot_Model_Depot::getDepot($driverInfo['d_depot_ID']);
+        $stateList = State_Model_State::getList();
+        $currentDriverHistoryList = new Driver_Model_DriverAddressHistory();
+        $currentDriverHistoryList->getList($driverID);
+
+
+        $this->view->driverId = $driverID;
+        $this->view->driverInfo = $driverInfo;
+        $this->view->homebase = $homebase;
+        $this->view->depot = $depot;
+        $this->view->stateList = $stateList;
+        $this->view->currentDriverHistoryList = $currentDriverHistoryList;
     }
 
 
 }
-
-
-
-
-
-
-

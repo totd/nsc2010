@@ -1,7 +1,7 @@
 <?php if ($this->status == 'Pending') : ?>
     <li>
         <span>
-            <a href="/equipment/information-worksheet/completed/id/<?= $this->equipmentID ?>">
+            <a href="/equipment/information-worksheet/validate-completed/id/<?= $this->equipmentID ?>">
                 Complete
             </a>
         </span>
@@ -24,7 +24,7 @@
 <?php elseif ($this->status == 'Completed') :  ?>
     <li>
         <span>
-            <a href="/equipment/information-worksheet/goto-file/<?= $this->equipmentID ?>">
+            <a href="/equipment/vehicle-file/index/id/<?= $this->equipmentID ?>">
                 Go to File
             </a>
         </span>

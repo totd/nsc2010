@@ -24,26 +24,26 @@ class Depot_Model_Depot extends Zend_Db_Table_Abstract
                 $sql='
                       SELECT *
                       FROM depot
-                        JOIN homebase on depot.d_HomeBase_Account_Number = homebase.h_id
-                      WHERE d_HomeBase_Account_Number = '.$iHomebaseID.'
+                        JOIN homebase on depot.dp_HomeBase_Account_Number = homebase.h_id
+                      WHERE dp_HomeBase_Account_Number = '.$iHomebaseID.'
                     ';
             }else{
                 $sql='
                       SELECT *
                       FROM depot
-                        JOIN homebase on depot.d_HomeBase_Account_Number = homebase.h_id
+                        JOIN homebase on depot.dp_HomeBase_Account_Number = homebase.h_id
                     ';
             }
         }else{
             if($iHomebaseID!=null){
                 $sql='
-                      SELECT d_id,d_Name
+                      SELECT dp_id,dp_Name
                       FROM depot
-                      WHERE d_HomeBase_Account_Number = '.$iHomebaseID.'
+                      WHERE dp_HomeBase_Account_Number = '.$iHomebaseID.'
                     ';
             }else{
                 $sql='
-                      SELECT d_id,d_Name
+                      SELECT dp_id,dp_Name
                       FROM depot
                     ';
             }
@@ -55,7 +55,6 @@ class Depot_Model_Depot extends Zend_Db_Table_Abstract
         }
         return null;
     }
-
     /**
      * @author Andriy Ilnytskyi 16.11.2010
      *
@@ -68,5 +67,23 @@ class Depot_Model_Depot extends Zend_Db_Table_Abstract
         $select = $this->select();
         return $this->fetchAll($select);
     }
-
+    /**
+     * @author Vladislav Skachkov 20.11.2010
+     *
+     * Get depot info
+     *
+     * @return mixed
+     */
+    public function getDepot($id)
+    {
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $stmt = $db->query('
+                      SELECT
+                        *
+                      FROM depot
+                      WHERE dp_ID = "' . $id . '"
+        ');
+        $row = $stmt->fetch();
+        return $row;
+    }
 }

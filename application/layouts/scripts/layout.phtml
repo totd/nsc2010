@@ -3,10 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/css/style.css" type="text/css" rel="stylesheet"/>
-    <link href="/css/zendcode.css" type="text/css" rel="stylesheet"/>
-    <link href="/css/calendar.css" type="text/css" rel="stylesheet"/>
     <link href="/css/vlad.css" type="text/css" rel="stylesheet"/>
-    <script src="/js/calendar.js"></script>
     <script src="/js//jquery-latest.js"></script>
     <script src="/js/jquery.form.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
@@ -55,52 +52,34 @@
                     <ul>
                         <li>
                             <ul>
+                                <li><a href="/driver/index/index?status=Pending">Pending Drivers</a></li>
                                 <li><a href="/driver/new-driver/new-driver-search">Create New Driver</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li><a href="/driver/index/index?status=All">DQF</a>
-                            <ul>
-                                <li class="lvl2"><a href="/driver/index/index?status=Pending">Pending Drivers</a></li>
-                                <li class="lvl2"><a href="/driver/index/index?status=All">DQ Files</a></li>
-                                <li class="lvl2"><a href="#">Search Drivers</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <ul>
-                                <li><a href="#">ARCHIVES</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li><a href="/driver/index/index?status=All">REPORTS</a>
-                            <ul>
-                                <li class="lvl2"><span class="top_menu_delimiter"><a>SUMMARY REPORTS</a></span></li>
-                                <li class="lvl3"><a href="#">Summary Report</a></li>
-                            </ul>
-                            <ul>
-                                <li class="lvl2"><span class="top_menu_delimiter"><a>ACTIVITY  REPORTS</a></span></li>
-                                <li class="lvl3"><a href="#">Activity Report</a></li>
-                                <li class="lvl3"><a href="#">Email Warning Report</a></li>
-                            </ul>
-                            <ul>
-                                <li class="lvl2"><span class="top_menu_delimiter"><a>GENERAL  REPORTS</a></span></li>
-                                <li class="lvl3"><a href="#">Driver List - Current Status Report</a></li>
-                                <li class="lvl3"><a href="#">Driver List - Active Drivers Report</a></li>
-                                <li class="lvl3"><a href="#">Driver List - By CDL Report</a></li>
-                                <li class="lvl3"><a href="#">Driver's Expiration Report</a></li>
-                                <li class="lvl3"><a href="#">Get Driver's Expiration Report Letter</a></li>
-                                <li class="lvl3"><a href="#">Non-Compliant Detailed Report</a></li>
-                                <li class="lvl3"><a href="#">Non-Compliant by NSC check Report</a></li>
-                                <li class="lvl3"><a href="#">Driver List - create your own look</a></li>
-                                <li class="lvl3"><a href="#">Vehicle Report</a></li>
+                                <li><a href="#">Search Drivers</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
+            </li>
+            <li><span class="left"><span class="right"><a href="/driver/index/index?status=Applicant"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="archives"><span class="left"><span class="right">Archives</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
+              <div class="top-pod-menu"><ul>
+              <li><a href="#">SUMMARY  REPORTS</a><ul>
+                <li><a href="#">Summary Report</a></li></ul></li>
+              <li><a href="#">ACTIVITY  REPORTS</a><ul>
+                <li><a href="#">Activity Report</a></li>
+                <li><a href="#">Email Warning Report</a></li></ul></li>
+              <li><a href="#">GENERAL REPORTS</a><ul>
+                <li><a href="#">Driver List - Current Status Report</a></li>
+                <li><a href="#">Driver List - Active Drivers Report</a></li>
+                <li><a href="#">Driver List - By CDL class</a></li>
+                <li><a href="#">Driver's Expiration Report</a></li>
+                <li><a href="#">Get Driver's Expiration Report Letter</a></li>
+                <li><a href="#">Non-Compliant Detailed Report</a></li>
+                <li><a href="#">Non-Compliant by NSC check report</a></li>
+                <li><a href="#">Driver List - create your own look</a></li>
+                <li><a href="#">Vehicle Report</a></li></ul></li>
+              </ul></div>
             </li>
             <li style="background:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
               <li>
@@ -120,6 +99,8 @@
                         <li>
                             <ul>
                                 <li><a href="/equipment/list/index/status/Pending">Equipment List</a></li>
+                                <li><a href="/equipment/truck-files/index/status/In%20Service">Truck Files</a></li>
+                                <li><a href="/equipment/archives/index/status/Terminated">Archives</a></li>
                                 <li><a href="/equipment/search/index">Create New Equipment</a></li>
                             </ul>
                         </li>

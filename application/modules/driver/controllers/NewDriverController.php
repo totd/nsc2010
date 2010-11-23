@@ -34,7 +34,7 @@ class Driver_NewDriverController extends Zend_Controller_Action
     public function newDriverSearchAction()
     {
         $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/jQueryScripts/jQuery_validate_driver_search.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/driver/jQuery_validate_driver_search.js', 'text/javascript');
 
         # Breadcrumbs & page title goes here:
         $this->view->breadcrumbs = "<a href='/driver/index/index'>DQF</a>&nbsp;&gt;&nbsp;New Driver - Look for a New Driver";
@@ -114,8 +114,9 @@ class Driver_NewDriverController extends Zend_Controller_Action
     {
         isset($_POST['form_id'])?/**/:$_POST['form_id']=null;
         $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/jQueryScripts/ajax_homebase2depot.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/jQueryScripts/ajax_driverAddressHistory.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/driver/ajax_homebase2depot.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/driver/ajax_driverAddressHistory.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
 
         # Breadcrumbs & page title goes here:
         $this->view->breadcrumbs = "<a href='/driver/new-Driver/new-driver-search'>New Driver</a>&nbsp;&gt;&nbsp;Driver Information Worksheet";

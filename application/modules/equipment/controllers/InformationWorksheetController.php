@@ -53,7 +53,11 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
 
         $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
-        $this->view->equipmentHasAssignment = $equipmentAssignmentModel->findRow('ea_equipment_id', $equipmentRow['e_id']);
+        $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentRow['e_id']);
+
+        if (!is_null($equipmentAssigmentRow) && !empty($equipmentAssigmentRow)) {
+            $this->view->equipmentAssignmentRow = $equipmentAssigmentRow;
+        }
 
         if (isset($equipmentRow['enes_type']) && $equipmentRow['enes_type'] == 'Completed') {
             $this->view->equipmentStatus = (isset($equipmentRow['eas_type'])) ? $equipmentRow['eas_type'] : '';
@@ -64,6 +68,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->equipmentRow = $equipmentRow;
         $this->view->action = '/equipment/update-status/';
         $this->view->pageTitle = 'VEHICLE INFORMATION WORKSHEET';
+        $this->view->headLink()->appendStylesheet('/css/main.css');
     }
 
     /**
@@ -366,7 +371,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     );
 
             // Depots
-            $this->view->depots = $this->getSelectList('depot', 'd_id', 'd_Name',
+            $this->view->depots = $this->getSelectList('depot', 'dp_id', 'dp_Name',
                         (isset($equipmentAssigmentRow['ea_depot_id']) ? $equipmentAssigmentRow['ea_depot_id'] : null)
                     );
 
@@ -376,7 +381,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     );
             
             // Drivers
-            $this->view->drivers = $this->getSelectList('driver', 'd_ID', 'd_Driver_SSN',
+            $this->view->drivers = $this->getSelectList('driver', 'd_ID', array('d_Driver_SSN', 'd_Last_Name'),
                         (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
                     );
 
@@ -410,9 +415,25 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $selectArray = array('' => array('text' => '-'));
         foreach ($entities as $row) {
             if (is_object($row)) {
-                $selectArray[$row->$valueField] = array('text' => $row->$textField);
+                if (is_array($textField)) {
+                    $value = '';
+                    foreach ($textField as $field) {
+                        $value .= $row->$field . ' ';
+                    }
+                    $selectArray[$row->$valueField] = array('text' => $value);
+                } else {
+                    $selectArray[$row->$valueField] = array('text' => $row->$textField);
+                }
             } elseif (is_array($row)) {
-                $selectArray[$row[$valueField]] = array('text' => $row[$textField]);
+                 if (is_array($textField)) {
+                    $value = '';
+                    foreach ($textField as $field) {
+                        $value .= $row->$field . ' ';
+                    }
+                    $selectArray[$row[$valueField]] = array('text' => $value);
+                } else {
+                    $selectArray[$row[$valueField]] = array('text' => $row[$textField]);
+                }
             }
         }
 

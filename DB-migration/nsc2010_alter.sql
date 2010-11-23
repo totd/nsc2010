@@ -25,7 +25,7 @@ ALTER TABLE `custom_document`
 -- Ограничения внешнего ключа таблицы `depot`
 --
 ALTER TABLE `depot`
-  ADD CONSTRAINT `depot_ibfk_1` FOREIGN KEY (`d_HomeBase_Account_Number`) REFERENCES `homebase` (`h_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `depot_ibfk_1` FOREIGN KEY (`dp_HomeBase_Account_Number`) REFERENCES `homebase` (`h_id`) ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `driver_address_history`
@@ -121,7 +121,7 @@ ALTER TABLE `service_provider__insurance`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `fk_user_company1` FOREIGN KEY (`u_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_depot1` FOREIGN KEY (`u_Depot_ID`) REFERENCES `depot` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_depot1` FOREIGN KEY (`u_Depot_ID`) REFERENCES `depot` (`dp_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_user_homebase1` FOREIGN KEY (`u_Homebase_ID`) REFERENCES `homebase` (`h_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_user_parent_company1` FOREIGN KEY (`u_Parent_Company_ID`) REFERENCES `parent_company` (`pc_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_user_user_role1` FOREIGN KEY (`u_Role_ID`) REFERENCES `user_role` (`ur_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;

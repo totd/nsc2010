@@ -46,7 +46,7 @@ INSERT INTO `custom_document__form_status` (`cdfms_id`, `cdfms_status`) VALUES
 -- `depot`
 --
 
-INSERT INTO `depot` (`d_id`, `d_HomeBase_Account_Number`, `d_Name`, `d_Contact_Table_ID`, `d_Annual_Support`, `d_Road_Test_Record_Required`, `d_DOT_Regulated`) VALUES
+INSERT INTO `depot` (`dp_id`, `dp_HomeBase_Account_Number`, `dp_Name`, `dp_Contact_Table_ID`, `dp_Annual_Support`, `dp_Road_Test_Record_Required`, `dp_DOT_Regulated`) VALUES
 (1, 1, 'dep1', 0, '', '', ''),
 (2, 1, 'dep2', 1, 'No', 'No', 'Yes');
 

@@ -191,11 +191,27 @@
                             </a>
                         </span>
                     </span>
-                    <?php if(!$this->equipmentHasAssignment) : ?>
-                    <span class="text-red">There is no equipment assignment </span>
-                    <?php else : ?>
-                    <span class="text-red" style="color: #1226fa;">Equipment assignment exists</span>
-                    <?php endif; ?>
+                    <?php
+                        
+                        if(is_array($this->equipmentAssignmentRow)) {
+                            echo '<span class="text-blue">Equipment assignment exists</span>';
+
+                            if (!empty($this->equipmentAssignmentRow['h_Name'])) {
+                                echo '<span class="text-blue">Homebase: ' . $this->equipmentAssignmentRow['h_Name'] . '</span>';
+                            }
+                            if (!empty($this->equipmentAssignmentRow['dp_Name'])) {
+                                echo '<span class="text-blue">Depot: ' . $this->equipmentAssignmentRow['dp_Name'] . '</span>';
+                            }
+                            if (!empty($this->equipmentAssignmentRow['d_First_Name'])) {
+                                echo '<span class="text-blue">Driver: ' . $this->equipmentAssignmentRow['d_First_Name'] . ' ' . $this->equipmentAssignmentRow['d_Last_Name'] . '</span>';
+                            }
+                            if (isset($this->equipmentAssignmentRow['eo_name'])) {
+                                echo '<span class="text-blue">Owner: ' . $this->equipmentAssignmentRow['eo_name'] . '</span>';
+                            }
+                        } else {
+                            echo '<span class="text-red">There is no equipment assignment </span>';
+                        }
+                    ?>
                 </div>
             </div>
         </div>

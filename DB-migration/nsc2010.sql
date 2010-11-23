@@ -140,15 +140,15 @@ CREATE TABLE IF NOT EXISTS `custom_document__form_status` (
 
 DROP TABLE IF EXISTS `depot`;
 CREATE TABLE IF NOT EXISTS `depot` (
-  `d_id` int(11) NOT NULL AUTO_INCREMENT,
-  `d_HomeBase_Account_Number` int(11) NOT NULL,
-  `d_Name` varchar(250) COLLATE latin1_general_ci NOT NULL,
-  `d_Contact_Table_ID` int(11) NOT NULL,
-  `d_Annual_Support` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `d_Road_Test_Record_Required` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `d_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`d_id`),
-  KEY `FK_Depot_2_HomeBase__h_id` (`d_HomeBase_Account_Number`)
+  `dp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dp_HomeBase_Account_Number` int(11) NOT NULL,
+  `dp_Name` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `dp_Contact_Table_ID` int(11) NOT NULL,
+  `dp_Annual_Support` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `dp_Road_Test_Record_Required` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `dp_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`dp_id`),
+  KEY `FK_Depot_2_HomeBase__h_id` (`dp_HomeBase_Account_Number`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
 
@@ -1183,13 +1183,13 @@ select
 `user`.`u_Role_ID` AS `vau_role_id`,`user_role`.`ur_title` AS `vau_role_title`,`user_role`.`ur_role` AS `vau_role`,
 `user`.`u_Homebase_ID` AS `vau_homebase_id`, `user`.`u_First_Name` AS `vau_First_Name`,
 `user`.`u_Last_Name` AS `vau_Last_Name`, `homebase`.`h_Name` AS `vau_homebase_code`,
-`user`.`u_Company_ID` AS `vau_company_id`,`company`.`c_Name` AS `vau_company_code`,`depot`.`d_Name` AS `vau_depot_name`,
+`user`.`u_Company_ID` AS `vau_company_id`,`company`.`c_Name` AS `vau_company_code`,`depot`.`dp_Name` AS `vau_depot_name`,
 `parent_company`.`pc_Name` AS `vau_parent_company_code`
 from
 (((((`user` join `company` on((`user`.`u_Company_ID` = `company`.`c_id`)))
 left join `parent_company` on((`company`.`c_Parent_Company_Account_Number` = `parent_company`.`pc_id`)))
 join `user_role` on((`user`.`u_Role_ID` = `user_role`.`ur_ID`)))
 join `homebase` on((`user`.`u_Homebase_ID` = `homebase`.`h_id`)))
-left join `depot` on((`user`.`u_Depot_ID` = `depot`.`d_id`)));
+left join `depot` on((`user`.`u_Depot_ID` = `depot`.`dp_id`)));
 
 COMMIT;

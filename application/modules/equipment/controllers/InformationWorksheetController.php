@@ -297,7 +297,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     } catch (Exception $e) {
 
                     }
-                } else {
+                } else if (!is_null($value) && !empty($value)) {
                     $data[$key] = $value;
                 }
             }

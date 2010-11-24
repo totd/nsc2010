@@ -1,8 +1,13 @@
 <?php
 class Equipment_VehicleFileController extends Zend_Controller_Action
 {
-    public function  init()
+    public function init()
     {
+        $auth = Zend_Auth::getInstance();
+
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }
     }
 
     public function  preDispatch()

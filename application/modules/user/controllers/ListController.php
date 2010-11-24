@@ -9,7 +9,11 @@ class User_ListController extends Zend_Controller_Action
 
     public function init()
     {
-        /* Initialize action controller here */
+        $auth = Zend_Auth::getInstance();
+
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }
     }
 
     /**
@@ -20,7 +24,7 @@ class User_ListController extends Zend_Controller_Action
     public function indexAction()
     {
         # Breadcrumbs goes here:
-        $this->view->breadcrumbs = "<a href='#'>Archives</a>&nbsp;&gt;&nbsp;User Profile";
+        $this->view->breadcrumbs = "<a href='#'>Administration</a>&nbsp;&gt;&nbsp;User Profile";
         
         $currentUsers = User_Model_User::getUsers();
         if ($currentUsers->count() > 0) {
@@ -29,23 +33,6 @@ class User_ListController extends Zend_Controller_Action
             $this->view->users = null;
         }
 
-        // Check whether the user has permission to create users.
-        $display_create_link = false;
-
-        $auth = Zend_Auth::getInstance();
-
-        if ($auth->hasIdentity()) {
-            $this->identity = $auth->getIdentity();
-
-            $permission = new Permission_Model_Permission();
-            if ($permission->doesRoleHaveResource($this->identity->vau_role, 'user/create')) {
-                $display_create_link = true;
-            }
-        }
-
-        $this->view->display_create_link = $display_create_link;
-
-        
     }
 
 

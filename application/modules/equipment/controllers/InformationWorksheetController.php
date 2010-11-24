@@ -16,7 +16,11 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
     public function init()
     {
+        $auth = Zend_Auth::getInstance();
 
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }
     }
 
     public function indexAction($VIN = null)
@@ -33,18 +37,9 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $equipmentModel = new Equipment_Model_Equipment();
         $equipmentRow = $equipmentModel->findEquipmentByVIN($VIN);
 
-
         if (is_null($equipmentRow)) {
-            $equipmentRow = array(
-                'e_Number' => $VIN,
-            );
-            // Create equipment only with VIN value
-            $equipmentRow = $equipmentModel->createEquipment($equipmentRow);
-        } else {
-            // message about an existen equipment.
-            //$this->_redirect('/equipment/search/index/VIN/' . $VIN);
+            $this->_redirect('equipment/list');
         }
-
 
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
             $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date']);
@@ -75,6 +70,33 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/equipment/index.js', 'text/javascript');
     }
 
+    public function createNewAction($VIN = null)
+    {
+        if (is_null($VIN)) {
+            $VIN = $this->_request->getParam('VIN');
+            if (is_null($VIN)) {
+                $this->_redirect('/equipment/search');
+            }
+        }
+
+        if (is_null($VIN)) {
+            $this->_redirect('/equipment/list');
+        }
+
+        $equipmentModel = new Equipment_Model_Equipment();
+        $equipmentRow = $equipmentModel->findEquipmentByVIN($VIN);
+
+
+        if (is_null($equipmentRow)) {
+            $equipmentRow = array(
+                'e_Number' => $VIN,
+            );
+            // Create equipment only with VIN value
+            $equipmentRow = $equipmentModel->createEquipment($equipmentRow);
+        }
+
+        $this->_redirect("/equipment/information-worksheet/index/VIN/{$equipmentRow['e_Number']}");
+    }
     /**
      * @author Andryi Ilnytskiy 04.11.2010
      *

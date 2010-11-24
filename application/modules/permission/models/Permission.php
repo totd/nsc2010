@@ -2,7 +2,7 @@
 class Permission_Model_Permission
 {
     private $_permissions = array (
-        'NSC_USERS__Level_0' => array(
+        'NSC_LEVEL_1' => array(
             'resources' => array(
                 'index' => array('resource' => 'index'),
                 'error' => array('resource' => 'error'),
@@ -16,119 +16,85 @@ class Permission_Model_Permission
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
                 'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
                 'equipment/search' => array('resource' => 'equipment:search', 'module' => 'equipment'),
-                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment')
+                'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'add-assignment',
+                                                                    'completed',
+                                                                    'declined',
+                                                                    'create-new',
+                                                                    'index',
+                                                                    'reactivated',
+                                                                    'save-assignment',
+                                                                    'save-vim',
+                                                                    'show-complete-form',
+                                                                    'update',
+                                                                    'validate-completed'
+                                                                )
+                    ),
+                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'change-active-status'
+                                                                )
+                    ),
+                'equipment/archives' => array( 'resource' => 'equipment:archives',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'terminate'
+                                                                )
+                    ),
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
             )
         ),
-        'NSC_USERS__Level_1' => array(
+        'NSC_LEVEL_2' => array(
             'resources' => array(
                 'index' => array('resource' => 'index'),
                 'error' => array('resource' => 'error'),
                 'user/index' => array('resource' => 'user:index', 'module' => 'user'),
+                'user/create' => array('resource' => 'user:create', 'module' => 'user'),
                 'user/login' => array('resource' => 'user:login', 'module' => 'user'),
                 'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
                 'user/list' => array('resource' => 'user:list', 'module' => 'user'),
                 'equipment' => array('resource' => 'equipment'),
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
+                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
+                'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'add-assignment',
+                                                                    'completed',
+                                                                    'declined',
+                                                                    'create-new',
+                                                                    'index',
+                                                                    'reactivated',
+                                                                    'save-assignment',
+                                                                    'save-vim',
+                                                                    'show-complete-form',
+                                                                    'update',
+                                                                    'validate-completed'
+                                                                )
+                    ),
+                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'change-active-status'
+                                                                )
+                    ),
+                'equipment/archives' => array( 'resource' => 'equipment:archives',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'terminate'
+                                                                )
+                    ),
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
             )
         ),
-        'NSC_USERS__Level_2' => array(
-            'resources' => array(
-                'index' => array('resource' => 'index'),
-                'error' => array('resource' => 'error'),
-                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
-                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
-                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
-                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
-                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
-            )
-        ),
-        'NSC_USERS__Level_3' => array(
-            'resources' => array(
-                'index' => array('resource' => 'index'),
-                'error' => array('resource' => 'error'),
-                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
-                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
-                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
-                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
-                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
-            )
-        ),
-        'NSC_USERS__Level_4' => array(
-            'resources' => array(
-                'index' => array('resource' => 'index'),
-                'error' => array('resource' => 'error'),
-                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
-                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
-                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
-                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
-                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
-            )
-        ),
-        'CUSTOMER_USERS__Level_0' => array(
-            'resources' => array(
-                'index' => array('resource' => 'index'),
-                'error' => array('resource' => 'error'),
-                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
-                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
-                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
-                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
-                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
-            )
-        ),
-        'CUSTOMER_USERS__Level_1' => array(
-            'resources' => array(
-                'index' => array('resource' => 'index'),
-                'error' => array('resource' => 'error'),
-                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
-                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
-                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
-                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
-                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
-            )
-        ),
-        'CUSTOMER_USERS__Level_2' => array(
-            'resources' => array(
-                'index' => array('resource' => 'index'),
-                'error' => array('resource' => 'error'),
-                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
-                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
-                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
-                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
-                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
-            )
-        ),
-        'CUSTOMER_USERS__Level_3' => array(
-            'resources' => array(
-                'index' => array('resource' => 'index'),
-                'error' => array('resource' => 'error'),
-                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
-                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
-                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
-                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
-                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
-            )
-        ),
-        'CUSTOMER_USERS__Level_4' => array(
-            'resources' => array(
-                'index' => array('resource' => 'index'),
-                'error' => array('resource' => 'error'),
-                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
-                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
-                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
-                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
-                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
-                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment')
-            )
-        ),
-        'CUSTOMER_USERS__Level_5' => array(
+        'NSC_LEVEL_3' => array(
             'resources' => array(
                 'index' => array('resource' => 'index'),
                 'error' => array('resource' => 'error'),
@@ -138,7 +104,242 @@ class Permission_Model_Permission
                 'user/list' => array('resource' => 'user:list', 'module' => 'user'),
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
                 'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
-                'equipment/information-worksheet/index' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment', 'action' => 'index')
+                'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'completed',
+                                                                    'declined',
+                                                                    'create-new',
+                                                                    'index',
+                                                                    'reactivated',
+                                                                    'save-vim',
+                                                                    'show-complete-form',
+                                                                    'update',
+                                                                    'validate-completed'
+                                                                )
+                    ),
+                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'change-active-status'
+                                                                )
+                    ),
+                'equipment/archives' => array( 'resource' => 'equipment:archives',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'terminate'
+                                                                )
+                    ),
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+            )
+        ),
+        'NSC_LEVEL_4' => array(
+            'resources' => array(
+                'index' => array('resource' => 'index'),
+                'error' => array('resource' => 'error'),
+                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
+                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
+                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
+                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
+                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
+                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
+                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment', 'actions' => array('index')),
+                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
+                'equipment/archives' => array( 'resource' => 'equipment:archives',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+            )
+        ),
+        'CUSTOMER_LEVEL_1' => array(
+            'resources' => array(
+                'index' => array('resource' => 'index'),
+                'error' => array('resource' => 'error'),
+                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
+                'user/create' => array('resource' => 'user:create', 'module' => 'user'),
+                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
+                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
+                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
+                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
+                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
+                'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'add-assignment',
+                                                                    'completed',
+                                                                    'declined',
+                                                                    'create-new',
+                                                                    'index',
+                                                                    'reactivated',
+                                                                    'save-assignment',
+                                                                    'save-vim',
+                                                                    'show-complete-form',
+                                                                    'update',
+                                                                    'validate-completed'
+                                                                )
+                    ),
+                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'change-active-status'
+                                                                )
+                    ),
+                'equipment/archives' => array( 'resource' => 'equipment:archives',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'terminate'
+                                                                )
+                    ),
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+            )
+        ),
+        'CUSTOMER_LEVEL_2' => array(
+            'resources' => array(
+                'index' => array('resource' => 'index'),
+                'error' => array('resource' => 'error'),
+                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
+                'user/create' => array('resource' => 'user:create', 'module' => 'user'),
+                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
+                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
+                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
+                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
+                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
+                'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'add-assignment',
+                                                                    'completed',
+                                                                    'declined',
+                                                                    'create-new',
+                                                                    'index',
+                                                                    'reactivated',
+                                                                    'save-assignment',
+                                                                    'save-vim',
+                                                                    'show-complete-form',
+                                                                    'update',
+                                                                    'validate-completed'
+                                                                )
+                    ),
+                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'change-active-status'
+                                                                )
+                    ),
+                'equipment/archives' => array( 'resource' => 'equipment:archives',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'terminate'
+                                                                )
+                    ),
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+            )
+        ),
+        'CUSTOMER_LEVEL_3' => array(
+            'resources' => array(
+                'index' => array('resource' => 'index'),
+                'error' => array('resource' => 'error'),
+                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
+                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
+                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
+                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
+                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
+                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
+                'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'completed',
+                                                                    'declined',
+                                                                    'create-new',
+                                                                    'index',
+                                                                    'reactivated',
+                                                                    'save-vim',
+                                                                    'show-complete-form',
+                                                                    'update',
+                                                                    'validate-completed'
+                                                                )
+                    ),
+                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'change-active-status'
+                                                                )
+                    ),
+                'equipment/archives' => array( 'resource' => 'equipment:archives',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'terminate'
+                                                                )
+                    ),
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+            )
+        ),
+        'EXTERNAL_LEVEL_1' => array(
+            'resources' => array(
+                'index' => array('resource' => 'index'),
+                'error' => array('resource' => 'error'),
+                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
+                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
+                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
+                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
+                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
+                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
+                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment', 'actions' => array('index')),
+                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
+                'equipment/archives' => array( 'resource' => 'equipment:archives',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+            )
+        ),
+        'EXTERNAL_LEVEL_2' => array(
+            'resources' => array(
+                'index' => array('resource' => 'index'),
+                'error' => array('resource' => 'error'),
+                'user/index' => array('resource' => 'user:index', 'module' => 'user'),
+                'user/login' => array('resource' => 'user:login', 'module' => 'user'),
+                'user/logout' => array('resource' => 'user:logout', 'module' => 'user'),
+                'user/list' => array('resource' => 'user:list', 'module' => 'user'),
+                'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
+                'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
+                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment', 'actions' => array('index')),
+                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
+                'equipment/archives' => array( 'resource' => 'equipment:archives',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
             )
         ),
         'Guest' => array(
@@ -179,13 +380,13 @@ class Permission_Model_Permission
      * @author Andryi Ilnytskyi 09.11.2010
      *
      * Get list of the available resources. Since superadmin has all the rights, the
-     * function returns all available resources.
+     * function returns his all available resources.
      *
      * @return mixed
      */
     public function getAllResources()
     {
-        return $this->_permissions['NSC_USERS__Level_0']['resources'];
+        return $this->_permissions['NSC_LEVEL_1']['resources'];
     }
 
     /**
@@ -194,20 +395,28 @@ class Permission_Model_Permission
      * Check whether the role has a defined resource
      *
      * @param string $role
-     * @param string $resourceKey
+     * @param string $resourceKey Controller or Module/Controller
+     * @param mixed $action
      *
      * @return boolean
      */
-    public function doesRoleHaveResource($role, $resourceKey)
+    public function doesRoleHaveResource($role, $resourceKey, $action = null)
     {
         if (!array_key_exists($role, $this->_permissions)) {
-            throw new Exception('Undefined role');
+            return false;
         }
 
         $result = false;
 
         if (array_key_exists($resourceKey, $this->_permissions[$role]['resources'])) {
-            $result = true;
+            if (!is_null($action)) {
+                if (isset($this->_permissions[$role]['resources'][$resourceKey]['actions']) &&
+                        in_array($action, $this->_permissions[$role]['resources'][$resourceKey]['actions'])) {
+                    $result = true;
+                }
+            } else {
+                $result = true;
+            }
         }
 
         return $result;

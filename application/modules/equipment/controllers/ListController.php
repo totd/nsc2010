@@ -13,7 +13,11 @@ class Equipment_ListController extends Zend_Controller_Action
 
     public function init()
     {
+        $auth = Zend_Auth::getInstance();
 
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }
     }
 
     /**
@@ -93,21 +97,6 @@ class Equipment_ListController extends Zend_Controller_Action
             $this->view->equipments = null;
         }
 
-        // Check whether the user has permission to search equipment.
-        $display_search_link = false;
-
-        $auth = Zend_Auth::getInstance();
-
-        if ($auth->hasIdentity()) {
-            $this->identity = $auth->getIdentity();
-
-            $permission = new Permission_Model_Permission();
-            if ($permission->doesRoleHaveResource($this->identity->vau_role, 'equipment/search')) {
-                $display_search_link = true;
-            }
-        }
-
-        $this->view->display_search_link = $display_search_link;
         $this->view->pageTitle = 'LIST OF EQUIPMENT';
         $statuses = array(
             'Pending' => array(

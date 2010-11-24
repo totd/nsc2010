@@ -5,7 +5,7 @@ Users list form.
 -->
 
 <div class="bottom-nav">
-    <?php if ($this->display_search_link) : ?>
+    <?php if ($this->identity->permissions->equipment_create_permission === true) : ?>
         <ul class="blue-nav">
             <li><span><a href="/equipment/search/index">Add New Equipment</a></span></li>
         </ul>

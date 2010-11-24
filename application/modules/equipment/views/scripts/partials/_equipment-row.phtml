@@ -8,7 +8,8 @@ Set content for the row in the users list.
     <td><?= $this->e_Number; ?></td>
     <td>
         <?php
-            if (!is_null($this->e_License_Number) || !is_null($this->s_name)) {
+            if ((!is_null($this->e_License_Number) && ! empty($this->e_License_Number)) ||
+                    (!is_null($this->s_name) && empty($this->s_name))) {
                 echo $this->e_License_Number . ' / ' . $this->s_name; // Lic. Plate #/State
             } else {
                 echo '&nbsp;';
@@ -17,7 +18,7 @@ Set content for the row in the users list.
     </td>
 
     <td><?= $this->e_Gross_Vehicle_Weight_Rating; //  GVW ?></td>
-    <td><?= $this->e_Axles; // #Axles ?></td>
+    <td><?= ($this->e_Axles == 0) ? '' : $this->e_Axles ; // #Axles ?></td>
     <td><?= $this->enes_type; // Status ?></td>
     <td><a href="/equipment/information-worksheet/index/VIN/<?= $this->e_Number; ?>">View</a></td>
 </tr>

@@ -3,7 +3,8 @@
         <?=
         $this->partial('partials/_view_action.phtml', array(
             'equipmentID' => $this->equipmentRow['e_id'],
-            'status' => $this->equipmentRow['enes_type']
+            'status' => $this->equipmentRow['enes_type'],
+            'identity' => $this->identity
         ));
         ?>
     </ul>
@@ -23,8 +24,6 @@
 
 <!--TODO hak for diz-->
 </div>
-
-
 
 
 <div class="driver-information vehicle" id="main">
@@ -118,13 +117,17 @@
                         <tbody>
                             <tr>
                                 <th colspan="2">
-                                    <span class="blue-button">
-                                        <span>
-                                            <a href="/equipment/information-worksheet/update/VIN/<?= $this->equipmentRow['e_Number']; ?>">
-                                                Update Vehicle Information
-                                            </a>
+                                    <?php if ($this->identity->permissions->equipment_create_permission === true) : ?>
+                                        <span class="blue-button">
+                                            <span>
+                                                <a href="/equipment/information-worksheet/update/VIN/<?= $this->equipmentRow['e_Number']; ?>">
+                                                    Update Vehicle Information
+                                                </a>
+                                            </span>
                                         </span>
-                                    </span>
+                                    <?php else : ?>
+                                        &nbsp;
+                                    <?php endif ?>
                                 </th>
                             </tr>
                             <tr>
@@ -192,13 +195,15 @@
             <div class="post-middle">
                 <div class="second post">
                     <h2>Equipment Assignment</h2>
-                    <span class="blue-button">
-                        <span>
-                            <a href="/equipment/information-worksheet/add-assignment/equipmentId/<?= $this->equipmentRow['e_id']; ?>/VIN/<?= $this->equipmentRow['e_Number']; ?>">
-                                Update Assignment Information
-                            </a>
+                    <?php if ($this->identity->permissions->equipment_assignment_create_permission === true) : ?>
+                        <span class="blue-button">
+                            <span>
+                                <a href="/equipment/information-worksheet/add-assignment/equipmentId/<?= $this->equipmentRow['e_id']; ?>/VIN/<?= $this->equipmentRow['e_Number']; ?>">
+                                    Update Assignment Information
+                                </a>
+                            </span>
                         </span>
-                    </span>
+                    <?php endif; ?>
                     <?php
                         
                         if(is_array($this->equipmentAssignmentRow)) {
@@ -239,42 +244,13 @@
             </div>
         </div>
 
-    <!--    <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                    <div class="second post">
-                        <h2>Last Vehicle Inspection Information </h2>
-                        <span class="blue-button"><span><a href="#">Enter New Vehicle Inspection Information</a></span></span>
-                        <span class="text-red">There is no state vehicle inspection records</span>
-                        <span class="text-red">There is no state vehicle inspection records</span>
-
-                    </div>
-                </div></div></div>
-
-         <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                    <div class="second post">
-                        <h2>Vendor - Vendor Information </h2>
-                        <span class="blue-button"><span><a href="#">Join The Vendor</a></span></span>
-                        <p>There is no vendor joined to the truck</p>
-                    </div>
-                </div></div></div>
-
-        <div class="post-top">
-            <div class="post-bottom">
-                <div class="post-middle">
-                    <div class="second post">
-                        <h2>Driver Information </h2>
-                        <span class="blue-button"><span><a href="#">Add Driver</a></span></span>
-                        <p class="borderon">No drivers joined to the truck</p>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-
     <div class="blue-nav">
         <ul>
             <?=
                 $this->partial('partials/_view_action.phtml', array(
                     'equipmentID' => $this->equipmentRow['e_id'],
-                    'status' => $this->equipmentRow['enes_type']
+                    'status' => $this->equipmentRow['enes_type'],
+                    'identity' => $this->identity
                 ));
             ?>
         </ul>

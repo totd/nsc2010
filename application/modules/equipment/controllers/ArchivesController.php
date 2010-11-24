@@ -3,12 +3,18 @@
 class Equipment_ArchivesController extends Zend_Controller_Action
 {
     public function preDispatch(){
+        
+
         $this->_helper->layout->setLayout('equipmentLayout');
     }
 
     public function init()
     {
+        $auth = Zend_Auth::getInstance();
 
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }
     }
 
     public function indexAction($options = null)

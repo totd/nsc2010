@@ -66,7 +66,9 @@
                                 <li><a href="/equipment/list/index/status/Pending">Equipment List</a></li>
                                 <li><a href="/equipment/truck-files/index/status/In%20Service">Truck Files</a></li>
                                 <li><a href="/equipment/archives/index/status/Terminated">Archives</a></li>
-                                <li><a href="/equipment/search/index">Create New Equipment</a></li>
+                                <?php if ($this->identity->permissions->equipment_create_permission === true) : ?>
+                                    <li><a href="/equipment/search/index">Create New Equipment</a></li>
+                                <?php endif; ?>
                             </ul>
                         </li>
                     </ul>

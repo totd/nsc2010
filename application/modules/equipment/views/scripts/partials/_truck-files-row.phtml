@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!--
 @author Andryi Ilnytskyi 04.11.2010
 Set content for the row in the users list.
@@ -26,32 +25,3 @@ Set content for the row in the users list.
         <a href="/equipment/vehicle-file/index/id/<?= $this->e_id; ?>">Vehicle File</a>
     </td>
 </tr>
-=======
-<!--
-@author Andryi Ilnytskyi 04.11.2010
-Set content for the row in the users list.
--->
-<tr class="<?php print ($this->partialCounter % 2 == 0) ? 'color-dark' : ''; ?>">
-    <td><?= $this->e_Unit_Number;?></td>
-    <td><?= $this->et_type; ?></td>
-    <td><?= $this->e_Number; ?></td>
-    <td>
-        <?php
-            if (!is_null($this->e_License_Number) || !is_null($this->s_name)) {
-                echo $this->e_License_Number . ' / ' . $this->s_name; // Lic. Plate #/State
-            } else {
-                echo '&nbsp;';
-            }
-        ?>
-    </td>
-
-    <td><?= $this->e_Gross_Vehicle_Weight_Rating; //  GVW ?></td>
-    <td><?= $this->e_Axles; // #Axles ?></td>
-    <td><?= $this->eas_type; // Status ?></td>
-    <td>
-        <a href="/equipment/information-worksheet/index/VIN/<?= $this->e_Number; ?>">Profile</a>
-        &nbsp;|&nbsp;
-        <a href="/equipment/vehicle-file/index/id/<?= $this->e_id; ?>">Vehicle File</a>
-    </td>
-</tr>
->>>>>>> 43bb85a2e9ed8d3e3cbc5d5d54558497504c7301

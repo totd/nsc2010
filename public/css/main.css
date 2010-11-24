@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .required {
     font-weight:bold;
 }
@@ -25,31 +24,3 @@
     z-index: 999;
     border: none;
 }
-=======
-.required {
-    font-weight:bold;
-}
-
-.second.post .text-blue {
-	border:1px solid #9398a7;
-	color:#1226fa;
-	width:400px;
-	padding:0 5px;
-	float:left;
-	font-size:13px;
-	font-family:Arial;
-	clear:both;
-	margin:4px 0;
-	height:15px;
-	line-height:15px;
-}
-
-#imgPreviewWithStyles {
-    background: #222;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    padding: 15px;
-    z-index: 999;
-    border: none;
-}
->>>>>>> 43bb85a2e9ed8d3e3cbc5d5d54558497504c7301

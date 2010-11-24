@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--
 @author Andryi Ilnytskyi 0.11.2010
 
@@ -97,3 +98,104 @@ Users list form.
         </tr>
     </table>
 </div>
+=======
+<!--
+@author Andryi Ilnytskyi 0.11.2010
+
+Users list form.
+-->
+
+<div class="bottom-nav">
+    <form class="search" method="post" action="/equipment/archives/index" id="searchParameters">
+        <fieldset>
+            <label>Status:</label>
+            <select  class="rc10" name="Status" id="Status">
+                <?php
+                foreach ($this->statuses as $key => $value) {
+                    if (isset($value['selected']) && $value['selected']) {
+                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                    } else {
+                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                    }
+                }
+                ?>
+            </select>
+            <label>Search By:</label>
+            <select class="rc10" name="SearchBy">
+                <?php
+                foreach ($this->filterFields as $key => $value) {
+                    if (isset($value['selected']) && $value['selected']) {
+                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                    } else {
+                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                    }
+                }
+                ?>
+            </select>
+            <input type="text" class="rc10" value="<?= $this->searchText; ?>" id="SearchText" name="SearchText"/>
+            <input type="hidden" id="from" name="from" value=""/>
+            <input type="hidden" id="step" name="step" value=""/>
+            <input type="hidden" id="orderBy" name="orderBy" value="<?= $this->orderBy; ?>"/>
+            <input type="hidden" id="orderWay" name="orderWay" value="<?= $this->orderWay; ?>"/>
+            <input type="submit" value=""/>
+            
+        </fieldset>
+    </form>
+</div>
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!--TODO hak for diz-->
+</div>
+
+
+<div id="main" class="driver-profile">
+    <table class="application-forms" cellspacing="0">
+        <tr class="table-title">
+            <tr class="table-title">
+                <td id="e_Unit_Number">Unit #</td>
+                <td id="et_type">Veh. Type</td>
+                <td id="e_Number">VIN</td>
+                <td id="s_name">Lic. Plate #/State</td>
+                <td id="e_Gross_Vehicle_Weight_Rating">GVW</td>
+                <td id="e_Axles">#Axles</td>
+                <td id="eas_type">Status</td>
+                <td id="action">Action</td>
+            </tr>
+        </tr>
+        <?php
+            if ($this->equipments != null) {
+                echo $this->partialLoop('partials/_truck-files-row.phtml', $this->equipments);
+            } else {
+                echo '<tr><td>No Applications found </td></tr>';
+            }
+        ?>
+        <tr>
+            <td class="page" colspan="8">
+                Equipment  <?php echo $this->from; ?> to <?php echo $this->from + $this->step; ?>  ( <?php echo $this->allEquipments; ?> )
+            </td>
+        </tr>
+        <tr>
+            <td class="page" colspan="8">
+                <?php
+                echo $this->partial('partials/_paginator.phtml', array(
+                    'equipmentsCount' => $this->allEquipments,
+                    'from' => $this->from,
+                    'last' => $this->from + $this->step,
+                    'step' => $this->step,
+                    'status' => $this->status));
+                ?>
+            </td>
+        </tr>
+    </table>
+</div>
+>>>>>>> 43bb85a2e9ed8d3e3cbc5d5d54558497504c7301

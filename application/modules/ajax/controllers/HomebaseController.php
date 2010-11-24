@@ -20,13 +20,14 @@ class Ajax_HomebaseController extends Zend_Controller_Action
 
     public function getDepotListAction()
     {
+        
         $id = $_REQUEST['id'];
         $depotList = Depot_Model_Depot::getDepotList($id,1);
         $options="";
         if(sizeof($depotList)>0){
             foreach($depotList as $k => $v)
             {
-                $options=$options."<option label='".$v['dp_Name']."' value='".$k."' >".$v['dp_Name']."</option>";
+                $options=$options."<option label='".$v['d_Name']."' value='".$k."' >".$v['d_Name']."</option>";
             }
         }else{
              $options=$options."";

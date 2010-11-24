@@ -141,7 +141,6 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
         $db = new Driver_Model_Driver();
         
         $w = 'd_ID = '.$data['d_ID'];
-       echo $db->update($data,$w);
        return $db->update($data,$w);
     }
 

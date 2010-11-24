@@ -1,1 +1,57 @@
-<br /><br /><center>View script for controller <b>DriverAddressHistory</b> and script/action name <b>addRecord</b></center>
+<span id="error_custom"></span>
+<INPUT type="hidden" id="dah_Driver_ID" name="dah_Driver_ID"	value="<?php echo $this->driverId;?>" />
+<table border="0" cellpadding="0" cellspacing="0" width="100%" align="center" id="addAddressTable"">
+    <tr height="30" valign=middle>
+        <td class="MainText" width="150"><label class="required" for="dah_Address1"><span>*</span>Street:</label></td>
+        <td class="MainTextB">
+            <Input type="text" id="dah_Address1" name="dah_Address1" size="50" maxlength="200" />
+        </td>
+    </tr>
+                        <tr height="30" valign=middle>
+                            <td class="MainText"><label class="required" for="dah_City"><span>*</span>City:</label></td>
+                            <td class="MainText">
+                                <input type="text" id="dah_City" name="dah_City" size=15 maxlength="50" />&nbsp;&nbsp;&nbsp;
+                                <label class="required" for="dah_State"><span>*</span>State:</label>
+                                <SELECT id='dah_State' name='dah_State'>
+                                    <OPTION value='-' selected>-</OPTION>
+                                <?php
+                                foreach($this->stateList as $k => $v)
+                                {
+                                    ?>
+                                        <option label="<?php echo $v['s_name'];?>" value="<?php echo $k;?>" ><?php echo $v['s_name'];?></option>
+                                    <?php
+                                    }
+                                ?>
+                                </SELECT>&nbsp;&nbsp;&nbsp;
+                                <label class="required" for="dah_Postal_Code"><span>*</span>Zip: </label><Input type="text" id="dah_Postal_Code" name="dah_Postal_Code" size=10 maxlength="20">
+                            </td>
+                        </tr>
+                        <tr height=30 valign=middle>
+                            <td class="MainText"><label class="required" for="dah_Phone"><span>*</span>Phone:</label></td>
+                            <td class="MainText"><Input type="text" id="dah_Phone" name="dah_Phone" size=30></td>
+                        </tr>
+                        <tr height=30 valign=middle>
+                            <td class="MainText">At Address:</td>
+                            <td class="MainText">
+                                <label class="required" for="dah_Start_Date"><span>*</span>From Date: </label><Input type="text" readonly="readonly" id="dah_Start_Date" name="dah_Start_Date" size=10 maxlength=10   />&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class="required" for="dah_End_Date"><span>*</span>To Date: </label><Input type="text" readonly="readonly" id="dah_End_Date" name="dah_End_Date" size=10 maxlength=10 />
+
+                            </td>
+                        </tr>
+                        <tr height=30 valign=middle>
+                            <td class="MainText">Is this current Address:</td>
+                            <td class="MainText">
+                                <select name="dah_Current_Address">
+                                    <option value="NO" selected>No</option>
+                                    <option value="YES">Yes</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr height=40 valign=middle>
+                            <td class="MainText" align=center>&nbsp;</td>
+                            <td class="MainText" align=left>
+                                <a onclick="addAddressHistoryRecord();" class="MainLink2">
+                                    <font color="#0000cc">Click here to Save new Address</font></a>
+                            </td>
+                        </tr>
+                    </table>

@@ -3,11 +3,15 @@
     color:#ff0000;
     padding-right:2px;
 }
-#error_custom{
+.error_custom2{
     color:#f00;
+    font_size:9pt;
 }
 .tip{
     color:#ccc;
+}
+.float-left{
+    float:left !important;
 }
 .top_menu_delimiter a{
     cursor:default;

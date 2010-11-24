@@ -48,7 +48,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="optional" for="entrydate">Entry Date</label>
+                        <label class="optional">Entry Date</label>
                     </td>
                     <td>
                     <?php
@@ -82,7 +82,7 @@
                             foreach($this->depotList as $k => $v)
                             {
                         ?>
-                            <option class="d_depot_ID_item" label="<?php  echo $v['d_Name'];?>" id="<?php  echo $k;?>" value="<?php  echo $k;?>" <?php  if($k==$this->driverInfo['d_depot_ID']){ echo "selected='selected'";} ?>   ><?php  echo $v['d_Name'];?></option>
+                            <option class="d_depot_ID_item" label="<?php  echo $v['dp_Name'];?>" id="<?php  echo $k;?>" value="<?php  echo $k;?>" <?php  if($k==$this->driverInfo['d_depot_ID']){ echo "selected='selected'";} ?>   ><?php  echo $v['dp_Name'];?></option>
                         <?php  } ?>
                         </select>
                     </td>
@@ -143,8 +143,8 @@
                     <td><label class="required" ><span>*</span>Date Of Birth:</label></td>
                     <td>
                     <?php
-                        $date->set($this->driverInfo['d_Date_Of_Birth']);
-                        echo  $date->toString("MM/ddYYYY");
+                        $date->set($this->driverInfo['d_Date_Of_Birth'],"MM/dd/YYYY");
+                        echo  $date->toString("MM/dd/YYYY");
                     ?>
                     </td>
                     <td><label class="d_Height_Feet" for="d_Height_Feet">Height Feet</label></td>
@@ -206,6 +206,8 @@
         </td>
     </tr>
 </table>
+<fieldset class="hasBorder" >
+    <legend>Driver Addresses</legend>
 <FORM id='NewDIW_Address' name="NewDIW_Address">
     <table border="1" width="100%">
         <tr>
@@ -216,10 +218,15 @@
                     refreshAddressHistoryRecords(<?php echo $this->driverId;?>);
                 </script>
                 <fieldset class="hasBorder">
-                    <legend>Add Address:</legend>
+                    <legend>Add Address:(<a id="toggleAddressAdd">Show</a>)</legend>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                          $('#addAddressTable').hide('fast');
+                        });
+                    </script>
                     <span id="error_custom"></span>
                     <INPUT type="hidden" id="dah_Driver_ID" name="dah_Driver_ID"	value="<?php echo $this->driverId;?>" />
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center" id="addAddressTable"">
                         <tr height="30" valign=middle>
                             <td class="MainText" width="150"><label class="required" for="dah_Address1"><span>*</span>Street:</label></td>
                             <td class="MainTextB">
@@ -274,6 +281,243 @@
                             </td>
                         </tr>
                     </table>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+</form>
+</fieldset>
+<FORM id='CDL_Equipment_Operated' name="CDL_Equipment_Operated">
+    <table border="1" width="100%">
+        <tr>
+            <td colspan="4">
+                <div id="CDL_Equipment_OperatedList"></div>
+                <script type="text/javascript">
+                    //    refreshAddressHistoryRecords(<?php echo $this->driverId;?>);
+                </script>
+                <fieldset class="hasBorder">
+                    <legend>CDL & Equipment Operated</legend>
+                    <h3 style="color:#F00">Please list all Commercial Driver's Licenses.</h3>
+                    <span id="error_custom_cdl"></span>
+                    
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+</form>
+<FORM id='Employment_History' name="Employment_History">
+    <table border="1" width="100%">
+        <tr>
+            <td colspan="4">
+                <div id="EmploymentHistoryList"></div>
+                <script type="text/javascript">
+                    //    refreshAddressHistoryRecords(<?php echo $this->driverId;?>);
+                </script>
+                <fieldset class="hasBorder">
+                    <legend>Employment History</legend>
+                    <h3 style="color:#F00">   Please list all employers in the last 3 years starting from the most recent.<br/>If applicant has worked as a driver, list all employers in last 10 years.</h3>
+                    <span id="error_custom_Employment_History"></span>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                          $('#addAddressTable').hide('addEmploymentHistoryTable');
+                        });
+                    </script>
+                    <div id="currentDriverEmploymentHistoryList"></div>
+                    <fieldset class="hasBorder">
+                        <legend>Add Employer (<a id="toggleEmploymentHistoryAdd">Hide</a>)</legend>
+                        <span id="error_custom_EmploymentHistoryList"></span>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center" id="addEmploymentHistoryTable">
+                        <FORM id="Employment_History_Form" name="Employment_History_Form">
+                            <INPUT type="hidden" name="SID"			value="{6E5290BD-D818-4256-9914-28C9D6F6A210}">
+                            <INPUT type="hidden" name="RID"			value="Y7Nr58Wj70Ok">
+                            <INPUT type="hidden" name="DriverID"	value="8465">
+                            <INPUT type="hidden" name="DIWID"		value="43367">
+                            <INPUT type="hidden" name="Act"			value="Save">
+
+                            <tr height=30 valign=middle>
+                                <td class="MainText" colspan=2><b>Add Employer</b></td>
+                            </tr>
+                            <tr height=25 valign=middle>
+                                <td class="MainText" width=150>Employer:</td>
+                                <td class="MainText"><Input type="text" name="Employer" maxlength="200" size=50></td>
+                            </tr>
+                            <tr height=25 valign=middle>
+                                <td class="MainText">Address:</td>
+                                <td class="MainText"><Input type="text" name="Address" maxlength="200" size=50></td>
+                            </tr>
+                            <tr height=25 valign=middle>
+                                <td class="MainText">City:</td>
+                                <td class="MainText"><Input type="text" name="City" maxlength="50" size=15>&nbsp;&nbsp;&nbsp;
+                                    State:	<SELECT name='State'><OPTION value='-' selected>-</OPTION><OPTION value='AZ'>AZ</OPTION><OPTION value='AK'>AK</OPTION><OPTION value='AL'>AL</OPTION><OPTION value='AR'>AR</OPTION><OPTION value='CA'>CA</OPTION><OPTION value='CO'>CO</OPTION><OPTION value='CT'>CT</OPTION><OPTION value='DC'>DC</OPTION><OPTION value='DE'>DE</OPTION><OPTION value='FL'>FL</OPTION><OPTION value='GA'>GA</OPTION><OPTION value='HI'>HI</OPTION><OPTION value='IA'>IA</OPTION><OPTION value='ID'>ID</OPTION><OPTION value='IL'>IL</OPTION><OPTION value='IN'>IN</OPTION><OPTION value='KS'>KS</OPTION><OPTION value='KY'>KY</OPTION><OPTION value='LA'>LA</OPTION><OPTION value='MA'>MA</OPTION><OPTION value='MD'>MD</OPTION><OPTION value='ME'>ME</OPTION><OPTION value='MI'>MI</OPTION><OPTION value='MN'>MN</OPTION><OPTION value='MO'>MO</OPTION><OPTION value='MS'>MS</OPTION><OPTION value='MT'>MT</OPTION><OPTION value='NH'>NH</OPTION><OPTION value='NC'>NC</OPTION><OPTION value='ND'>ND</OPTION><OPTION value='NE'>NE</OPTION><OPTION value='NJ'>NJ</OPTION><OPTION value='NM'>NM</OPTION><OPTION value='NV'>NV</OPTION><OPTION value='NY'>NY</OPTION><OPTION value='OH'>OH</OPTION><OPTION value='OK'>OK</OPTION><OPTION value='OR'>OR</OPTION><OPTION value='PA'>PA</OPTION><OPTION value='RI'>RI</OPTION><OPTION value='SC'>SC</OPTION><OPTION value='SD'>SD</OPTION><OPTION value='TN'>TN</OPTION><OPTION value='TX'>TX</OPTION><OPTION value='UT'>UT</OPTION><OPTION value='VA'>VA</OPTION><OPTION value='VT'>VT</OPTION><OPTION value='WA'>WA</OPTION><OPTION value='WI'>WI</OPTION><OPTION value='WV'>WV</OPTION><OPTION value='WY'>WY</OPTION></SELECT>&nbsp;&nbsp;&nbsp;
+                                    Zip: <Input type="text" name="Zip" maxlength="20" size=10>
+                                </td>
+                            </tr>
+                            <tr height=25 valign=middle>
+                                <td class="MainText">Telephone:</td>
+                                <td class="MainText"><Input type="text" name="Telephone" maxlength="10" size=15>&nbsp;&nbsp;&nbsp;
+                                    Fax: <Input type="text" name="Fax" maxlength="10" size=15> (numbers only, include area code)
+                                </td>
+                            </tr>
+                            <tr height=25 valign=middle>
+                                <td class="MainText">Job Description:</td>
+                                <td class="MainText"><Input type="text" name="Job" maxlength="200" size=50></td>
+                            </tr>
+                            <tr height=25 valign=middle>
+                                <td class="MainText">&nbsp;</td>
+                                <td class="MainText">
+                                <?php
+                                    $month = Custom_View_Helper_Month::getMonth("short");
+                                ?>
+                                    <u>From:</u> Month
+                                        <SELECT name='FromMonth'>
+                                            <OPTION value='-' selected>-</OPTION>
+                                            <?php
+                                                foreach($month as $k => $v){
+                                            ?>
+                                            <OPTION value='<?php echo $k;?>'><?php echo $v;?></OPTION>
+                                            <?php
+                                                }
+                                            ?>
+                                        </SELECT> &nbsp;&nbsp;
+                                    Year
+                                    <SELECT name='FromYear'>
+                                        <?php
+                                            $years = 1991
+                                        ?>
+                                        <OPTION value='-' selected>-</OPTION>
+                                        <OPTION value='1990-'>1990-</OPTION>
+                                        <?php
+                                            while($years<(date('Y')+1)){
+                                        ?>
+                                        <OPTION value='<?php echo $years;?>'><?php echo $years;?></OPTION>
+                                        <?php
+                                            $years++;
+                                        } ?>
+                                    </SELECT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <u>To:</u> Month
+                                    <SELECT name='ToMonth'>
+                                            <OPTION value='-' selected>-</OPTION>
+                                            <?php
+                                                foreach($month as $k => $v){
+                                            ?>
+                                            <OPTION value='<?php echo $k;?>'><?php echo $v;?></OPTION>
+                                            <?php
+                                                }
+                                            ?>
+                                    </SELECT> &nbsp;&nbsp;
+                                    Year <SELECT name='ToYear'>
+                                    <?php
+                                            $years = 1991
+                                        ?>
+                                        <OPTION value='-' selected>-</OPTION>
+                                        <OPTION value='1990-'>1990-</OPTION>
+                                        <?php
+                                            while($years<(date('Y')+1)){
+                                        ?>
+                                        <OPTION value='<?php echo $years;?>'><?php echo $years;?></OPTION>
+                                        <?php
+                                            $years++;
+                                        } ?>
+                                </SELECT>
+                                </td>
+                            </tr>
+                            <tr height=25 valign=middle>
+                                <td class="MainText">Reason For Leaving:</td>
+                                <td class="MainText"><Input type="text" name="Reason" maxlength="200" size=50></td>
+                            </tr>
+
+                            <tr height=40 valign=middle>
+                                <td class="MainText" align=center>&nbsp;</td>
+                                <td class="MainText" align=left>
+                                    <a href='javascript:submit_SaveForm()' class="MainLink2">
+                                        <font color="#0000cc">Click here to Save new Employer</font></a>
+                                </td>
+                            </tr>
+                        </FORM>
+                        </table>
+                    </fieldset>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+</form>
+<FORM id='Accidents_Violations' name="Accidents_Violations">
+    <table border="1" width="100%">
+        <tr>
+            <td colspan="4">
+                <div id="Accidents_ViolationsList"></div>
+                <script type="text/javascript">
+                    //    refreshAddressHistoryRecords(<?php echo $this->driverId;?>);
+                </script>
+                <fieldset class="hasBorder">
+                    <legend>Accidents & Violations</legend>
+                    <h3 style="color:#F00">Please list all Accidents and Violations.</h3>
+                    <span id="error_custom_Accidents_Violations"></span>
+
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+</form>
+<FORM id='HoS' name="HoS">
+    <table border="1" width="100%">
+        <tr>
+            <td colspan="4">
+                <div id="HoSList"></div>
+                <script type="text/javascript">
+                    //    refreshAddressHistoryRecords(<?php echo $this->driverId;?>);
+                </script>
+                <fieldset class="hasBorder">
+                    <legend>Hours Of Service In Previous 7 Days</legend>
+                    <!-- <h3 style="color:#F00">Please list all Accidents and Violations.</h3> -->
+                    <span id="error_custom_HoS"></span>
+
+<table border="0" cellpadding="4" cellspacing="1" width="100%" bgcolor="#cccccc" align="center">
+		<tr bgcolor="#FFFFFF">
+	    	<td class="MainText" colspan=2>
+    		<table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+
+	    			<tr height=25 valign=middle>
+						<td class="MainTextB" align="center">11/14/2010</td>
+						<td class="MainTextB" align="center">11/15/2010</td>
+						<td class="MainTextB" align="center">11/16/2010</td>
+						<td class="MainTextB" align="center">11/17/2010</td>
+						<td class="MainTextB" align="center">11/18/2010</td>
+						<td class="MainTextB" align="center">11/19/2010</td>
+						<td class="MainTextB" align="center">11/20/2010</td>
+    				</tr>
+
+    			<tr height=25 valign=middle>
+    				<td class="MainTextB" align="center">4&nbsp;</td>
+    				<td class="MainTextB" align="center">1&nbsp;</td>
+    				<td class="MainTextB" align="center">-&nbsp;</td>
+    				<td class="MainTextB" align="center">11&nbsp;</td>
+    				<td class="MainTextB" align="center">2&nbsp;</td>
+    				<td class="MainTextB" align="center">4&nbsp;</td>
+    				<td class="MainTextB" align="center">-&nbsp;</td>
+    			</tr>
+    		</table>
+    		</td>
+    	</tr>
+		<tr bgcolor="#FFFFFF" height=40 valign=middle>
+	    	<td class="MainTextB" colspan=2>
+	    		<font color="#000000">Last relieved from work:</Font>&nbsp;&nbsp;&nbsp;&nbsp;
+	    		<font color="#000000">Date:</font> 10/10/2000&nbsp;&nbsp;&nbsp;
+	    		<font color="#000000">Time:</font> 10:00&nbsp;&nbsp;&nbsp;
+	    	</td>
+	    </tr>
+    		<tr>
+		   	<td width="150px">
+    		</td>
+	    	<td bgcolor="cceeFF" class="MainLink2" align="left">
+		    		<a href='javascript:submit_UpdateDataSheetForm()' class="MainLink2">
+		    			<font color="#0000CC">Click here to update Hours Of Service</Font></a>
+	    		&nbsp;
+			</td>
+		</tr>
+    	</table>                    
+
+
                 </fieldset>
             </td>
         </tr>

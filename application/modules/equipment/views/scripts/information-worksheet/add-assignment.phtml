@@ -57,8 +57,9 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class="red">*</span>
+                                        <label class='required'><span>*</span>
                                             Homebase
+                                        </label>
                                     </td>
                                     <td>
                                         <select name="ea_homebase_id" id="ea_homebase_id">
@@ -92,8 +93,9 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class="red">*</span>
+                                        <label class='required'><span>*</span>
                                              DOT Regulated
+                                        </label>
                                     </td>
                                     <td>
                                         <span class="radio-button">
@@ -116,8 +118,9 @@
                                 </tr>
                                 <tr class="color-dark">
                                     <td>
-                                        <span class="red">*</span>
+                                        <label class='required'><span>*</span>
                                             Owner
+                                        </label>
                                     </td>
                                     <td>
                                         <select  class="rc10" name="ea_owner_id" id="ea_owner_id">
@@ -203,8 +206,9 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class="red">*</span>
+                                        <label class='required'><span>*</span>
                                             Start Date
+                                        </label>
                                     </td>
                                     <td>
                                         <input type="text" value="<?= (isset($this->equipmentAssignmentRow['ea_start_date'])) ? $this->equipmentAssignmentRow['ea_start_date'] : '' ; ?>" id="ea_start_date" name="ea_start_date" />
@@ -212,8 +216,9 @@
                                 </tr>
                                 <tr class="color-dark">
                                     <td>
-                                        <span class="red">*</span>
+                                        <label class='required'><span>*</span>
                                             End Date
+                                        </label>
                                     </td>
                                     <td>
                                         <input type="text" value="<?= (isset($this->equipmentAssignmentRow['ea_end_date'])) ? $this->equipmentAssignmentRow['ea_end_date'] : '' ; ?>" id="ea_end_date" name="ea_end_date" />

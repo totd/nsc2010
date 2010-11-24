@@ -44,6 +44,25 @@ class Homebase_Model_Homebase extends Zend_Db_Table_Abstract
     }
     
     /**
+     * @author Vladislav Skachkov 20.11.2010
+     *
+     * Get homebase
+     *
+     * @return mixed
+     */
+    public function getHomebase($id)
+    {
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $stmt = $db->query('
+                      SELECT
+                        *
+                      FROM homebase
+                      WHERE h_ID = "' . $id . '"
+        ');
+        $row = $stmt->fetch();
+        return $row;
+    }
+    /**
      * @author Andriy Ilnytskyi 16.11.2010
      *
      * Get all homebases from a storing.
@@ -57,4 +76,3 @@ class Homebase_Model_Homebase extends Zend_Db_Table_Abstract
     }
 
 }
-

@@ -1,54 +1,64 @@
-<fieldset class="hasBorder" id="edit_history_record">
-    <legend>Update Address:</legend>
-    <span id="error_custom"></span>
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
-    <FORM id='UpdateDIW_Address' name="UpdateDIW_Address">
-        <INPUT type="hidden" id="edit_dah_ID" name="edit_dah_ID"	value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_ID'];?>" />
-        <INPUT type="hidden" id="edit_dah_Driver_ID" name="edit_dah_Driver_ID"	value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_Driver_ID'];?>" />
-        <tr height=30 valign=middle>
-            <td class="MainText" width="150"><label class="required"><span>*</span>Street:</label></td>
-            <td class="MainTextB">
-                <Input type="text" name="edit_dah_Address1" size=50 maxlength=200 value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_Address1'];?>" />
+
+    <table cellspacing="0" class="inform" id="add_Address_Table">
+        <tr class="title-dark">
+            <td colspan="2">
+            Edit Address</td>
+        </tr>
+        <tr valign=middle>
+            <td class="" width="150"></td>
+            <td class="">
+                <INPUT type="hidden" id="edit_dah_ID" name="edit_dah_ID"	value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_ID'];?>" />
+                <INPUT type="hidden" id="edit_dah_Driver_ID" name="edit_dah_Driver_ID"	value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_Driver_ID'];?>" />
+                
             </td>
-        </tr><tr height=30 valign=middle>
-        <td class="MainText"><label class="required"><span>*</span>City:</label></td>
-        <td class="MainText">
-            <Input type="text" name="edit_dah_City" size=15 maxlength="50" value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_City'];?>"/>&nbsp;&nbsp;&nbsp;
-            State:
-            <SELECT name='edit_dah_State'>
+        </tr>
+        <tr height="30" valign=middle>
+            <td class="" width="150"><label class="required" for="edit_dah_Address1"><span>*</span>Street:</label></td>
+            <td class="">
+                <Input type="text" id="edit_dah_Address1" name="edit_dah_Address1" size=50 maxlength=200 value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_Address1'];?>" />
+            </td>
+        </tr>
+        <tr height="30" valign=middle>
+            <td class=""><label class="required" for="edit_dah_City"><span>*</span>City:</label></td>
+            <td class="">
+                <Input type="text" id="edit_dah_City" name="edit_dah_City" size=15 maxlength="50" value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_City'];?>"/>&nbsp;&nbsp;&nbsp;
+                <label class="required" for="edit_dah_State"><span>*</span>State:</label>
+                <SELECT name='edit_dah_State'>
                 <OPTION value='-' selected>-</OPTION>
                 <?php
-            foreach($this->layout()->stateList as $k => $v)
-                {
-                    ?>
+                    foreach($this->layout()->stateList as $k => $v)
+                    {
+                ?>
                         <option label="<?php echo $v['s_name'];?>" value="<?php echo $k;?>" <?php if($k==$this->layout()->driverAddressHistoryRecord['dah_State']){echo "selected='selected";} ?> ><?php echo $v['s_name'];?></option>
-    <?php
-                }
-            ?>
+                <?php
+                    }
+                ?>
             </SELECT>&nbsp;&nbsp;&nbsp;
-            <label class="required"><span>*</span>Zip: </label><Input type="text" name="edit_dah_Postal_Code" size=10 maxlength="20" value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_Postal_Code'];?>"/>
-        </td>
-    </tr>
-        <tr height=30 valign=middle>
-            <td class="MainText"><label class="required"><span>*</span>Phone:</label></td>
-            <td class="MainText"><Input type="text" name="edit_dah_Phone" size=30  value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_Phone'];?>" /></td>
+                <label class="required" for="edit_dah_Postal_Code"><span>*</span>Zip: </label><Input type="text" id="edit_dah_Postal_Code" name="edit_dah_Postal_Code" size=10 maxlength="20" value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_Postal_Code'];?>"/>
+            </td>
         </tr>
         <tr height=30 valign=middle>
-            <td class="MainText">At Address:</td>
-            <td class="MainText">
-                <label class="required"><span>*</span>From Date: </label><Input type="text" readonly="readonly" id="edit_dah_Start_Date" name="edit_dah_Start_Date" size=10 maxlength=10  value="<?php
+            <td class=""><label class="required" for="edit_dah_Phone"><span>*</span>Phone:</label></td>
+            <td class=""><Input type="text" id="edit_dah_Phone" name="edit_dah_Phone" size=30  value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_Phone'];?>" /></td>
+        </tr>
+        <tr height=30 valign=middle>
+            <td class="">At Address:</td>
+            <td class="">
+            <label class="required" for="dah_Start_Date"><span>*</span>From Date: </label>
+                <Input type="text" readonly="readonly" id="edit_dah_Start_Date" name="edit_dah_Start_Date" size=10 maxlength=10  value="<?php
                     $date = new Zend_Date($this->layout()->driverAddressHistoryRecord['dah_Start_Date']);
                     echo $date->toString("MM/dd/YYYY");
                 ?>"  />&nbsp;&nbsp;&nbsp;&nbsp;
-                <label class="required"><span>*</span>To Date: </label><Input type="text" readonly="readonly" id="edit_dah_End_Date" name="edit_dah_End_Date" size=10 maxlength=10  value="<?php
+            <label class="required" for="dah_End_Date"><span>*</span>To Date: </label>
+                <Input type="text" readonly="readonly" id="edit_dah_End_Date" name="edit_dah_End_Date" size=10 maxlength=10  value="<?php
                     $date = new Zend_Date($this->layout()->driverAddressHistoryRecord['dah_End_Date']);
                     echo $date->toString("MM/dd/YYYY");
                 ?>"  />&nbsp;&nbsp;&nbsp;&nbsp;
             </td>
         </tr>
         <tr height=30 valign=middle>
-            <td class="MainText">Is this current Address:</td>
-            <td class="MainText">
+            <td class="">Is this current Address:</td>
+            <td class="">
                 <select name="edit_dah_Current_Address">
                     <option value="NO" <?php if(strtolower($this->layout()->driverAddressHistoryRecord['dah_Current_Address'])=="no"){echo "selected";} ?> >No</option>
                     <option value="YES" <?php if(strtolower($this->layout()->driverAddressHistoryRecord['dah_Current_Address'])=="yes"){echo "selected";} ?> >Yes</option>
@@ -56,15 +66,10 @@
             </td>
         </tr>
         <tr height=40 valign=middle>
-            <td class="MainText" align=center>&nbsp;</td>
-            <td class="MainText" align=left>
-                <a onclick="updateAddressHistoryRecord(<?php echo $this->layout()->driverAddressHistoryRecord['dah_ID'];?>);" class="MainLink2">
-                    <font color="#0000cc">Click here to Save changes</font></a>
-            </td>
+            <td class="" align=center>&nbsp;</td>
+            <td class="" align=left>
+            <a onclick="updateAddressHistoryRecord(<?php echo $this->layout()->driverAddressHistoryRecord['dah_ID'];?>);">
+                Click here to Save changes</a>
             </td>
         </tr>
-
-    </FORM>
-
-</table>
-</fieldset>
+    </table>

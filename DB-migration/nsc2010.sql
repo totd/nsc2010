@@ -201,6 +201,7 @@ CREATE TABLE IF NOT EXISTS `driver` (
 
 DROP TABLE IF EXISTS `driver_address_history`;
 CREATE TABLE IF NOT EXISTS `driver_address_history` (
+  `dah_ID` int(11) NOT NULL AUTO_INCREMENT,
   `dah_Driver_ID` int(11) NOT NULL,
   `dah_Start_Date` date NOT NULL,
   `dah_End_Date` date NOT NULL,
@@ -212,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `driver_address_history` (
   `dah_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `dah_Country_Code` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `dah_Phone` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
-  `dah_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `dah_row_created`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`dah_ID`),
   KEY `fk_driver_address_history_driver1` (`dah_Driver_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
@@ -924,12 +925,24 @@ CREATE TABLE IF NOT EXISTS `role` (
   `r_Homebase_ID` int(11) DEFAULT NULL,
   PRIMARY KEY (`r_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
+-- --------------------------------------------------------
 --
--- Дамп данных таблицы `role`
+-- `License`
 --
 
-
+DROP TABLE IF EXISTS `License`;
+CREATE TABLE `License` (
+`l_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`l_Driver_License_Number` VARCHAR( 24 ) NOT NULL ,
+`l_Driver_Issue_State_id` INT NOT NULL ,
+`l_Driver_ID` INT NOT NULL ,
+`l_Class` ENUM( 'A', 'B', 'C', 'D', 'E', 'M' ) NOT NULL ,
+`l_Expiration_Date` DATE NOT NULL ,
+`l_License_Endorsements` SET( 'P', 'T', 'H', 'N', 'X' ) NOT NULL ,
+`l_License_Restrictions` VARCHAR( 100 ) NOT NULL ,
+`l_Points_Score` VARCHAR( 10 ) NOT NULL ,
+`l_DOT_Regulated` SET( 'YES', 'NO' ) NOT NULL
+) ENGINE = InnoDB;
 -- --------------------------------------------------------
 
 --
@@ -1074,7 +1087,35 @@ CREATE TABLE IF NOT EXISTS `state` (
   `s_id` int(11) NOT NULL AUTO_INCREMENT,
   `s_name` varchar(2) NOT NULL,
   PRIMARY KEY (`s_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+
+-- --------------------------------------------------------
+--
+-- Структура таблицы `Violation`
+--
+
+DROP TABLE IF EXISTS `Violation`;
+CREATE TABLE `Violation` (
+`v_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`v_Inspection_Number_id` INT NOT NULL ,
+`v_Violation_Number` VARCHAR( 12 ) NOT NULL ,
+`v_Equipment_Number_id` INT NOT NULL ,
+`v_Driver_Number_id` INT NOT NULL ,
+`v_Company_Number_id` INT NOT NULL ,
+`v_DOT_Regulated` SET( 'YES', 'NO' ) NOT NULL
+) ENGINE = InnoDB  ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+--
+-- Структура таблицы `Violation_Type`
+--
+
+DROP TABLE IF EXISTS `Violation_Type`;
+CREATE TABLE `nsc2010`.`Violation_Type` (
+`vt_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`vt_Item` VARCHAR( 100 ) NOT NULL DEFAULT "'turn signal', 'brakes', 'steering', 'left front turn signal', 'rear turn signal trailer', 'etc'",
+`vt_Item_Specific` VARCHAR( 100 ) NOT NULL DEFAULT "'Right', 'left', 'Right Front', 'Left Rear', 'etc.'"
+) ENGINE = InnoDB;
 
 -- --------------------------------------------------------
 

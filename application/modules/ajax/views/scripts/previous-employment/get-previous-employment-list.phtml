@@ -1,0 +1,38 @@
+<?php
+    $driverEmploymentHistoryList = $this->layout()->driverEmploymentHistoryList;
+    $stateList = $this->layout()->stateList;
+    $previousEmployerCount=0;
+    $date = new Zend_Date();
+    foreach($driverEmploymentHistoryList as $k => $v)
+    {
+        $previousEmployerCount++;
+?>
+<tbody id="driver_pe_id_<?php echo $v['pe_ID'];?>">
+<tr class="title-dark"><td colspan="2">Previous Employer #<?php echo $previousEmployerCount;?> [ <a onclick="editEmploymentHistoryRecord(<?php echo $v['pe_ID'].",".$v['pe_Driver_ID'];?>)">EDIT</a> ] [ <a onclick="deleteEmploymentHistoryRecord(<?php echo $v['pe_ID'].",".$v['pe_Driver_ID'];?>)">DELETE</a> ]</td></tr>
+<tr><td>Employer:</td><td><span><?php echo $v['pe_Employer_Name'];?></span></td></tr>
+<tr class="color-dark">
+    <td>Street:</td>
+    <td>
+        <span><?php echo $v['pe_Address1'];?></span>
+        City:&nbsp;<span><?php echo $v['pe_City'];?></span>
+        State:&nbsp;<span><?php echo $stateList[$v['pe_State']]['s_name'];?></span>
+        Zip:&nbsp;<span><?php echo $v['pe_Postal_Code'];?></span>
+    </td>
+</tr>
+<tr><td>Telephone:</td><td><span><?php echo $v['pe_Phone'];?></span>&nbsp;Fax:&nbsp;<span><?php echo $v['pe_Fax'];?></span></td></tr>
+<tr class="color-dark"><td>Job Description:</td><td><span>&nbsp;<?php echo $v['pe_Position'];?></span></td></tr>
+<tr><td></td>
+    <td>
+        From:&nbsp;<span><?php echo $v['pe_Employment_Start_Date'];?></span>
+        <?php if(isset($v['pe_Employment_Stop_Date'])){?>
+        To:&nbsp;<span><?php echo $v['pe_Employment_Stop_Date'];?></span>
+        <?php }else{ ?>
+            <span>Current moment.</span>
+        <?php } ?>
+    </td>
+</tr>
+<tr class="color-dark"><td>Reason For Leaving:</td><td><span>&nbsp;<?php echo $v['pe_Reason_for_Leaving'];?></span></td></tr>
+</tbody>
+<?php
+    }
+?>

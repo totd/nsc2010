@@ -59,7 +59,7 @@
                 </tr>
                 <tr>
                     <td><label class="optional" for="status">Status</label></td>
-                    <td><input type="text" disabled="disabled" value="<?php echo $_SESSION['driver_info']['DriverStatus_list'][$this->driverInfo['d_Status']];?>" id="status" name="status"></td>
+                    <td><?php echo $_SESSION['driver_info']['DriverStatus_list'][$this->driverInfo['d_Status']];?></td>
                 </tr>
                 <tr>
                     <td><label class="required" for="d_homebase_ID"><span>*</span>Homebase</label></td>
@@ -94,7 +94,7 @@
             <table width="100%" border="1" cellpadding="5" cellspacing="0">
                 <tr>
                     <td><label class="required" for="d_First_Name"><span>*</span>First Name:</label></td>
-                    <td><input type="text" value="<?php echo $this->driverInfo['d_First_Name']; ?>" id="d_First_Name" name="d_First_Name"></td>
+                    <td><input type="text" value="<?php echo $this->driverInfo['d_First_Name']; ?>" id="d_First_Name" name="d_First_Name" /></td>
                     <td><label class="required" for="d_Gender"><span>*</span>Sex</label></td>
                     <td>
                         <select id="d_Gender" name="d_Gender">

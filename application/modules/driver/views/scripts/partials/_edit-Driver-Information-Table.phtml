@@ -65,11 +65,11 @@
               </td>
           </tr>
           <tr class="color-dark">
-              <td><label class="required" ><span>*</span>Date Of Birth:</label></td>
-              <td><?php
+              <td>Date Of Birth:</td>
+              <td><span><?php
                         $date->set($this->driverInfo['d_Date_Of_Birth'],"YYYY-MM-dd");
                         echo  $date->toString("MM/dd/YYYY");
-                    ?></td>
+                    ?></span></td>
           </tr>
               <tr><td></td><td></td></tr>
               <tr class="color-dark"><td>Social Security #</td><td><span><?php echo $this->driverInfo['d_Driver_SSN']; ?></span></td></tr>

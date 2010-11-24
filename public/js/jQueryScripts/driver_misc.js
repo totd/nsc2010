@@ -31,3 +31,17 @@ $(document).ready(function() {
         return false;
     });
 });
+// Show/hide Driver information edit form
+$(document).ready(function() {
+    $('#toggleDriverInfoEdit').click(function() {
+        $('#idDriverInfoView').toggle(400);
+        if((document.getElementById("toggleDriverInfoEdit").innerHTML)=="EDIT"){
+            document.getElementById("toggleDriverInfoEdit").innerHTML="CANCEL";
+            $('#idDriverInfoEdit').show(400);
+        }else{
+            $('#idDriverInfoEdit').hide(400);
+            document.getElementById("toggleDriverInfoEdit").innerHTML="EDIT";
+        }
+        return false;
+    });
+});

@@ -131,6 +131,7 @@
           <controllersDirectory>
             <controllerFile controllerName="Index">
               <actionMethod actionName="index"/>
+              <actionMethod actionName="Dqf"/>
             </controllerFile>
             <controllerFile controllerName="NewDriver">
               <actionMethod actionName="index"/>
@@ -211,6 +212,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Search">
                 <viewScriptFile forActionName="driverSearch"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="Dqf"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

@@ -954,7 +954,7 @@ span.blue-button a {
 	width: 350px;
 }
 
-.error{
+.error_custom{
 	background: url(../images/error.png) no-repeat 0px 0px; 
 	display: inline;
 	padding-left: 30px;

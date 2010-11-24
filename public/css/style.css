@@ -708,7 +708,8 @@ form.select-parametr select {
 	
 form.select-parametr option { padding:1px 1px 1px 5px;}	
 
-form.select-parametr input[type="submit"], .check-box form input[type="submit"], form.select-parametr2 input[type="submit"]{
+form.select-parametr input[type="submit"], .check-box form input[type="submit"], form.select-parametr2 input[type="submit"],
+form.select-parametr2 input[type="button"] {
 	background:url(../images/parametr-submit.gif) no-repeat;
 	width:131px;
 	height:29px;

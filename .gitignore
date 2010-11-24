@@ -6,7 +6,5 @@ nbproject/project.xml
 .idea/
 .idea/*
 *._bak
-
-
-
-
+upload/
+upload/*

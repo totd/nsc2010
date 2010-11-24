@@ -1,4 +1,5 @@
 <?php
+
 class Homebase_Model_Homebase extends Zend_Db_Table_Abstract
 {
     protected $_name = 'homebase';
@@ -41,6 +42,7 @@ class Homebase_Model_Homebase extends Zend_Db_Table_Abstract
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
         return $stmt = $db->fetchAssoc($select);
     }
+    
     /**
      * @author Vladislav Skachkov 20.11.2010
      *
@@ -58,7 +60,6 @@ class Homebase_Model_Homebase extends Zend_Db_Table_Abstract
                       WHERE h_ID = "' . $id . '"
         ');
         $row = $stmt->fetch();
-        print_r($row);
         return $row;
     }
     /**

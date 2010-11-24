@@ -5,9 +5,11 @@ Users list form.
 -->
 
 <div class="bottom-nav">
-    <ul class="blue-nav">
-      <li><span><a href="/equipment/search/index">Add New Equipment</a></span></li>
-    </ul>
+    <?php if ($this->identity->permissions->equipment_create_permission === true) : ?>
+        <ul class="blue-nav">
+            <li><span><a href="/equipment/search/index">Add New Equipment</a></span></li>
+        </ul>
+    <?php endif; ?>
     <form class="search" method="post" action="/equipment/list/index" id="searchParameters">
         <fieldset>
             <label>Status:</label>
@@ -37,6 +39,8 @@ Users list form.
             <input type="text" class="rc10" value="<?= $this->searchText; ?>" id="SearchText" name="SearchText"/>
             <input type="hidden" id="from" name="from" value=""/>
             <input type="hidden" id="step" name="step" value=""/>
+            <input type="hidden" id="orderBy" name="orderBy" value="<?= $this->orderBy; ?>"/>
+            <input type="hidden" id="orderWay" name="orderWay" value="<?= $this->orderWay; ?>"/>
             <input type="submit" value=""/>
             
         </fieldset>
@@ -61,14 +65,14 @@ Users list form.
 <div id="main" class="driver-profile">
     <table class="application-forms" cellspacing="0">
         <tr class="table-title">
-            <td>Unit #</td>
-            <td>Veh. Type</td>
-            <td>VIN</td>
-            <td>Lic. Plate #/State</td>
-            <td>GVW</td>
-            <td>#Axles</td>
-            <td>Status</td>
-            <td>Action</td>
+            <td id="e_Unit_Number">Unit #</td>
+            <td id="et_type">Veh. Type</td>
+            <td id="e_Number">VIN</td>
+            <td id="s_name">Lic. Plate #/State</td>
+            <td id="e_Gross_Vehicle_Weight_Rating">GVW</td>
+            <td id="e_Axles">#Axles</td>
+            <td id="enes_type">Status</td>
+            <td id="action">Action</td>
         </tr>
         <?php
             if ($this->equipments != null) {

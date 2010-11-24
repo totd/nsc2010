@@ -12,7 +12,11 @@ class Equipment_IndexController extends Zend_Controller_Action
 
     public function init()
     {
+        $auth = Zend_Auth::getInstance();
 
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }
     }
 
     /**

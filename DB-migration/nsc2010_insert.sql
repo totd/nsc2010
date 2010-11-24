@@ -132,11 +132,19 @@ INSERT INTO `driver__status` (`ds_id`, `ds_type`) VALUES
 -- `equipment_types`
 --
 
-INSERT INTO `equipment_types` (`et_type`) VALUES
-('Tractor'),
-('Straight Truck'),
-('Trailer'),
-('Dolly');
+INSERT INTO `equipment_types` (`et_id`, `et_type`) VALUES
+(1, 'Straight Truck'),
+(2, 'Tractor'),
+(3, 'Trailer'),
+(4, 'Dolly'),
+(5, 'Reefer Unit'),
+(6, 'Forklift'),
+(7, 'Company Car'),
+(8, 'Bus'),
+(9, 'Van'),
+(10, 'Utility Truck'),
+(11, 'Pole Trailer');
+
 
 
 --
@@ -281,30 +289,30 @@ INSERT INTO `state` (`s_id`, `s_name`) VALUES
 (51, 'WY');
 
 --
+-- `user_role`
+--
+
+INSERT INTO `user_role` (`ur_ID`, `ur_role`, `ur_title`) VALUES
+(1, 'NSC_LEVEL_1', 'NSC CEO - Operations Manager'),
+(2, 'NSC_LEVEL_2', 'NSC Manager'),
+(3, 'NSC_LEVEL_3', 'NSC Employee'),
+(4, 'NSC_LEVEL_4', 'NSC Office'),
+(5, 'CUSTOMER_LEVEL_1', 'Customer Super Administrator'),
+(6, 'CUSTOMER_LEVEL_2', 'Customer System Manager'),
+(7, 'CUSTOMER_LEVEL_3', 'Customer Office'),
+(8, 'EXTERNAL_LEVEL_1', 'External Auditor'),
+(9, 'EXTERNAL_LEVEL_2', 'External Insurance');
+
+--
 -- `user`
 --
 
 INSERT INTO `user` (`u_ID`, `u_User_ID`, `u_Parent_Company_ID`, `u_Company_ID`, `u_Homebase_ID`, `u_Depot_ID`, `u_Role_ID`, `u_User_Name`, `u_Password`, `u_Status`, `u_Title`, `u_Date_Created`, `u_Allowed_Access_To_DQF`, `u_Allowed_Access_To_VIM`, `u_Allowed_Access_To_Accident`, `u_First_Name`, `u_Last_Name`, `u_Email`, `u_Telephone_Number`, `u_Fax`, `u_Address1`, `u_Address2`, `u_City`, `u_State`, `u_Postal_Code`) VALUES
 (1, NULL, 1, 1, 1, 1, 1, 'root', 'root', 1, NULL, '2010-10-28 14:15:10', '', '', '', 'Admin', 'Super', '', '', NULL, '', NULL, '', 1, ''),
-(2, NULL, 1, 1, 1, 1, 11, 'user', 'user', 1, NULL, '2010-10-28 15:17:59', '', '', '', 'User', 'Simple', '', '', NULL, '', NULL, '', 2, ''),
-(3, NULL, 1, 1, 1, 1, 11, 'test', 'test', 1, '', '2010-10-26 10:10:10', '', '', '', 'test', 'test', '', '', '', '', '', '', 3, '');
+(2, NULL, 1, 1, 1, 1, 9, 'user', 'user', 1, NULL, '2010-10-28 15:17:59', '', '', '', 'User', 'Simple', '', '', NULL, '', NULL, '', 2, ''),
+(3, NULL, 1, 1, 1, 1, 9, 'test', 'test', 1, '', '2010-10-26 10:10:10', '', '', '', 'test', 'test', '', '', '', '', '', '', 3, '');
 
---
--- `user_role`
---
 
-INSERT INTO `user_role` (`ur_ID`, `ur_role`, `ur_title`) VALUES
-(1, 'NSC_USERS__Level_0', 'NSC SuperAdmin'),
-(2, 'NSC_USERS__Level_1', 'NSC Admin'),
-(3, 'NSC_USERS__Level_2', 'NSC Office'),
-(4, 'NSC_USERS__Level_3', 'NSC Auditor'),
-(5, 'NSC_USERS__Level_4', 'NSC Checker'),
-(6, 'CUSTOMER_USERS__Level_0', 'Client User SuperAdmin'),
-(7, 'CUSTOMER_USERS__Level_1', 'Client User NationalAdmin'),
-(8, 'CUSTOMER_USERS__Level_2', 'Client User RegionalAdmin'),
-(9, 'CUSTOMER_USERS__Level_3', 'Client User LocalAdmin'),
-(10, 'CUSTOMER_USERS__Level_4', 'Client User Office'),
-(11, 'CUSTOMER_USERS__Level_5', 'DEMO');
 
 
 --

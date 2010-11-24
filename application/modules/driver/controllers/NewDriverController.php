@@ -64,16 +64,16 @@ class Driver_NewDriverController extends Zend_Controller_Action
                     }else{
                         # process creating of new Driver
                         $driver = Driver_Model_Driver::createPendingDriver($_POST);
-                        return $this->_redirect('/driver/new-Driver/driver-Information-Worksheet-View/id/'.$driver);
+                        return $this->_redirect('/driver/Driver/view-driver-Information/id/'.$driver);
                     }
                 }else{
-                    if($d_ssn==0){
+                    if($d_et==0){
                         $this->view->systemMessage = $this->view->systemMessage ."Select  Employee OR Contractor Application.<br/>";
                     }
-                    if($d_dob==0){
+                    if($d_ssn==0){
                         $this->view->systemMessage = $this->view->systemMessage ."SSN must contain 9 digits.<br/>";
                     }
-                    if($d_et==0){
+                    if($d_dob==0){
                         $this->view->systemMessage = $this->view->systemMessage ."DOB myst be mm/dd/yyyy format.";
                     }
                 }

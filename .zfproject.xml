@@ -377,6 +377,8 @@
               <actionMethod actionName="index"/>
               <actionMethod actionName="getPreviouseEmploymentList"/>
               <actionMethod actionName="editPreviouseEmployment"/>
+              <actionMethod actionName="addRecord"/>
+              <actionMethod actionName="deleteRecord"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -436,6 +438,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
                 <viewScriptFile forActionName="editPreviouseEmployment"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
+                <viewScriptFile forActionName="addRecord"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
+                <viewScriptFile forActionName="deleteRecord"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

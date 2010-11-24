@@ -45,6 +45,31 @@ $(document).ready(function() {
         submitSearchParameters();
     });
 
+    /**
+     * Set for each column's header click heandler to implemnt order list by column.
+     */
+    $("tr.table-title td").each(function(column){
+        $(this).click(function() {
+            var columnName = this.id;
+            if (columnName != "action") {
+                if ($("#orderBy").val() == columnName) {
+                    if ($("#orderWay").val() == "ASC") {
+                        $("#orderWay").val("DESC");
+                    } else if ($("#orderWay").val() == "DESC") {
+                        $("#orderWay").val("ASC");
+                    }
+                } else {
+                    $("#orderWay").val("ASC");
+                }
+
+                $("#orderBy").val(columnName);
+                
+                submitSearchParameters();
+            }
+        });
+        
+    });
+
 });
 
 

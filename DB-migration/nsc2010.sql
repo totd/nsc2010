@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `depot` (
   `dp_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`dp_id`),
   KEY `FK_Depot_2_HomeBase__h_id` (`dp_HomeBase_Account_Number`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
 
 -- --------------------------------------------------------

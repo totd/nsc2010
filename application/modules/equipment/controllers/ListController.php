@@ -13,7 +13,11 @@ class Equipment_ListController extends Zend_Controller_Action
 
     public function init()
     {
+        $auth = Zend_Auth::getInstance();
 
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }
     }
 
     /**
@@ -45,23 +49,46 @@ class Equipment_ListController extends Zend_Controller_Action
             $step = 20;
         }
 
+        if ($this->_getParam('orderBy') != null) {
+            $orderBy = $this->_getParam('orderBy');
+        } else {
+            $orderBy = 'enes_type';
+        }
+
+        if ($this->_getParam('orderWay') != null) {
+            $orderWay = $this->_getParam('orderWay');
+        } else {
+            $orderWay = 'ASC';
+        }
+
 
         if (is_null($options)) {
             if ($this->_request->isPost()) {
                 $options['SearchBy'] = $this->_request->getPost('SearchBy');
                 $options['SearchText'] = $this->_request->getPost('SearchText');
-                $status = $options['Status'] = $this->_request->getPost('Status');
+                $status = $this->_request->getPost('Status');
+                $orderBy = $this->_request->getPost('orderBy');
+                $orderWay = $this->_request->getPost('orderWay');
             }
-        } elseif (!isset($options['SearchBy']) || !isset($options['Status']) || !isset($options['SearchText'])) {
+        } elseif (!isset($options['SearchBy']) ||
+                    !isset($options['Status']) ||
+                    !isset($options['SearchText']) ||
+                    !isset($options['orderBy']) ||
+                    !isset($options['orderWay'])
+                ) {
             $this->_redirect('/equipment/list');
         }
 
         $this->view->status = $status;
         $this->view->from = $from;
         $this->view->step = $step;
+        $this->view->orderBy = $orderBy;
+        $this->view->orderWay = $orderWay;
 
         $equipment = new Equipment_Model_Equipment();
         $options['Status'] = $status;
+        $options['orderBy'] = $orderBy;
+        $options['orderWay'] = $orderWay;
         $equipments = $equipment->getEquipmentList($from, $step, $options);
         if (sizeof($equipments) > 0) {
             $this->view->equipments = $equipments['limitEquipments'];
@@ -70,22 +97,7 @@ class Equipment_ListController extends Zend_Controller_Action
             $this->view->equipments = null;
         }
 
-        // Check whether the user has permission to search equipment.
-        $display_search_link = false;
-
-        $auth = Zend_Auth::getInstance();
-
-        if ($auth->hasIdentity()) {
-            $this->identity = $auth->getIdentity();
-
-            $permission = new Permission_Model_Permission();
-            if ($permission->doesRoleHaveResource($this->identity->vau_role, 'equipment/search')) {
-                $display_search_link = true;
-            }
-        }
-
-        $this->view->display_search_link = $display_search_link;
-        $this->view->pageTitle = 'LIST OF VENDORS NOT JOINED TO THE VEHICLE';
+        $this->view->pageTitle = 'LIST OF EQUIPMENT';
         $statuses = array(
             'Pending' => array(
                 'text' => 'Pending'

@@ -1,19 +1,19 @@
 $(function() {
     $("#e_change_active_status_date").datepicker();
 
-    $("#changeActiveStatusForm").validate({
+    $("#terminateForm").validate({
         rules: {
             e_change_active_status_date : "required"
         }
     });
 
-    $("#changeSubmit").click(function() {
-        if ($("#changeActiveStatusForm").valid()) {
-            document.getElementById("changeActiveStatusForm").submit();
+    $("#terminateSubmit").click(function() {
+        if ($("#terminateForm").valid()) {
+            document.getElementById("terminateForm").submit();
         }
     });
 
-    $("#cancelChangeSubmit").click(function() {
+    $("#cancelTerminateSubmit").click(function() {
         window.location.href='/equipment/vehicle-file/index/id/' + $("#e_id").val();
     });
 });

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Andryi Ilnytskiy 23.10.2010
  *
@@ -43,18 +42,14 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         // set up the access rules
         $permissionMatrix = $permission->getList();
         foreach ($permissionMatrix as $role => $value) {
-            $resources = array();
             foreach ($value['resources'] as $resource) {
-                $resources[] = $resource['resource'];
-                if (isset ($resource['action'])) {
-                    $actions[] = $resource['action'];
+                if (isset($resource['actions']) && count($resource['actions'])) {
+                    $acl->allow($role, $resource['resource'], $resource['actions']);
+                } else {
+                    $acl->allow($role, $resource['resource']);
                 }
             }
-            if (isset ($actions) && count($actions)) {
-                $acl->allow($role, $resources, $actions);
-            } else {
-                $acl->allow($role, $resources);
-            }
+            
         }
 
         // fetch the current user
@@ -90,6 +85,7 @@ class NSC_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         } catch (Exception $e) {
 
         }
+
     }
 
 }

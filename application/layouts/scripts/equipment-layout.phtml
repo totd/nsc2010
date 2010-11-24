@@ -44,8 +44,7 @@
       </div>
       <div class="header-bottom">
 
-          <ul class="top-menu">
-            <li><span class="left"><span class="right"><a href="/driver/index/index?status=Pending"><span class="left"><span class="right">Drivers</span></span></a></span></span>
+          <ul class="top-menu"><li><span class="left"><span class="right"><a href="/driver/index/index?status=Pending"><span class="left"><span class="right">Drivers</span></span></a></span></span>
                 <div class="top-pod-menu">
                     <ul>
                         <li>
@@ -117,7 +116,9 @@
                                 <li><a href="/equipment/list/index/status/Pending">Equipment List</a></li>
                                 <li><a href="/equipment/truck-files/index/status/In%20Service">Truck Files</a></li>
                                 <li><a href="/equipment/archives/index/status/Terminated">Archives</a></li>
-                                <li><a href="/equipment/search/index">Create New Equipment</a></li>
+                                <?php if ($this->identity->permissions->equipment_create_permission === true) : ?>
+                                    <li><a href="/equipment/search/index">Create New Equipment</a></li>
+                                <?php endif; ?>
                             </ul>
                         </li>
                     </ul>
@@ -182,7 +183,19 @@
                     </ul>
                 </div>
             </li>
-              <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Service Provider Management</span></span></a></span></span></li>
+            <li>
+                <span class="left">
+                    <span class="right">
+                        <a href="/driver/index/index">
+                            <span class="left">
+                                <span class="right">
+                                    Service Provider Management
+                                </span>
+                            </span>
+                        </a>
+                    </span>
+                </span>
+            </li>
           </ul>
           <?php if(isset($this->pageTitle)){ ?><h1 class="page-title"><?php echo $this->pageTitle; ?></h1><?php } ?>
           <?php echo $this->layout()->content ?>

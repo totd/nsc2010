@@ -13,6 +13,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	margin: 0;
 	padding: 0;
 	vertical-align: baseline;}
+	
 body {line-height: 1;}
 
 h1, h2, h3, h4, h5, h6 {
@@ -487,6 +488,12 @@ table.inform th{
 	
 table.inform tr.color-dark td { background:#e6e8ee;}	
 
+table.inform td span.red {
+    color: #ff0000;
+    padding: 5px;
+    margin: 0px;
+}
+
 div.blue-nav {
 	margin:0 auto;
 	width:220px;
@@ -540,7 +547,9 @@ table.application-forms tr.table-title	td {
 	background:#949aa9;
 	color:#fefeff;
 	font-size:13px;
-	font-weight:bold;}
+	font-weight:bold;
+    cursor: pointer;
+}
 
 table.application-forms td {
 	padding:0 10px;
@@ -656,7 +665,7 @@ form.select-parametr .time  input {
 	height:14px;
 	padding:2px 5px;
 	border:1px solid #9398a7;
-	background:none;
+	background:#FFFFFF;
 	color:#1c357c;
 	font-size:12px;}
 	
@@ -695,7 +704,7 @@ form.select-parametr.new-appl span.radio-button input {
 }
 form.select-parametr.new-appl input[type="text"] {
 	float:left;
-	background:none;
+	background:#FFFFFF;
 	border:1px solid #9398a7;
 	color:#9398a7;
 	font-size:12px;
@@ -727,8 +736,11 @@ form.select-parametr select {
 	border:1px solid #9398a7;}	
 	
 form.select-parametr option { padding:1px 1px 1px 5px;}	
-
+/*
 form.select-parametr input[type="submit"], .check-box form input[type="submit"], form.select-parametr2 input[type="submit"]{
+*/
+form.select-parametr input[type="submit"], .check-box form input[type="submit"], form.select-parametr2 input[type="submit"],
+form.select-parametr2 input[type="button"] {
 	background:url(../images/parametr-submit.gif) no-repeat;
 	width:131px;
 	height:29px;
@@ -826,7 +838,7 @@ form.information-form input[type="text"] {
 	height:14px;
 	padding:2px 5px;
 	margin:5px 0;
-	background:none;
+	background:#FFFFFF;
 	width:185px;
 	border:1px solid #9398a7;
 	font-family:Arial;
@@ -934,7 +946,8 @@ span.blue-button a {
 	background:url(../images/gradient-second.gif) repeat-x #f7f7fb;
 	float:left;
 	width:844px;
-	height:142px;}
+	padding-bottom:20px;
+	}
 	
 .second.post h2 {
 	float:left;

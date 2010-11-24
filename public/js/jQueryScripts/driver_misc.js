@@ -23,6 +23,11 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#toggleEmploymentHistoryAdd').click(function() {
         $('#add_Employment_Table').toggle(400);
+        if((document.getElementById("toggleEmploymentHistoryAdd").innerHTML)=="Show"){
+            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="Hide";
+        }else{
+            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="Show";
+        }
         return false;
     });
 });

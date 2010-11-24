@@ -8,7 +8,11 @@ class Equipment_TruckFilesController extends Zend_Controller_Action
 
     public function init()
     {
+        $auth = Zend_Auth::getInstance();
 
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }
     }
 
     public function indexAction($options = null)
@@ -35,23 +39,46 @@ class Equipment_TruckFilesController extends Zend_Controller_Action
             $step = 20;
         }
 
+        if ($this->_getParam('orderBy') != null) {
+            $orderBy = $this->_getParam('orderBy');
+        } else {
+            $orderBy = 'eas_type';
+        }
+
+        if ($this->_getParam('orderWay') != null) {
+            $orderWay = $this->_getParam('orderWay');
+        } else {
+            $orderWay = 'ASC';
+        }
+
 
         if (is_null($options)) {
             if ($this->_request->isPost()) {
                 $options['SearchBy'] = $this->_request->getPost('SearchBy');
                 $options['SearchText'] = $this->_request->getPost('SearchText');
-                $status = $options['Status'] = $this->_request->getPost('Status');
+                $status = $this->_request->getPost('Status');
+                $orderBy = $this->_request->getPost('orderBy');
+                $orderWay = $this->_request->getPost('orderWay');
             }
-        } elseif (!isset($options['SearchBy']) || !isset($options['Status']) || !isset($options['SearchText'])) {
+        } elseif (!isset($options['SearchBy']) ||
+                    !isset($options['Status']) ||
+                    !isset($options['SearchText']) ||
+                    !isset($options['orderBy']) ||
+                    !isset($options['orderWay'])
+                ) {
             $this->_redirect('/equipment/truckFiles');
         }
 
         $this->view->status = $status;
         $this->view->from = $from;
         $this->view->step = $step;
+        $this->view->orderBy = $orderBy;
+        $this->view->orderWay = $orderWay;
 
         $equipment = new Equipment_Model_Equipment();
         $options['Status'] = $status;
+        $options['orderBy'] = $orderBy;
+        $options['orderWay'] = $orderWay;
         $equipments = $equipment->getTruckFilesList($from, $step, $options);
         if (sizeof($equipments) > 0) {
             $this->view->equipments = $equipments['limitEquipments'];

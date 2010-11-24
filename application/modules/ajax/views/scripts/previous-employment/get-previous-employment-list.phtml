@@ -8,7 +8,7 @@
         $previousEmployerCount++;
 ?>
 <tbody id="driver_pe_id_<?php echo $v['pe_ID'];?>">
-<tr class="title-dark"><td colspan="2">Previous Employer #<?php echo $previousEmployerCount;?> [ <a onclick="editEmploymentHistoryRecord(<?php echo $v['pe_ID'];?>)">EDIT</a> ] [ <a onclick="deleteEmploymentHistoryRecord(<?php echo $v['pe_ID'];?>)">DELETE</a> ]</td></tr>
+<tr class="title-dark"><td colspan="2">Previous Employer #<?php echo $previousEmployerCount;?> [ <a onclick="editEmploymentHistoryRecord(<?php echo $v['pe_ID'].",".$v['pe_Driver_ID'];?>)">EDIT</a> ] [ <a onclick="deleteEmploymentHistoryRecord(<?php echo $v['pe_ID'].",".$v['pe_Driver_ID'];?>)">DELETE</a> ]</td></tr>
 <tr><td>Employer:</td><td><span><?php echo $v['pe_Employer_Name'];?></span></td></tr>
 <tr class="color-dark">
     <td>Street:</td>

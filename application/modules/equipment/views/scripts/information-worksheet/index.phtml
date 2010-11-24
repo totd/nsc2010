@@ -3,7 +3,8 @@
         <?=
         $this->partial('partials/_view_action.phtml', array(
             'equipmentID' => $this->equipmentRow['e_id'],
-            'status' => $this->equipmentRow['enes_type']
+            'status' => $this->equipmentRow['enes_type'],
+            'identity' => $this->identity
         ));
         ?>
     </ul>
@@ -23,8 +24,6 @@
 
 <!--TODO hak for diz-->
 </div>
-
-
 
 
 <div class="driver-information vehicle" id="main">
@@ -56,8 +55,16 @@
                                 <td><span><?= $this->equipmentRow['e_Unit_Number']; ?></span></td>
                             </tr>
                             <tr class="color-dark">
-                                <td>Owner Number</td>
-                                <td><span><?= $this->equipmentRow['e_Owner_Number']; ?></span></td>
+                                <td>Picture</td>
+                                <td>
+                                    <?php if (isset($this->equipmentRow['e_Picture']) && !empty($this->equipmentRow['e_Picture'])) : ?>
+                                        <span>
+                                            <a id="attachFile" href="/<?= $this->uploadPath . $this->equipmentRow['e_Picture']; ?>">
+                                                Attached file
+                                            </a>
+                                        </span>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Alternate ID</td>
@@ -110,18 +117,22 @@
                         <tbody>
                             <tr>
                                 <th colspan="2">
-                                    <span class="blue-button">
-                                        <span>
-                                            <a href="/equipment/information-worksheet/update/VIN/<?= $this->equipmentRow['e_Number']; ?>">
-                                                Update Vehicle Information
-                                            </a>
+                                    <?php if ($this->identity->permissions->equipment_create_permission === true) : ?>
+                                        <span class="blue-button">
+                                            <span>
+                                                <a href="/equipment/information-worksheet/update/VIN/<?= $this->equipmentRow['e_Number']; ?>">
+                                                    Update Vehicle Information
+                                                </a>
+                                            </span>
                                         </span>
-                                    </span>
+                                    <?php else : ?>
+                                        &nbsp;
+                                    <?php endif ?>
                                 </th>
                             </tr>
                             <tr>
-                                <td>Picture</td>
-                                <td><span><?= $this->equipmentRow['e_Picture']; ?></span></td>
+                                <td>Owner Number</td>
+                                <td><span><?= $this->equipmentRow['e_Owner_Number']; ?></span></td>
                             </tr>
                             <tr class="color-dark">
                                 <td>Model</td>
@@ -129,7 +140,7 @@
                             </tr>
                             <tr>
                                 <td>Year</td>
-                                <td><span><?= $this->equipmentRow['e_Year']; ?></span></td>
+                                <td><span><?= ($this->equipmentRow['e_Year'] == '0000') ? '' : $this->equipmentRow['e_Year']; ?></span></td>
                             </tr>
                             <tr class="color-dark">
                                 <td>Make</td>
@@ -153,7 +164,7 @@
                             </tr>
                             <tr>
                                 <td>Number Of Axles</td>
-                                <td><span><?= $this->equipmentRow['e_Axles']; ?></span></td>
+                                <td><span><?= ($this->equipmentRow['e_Axles'] == '0') ? '' : $this->equipmentRow['e_Axles']; ?></span></td>
                             </tr>
                             <tr class="color-dark">
                                 <td>License Plate Number</td>
@@ -184,59 +195,62 @@
             <div class="post-middle">
                 <div class="second post">
                     <h2>Equipment Assignment</h2>
-                    <span class="blue-button">
-                        <span>
-                            <a href="/equipment/information-worksheet/add-assignment/equipmentId/<?= $this->equipmentRow['e_id']; ?>/VIN/<?= $this->equipmentRow['e_Number']; ?>">
-                                Enter Equipment Assignment Information
-                            </a>
+                    <?php if ($this->identity->permissions->equipment_assignment_create_permission === true) : ?>
+                        <span class="blue-button">
+                            <span>
+                                <a href="/equipment/information-worksheet/add-assignment/equipmentId/<?= $this->equipmentRow['e_id']; ?>/VIN/<?= $this->equipmentRow['e_Number']; ?>">
+                                    Update Assignment Information
+                                </a>
+                            </span>
                         </span>
-                    </span>
-                    <?php if(!$this->equipmentHasAssignment) : ?>
-                    <span class="text-red">There is no equipment assignment </span>
-                    <?php else : ?>
-                    <span class="text-red" style="color: #1226fa;">Equipment assignment exists</span>
                     <?php endif; ?>
+                    <?php
+                        
+                        if(is_array($this->equipmentAssignmentRow)) {
+                            if (!empty($this->equipmentAssignmentRow['h_Name'])) {
+                                echo '<span class="text-blue">Homebase: ' . $this->equipmentAssignmentRow['h_Name'] . '</span>';
+                            }
+                            if (!empty($this->equipmentAssignmentRow['dp_Name'])) {
+                                echo '<span class="text-blue">Depot: ' . $this->equipmentAssignmentRow['dp_Name'] . '</span>';
+                            }
+                            if (isset($this->equipmentAssignmentRow['eo_name'])) {
+                                echo '<span class="text-blue">Owner: ' . $this->equipmentAssignmentRow['eo_name'] . '</span>';
+                            }
+                        } else {
+                            echo '<span class="text-red">There is no equipment assignment </span>';
+                        }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--    <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                    <div class="second post">
-                        <h2>Last Vehicle Inspection Information </h2>
-                        <span class="blue-button"><span><a href="#">Enter New Vehicle Inspection Information</a></span></span>
-                        <span class="text-red">There is no state vehicle inspection records</span>
-                        <span class="text-red">There is no state vehicle inspection records</span>
-
-                    </div>
-                </div></div></div>
-
-        <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                    <div class="second post">
-                        <h2>Vendor - Vendor Information </h2>
-                        <span class="blue-button"><span><a href="#">Join The Vendor</a></span></span>
-                        <p>There is no vendor joined to the truck</p>
-                    </div>
-                </div></div></div>
-
-        <div class="post-top">
+    <div class="post-top">
             <div class="post-bottom">
                 <div class="post-middle">
                     <div class="second post">
                         <h2>Driver Information </h2>
-                        <span class="blue-button"><span><a href="#">Add Driver</a></span></span>
-                        <p class="borderon">No drivers joined to the truck</p>
+                        <?php
+                        if (!empty($this->equipmentAssignmentRow['ea_driver_id'])) {
+                            echo '<span class="text-blue">SSN: ' . $this->equipmentAssignmentRow['d_Driver_SSN'] . '</span>';
+                            echo '<span class="text-blue">First Name: ' . $this->equipmentAssignmentRow['d_First_Name'] . '</span>';
+                            echo '<span class="text-blue">Last Name: ' . $this->equipmentAssignmentRow['d_Last_Name'] . '</span>';
+                        } else {
+                            echo '<span class="text-red">No drivers joined to the truck</span>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
     <div class="blue-nav">
         <ul>
             <?=
                 $this->partial('partials/_view_action.phtml', array(
                     'equipmentID' => $this->equipmentRow['e_id'],
-                    'status' => $this->equipmentRow['enes_type']
+                    'status' => $this->equipmentRow['enes_type'],
+                    'identity' => $this->identity
                 ));
             ?>
         </ul>

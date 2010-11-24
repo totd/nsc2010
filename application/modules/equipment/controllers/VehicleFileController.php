@@ -1,8 +1,13 @@
 <?php
 class Equipment_VehicleFileController extends Zend_Controller_Action
 {
-    public function  init()
+    public function init()
     {
+        $auth = Zend_Auth::getInstance();
+
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }
     }
 
     public function  preDispatch()
@@ -50,6 +55,10 @@ class Equipment_VehicleFileController extends Zend_Controller_Action
 
             if (isset($data['e_id']) && !empty($data['e_id'])) {
                 $row['e_id'] = $data['e_id'];
+
+                if (isset($data['cancelChangeSubmit'])) {
+                    $this->_redirect("/equipment/vehicle-file/index/id/{$data['e_id']}");
+                }
             } else {
                 $thid->view->errorMessage = 'Equipment ID is undefined';
                 $this->_redirect('/equipment/truck-files');
@@ -120,25 +129,19 @@ class Equipment_VehicleFileController extends Zend_Controller_Action
 
             $this->view->pageTitle = 'Change Vehicle Status';
             $this->view->headScript()->appendFile('/js/equipment/change-active-status.js', 'text/javascript');
+            $this->view->headLink()->appendStylesheet('/css/main.css');
 
 
             if (!empty($status)) {
                 switch ($status) {
                     case 'In Service':
                         $this->view->actionLabel = 'Put in Service';
-
                         break;
                     case 'Out of Service':
                         $this->view->actionLabel = 'Out of Service';
-
-                        break;
-                    case 'Terminated':
-                        $this->view->actionLabel = 'Terminate';
                         break;
                 }
             }
-
-
         } else {
             $this->_redirect("/equipment/truck-files");
         }

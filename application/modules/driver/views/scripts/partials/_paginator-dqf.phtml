@@ -1,11 +1,11 @@
 <?php
 
 $pages_num = ceil(sizeof($this->drivers)/20);
-
+echo $pages_num;
 if(sizeof($this->drivers>20)){
     $url = $_SERVER['REQUEST_URI'];
     if($_GET['status']==null){
-        $url = $url."?status=Pending";
+        $url = $url."?status=All";
     }
     if($_GET['page']==null){
         $url = $url."&page=2";

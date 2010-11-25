@@ -124,7 +124,6 @@ class Driver_NewDriverController extends Zend_Controller_Action
 
         $driverID = (int)$this->_request->getParam('id');
         $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
-        #$homebaseList = Homebase_Model_Homebase::getHomebaseList($driverInfo['d_company_ID'],1);
         $homebaseList = Homebase_Model_Homebase::getHomebaseList(null,1);
         $depotList = Depot_Model_Depot::getDepotList($driverInfo['d_homebase_ID'],1);
         $stateList = State_Model_State::getList();

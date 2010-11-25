@@ -25,15 +25,20 @@
 
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
     <table cellspacing="0" class="inform">
-        <tbody><tr><th colspan="2">Application Information [ <a onclick="editApplicationInformation(<?php echo $this->driverId;?>)">EDIT</a> ]</th></tr>
+        <tbody>
+        <tr><th colspan="2">Application Information [ <a id="toggleDriverInfoEdit">EDIT</a> ]</th></tr>
+        </tbody>
+    </table>
+    <table cellspacing="0" class="inform" id="idDriverInfoView">
+        <tbody>    
         <tr><td>Application Type</td>
             <td><span><?php echo $_SESSION['driver_info']['DriverEmploymentType_list'][$this->driverInfo['d_Employment_Type']];?></span></td>
         </tr>
         <tr class="color-dark"><td>Entry Date</td>
             <td><span>
                   <?php
-                        $date->set($this->driverInfo['d_Entry_Date']);
-                  echo  $date->toString("MM/dd/YYYY H:m:s");
+                        $date->set($this->driverInfo['d_Entry_Date'],"YYYY-MM-dd");
+                  echo  $date->toString("MM/dd/YYYY");
                   ?></span></td>
         </tr>
         <tr><td>Date Of Hire</td><td><span><?php echo $this->driverInfo['d_Date_Of_Hire']; ?></span></td></tr>
@@ -80,7 +85,12 @@
         ?>
         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody></table>
+        <?php echo $this->partial('partials/_edit-Driver-Information-Table.phtml',array('driverInfo' => $this->driverInfo,"stateList" => $this->stateList,"homebaseList" => $this->homebaseList,"depotList" => $this->depotList)); ?>
+        <script type="text/javascript">
+            $('#idDriverInfoEdit').hide(0);
+        </script>
 </div></div></div>
+
 
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
     <table cellspacing="0" class="inform">

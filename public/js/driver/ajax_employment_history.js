@@ -92,24 +92,23 @@ function refreshEmploymentHistoryRecords(pe_Driver_ID) {
                 return true;
            });
 }
-function editEmploymentHistoryRecord(record_id,dah_Driver_ID){
+function editEmploymentHistoryRecord(record_id,pe_Driver_ID){
 
-    document.getElementById("addressRecordID_"+record_id).innerHTML="";
-
-    $.get("/ajax/driver-address-history/get-record/",
+    //$("#driver_pe_id_"+record_id).remove();
+    document.getElementById("driver_pe_id_"+record_id).innerHTML=""
+    $.get("/ajax/Previous-Employment/get-record/",
         {
-            dah_ID: record_id
+            pe_ID: record_id
         }, function(data){
             if(data!=false){
-                document.getElementById("addressRecordID_"+record_id).innerHTML="";
-                document.getElementById("addressRecordID_"+record_id).innerHTML=data;
-                $('#edit_dah_Start_Date').datepicker();
-                $('#edit_dah_End_Date').datepicker();
-                refreshEmploymentHistoryRecords(dah_Driver_ID);
+                document.getElementById("driver_pe_id_"+record_id).innerHTML="";
+                document.getElementById("driver_pe_id_"+record_id).innerHTML=data;
+                $('#edit_pe_Start_Date').datepicker();
+                $('#edit_pe_End_Date').datepicker();
+                //refreshEmploymentHistoryRecords(pe_Driver_ID);
                 return true;
             }if(data==false){
-                alert("asd");
-                document.getElementById("error_custom_add_Employment_Table").innerHTML=""+data+"";
+                alert(data);
             }
            });
 }

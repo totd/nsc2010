@@ -1,12 +1,13 @@
 <?php
 class Ajax_PreviousEmploymentController extends Zend_Controller_Action
 {
+
     public function init()
     {
         //Turn off autorender of templites
-                        $this->_helper->viewRenderer->setNoRender();
-                        // turn of templites
-                        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        // turn of templites
+        $this->_helper->layout()->disableLayout();
     }
 
     public function indexAction()
@@ -95,15 +96,7 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
             $msg=$msg."Please select From Date!\n";
         }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$pe_Employment_Start_Date)==0){
             $errors++;
-            $msg=$msg."Please, select correct From Date (mm/dd/yyyy)!\n";}/*
-        if(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$pe_Employment_Stop_Date)==0){
-            $errors++;
-            $msg=$msg."Please, select correct To Date (mm/dd/yyyy)!\n";
-        }/*
-                if(strtoupper($pe_DOT_Safety_Sensitive_Function)!="YES" && $pe_DOT_Safety_Sensitive_Function!="NO"){
-                    $errors++;
-                    $msg=$msg."Some error with Current Address field.<br/>";
-                }*/
+            $msg=$msg."Please, select correct From Date (mm/dd/yyyy)!\n";}
         if($errors>0){
             echo $msg;
         }else{
@@ -154,15 +147,30 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
             echo 1;
         }
     }
-
+    
     public function deleteRecordAction()
     {
         $pe_ID = $_REQUEST['pe_ID'];
         Driver_Model_DriverPreviousEmployment::deleteRecord($pe_ID);
     }
 
+    public function getRecordAction()
+    {
+        $pe_ID = $_REQUEST['pe_ID'];
+        $arr = new Driver_Model_DriverPreviousEmployment();
+        $stateList = State_Model_State::getList();
+        $layout = new Zend_Layout();
+        $layout->setLayoutPath(APPLICATION_PATH.'/modules/ajax/views/scripts/previous-employment/');
+        $layout->setLayout('get-record');
+        $layout->driverEmploymentHistoryRecord = $arr->getRecord($pe_ID);
+        $layout->stateList = $stateList;
+        echo $layout->render();
+    }
+
 
 }
+
+
 
 
 

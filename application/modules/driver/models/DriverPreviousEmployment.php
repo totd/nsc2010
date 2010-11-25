@@ -44,7 +44,7 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
                       FROM previous_employment
                       WHERE pe_ID='.$iID.'
         ');
-         return $stmt->fetchAll();
+         return $stmt->fetch();
         }else{
             return null;
         }

@@ -1,0 +1,140 @@
+<?php
+    $date = new Zend_Date();
+?>
+<form action="/driver/Driver/save-Driver-Information/id/<?php echo $this->driverId;?>" method="post" enctype="application/x-www-form-urlencoded" id="driver_DriverPersonalInformation_Form">
+    <table cellspacing="0" class="inform"  id="idDriverInfoEdit">
+          <tbody>
+          <tr>
+              <tr><td><label class="required" for="d_Employment_Type"><span>*</span>Application Type</label></td>
+                    <td>
+                        <input type="hidden" id="d_ID" name="d_ID" value="<?php echo $this->driverInfo['d_ID'];?>" />
+                        <select id="d_Employment_Type" name="d_Employment_Type">
+                        <?php
+                            foreach($_SESSION['driver_info']['DriverEmploymentType_list'] as $k => $v)
+                            {
+                        ?>
+                            <option label="<?php echo $v;?>" value="<?php echo $k;?>" <?php if($k==$this->driverInfo['d_Employment_Type']){ echo "selected='selected'";} ?>><?php echo $v;?></option>
+                        <?php
+                            }
+                        ?>
+                        </select>
+                    </td>
+              </tr>
+              <tr class="color-dark"><td>Entry Date</td>
+                  <td><span>
+                      <?php
+                        $date->set($this->driverInfo['d_Entry_Date'],"YYYY-mm-dd");
+                        echo  $date->toString("MM/dd/YYYY");
+                      ?>
+                  </span></td></tr>
+              <tr><td>Status</td><td><?php echo $_SESSION['driver_info']['DriverStatus_list'][$this->driverInfo['d_Status']];?></td></tr>
+              <tr class="color-dark">
+                  <td><label class="required" for="d_homebase_ID"><span>*</span>Homebase</label></td>
+                  <td>
+                    <select id="d_homebase_ID" name="d_homebase_ID">
+                        <?php
+                            foreach($this->homebaseList as $k => $v)
+                            {
+                        ?>
+                            <option class="d_homebase_ID_item" onclick="addClickHandlers(<?php echo $k;?>)" label="<?php echo $v['h_Name'];?>" id="<?php echo $k;?>" value="<?php echo $k;?>" <?php if($k==$this->driverInfo['d_homebase_ID']){ echo "selected='selected'";} ?>   ><?php echo $v['h_Name'];?></option>
+                        <?php } ?>
+                    </select>
+                  </td>
+              </tr>
+              <tr><td>Depot</td>
+                  <td>
+                      <select id="d_depot_ID" name="d_depot_ID">
+                        <?php
+                            foreach($this->depotList as $k => $v)
+                            {
+                        ?>
+                            <option class="d_depot_ID_item" label="<?php  echo $v['dp_Name'];?>" id="<?php  echo $k;?>" value="<?php  echo $k;?>" <?php  if($k==$this->driverInfo['d_depot_ID']){ echo "selected='selected'";} ?>   ><?php  echo $v['dp_Name'];?></option>
+                        <?php  } ?>
+                        </select>
+                  </td>
+              </tr>
+          <tr>
+              <th colspan="2">Driver Information</th>
+          </tr>
+          <tr>
+              <td>Driver Name</td>
+              <td>
+                <label class="required" for="d_First_Name"><span>*</span>First:</label>&nbsp;<input type="text" value="<?php echo $this->driverInfo['d_First_Name']; ?>" id="d_First_Name" name="d_First_Name" />
+                Middle:&nbsp;<input type="text" value="<?php echo $this->driverInfo['d_Middle_Name']; ?>" id="d_Middle_Name" name="d_Middle_Name" />
+                <label class="required" for="d_First_Name"><span>*</span>Last:</label>:&nbsp;<input type="text" value="<?php echo $this->driverInfo['d_Last_Name']; ?>" id="d_Last_Name" name="d_Last_Name"/>
+              </td>
+          </tr>
+          <tr class="color-dark">
+              <td>Date Of Birth:</td>
+              <td><span><?php
+                        $date->set($this->driverInfo['d_Date_Of_Birth'],"YYYY-MM-dd");
+                        echo  $date->toString("MM/dd/YYYY");
+                    ?></span></td>
+          </tr>
+              <tr><td></td><td></td></tr>
+              <tr class="color-dark"><td>Social Security #</td><td><span><?php echo $this->driverInfo['d_Driver_SSN']; ?></span></td></tr>
+              <tr>
+                    <td><label class="required" for="d_Telephone_Number1"><span>*</span>Telephone #1:</label></td>
+                    <td><input type="text" value="<?php echo $this->driverInfo['d_Telephone_Number1']; ?>" id="d_Telephone_Number1" name="d_Telephone_Number1"/>
+                        Telephone #2: <input type="text" value="<?php echo $this->driverInfo['d_Telephone_Number2']; ?>" id="d_Telephone_Number2" name="d_Telephone_Number2">
+                        Telephone #3: <input type="text" value="<?php echo $this->driverInfo['d_Telephone_Number3']; ?>" id="d_Telephone_Number3" name="d_Telephone_Number3">
+                    </td>
+              </tr>
+              <tr class="color-dark"><td><label class="required" for="d_Gender"><span>*</span>Gender:</label></td><td>
+                    <select id="d_Gender" name="d_Gender">
+                        <?php
+                            foreach($_SESSION['driver_info']['DriverGender_list'] as $k => $v)
+                            {
+                        ?>
+                            <option label="<?php echo $v;?>" value="<?php echo $k;?>" <?php if($k==$this->driverInfo['d_Gender']){ echo "selected='selected'";} ?>><?php echo $v;?></option>
+                        <?php } ?>
+                        </select>
+                </td>
+              </tr>
+              <tr class="color-dark"><td></td><td>
+                    Hair Color:&nbsp;
+                            <select id="d_Hair_Color" name="d_Hair_Color" class="optional">
+                            <option value="" disabled="disabled"  selected="selected">- Select -</option>
+                        <?php
+                            foreach($_SESSION['driver_info']['DriverHairColor_list'] as $k => $v)
+                            {
+                        ?>
+                            <option label="<?php echo $v;?>" value="<?php echo $k;?>" <?php if($k==$this->driverInfo['d_Hair_Color']){ echo "selected='selected'";} ?>><?php echo $v;?></option>
+                        <?php } ?>
+                        </select> &nbsp;
+                    Eye Color:&nbsp;
+                             <select id="d_Eye_Color" name="d_Eye_Color" class="optional">
+                            <option value="" disabled="disabled" selected="selected">- Select -</option>
+                        <?php
+                            foreach($_SESSION['driver_info']['DriverEyeColor_list'] as $k => $v)
+                            {
+                        ?>
+                            <option label="<?php echo $v;?>" value="<?php echo $k;?>" <?php if($k==$this->driverInfo['d_Eye_Color']){ echo "selected='selected'";} ?>><?php echo $v;?></option>
+                        <?php } ?>
+                        </select> &nbsp;
+                    Height Feet:&nbsp;
+                            <select id="d_Height_Feet" name="d_Height_Feet" class="optional">
+                            <option value="" disabled="disabled" selected="selected">- Select -</option>
+                        <?php
+                            for($i=1;$i<=9;$i++)
+                            {
+                        ?>
+                            <option label="<?php echo $i;?>" value="<?php echo $i;?>" <?php if($i==$this->driverInfo['d_Height_Feet']){ echo "selected='selected'";} ?>><?php echo $i;?></option>
+                        <?php } ?>
+                        </select> &nbsp;
+                    Height Inches: &nbsp;
+                            <select id="d_Height_Inches" name="d_Height_Inches" class="optional">
+                            <option value="" disabled="disabled" selected="selected">- Select -</option>
+                        <?php
+                            for($i=1;$i<=11;$i++)
+                            {
+                        ?>
+                            <option label="<?php echo $i;?>" value="<?php echo $i;?>" <?php if($i==$this->driverInfo['d_Height_Inches']){ echo "selected='selected'";} ?>><?php echo $i;?></option>
+                        <?php } ?>
+                        </select>
+                    </td></tr>
+              <tr><td>&nbsp;</td><td>
+                        <input type="submit" value="Save" id="Driver_Personal_Information" name="Driver_Personal_Information" /></td></tr>
+              <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </tbody></table>
+    </form>

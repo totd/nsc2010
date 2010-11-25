@@ -41,9 +41,9 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
         if($iPage==0){
             $sLimit = "";
         }elseif($iPage==1){
-            $sLimit = "LIMIT 0,6";;
+            $sLimit = "LIMIT 0,20";;
         }else{
-            $sLimit = "LIMIT ".(6*($iPage-1)).",6";
+            $sLimit = "LIMIT ".(20*($iPage-1)).",20";
         }
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
          $stmt = $db->query('

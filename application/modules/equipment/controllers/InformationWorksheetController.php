@@ -42,7 +42,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
 
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
-            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date']);
+            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
             $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
         } else {
             $equipmentRow['e_License_Expiration_Date'] = '';

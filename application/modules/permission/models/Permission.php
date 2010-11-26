@@ -46,7 +46,9 @@ class Permission_Model_Permission
                                                                     'terminate'
                                                                 )
                     ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
             )
         ),
         'NSC_LEVEL_2' => array(
@@ -91,7 +93,9 @@ class Permission_Model_Permission
                                                                     'terminate'
                                                                 )
                     ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
             )
         ),
         'NSC_LEVEL_3' => array(
@@ -132,7 +136,9 @@ class Permission_Model_Permission
                                                                     'terminate'
                                                                 )
                     ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
             )
         ),
         'NSC_LEVEL_4' => array(
@@ -158,7 +164,9 @@ class Permission_Model_Permission
                                                                     'index'
                                                                 )
                     ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
             )
         ),
         'CUSTOMER_LEVEL_1' => array(
@@ -202,7 +210,9 @@ class Permission_Model_Permission
                                                                     'terminate'
                                                                 )
                     ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
             )
         ),
         'CUSTOMER_LEVEL_2' => array(
@@ -246,7 +256,9 @@ class Permission_Model_Permission
                                                                     'terminate'
                                                                 )
                     ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
             )
         ),
         'CUSTOMER_LEVEL_3' => array(
@@ -287,7 +299,9 @@ class Permission_Model_Permission
                                                                     'terminate'
                                                                 )
                     ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
             )
         ),
         'EXTERNAL_LEVEL_1' => array(
@@ -313,7 +327,9 @@ class Permission_Model_Permission
                                                                     'index'
                                                                 )
                     ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
             )
         ),
         'EXTERNAL_LEVEL_2' => array(
@@ -339,7 +355,9 @@ class Permission_Model_Permission
                                                                     'index'
                                                                 )
                     ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment')
+                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
             )
         ),
         'Guest' => array(

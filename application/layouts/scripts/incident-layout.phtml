@@ -45,14 +45,13 @@
       <div class="header-bottom">
 
           <ul class="top-menu">
-              <li><span class="left"><span class="right"><a href="/driver/index/dqf?status=All"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
               <li>
                   <span class="left">
                       <span class="right">
-                          <a href="/equipment/index/index/status/Pending">
+                          <a href="/incident/list/index/status/Pending">
                               <span class="left">
                                   <span class="right">
-                                      Equipment
+                                      Incident
                                   </span>
                               </span>
                           </a>
@@ -62,12 +61,7 @@
                     <ul>
                         <li>
                             <ul>
-                                <li><a href="/equipment/list/index/status/Pending">Equipment List</a></li>
-                                <li><a href="/equipment/truck-files/index/status/In%20Service">Truck Files</a></li>
-                                <li><a href="/equipment/archives/index/status/Terminated">Archives</a></li>
-                                <?php if ($this->identity->permissions->equipment_create_permission === true) : ?>
-                                    <li><a href="/equipment/search/index">Create New Equipment</a></li>
-                                <?php endif; ?>
+                                <li><a href="/incident/list/index/status/Pending">Incident List</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -120,7 +114,6 @@
                     </ul>
                 </div>
             </li>
-              
             <li>
                 <span class="left">
                     <span class="right">

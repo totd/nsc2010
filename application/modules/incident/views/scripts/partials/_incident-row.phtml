@@ -1,0 +1,16 @@
+<!--
+@author Andryi Ilnytskyi 04.11.2010
+Set content for the row in the users list.
+-->
+<tr class="<?php print ($this->partialCounter % 2 == 0) ? 'color-dark' : ''; ?>">
+    <td><?= $this->i_Number;?></td>
+    <td><?= $this->i_Date ?></td>
+    <td><?= $this->d_First_Name . $this->d_Last_Name; ?></td>
+    <td><?= $this->s_name; ?>  </td>
+    <td><?= $this->i_Status; ?>  </td>
+    <td>
+        <a href="/incident/profile/index/id/<?= $this->i_ID; ?>">Profile</a>
+        &nbsp;|&nbsp;
+        <a href="/incident/incident-file/index/id/<?= $this->i_ID; ?>">Profile</a>
+    </td>
+</tr>

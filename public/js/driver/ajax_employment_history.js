@@ -103,8 +103,8 @@ function editEmploymentHistoryRecord(record_id,pe_Driver_ID){
             if(data!=false){
                 document.getElementById("driver_pe_id_"+record_id).innerHTML="";
                 document.getElementById("driver_pe_id_"+record_id).innerHTML=data;
-                $('#edit_pe_Start_Date').datepicker();
-                $('#edit_pe_End_Date').datepicker();
+                $('#edit_pe_Employment_Start_Date').datepicker();
+                $('#edit_pe_Employment_Stop_Date').datepicker();
                 //refreshEmploymentHistoryRecords(pe_Driver_ID);
                 return true;
             }if(data==false){

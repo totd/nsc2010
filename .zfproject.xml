@@ -131,6 +131,8 @@
           <controllersDirectory>
             <controllerFile controllerName="Index">
               <actionMethod actionName="index"/>
+              <actionMethod actionName="Dqf"/>
+              <actionMethod actionName="involvedInIncidentDrivers"/>
             </controllerFile>
             <controllerFile controllerName="NewDriver">
               <actionMethod actionName="index"/>
@@ -211,6 +213,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Search">
                 <viewScriptFile forActionName="driverSearch"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="Dqf"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="involvedInIncidentDrivers"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -379,6 +387,7 @@
               <actionMethod actionName="editPreviouseEmployment"/>
               <actionMethod actionName="addRecord"/>
               <actionMethod actionName="deleteRecord"/>
+              <actionMethod actionName="getRecord"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -444,6 +453,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
                 <viewScriptFile forActionName="deleteRecord"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
+                <viewScriptFile forActionName="getRecord"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

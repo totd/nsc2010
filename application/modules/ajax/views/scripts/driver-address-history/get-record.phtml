@@ -23,7 +23,7 @@
             <td class="">
                 <Input type="text" id="edit_dah_City" name="edit_dah_City" size=15 maxlength="50" value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_City'];?>"/>&nbsp;&nbsp;&nbsp;
                 <label class="required" for="edit_dah_State"><span>*</span>State:</label>
-                <SELECT name='edit_dah_State'>
+                <SELECT id='edit_dah_State' name='edit_dah_State'>
                 <OPTION value='-' selected>-</OPTION>
                 <?php
                     foreach($this->layout()->stateList as $k => $v)
@@ -44,14 +44,14 @@
         <tr height=30 valign=middle>
             <td class="">At Address:</td>
             <td class="">
-            <label class="required" for="dah_Start_Date"><span>*</span>From Date: </label>
+            <label class="required" for="edit_dah_Start_Date"><span>*</span>From Date: </label>
                 <Input type="text" readonly="readonly" id="edit_dah_Start_Date" name="edit_dah_Start_Date" size=10 maxlength=10  value="<?php
-                    $date = new Zend_Date($this->layout()->driverAddressHistoryRecord['dah_Start_Date']);
+                    $date = new Zend_Date($this->layout()->driverAddressHistoryRecord['dah_Start_Date'],"YYYY-MM-dd");
                     echo $date->toString("MM/dd/YYYY");
                 ?>"  />&nbsp;&nbsp;&nbsp;&nbsp;
-            <label class="required" for="dah_End_Date"><span>*</span>To Date: </label>
+            <label class="required" for="edit_dah_End_Date"><span>*</span>To Date: </label>
                 <Input type="text" readonly="readonly" id="edit_dah_End_Date" name="edit_dah_End_Date" size=10 maxlength=10  value="<?php
-                    $date = new Zend_Date($this->layout()->driverAddressHistoryRecord['dah_End_Date']);
+                    $date = new Zend_Date($this->layout()->driverAddressHistoryRecord['dah_End_Date'],"YYYY-MM-dd");
                     echo $date->toString("MM/dd/YYYY");
                 ?>"  />&nbsp;&nbsp;&nbsp;&nbsp;
             </td>

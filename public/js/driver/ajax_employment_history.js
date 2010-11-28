@@ -92,61 +92,74 @@ function refreshEmploymentHistoryRecords(pe_Driver_ID) {
                 return true;
            });
 }
-function editEmploymentHistoryRecord(record_id,dah_Driver_ID){
+function editEmploymentHistoryRecord(record_id,pe_Driver_ID){
 
-    document.getElementById("addressRecordID_"+record_id).innerHTML="";
-
-    $.get("/ajax/driver-address-history/get-record/",
+    //$("#driver_pe_id_"+record_id).remove();
+    document.getElementById("driver_pe_id_"+record_id).innerHTML=""
+    $.get("/ajax/Previous-Employment/get-record/",
         {
-            dah_ID: record_id
+            pe_ID: record_id
         }, function(data){
             if(data!=false){
-                document.getElementById("addressRecordID_"+record_id).innerHTML="";
-                document.getElementById("addressRecordID_"+record_id).innerHTML=data;
-                $('#edit_dah_Start_Date').datepicker();
-                $('#edit_dah_End_Date').datepicker();
-                refreshEmploymentHistoryRecords(dah_Driver_ID);
+                document.getElementById("driver_pe_id_"+record_id).innerHTML="";
+                document.getElementById("driver_pe_id_"+record_id).innerHTML=data;
+                $('#edit_pe_Employment_Start_Date').datepicker();
+                $('#edit_pe_Employment_Stop_Date').datepicker();
                 return true;
             }if(data==false){
-                alert("asd");
-                document.getElementById("error_custom_add_Employment_Table").innerHTML=""+data+"";
+                alert(data);
             }
            });
 }
 function updateEmploymentHistoryRecord(dah_ID){
 
-    document.getElementById("error_custom_add_Employment_Table").innerHTML="";
-    dah_ID = document.getElementsByName("edit_dah_ID")[0].value;
-    dah_Driver_ID = document.getElementsByName("edit_dah_Driver_ID")[0].value;
-    dah_Address1 = document.getElementsByName("edit_dah_Address1")[0].value;
-    dah_City = document.getElementsByName("edit_dah_City")[0].value;
-    dah_State = document.getElementsByName("edit_dah_State")[0].value;
-    dah_Postal_Code = document.getElementsByName("edit_dah_Postal_Code")[0].value;
-    dah_Phone = document.getElementsByName("edit_dah_Phone")[0].value;
-    dah_Start_Date = document.getElementsByName("edit_dah_Start_Date")[0].value;
-    dah_End_Date = document.getElementsByName("edit_dah_End_Date")[0].value;
-    dah_Current_Address = document.getElementsByName("edit_dah_Current_Address")[0].value;
+    pe_ID = document.getElementsByName("edit_pe_ID")[0].value;
+    pe_Driver_ID = document.getElementsByName("edit_pe_Driver_ID")[0].value;
+    pe_Employer_Name = document.getElementsByName("edit_pe_Employer_Name")[0].value;
+    pe_Address1 = document.getElementsByName("edit_pe_Address1")[0].value;
+    pe_City = document.getElementsByName("edit_pe_City")[0].value;
+    pe_State = document.getElementsByName("edit_pe_State")[0].value;
+    pe_Postal_Code = document.getElementsByName("edit_pe_Postal_Code")[0].value;
+    pe_Phone = document.getElementsByName("edit_pe_Phone")[0].value;
+    pe_Fax = document.getElementsByName("edit_pe_Fax")[0].value;
+    pe_Position = document.getElementsByName("edit_pe_Position")[0].value;
+    pe_Employment_Start_Date = document.getElementsByName("edit_pe_Employment_Start_Date")[0].value;
+    pe_Employment_Stop_Date = document.getElementsByName("edit_pe_Employment_Stop_Date")[0].value;
+    pe_Reason_for_Leaving = document.getElementsByName("edit_pe_Reason_for_Leaving")[0].value;
+    pe_DOT_Safety_Sensitive_Function = document.getElementsByName("edit_pe_DOT_Safety_Sensitive_Function")[0].value;
+    pe_FMCSR_Regulated = document.getElementsByName("edit_pe_FMCSR_Regulated")[0].value;
+    pe_Interstate = document.getElementsByName("edit_pe_Interstate")[0].value;
+    pe_Intrastate = document.getElementsByName("edit_pe_Intrastate")[0].value;
+    pe_Intermodal = document.getElementsByName("edit_pe_Intermodal")[0].value;
 
-    $.get("/ajax/Driver-Address-History/update-Record/",
+    $.get("/ajax/Previous-Employment/update-Record/",
         {
-            dah_ID: dah_ID,
-            dah_Driver_ID: dah_Driver_ID,
-            dah_Address1: ""+dah_Address1+"",
-            dah_City: ""+dah_City+"",
-            dah_State: dah_State,
-            dah_Postal_Code: ""+dah_Postal_Code+"",
-            dah_Phone: ""+dah_Phone+"",
-            dah_Start_Date: ""+dah_Start_Date+"",
-            dah_End_Date: ""+dah_End_Date+"",
-            dah_Current_Address: ""+dah_Current_Address+""
+            pe_ID: pe_ID,
+            pe_Driver_ID: pe_Driver_ID,
+            pe_Employer_Name: ""+pe_Employer_Name+"",
+            pe_Address1: ""+pe_Address1+"",
+            pe_City: ""+pe_City+"",
+            pe_State: pe_State,
+            pe_Postal_Code: ""+pe_Postal_Code+"",
+            pe_Phone: ""+pe_Phone+"",
+            pe_Fax: ""+pe_Fax+"",
+            pe_Position: ""+pe_Position+"",
+            pe_Employment_Start_Date: ""+pe_Employment_Start_Date+"",
+            pe_Employment_Stop_Date: ""+pe_Employment_Stop_Date+"",
+            pe_Reason_for_Leaving: ""+pe_Reason_for_Leaving+"",
+            pe_DOT_Safety_Sensitive_Function: ""+pe_DOT_Safety_Sensitive_Function+"",
+            pe_FMCSR_Regulated: ""+pe_FMCSR_Regulated+"",
+            pe_Interstate: ""+pe_Interstate+"",
+            pe_Intrastate: ""+pe_Intrastate+"",
+            pe_Intermodal: ""+pe_Intermodal+""
         }, function(data){
             if(data==1){
                 document.getElementById("error_custom_add_Employment_Table").innerHTML="";
-                refreshAddressHistoryRecords(dah_Driver_ID);
+                refreshEmploymentHistoryRecords(pe_Driver_ID);
                 clearNewEmploymentHistoryForm();
                 return true;
             }else{
-                document.getElementById("error_custom_add_Employment_Table").innerHTML=""+data+"";
+                alert(data);
             }
            });
 

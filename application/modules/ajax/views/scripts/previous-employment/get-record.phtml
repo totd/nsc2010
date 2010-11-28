@@ -1,0 +1,111 @@
+<?php
+    $driverEmploymentHistoryRecord = $this->layout()->driverEmploymentHistoryRecord;
+?>
+<!-- <tbody id="edit_driver_pe_id_<?php echo $driverEmploymentHistoryRecord['pe_ID'];?>"> -->
+    <input type="hidden" id="edit_pe_Driver_ID" name="edit_pe_Driver_ID" value="<?php echo $driverEmploymentHistoryRecord['pe_Driver_ID'];?>" />
+    <input type="hidden" id="edit_pe_ID" name="edit_pe_ID" value="<?php echo $driverEmploymentHistoryRecord['pe_ID'];?>" />
+    <tr class="title-dark">
+        <td colspan="2">Edit Employer [ <a onclick="refreshEmploymentHistoryRecords(<?php echo $driverEmploymentHistoryRecord['pe_Driver_ID'];?>);">CANCEL</a> ]</td></tr>
+    <tr>
+        <td><label for="edit_pe_Employer_Name" class="required"><span>*</span>Employer:</label></td>
+        <td>
+            <div class="error_custom2" id="edit_error_custom_add_Employment_Table"></div>
+            <input type="text" value="<?php echo $driverEmploymentHistoryRecord['pe_Employer_Name'];?>" maxlength="250" size="50" name="edit_pe_Employer_Name" id="edit_pe_Employer_Name"></td>
+    </tr>
+    <tr class="color-dark">
+        <td><label for="edit_pe_Address1" class="required"><span>*</span>Street:</label></td>
+		<td>
+            <input type="text" value="<?php echo $driverEmploymentHistoryRecord['pe_Address1'];?>"  maxlength="250" size="50" name="edit_pe_Address1" id="edit_pe_Address1">&nbsp;<br>
+            <label for="edit_pe_City" class="required"><span>*</span>City:</label>
+            <input type="text" value="<?php echo $driverEmploymentHistoryRecord['pe_City'];?>" maxlength="250" size="15" name="edit_pe_City" id="edit_pe_City"> &nbsp;
+            <label for="edit_pe_State" class="required"><span>*</span>State:</label>
+                <select name="edit_pe_State" id="edit_pe_State">
+                <?php
+                    foreach($this->layout()->stateList as $k => $v)
+                    {
+                ?>
+                        <option label="<?php echo $v['s_name'];?>" value="<?php echo $k;?>" <?php if($k==$driverEmploymentHistoryRecord['pe_State']){echo "selected='selected'";} ?> ><?php echo $v['s_name'];?></option>
+                <?php
+                    }
+                ?>
+                </select> &nbsp;
+            <label for="edit_pe_Postal_Code" class="required"><span>*</span>Zip: </label>
+            <input type="text" value="<?php echo $driverEmploymentHistoryRecord['pe_Postal_Code'];?>" maxlength="20" size="10" name="edit_pe_Postal_Code" id="edit_pe_Postal_Code">
+        </td>
+    </tr>
+    <tr>
+        <td><label for="edit_pe_Phone" class="required"><span>*</span>Phone:</label></td>
+        <td>
+            <input type="text" value="<?php echo $driverEmploymentHistoryRecord['pe_Phone'];?>" size="30" name="edit_pe_Phone" id="edit_pe_Phone"> &nbsp;
+            Fax:&nbsp; <input type="text" value="<?php echo $driverEmploymentHistoryRecord['pe_Postal_Code'];?>" size="30" name="edit_pe_Fax" id="edit_pe_Fax">
+        </td>
+    </tr>
+    <tr class="color-dark">
+        <td><label for="edit_pe_Position" class="required"><span>*</span>Job Description:</label></td>
+        <td>
+            <input type="text" maxlength="250" value="<?php echo $driverEmploymentHistoryRecord['pe_Position'];?>" size="50" name="edit_pe_Position" id="edit_pe_Position">
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <label for="edit_pe_Employment_Start_Date" class="required"><span>*</span>From: </label>
+            <input type="text" value="<?php
+                    $date = new Zend_Date($driverEmploymentHistoryRecord['pe_Employment_Start_Date'],"YYYY-MM-dd");
+                    echo $date->toString("MM/dd/YYYY");
+                ?>" maxlength="10" size="10" name="edit_pe_Employment_Start_Date" id="edit_pe_Employment_Start_Date" readonly="readonly" class="hasDatepicker" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="edit_pe_Employment_Stop_Date" class="required">To: </label>
+            <input type="text" value="<?php
+                    $date = new Zend_Date($driverEmploymentHistoryRecord['pe_Employment_Stop_Date'],"YYYY-MM-dd");
+                    echo $date->toString("MM/dd/YYYY");
+                ?>" maxlength="10" size="10" name="edit_pe_Employment_Stop_Date" id="edit_pe_Employment_Stop_Date" readonly="readonly" class="hasDatepicker" />
+        </td>
+    </tr>
+    <tr class="color-dark"><td>Reason For Leaving:</td>
+        <td>
+            <textarea maxlength="250" rows="7" cols="38" name="edit_pe_Reason_for_Leaving" id="edit_pe_Reason_for_Leaving" type="text"><?php echo $driverEmploymentHistoryRecord['pe_Reason_for_Leaving'];?></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td class=""></td>
+        <td class="">
+            DOT Safety Sensitive:&nbsp;&nbsp;
+            <select name="edit_pe_DOT_Safety_Sensitive_Function">
+                <option <?php if(strtolower($driverEmploymentHistoryRecord['pe_DOT_Safety_Sensitive_Function'])=="no"){echo "selected='selected'";};?> value="NO">No</option>
+                <option <?php if(strtolower($driverEmploymentHistoryRecord['pe_DOT_Safety_Sensitive_Function'])=="yes"){echo "selected='selected'";};?> value="YES">Yes</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+            FMCSR Regulated:&nbsp;&nbsp;
+            <select name="edit_pe_FMCSR_Regulated">
+                <option <?php if(strtolower($driverEmploymentHistoryRecord['pe_FMCSR_Regulated'])=="no"){echo "selected='selected'";};?> value="NO">No</option>
+                <option <?php if(strtolower($driverEmploymentHistoryRecord['pe_FMCSR_Regulated'])=="yes"){echo "selected='selected'";};?> value="YES">Yes</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class=""></td>
+        <td class="">
+            Interstate:&nbsp;&nbsp;
+            <select name="edit_pe_Interstate">
+                <option <?php if(strtolower($driverEmploymentHistoryRecord['pe_Interstate'])=="no"){echo "selected='selected'";};?> value="NO">No</option>
+                <option <?php if(strtolower($driverEmploymentHistoryRecord['pe_Interstate'])=="yes"){echo "selected='selected'";};?> value="YES">Yes</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+            Intrastate:&nbsp;&nbsp;
+            <select name="edit_pe_Intrastate">
+                <option <?php if(strtolower($driverEmploymentHistoryRecord['pe_Intrastate'])=="no"){echo "selected='selected'";};?> value="NO">No</option>
+                <option <?php if(strtolower($driverEmploymentHistoryRecord['pe_Intrastate'])=="yes"){echo "selected='selected'";};?> value="YES">Yes</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+            Intermodal:&nbsp;&nbsp;
+            <select name="edit_pe_Intermodal">
+                <option <?php if(strtolower($driverEmploymentHistoryRecord['pe_Intermodal'])=="no"){echo "selected='selected'";};?> value="NO">No</option>
+                <option <?php if(strtolower($driverEmploymentHistoryRecord['pe_Intermodal'])=="yes"){echo "selected='selected'";};?> value="YES">Yes</option>
+            </select>
+        </td>
+    </tr>
+    <tr class="color-dark"><td colspan="2">&nbsp;</td></tr>
+    <tr>
+        <td></td>
+        <td><span class="blue-button float-left"><a onclick="updateEmploymentHistoryRecord(<?php echo $driverEmploymentHistoryRecord['pe_ID'];?>);">Save</a></span></td>
+    </tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<!--
+        </tbody> -->

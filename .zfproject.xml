@@ -132,6 +132,7 @@
             <controllerFile controllerName="Index">
               <actionMethod actionName="index"/>
               <actionMethod actionName="Dqf"/>
+              <actionMethod actionName="involvedInIncidentDrivers"/>
             </controllerFile>
             <controllerFile controllerName="NewDriver">
               <actionMethod actionName="index"/>
@@ -215,6 +216,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="Dqf"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="involvedInIncidentDrivers"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -383,6 +387,8 @@
               <actionMethod actionName="editPreviouseEmployment"/>
               <actionMethod actionName="addRecord"/>
               <actionMethod actionName="deleteRecord"/>
+              <actionMethod actionName="getRecord"/>
+              <actionMethod actionName="updateRecord"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -448,6 +454,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
                 <viewScriptFile forActionName="deleteRecord"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
+                <viewScriptFile forActionName="getRecord"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
+                <viewScriptFile forActionName="updateRecord"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

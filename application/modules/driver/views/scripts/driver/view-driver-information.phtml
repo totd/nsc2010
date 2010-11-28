@@ -37,7 +37,7 @@
         <tr class="color-dark"><td>Entry Date</td>
             <td><span>
                   <?php
-                        $date->set($this->driverInfo['d_Entry_Date']);
+                        $date->set($this->driverInfo['d_Entry_Date'],"YYYY-MM-dd");
                   echo  $date->toString("MM/dd/YYYY");
                   ?></span></td>
         </tr>

@@ -388,6 +388,7 @@
               <actionMethod actionName="addRecord"/>
               <actionMethod actionName="deleteRecord"/>
               <actionMethod actionName="getRecord"/>
+              <actionMethod actionName="updateRecord"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
@@ -456,6 +457,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
                 <viewScriptFile forActionName="getRecord"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="PreviousEmployment">
+                <viewScriptFile forActionName="updateRecord"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

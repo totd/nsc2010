@@ -75,5 +75,19 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
         $table = new Driver_Model_DriverPreviousEmployment();
         return $table->delete("pe_ID = ".$iRecord);
     }
+    /**
+     * @author Vlad Skachkov 24.11.2010
+     *
+     * update previous employment history record
+     *
+     * @param mixed $mData
+     * @return mixed
+     */
+    public function updateRecord($mData)
+    {
+        $db = new Driver_Model_DriverPreviousEmployment();
+        $w = "pe_ID = ".(int)$mData['pe_ID'];
+        return $db->update($mData,$w);
+    }
 
 }

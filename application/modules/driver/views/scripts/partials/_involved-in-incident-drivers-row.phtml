@@ -1,0 +1,37 @@
+<?php
+    $date = new Zend_Date();
+    $Drivers=$this->drivers;
+    for($i=0;$i<sizeof($Drivers);$i++){
+?>
+
+<tr <?php
+    if(gettype($i/2) == 'double'){ echo " class='color-dark' ";}
+?>>
+    <td><?php echo $Drivers[$i]['d_First_Name']; ?></td>
+    <td><?php echo $Drivers[$i]['d_Last_Name']; ?></td>
+    <td>
+    <?php
+        $date->set($Drivers[$i]['d_Date_Of_Birth'],"YYYY-MM-dd");
+        echo  $date->toString("MM/dd/YYYY");
+    ?>
+    </td>
+    <td><?php echo $_SESSION['driver_info']['DriverStatus_list'][$Drivers[$i]['d_Status']]; ?></td>
+    <td>
+    <?php
+        if($Drivers[$i]['d_Date_Of_Hire']!=null)
+        {
+            $date->set($Drivers[$i]['d_Date_Of_Hire'],"YYYY-MM-dd");
+            echo  $date->toString("MM/dd/YYYY");
+        }else
+        {
+            echo "N/A";
+        };
+    ?>
+    </td>
+    <td></td>
+    <td><?php echo $Drivers[$i]['d_DOT_Regulated']; ?></td>
+    <td class="link-profile">
+        <a href="/incident/create/add-driver/incident_id/<?php echo $this->incidentID;?>/driver_id/<?php echo $Drivers[$i]['d_ID'];?>" >Add</a>
+    </td>
+</tr>
+        <?php } ?>

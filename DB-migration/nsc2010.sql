@@ -25,6 +25,33 @@ START TRANSACTION;
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `driver__hos`
+--
+
+CREATE TABLE IF NOT EXISTS `driver__hos` (
+  `dhos_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `dhos_Driver_ID` int(11) NOT NULL,
+  `dhos_date` date NOT NULL,
+  `dhos_hours` int(11) NOT NULL,
+  PRIMARY KEY (`dhos_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `driver__lrfw`
+--
+
+CREATE TABLE IF NOT EXISTS `driver__lrfw` (
+  `dlrfw_Driver_ID` int(11) NOT NULL,
+  `dlrfw_date` date NOT NULL,
+  `dlrfw_from_time` varchar(5) NOT NULL,
+  UNIQUE KEY `dlrfw_Driver_ID` (`dlrfw_Driver_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `company`
 --
 

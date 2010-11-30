@@ -1,0 +1,64 @@
+<?php
+$licenseRecord = $this->layout()->driverLicenseRecord;
+?>
+<input type="hidden" id="edit_l_Driver_ID" name="edit_l_Driver_ID" value="<?php echo $licenseRecord['l_Driver_ID'];?>" />
+<input type="hidden" id="edit_l_ID" name="edit_l_ID" value="<?php echo $licenseRecord['l_id'];?>" />
+<tr class="title-dark">
+    <td colspan="2">Edit License [ <a onclick="refreshLicenseRecords(<?php echo $licenseRecord['l_Driver_ID'];?>);">CANCEL</a> ]</td>
+</tr>  
+<tr>
+    <td colspan="2">
+        <label for="edit_l_Driver_License_Number" class="required"><span>*</span>CDL#:</label>&nbsp;
+        <input type="text" size="24" maxlength="24"  value="<?php echo $licenseRecord['l_Driver_License_Number'];?>" name="edit_l_Driver_License_Number" id="edit_l_Driver_License_Number"/>&nbsp;
+        <label for="edit_l_Driver_Issue_State_id" class="required"><span>*</span>State:</label>&nbsp;
+        <SELECT id='edit_l_Driver_Issue_State_id' name='edit_l_Driver_Issue_State_id'>
+            <?php
+                foreach($this->layout()->stateList as $k => $v)
+                {
+            ?>
+            <option label="<?php echo $v['s_name'];?>" value="<?php echo $k;?>" <?php if($k==$licenseRecord['l_Driver_Issue_State_id']){echo "selected='selected'";} ?> ><?php echo $v['s_name'];?></option>
+            <?php
+                }
+            ?>
+        </SELECT> &nbsp;
+        <label for="edit_l_Class" class="required"><span>*</span>Class:</label>&nbsp;
+         <SELECT id='edit_l_Class' name='edit_l_Class'>
+             <option label="A" value="A" <?php if($licenseRecord['l_Class']=="A"){echo "selected='selected'";} ?> >A</option>
+             <option label="B" value="B" <?php if($licenseRecord['l_Class']=="B"){echo "selected='selected'";} ?> >B</option>
+             <option label="C" value="C" <?php if($licenseRecord['l_Class']=="C"){echo "selected='selected'";} ?> >C</option>
+             <option label="D" value="D" <?php if($licenseRecord['l_Class']=="D"){echo "selected='selected'";} ?> >D</option>
+             <option label="E" value="E" <?php if($licenseRecord['l_Class']=="E"){echo "selected='selected'";} ?> >E</option>
+             <option label="M" value="M" <?php if($licenseRecord['l_Class']=="M"){echo "selected='selected'";} ?> >M</option>
+        </SELECT> &nbsp;
+        <label for="edit_l_Expiration_Date" class="required"><span>*</span>Expires:</label>&nbsp;
+        <input size="7" id="edit_l_Expiration_Date" name="edit_l_Expiration_Date" readonly="readonly"  value="<?php
+                    $date = new Zend_Date($licenseRecord['l_Expiration_Date'],"YYYY-MM-dd");
+                    echo $date->toString("MM/dd/YYYY");
+                ?>" /> &nbsp;
+        DOT Regulated:&nbsp;
+        <select name="edit_l_DOT_Regulated"  id="edit_l_DOT_Regulated" >
+            <option value="YES" <?php if(ucwords($licenseRecord['l_DOT_Regulated'])=="YES"){echo "selected='selected'";} ?> >Yes</option>
+            <option value="NO" <?php if(ucwords($licenseRecord['l_DOT_Regulated'])=="NO"){echo "selected='selected'";} ?> >No</option>
+        </select>
+    </td>
+</tr>
+<tr class="color-dark">
+    <td colspan="2">
+        License Restrictions:&nbsp;
+        <input type="text" size="24" maxlength="100" name="edit_l_License_Restrictions" id="edit_l_License_Restrictions" value="<?php echo $licenseRecord['l_License_Restrictions'];?>"/>&nbsp;&nbsp;
+        Endorsements:&nbsp;
+        <input type="checkbox" name="edit_l_License_Endorsements" value="P" <?php if(strstr($licenseRecord['l_License_Endorsements'],"P")!=false){echo "checked='checked'";} ?>/> P
+        <input type="checkbox" name="edit_l_License_Endorsements" value="T" <?php if(strstr($licenseRecord['l_License_Endorsements'],"T")!=false){echo "checked='checked'";} ?>/> T
+        <input type="checkbox" name="edit_l_License_Endorsements" value="H" <?php if(strstr($licenseRecord['l_License_Endorsements'],"H")!=false){echo "checked='checked'";} ?>/> H
+        <input type="checkbox" name="edit_l_License_Endorsements" value="N" <?php if(strstr($licenseRecord['l_License_Endorsements'],"N")!=false){echo "checked='checked'";} ?>/> N
+        <input type="checkbox" name="edit_l_License_Endorsements" value="X" <?php if(strstr($licenseRecord['l_License_Endorsements'],"X")!=false){echo "checked='checked'";} ?>/> X
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        Points Score:&nbsp;<input type="text" size="10" maxlength="10" name="edit_l_Points_Score" id="edit_l_Points_Score" value="<?php echo $licenseRecord['l_Points_Score'];?>"/>&nbsp;&nbsp;
+    </td>
+</tr>
+<tr>
+       <td><span style="margin-left: 45px;" class="blue-button float-left"><a onclick="updateLicenseRecord(<?php echo $licenseRecord['l_id'];?>);">Save</a></span></td>
+</tr>

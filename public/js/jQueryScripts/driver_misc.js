@@ -31,6 +31,18 @@ $(document).ready(function() {
         return false;
     });
 });
+// Show/hide Driver License adding form
+$(document).ready(function() {
+    $('#toggleDriverLicenseAdd').click(function() {
+        $('#add_driver_License_Table').toggle(400);
+        if((document.getElementById("toggleDriverLicenseAdd").innerHTML)=="Show"){
+            document.getElementById("toggleDriverLicenseAdd").innerHTML="Hide";
+        }else{
+            document.getElementById("toggleDriverLicenseAdd").innerHTML="Show";
+        }
+        return false;
+    });
+});
 // Show/hide Driver information edit form
 $(document).ready(function() {
     $('#toggleDriverInfoEdit').click(function() {

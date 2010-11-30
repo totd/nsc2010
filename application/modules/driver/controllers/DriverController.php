@@ -43,6 +43,7 @@ class Driver_DriverController extends Zend_Controller_Action
             }
         }
     }
+
     public function saveDriverInformationAction()
     {
         $driverID = $_POST['d_ID'];
@@ -51,7 +52,7 @@ class Driver_DriverController extends Zend_Controller_Action
         $this->view->pageTitle = "SAVE DRIVER INFORMATION";
         $errors = "";
         if($_POST['d_First_Name']==""){
-            $errors = $errors."First Name - is required!<br/>";    
+            $errors = $errors."First Name - is required!<br/>";
         }
         if($_POST['d_Last_Name']==""){
             $errors = $errors."Last Name - is required!<br/>";
@@ -64,10 +65,13 @@ class Driver_DriverController extends Zend_Controller_Action
         }
 
         if($errors == ""){
-            
+
         }else{
-            
+
         }
+        $date = new Zend_Date();
+        $date->set($_POST['d_Medical_Card_Expiration_Date'],"MM/dd/YYYY");
+        $_POST['d_Medical_Card_Expiration_Date']=$date->toString("YYYY-MM-dd");
         $_POST['d_ID']=$driverID;
         unset($_POST['Driver_Personal_Information']);
         if(Driver_Model_Driver::saveDriverInfo($_POST)==true){
@@ -77,12 +81,12 @@ class Driver_DriverController extends Zend_Controller_Action
             $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
         }
     }
-
     public function viewDriverInformationAction()
     {
         $driverID = (int)$this->_request->getParam('id');
         $this->view->headScript()->appendFile('/js/driver/ajax_driverAddressHistory.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/driver/ajax_employment_history.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/driver/ajax_driver_license.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/driver/ajax_homebase2depot.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
         # Breadcrumbs & page title goes here:
@@ -109,5 +113,15 @@ class Driver_DriverController extends Zend_Controller_Action
         $this->view->currentDriverHistoryList = $currentDriverHistoryList;
     }
 
+    public function dqfAction()
+    {
+        // DRIVER QUALIFICATION FILE
+        $driverID = (int)$this->_request->getParam('driver_id');
+        # Breadcrumbs & page title goes here:
+        $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
+        $this->view->pageTitle = "DRIVER QUALIFICATION FILE";
+    }
+
 
 }
+

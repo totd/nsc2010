@@ -2,7 +2,7 @@
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
-class SearchControllerTest extends PHPUnit_Framework_TestCase
+class HoursOfServiceControllerTest extends PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -14,4 +14,6 @@ class SearchControllerTest extends PHPUnit_Framework_TestCase
     {
         /* Tear Down Routine */
     }
+
+
 }

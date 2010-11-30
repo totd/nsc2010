@@ -68,7 +68,9 @@ function refreshAddressHistoryRecords(dah_Driver_ID) {
 }
 function editAddressHistoryRecord(record_id,dah_Driver_ID){
 
-    document.getElementById("addressRecordID_"+record_id).innerHTML="";
+    clearNewDriverAddressForm();
+    $('#add_Address_Table').hide(0);
+    document.getElementById("toggleAddressAdd").innerHTML="Show";
 
     $.get("/ajax/driver-address-history/get-record/",
         {

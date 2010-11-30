@@ -71,7 +71,12 @@
                         echo  $date->toString("MM/dd/YYYY");
                     ?></span></td>
           </tr>
-              <tr><td></td><td></td></tr>
+              <tr>
+                <td>Medical Card</td>
+                <td>Expires:&nbsp;<input type="text" size="7" id="d_Medical_Card_Expiration_Date" name="d_Medical_Card_Expiration_Date" value="<?php echo $this->driverInfo['d_Medical_Card_Expiration_Date']; ?>" readonly="readonly" />&nbsp;&nbsp;&nbsp;
+                    Medical Examiner's Name:&nbsp;<input type="text" id="d_Doctor_Name" name="d_Doctor_Name" value="<?php echo $this->driverInfo['d_Doctor_Name']; ?>" />
+                </td></tr>
+                <tr>
               <tr class="color-dark"><td>Social Security #</td><td><span><?php echo $this->driverInfo['d_Driver_SSN']; ?></span></td></tr>
               <tr>
                     <td><label class="required" for="d_Telephone_Number1"><span>*</span>Telephone #1:</label></td>

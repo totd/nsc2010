@@ -1,0 +1,28 @@
+<?php
+    $list = $this->layout()->driverLicensesList;
+    $stateList = $this->layout()->stateList;
+    $licensesCount=0;
+    $date = new Zend_Date();
+    foreach($list as $k => $v)
+    {
+        $licensesCount++;
+?>
+<tbody id="driver_license_<?php echo $v['l_id'];?>">
+<tr class="title-dark"><td colspan="2">CDL #<?php echo $licensesCount;?> [ <a onclick="editLicenseRecord(<?php echo $v['l_id'].",".$v['l_Driver_ID'];?>)">EDIT</a> ] [ <a onclick="deleteLicenseRecord(<?php echo $v['l_id'].",".$v['l_Driver_ID'];?>)">DELETE</a> ]</td></tr>
+<tr>
+    <td colspan="2">
+        CDL#:&nbsp;<span><?php echo $v['l_Driver_License_Number']?></span>&nbsp;&nbsp;&nbsp;
+        State:&nbsp;<span><?php echo $stateList[$v['l_Driver_Issue_State_id']]['s_name'];?></span>&nbsp;&nbsp;&nbsp;
+        Class:&nbsp;<span><?php echo $v['l_Class']?></span>&nbsp;&nbsp;&nbsp;
+        Expires:&nbsp;<span><?php
+            $date->set($v['l_Expiration_Date'],"YYYY-MM-dd");
+            echo $date->toString("MM/dd/YYYY");
+        ?></span>&nbsp;&nbsp;&nbsp;
+        DOT Regulated::&nbsp;<span><?php echo ucwords($v['l_DOT_Regulated'])?></span><br/>
+        License Restrictions:&nbsp;<span><?php echo $v['l_License_Restrictions']?></span>&nbsp;&nbsp;&nbsp;
+        Endorsements:&nbsp;<span><?php echo $v['l_License_Endorsements']?></span>&nbsp;&nbsp;&nbsp;
+        Points Score:&nbsp;<span><?php echo $v['l_Points_Score']?></span>&nbsp;&nbsp;&nbsp;
+    </td>
+</tr>
+</tbody>
+<?php } ?>

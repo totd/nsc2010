@@ -1,0 +1,96 @@
+<!--
+@author Andryi Ilnytskyi 0.11.2010
+
+Users list form.
+-->
+
+<div class="bottom-nav">
+    <?php ////if ($this->identity->permissions->incident_create_permission === true) :  ?>
+        <ul class="blue-nav">
+            <li><span><a href="/incident/create/step1">Add New Incident</a></span></li>
+        </ul>
+    <?php ////endif;    ?>
+    <form class="search" method="post" action="/incident/list/index" id="searchParameters">
+        <fieldset>
+            <label>Status:</label>
+            <select  class="rc10" name="Status" id="Status">
+                <?php
+                foreach ($this->statuses as $key => $value) {
+                    if (isset($value['selected']) && $value['selected']) {
+                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                    } else {
+                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                    }
+                }
+                ?>
+            </select>
+            <label>Search By:</label>
+            <select class="rc10" name="SearchBy">
+                <?php
+                foreach ($this->filterFields as $key => $value) {
+                    if (isset($value['selected']) && $value['selected']) {
+                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                    } else {
+                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                    }
+                }
+                ?>
+            </select>
+            <input type="text" class="rc10" value="<?= $this->searchText; ?>" id="SearchText" name="SearchText"/>
+            <input type="hidden" id="from" name="from" value=""/>
+            <input type="hidden" id="step" name="step" value=""/>
+            <input type="hidden" id="orderBy" name="orderBy" value="<?= $this->orderBy; ?>"/>
+            <input type="hidden" id="orderWay" name="orderWay" value="<?= $this->orderWay; ?>"/>
+            <input type="submit" value=""/>
+
+        </fieldset>
+    </form>
+</div>
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="driver-profile">
+    <table class="application-forms" cellspacing="0">
+        <tr class="table-title">
+            <td id="i_Number">Incident #</td>
+            <td id="i_Date">Incident Date</td>
+            <td id="d_Name">Driver Name</td>
+            <td id="s_name">State</td>
+            <td id="i_Status">Status</td>
+            <td colspan="2" id="action">Action</td>
+        </tr>
+        <?php
+            if ($this->incidents != null) {
+                echo $this->partialLoop('partials/_incident-row.phtml', $this->incidents);
+            } else {
+                echo '<tr><td>No Applications found </td></tr>';
+            }
+        ?>
+        <tr>
+            <td class="page" colspan="7">
+                Incident  <?php echo $this->from; ?> to <?php echo $this->from + $this->step; ?>  ( <?php echo $this->allIncidents; ?> )
+            </td>
+        </tr>
+        <tr>
+            <td class="page" colspan="7">
+                <?php
+                echo $this->partial('partials/_paginator.phtml', array(
+                    'incidentsCount' => $this->allIncidents,
+                    'from' => $this->from,
+                    'last' => $this->from + $this->step,
+                    'step' => $this->step,
+                    'status' => $this->status));
+                ?>
+            </td>
+        </tr>
+    </table>
+</div>

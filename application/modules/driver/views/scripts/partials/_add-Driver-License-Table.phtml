@@ -1,0 +1,54 @@
+
+<input type="hidden" value="<?php echo $this->driverId?>" name="l_Driver_ID" />
+<tr>
+    <td colspan="2">
+        <label for="l_Driver_License_Number" class="required"><span>*</span>CDL#:</label>&nbsp;<input type="text" size="24" maxlength="24" name="l_Driver_License_Number" id="l_Driver_License_Number"/>&nbsp;
+        <label for="l_Driver_Issue_State_id" class="required"><span>*</span>State:</label>&nbsp;
+        <SELECT id='l_Driver_Issue_State_id' name='l_Driver_Issue_State_id'>
+            <OPTION value='-' selected>-</OPTION>
+            <?php
+                foreach($this->stateList as $k => $v)
+                {
+            ?>
+            <option label="<?php echo $v['s_name'];?>" value="<?php echo $k;?>" ><?php echo $v['s_name'];?></option>
+            <?php
+                }
+            ?>
+        </SELECT> &nbsp;
+        <label for="l_Class" class="required"><span>*</span>Class:</label>&nbsp;
+         <SELECT id='l_Class' name='l_Class'>
+             <OPTION value='-' selected>-</OPTION>
+             <option label="A" value="A" >A</option>
+             <option label="B" value="B" >B</option>
+             <option label="C" value="C" >C</option>
+             <option label="D" value="D" >D</option>
+             <option label="E" value="E" >E</option>
+             <option label="M" value="M" >M</option>
+        </SELECT> &nbsp;
+        <label for="l_Expiration_Date" class="required"><span>*</span>Expires:</label>&nbsp;<input size="7" id="l_Expiration_Date" name="l_Expiration_Date" readonly="readonly" /> &nbsp;
+        DOT Regulated:&nbsp;
+        <select name="l_DOT_Regulated"  id="l_DOT_Regulated" >
+            <option value="YES">Yes</option>
+            <option value="NO" selected="selected">No</option>
+        </select>
+    </td>
+</tr>
+<tr class="color-dark">
+    <td colspan="2">
+        License Restrictions:&nbsp;<input type="text" size="24" maxlength="100" name="l_License_Restrictions" id="l_License_Restrictions"/>&nbsp;&nbsp;
+        Endorsements:&nbsp;
+        <input type="checkbox" name="l_License_Endorsements" value="P" /> P
+        <input type="checkbox" name="l_License_Endorsements" value="T" /> T
+        <input type="checkbox" name="l_License_Endorsements" value="H" /> H
+        <input type="checkbox" name="l_License_Endorsements" value="N" /> N
+        <input type="checkbox" name="l_License_Endorsements" value="X" /> X
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        Points Score:&nbsp;<input type="text" size="10" maxlength="10" name="l_Points_Score" id="l_Points_Score"/>&nbsp;&nbsp;
+    </td>
+</tr>
+<tr>
+       <td><span style="margin-left: 45px;" class="blue-button float-left"><a onclick="addLicenseRecord();">Add new License</a></span></td>
+</tr>

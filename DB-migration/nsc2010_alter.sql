@@ -75,6 +75,12 @@ ALTER TABLE `incident_cause`
   ADD CONSTRAINT `fk_incident_cause_witness1` FOREIGN KEY (`ic_Witness_ID`) REFERENCES `witness` (`w_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `incident`
+--
+ALTER TABLE `incident`
+  ADD CONSTRAINT `fk_driver_id` FOREIGN KEY (`I_Driver_ID`) REFERENCES `driver` (`d_ID`) ON UPDATE CASCADE;
+
+--
 -- Ограничения внешнего ключа таблицы `incident__investigator`
 --
 ALTER TABLE `incident__investigator`

@@ -124,20 +124,31 @@
 
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
     <table cellspacing="0" class="inform">
-        <tbody><tr><th colspan="2">CDL &amp; Equipment Operated<br>
-            <span class="red">Please list all Commercial Driver's Licenses.</span><br>
-            <span class="discr">Endorsements:&nbsp;<span class="bold">P</span>-Passenger,&nbsp;<span class="bold">T</span>-Doubles &amp; Triples,&nbsp;<span class="bold">H</span>-Hazardous Materials,&nbsp;<span class="bold">N</span>-Tankers,&nbsp;<span class="bold">X</span>-Hazardous &amp; Tankers.</span></th></tr>
-        <tr class="title-dark"><td colspan="2">Commercial Driver's Licenses</td></tr>
-        <tr><td colspan="2">CDL#:&nbsp;<span>A7340358</span>State:&nbsp;<span>CA</span>Class:&nbsp;<span>C</span>Endorsements:&nbsp;<span>No</span>Do you have Air Brake Restrictions?&nbsp;&nbsp;&nbsp;Expires:&nbsp;<span>2/15/2015</span>Current:&nbsp;<span>Yes</span></td></tr>
-        <tr class="title-dark"><td colspan="2">Equipment Operated</td></tr>
-        <tr><td>Straight Truck</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-        <tr class="color-dark"><td>Tractor/Semi Trailer</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-        <tr><td>Doubles &amp; Triple</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-        <tr class="color-dark"><td>Bus</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-        <tr><td>Tankers (Hazmat)</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-        <tr class="color-dark"><td>Other - Dump etc.</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-        </tbody></table>
+        <tbody>
+            <tr>
+                <th colspan="2">Commercial Driver's Licenses<br>
+                <span class="red">Please list all Commercial Driver's Licenses.</span><br>
+                <span class="discr">Endorsements:&nbsp;<span class="bold">P</span>-Passenger,&nbsp;<span class="bold">T</span>-Doubles &amp; Triples,&nbsp;<span class="bold">H</span>-Hazardous Materials,&nbsp;<span class="bold">N</span>-Tankers,&nbsp;<span class="bold">X</span>-Hazardous &amp; Tankers.</span>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+    <table cellspacing="0" class="inform" id="driverLicensesList">
+    </table>
+    <table cellspacing="0"  class="inform">
+        <tbody id="driverLicensesListAdd">
+            <tr class="title-dark"><td colspan="2">ADD LICENSE [ <a id="toggleDriverLicenseAdd" onclick="">Show</a> ]</td></tr>
+        </tbody>
+        <tbody id="add_driver_License_Table">
+            <?php echo $this->partial('partials/_add-Driver-License-Table.phtml',array('driverId' => $this->driverId,"stateList" => $this->stateList)); ?>
+        </tbody>
+        </table>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            refreshLicenseRecords(<?php echo $this->driverId;?>);
+            $('#add_driver_License_Table').hide();
+        });
+    </script>
 </div></div></div>
 
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
@@ -196,8 +207,8 @@
 
 <div class="blue-nav">
     <ul>
-        <li><span><a href="/DQF">Go to DQF</a></span></li>
-        <li><span><a href="/exit">Exit</a></span></li>
+        <li><span><a href="/driver/driver/dqf/driver_id/<?php echo $this->driverId;?>">Go to DQF</a></span></li>
+        <li><span><a href="/driver/index/dqf?status=All">Exit</a></span></li>
     </ul>
 </div>
 
@@ -206,8 +217,10 @@
 <script type="text/javascript">
     $(function() {
         $("#d_Date_Of_Birth").datepicker();
+        $("#d_Medical_Card_Expiration_Date").datepicker();
         $("#dah_Start_Date").datepicker();
         $("#dah_End_Date").datepicker();
+        $("#l_Expiration_Date").datepicker();
         $("#pe_Employment_Start_Date").datepicker();
         $("#pe_Employment_Stop_Date").datepicker();
     });

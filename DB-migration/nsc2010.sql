@@ -25,6 +25,33 @@ START TRANSACTION;
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `driver__hos`
+--
+
+CREATE TABLE IF NOT EXISTS `driver__hos` (
+  `dhos_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `dhos_Driver_ID` int(11) NOT NULL,
+  `dhos_date` date NOT NULL,
+  `dhos_hours` int(11) NOT NULL,
+  PRIMARY KEY (`dhos_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `driver__lrfw`
+--
+
+CREATE TABLE IF NOT EXISTS `driver__lrfw` (
+  `dlrfw_Driver_ID` int(11) NOT NULL,
+  `dlrfw_date` date NOT NULL,
+  `dlrfw_from_time` varchar(5) NOT NULL,
+  UNIQUE KEY `dlrfw_Driver_ID` (`dlrfw_Driver_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `company`
 --
 
@@ -570,13 +597,15 @@ CREATE TABLE IF NOT EXISTS `homebase` (
 DROP TABLE IF EXISTS `incident`;
 CREATE TABLE IF NOT EXISTS `incident` (
   `i_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `i_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Violation_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `I_Driver_ID` int(11) NOT NULL,
   `i_Date` date NOT NULL,
-  `i_Time` time NOT NULL,
-  `i_Status` set('Open','Closed') COLLATE latin1_general_ci NOT NULL,
-  `i_City` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `i_State` tinyint(2) NOT NULL,
-  `i_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  `i_Time` time DEFAULT NULL,
+  `i_Status` enum('Pending','Open','Closed') COLLATE latin1_general_ci NOT NULL DEFAULT 'Pending',
+  `i_City` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_State` tinyint(2) DEFAULT NULL,
+  `i_Postal_Code` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Highway_Street` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Highway_Street_Travel_Direction` tinyint(4) DEFAULT NULL,
   `i_At_Intersection` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
@@ -584,24 +613,25 @@ CREATE TABLE IF NOT EXISTS `incident` (
   `i_Mile_Marker` int(11) DEFAULT NULL,
   `i_Speed_Limit` tinyint(3) DEFAULT NULL,
   `i_Actual_Speed` tinyint(3) DEFAULT NULL,
-  `i_Construction_Zone` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `i_Alcohol_Test` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `i_Drug_Test` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `i_Cell_Phone_Usage` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `i_Photo_Taken_By` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `i_Injured` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `i_Construction_Zone` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Alcohol_Test` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Drug_Test` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Cell_Phone_Usage` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Photo_Taken_By` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Injured` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
   `i_Injury_Description` text COLLATE latin1_general_ci,
   `i_Injured_Persons_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `i_Deceased` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `i_Incident_Diagram_Taken` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `i_Reported` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `i_Deceased` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Incident_Diagram_Taken` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Reported` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
   `i_Police_Department` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Officer_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Police_Report_Number` varchar(24) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Narrative` text COLLATE latin1_general_ci,
-  `i_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`i_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+  `i_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  PRIMARY KEY (`i_ID`),
+  KEY `fk_driver_id` (`I_Driver_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `incident`

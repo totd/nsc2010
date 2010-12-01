@@ -57,3 +57,22 @@ $(document).ready(function() {
         return false;
     });
 });
+// Show/hide Driver Hours of Service edit form
+$(document).ready(function() {
+    $('#toggleHoS').click(function() {
+        if((document.getElementById("toggleHoS").innerHTML)=="EDIT"){
+            document.getElementById("toggleHoS").innerHTML="CANCEL";
+            $('#hos_list').hide();
+            $('#lrfw_list').hide();
+            $('#edit_hos_list').show(300);
+            $('#edit_lrfw_list').show(300);
+        }else{
+            document.getElementById("toggleHoS").innerHTML="EDIT";
+            $('#edit_hos_list').hide();
+            $('#edit_lrfw_list').hide();
+            $('#hos_list').show(300);
+            $('#lrfw_list').show(300);
+        }
+        return false;
+    });
+});

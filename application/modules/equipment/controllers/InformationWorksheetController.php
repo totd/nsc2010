@@ -289,7 +289,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $data = array();
             // TODO implement filling manual all table fields with validating.
             $data = $this->_request->getPost();
-            foreach ($data as $key => $value) {
+            foreach ($data as $key => &$value) {
                 if ($key == 'e_License_Expiration_Date') {
                     try {
                         $myDate = new Zend_Date($value, "MM/dd/YYYY");

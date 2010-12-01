@@ -92,4 +92,24 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
 
         return $result;
     }
+
+    public function saveIncident($saveRow)
+    {
+        if (isset($saveRow['i_ID'])) {
+            $rowTable = $this->fetchRow("i_ID = {$this->getDefaultAdapter()->quote($saveRow['i_ID'])}");
+            if ($rowTable) {
+                unset($saveRow['i_ID']);
+            }
+        } else {
+            $rowTable = $this->createRow();
+        }
+        
+        foreach ($saveRow as $key => $value) {
+            $rowTable[$key] = $value;
+        }
+
+        $rowTable->save();
+
+        return $rowTable;
+    }
 }

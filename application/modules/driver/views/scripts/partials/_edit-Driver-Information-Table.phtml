@@ -1,7 +1,7 @@
 <?php
     $date = new Zend_Date();
 ?>
-<form action="/driver/Driver/save-Driver-Information/id/<?php echo $this->driverId;?>" method="post" enctype="application/x-www-form-urlencoded" id="driver_DriverPersonalInformation_Form">
+<form action="/driver/Driver/save-Driver-Information/id/<?php echo $this->driverInfo['d_ID'];?>" method="post" enctype="application/x-www-form-urlencoded" id="driver_DriverPersonalInformation_Form">
     <table cellspacing="0" class="inform"  id="idDriverInfoEdit">
           <tbody>
           <tr>
@@ -138,8 +138,12 @@
                         <?php } ?>
                         </select>
                     </td></tr>
-              <tr><td>&nbsp;</td><td>
-                        <input type="submit" value="Save" id="Driver_Personal_Information" name="Driver_Personal_Information" /></td></tr>
+              <tr>
+                  <td>&nbsp;</td>
+                  <td>
+                    <span class="blue-button float-left"><a onclick="document.getElementById('driver_DriverPersonalInformation_Form').submit();">Save</a></span>
+                  </td>
+              </tr>
               <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody></table>
     </form>

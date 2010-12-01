@@ -154,7 +154,11 @@ INSERT INTO `incident__highway_street_travel_direction` (`ihstd_id`, `ihstd_type
 (1, 'North'),
 (2, 'South'),
 (3, 'East'),
-(4, 'West');
+(4, 'West'),
+(5, 'North East'),
+(6, 'North West'),
+(7, 'South East'),
+(8, 'South West');
 
 
 INSERT INTO `incident__incident_cause` (`iic_id`, `iic_type`) VALUES

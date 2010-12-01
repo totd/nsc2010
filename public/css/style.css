@@ -362,7 +362,7 @@ ul.blue-nav {
 	float:left;
 	height:29px;
 	background:url(../images/blue-nav-right.gif) 100% 0 no-repeat;
-	padding-right:3px;}
+	padding-right:3px !important;}
 
 .blue-nav li a, span.blue-button a {
 	float:left;
@@ -431,7 +431,7 @@ a.show-legend:hover {text-decoration:none;}
 #main {
 	float:left;
 	width:1188px;
-	/*margin-left:5px;*/
+/*	margin:0 6px;*/
 	padding-bottom:40px;
 	background:url(../images/wrapper-bg.gif) #f2f4f8 no-repeat;}		
 	
@@ -478,8 +478,8 @@ table.inform td label.required span {
 	padding-right:5px;}
 
 table.inform th{
+	width:635px;
 	line-height:30px;
-	width:844px;
 	text-align:left;
 	padding:35px 0 0 45px;
 	font-size:14px;
@@ -628,9 +628,9 @@ table.application-forms tr td:first-child {
 form.select-parametr {
 	float:left;
 	width:489px;
-	padding:30px 0 50px;
+	padding:30px 0 30px;
 	text-align:center;
-	background:url(../images/parametr-gradient.gif) repeat-x #f2f4f8;}	
+	background:url(../images/parametr-gradient.gif) repeat-x #e1e5ef;}	
 	
 form.select-parametr h2 {
 	font-size:14px;
@@ -736,9 +736,7 @@ form.select-parametr select {
 	border:1px solid #9398a7;}	
 	
 form.select-parametr option { padding:1px 1px 1px 5px;}	
-/*
-form.select-parametr input[type="submit"], .check-box form input[type="submit"], form.select-parametr2 input[type="submit"]{
-*/
+
 form.select-parametr input[type="submit"], .check-box form input[type="submit"], form.select-parametr2 input[type="submit"],
 form.select-parametr2 input[type="button"] {
 	background:url(../images/parametr-submit.gif) no-repeat;

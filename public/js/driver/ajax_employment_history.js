@@ -155,7 +155,6 @@ function updateEmploymentHistoryRecord(dah_ID){
             pe_Intermodal: ""+pe_Intermodal+""
         }, function(data){
             if(data==1){
-                document.getElementById("error_custom_add_Employment_Table").innerHTML="";
                 refreshEmploymentHistoryRecords(pe_Driver_ID);
                 clearNewEmploymentHistoryForm();
                 return true;

@@ -99,11 +99,7 @@ class Driver_NewDriverController extends Zend_Controller_Action
     }
     
 
-    public function newDriverCompleteAction()
-    {
-        // action body
-    }
-    
+  
     /**
      * @author Vlad Skachkov 04.11.2010
      *

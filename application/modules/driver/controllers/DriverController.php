@@ -70,8 +70,13 @@ class Driver_DriverController extends Zend_Controller_Action
 
         }
         $date = new Zend_Date();
-        $date->set($_POST['d_Medical_Card_Expiration_Date'],"MM/dd/YYYY");
-        $_POST['d_Medical_Card_Expiration_Date']=$date->toString("YYYY-MM-dd");
+        try{
+            $date->set($_POST['d_Medical_Card_Expiration_Date'],"MM/dd/YYYY");
+            $_POST['d_Medical_Card_Expiration_Date']=$date->toString("YYYY-MM-dd");
+        }catch(Exception $e){
+            $_POST['d_Medical_Card_Expiration_Date']=null;
+
+        }
         $_POST['d_ID']=$driverID;
         unset($_POST['Driver_Personal_Information']);
         if(Driver_Model_Driver::saveDriverInfo($_POST)==true){
@@ -88,6 +93,7 @@ class Driver_DriverController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/driver/ajax_employment_history.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/driver/ajax_driver_license.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/driver/ajax_homebase2depot.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/driver/ajax_driver_hos.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
         # Breadcrumbs & page title goes here:
         $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
@@ -101,7 +107,24 @@ class Driver_DriverController extends Zend_Controller_Action
         $stateList = State_Model_State::getList();
         $currentDriverHistoryList = new Driver_Model_DriverAddressHistory();
         $currentDriverHistoryList->getList($driverID);
+        $currentDriverHosList = Driver_Model_DriverHos::getList($driverID,1);
+        $currentDriverLrfwRecord = Driver_Model_DriverLrfw::getRecord($driverID);
 
+        $toDate = date("Y-m-d");
+        $arr = explode("-",$toDate);
+        for($i=0;$i<=6;$i++){
+            $date = date("Y-m-d",mktime(0, 0, 0, $arr[1], $arr[2]-$i, $arr[0]));
+            $dt = explode("-",$date);
+            $week[$i]['dhos_date']=$dt[1]."/".$dt[2]."/".$dt[0];
+            $week[$i]['dhos_hours']="-";
+            $week[$i]['dhos_ID']="";
+            foreach($currentDriverHosList as $k => $v){
+                if (in_array($date, $v)) {
+                    $week[$i]['dhos_hours'] = $v['dhos_hours'];
+                    $week[$i]['dhos_ID'] = $v['dhos_ID'];
+                }
+            }
+        }
 
         $this->view->driverId = $driverID;
         $this->view->driverInfo = $driverInfo;
@@ -111,6 +134,8 @@ class Driver_DriverController extends Zend_Controller_Action
         $this->view->depot = $depot;
         $this->view->stateList = $stateList;
         $this->view->currentDriverHistoryList = $currentDriverHistoryList;
+        $this->view->currentDriverHoSList = $week;
+        $this->view->currentDriverLrfwRecord = $currentDriverLrfwRecord;
     }
 
     public function dqfAction()
@@ -121,6 +146,32 @@ class Driver_DriverController extends Zend_Controller_Action
         $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
         $this->view->pageTitle = "DRIVER QUALIFICATION FILE";
     }
+    public function driverCompleteAction()
+      {
+        $driverID = (int)$this->_request->getParam('id');
+        $data['d_ID']=$driverID;
+        $data['d_Status']=2;
+
+        if(Driver_Model_Driver::saveDriverInfo($data)==true){
+            $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+        }
+        elseif(Driver_Model_Driver::saveDriverInfo($data)==0){
+            $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+        }
+      }
+    public function driverDeclineAction()
+      {
+        $driverID = (int)$this->_request->getParam('id');
+        $data['d_ID']=$driverID;
+        $data['d_Status']=5;
+
+        if(Driver_Model_Driver::saveDriverInfo($data)==true){
+            $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+        }
+        elseif(Driver_Model_Driver::saveDriverInfo($data)==0){
+            $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+        }
+      }
 
 
 }

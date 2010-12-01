@@ -1,0 +1,74 @@
+/*
+Copyright (c) 2007, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.2.0
+*/
+
+
+/*iframe					{width:100%; height: 200px; background: #eef; color: black;}*/
+
+/* multiselect styles */
+.multiselect 			{width: 460px;	height: 200px;}
+
+#switcher 				{margin-top: 20px;}
+
+
+
+.externalControlsWrapper			{margin-top: 10px; margin-bottom: 20px;}
+.externalControls a					{font-size: 90%;}
+.externalControls						{margin-top: 10px; border: 1px solid #bbb; background: #eee; height: 230px;}
+.externalControls .optionWrapper {vertical-align: middle; overflow: auto; width: 100%; margin-bottom: 10px; float: left; clear: left;}
+.externalControls .optionLabel			{width: 200px; padding-bottom: 5px;}
+.externalControls .optionInput			{float: right; width: 220px;}
+.externalControls .optionInput .text	{font-size: 14px; width: 150px;}
+.externalControls .optionInput .button	{font-size: 14px; padding: 0px; margin: 0px;}
+
+/* JQuery API CSS */
+
+.UIAPIPlugin #options h2,
+.UIAPIPlugin #events h2,
+.UIAPIPlugin #methods h2,
+.UIAPIPlugin #theming h2 { color: #FFFFFF; margin: 0 0 20px 0 !important; padding: 5px 10px !important; background: #0F67A1; font-size: 15px; -moz-border-radius: 2px; text-transform: none; }
+
+ul.options-list,
+ul.options-list li.option { margin: 20px 0 0 0; padding: 0; list-style-type: none; list-style-image: none; }
+ul.options-list { margin: 0 0 20px 6px; }
+ul.options-list li.option { padding-bottom: 10px !important; }
+ul.options-list li.option dl,
+ul.options-list li.option dt,
+ul.options-list li.option dd { margin: 0; padding: 0; }
+ul.options-list li.option .option-header { width: 100%; float: left; background-color: #E2EDF4 !important; }
+ul.options-list li.option .option-header .option-name { line-height: 0.2; margin: 0 !important; padding: 0 !important; width: 35%; float: left; background-color: #E2EDF4 !important; }
+ul.options-list li.option .option-header .option-name a { vertical-align: 90%; font-size: 16px; margin: 10px 0 0px 10px; }
+ul.options-list li.option .option-header dt,
+ul.options-list li.option .option-header dd { margin: 0; padding: 0; float: left; width: 18%; }
+ul.options-list li.option .option-header dt.option-type-label { display: none; }
+ul.options-list li.option .option-header dt.option-default-label { text-align: right; padding-right: 0.4em; color: #666666; }
+ul.options-list li.option .option-description { clear: left; padding: 5px 10px 0 10px;  }
+ul.options-list li.option .option-examples-list dt p { line-height: 1.5 !important; margin: 0 !important; padding: 5px 0 !important; color: #666666; }
+ul.options-list li.option .option-examples-list dd pre { margin: 0 !important; }
+ul.options-list li.option .option-examples-list { padding: 0 10px; }
+ul.options-list li.option .option-examples-list dd { margin-left: 10px; }
+ul.options-list li.option .option-examples-list dd pre code { background: none; }
+
+ul.events-list,
+ul.events-list li.event { margin: 20px 0 0 0; padding: 0; list-style-type: none; list-style-image: none; }
+ul.events-list { margin: 0px 0px 20px 6px; }
+ul.events-list li.event { padding-bottom: 10px !important; }
+ul.events-list li.event dl,
+ul.events-list li.event dt,
+ul.events-list li.event dd { margin: 0; padding: 0; }
+ul.events-list li.event .event-header { width: 100%; float: left; background-color: #E2EDF4 !important; }
+ul.events-list li.event .event-header .event-name { line-height: 0.2; margin: 0 !important; padding: 0 !important; width: 35%; float: left; background-color: #E2EDF4 !important; }
+ul.events-list li.event .event-header .event-name a { vertical-align: 90%; font-size: 16px; margin: 10px 0 0px 10px; }
+ul.events-list li.event .event-header dt,
+ul.events-list li.event .event-header dd { margin: 0; padding: 0; float: left; width: 23%; }
+ul.events-list li.event .event-header dt.event-type-label { width: 10%; }
+ul.events-list li.event .event-header dt.event-default-label { text-align: right; padding-right: 0.5em; color: #666666; }
+ul.events-list li.event .event-description { clear: left; padding: 5px 10px 0 10px;  }
+ul.events-list li.event .event-examples-list dt p { line-height: 1.5 !important; margin: 0 !important; padding: 5px 0 !important; color: #666666; }
+ul.events-list li.event .event-examples-list dd pre { margin: 0 !important; }
+ul.events-list li.event .event-examples-list { padding: 0 10px; }
+ul.events-list li.event .event-examples-list dd { margin-left: 10px; }
+ul.events-list li.event .event-examples-list dd pre code { background: none; }

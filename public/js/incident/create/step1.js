@@ -7,14 +7,9 @@ $(function() {
         }
     });
 
-    $("#nextSubmit").click(function() {
+    /*$("#nextSubmit").click(function() {
         if ($("#step1Form").valid()) {
             document.getElementById("step1Form").submit();
         }
-    });
-
-    $("#exitSubmit").click(function() {
-        window.location.href='/incident/create/exit';
-    });
-
+    });*/
 });

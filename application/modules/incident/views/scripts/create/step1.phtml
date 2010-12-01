@@ -10,118 +10,52 @@
     </div>
 </div>
 
-<div class="driver-information" id="main">
-    <div class="post-top">
-        <div class="post-bottom">
-            <div class="post-middle">
-                <div class="clear"></div>
-                <div class="second">
-                    <form class="select-parametr2" id="step1Form" method="post"
-                          action="/incident/create/step1">
-                        <table cellspacing="0" class="inform">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <label class="required">
-                                            <span>*</span>Incident Date:
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <input type="text" value="" id="i_Date" name="i_Date" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="required">
-                                            <span>*</span>Did Incident result in human Fatality?
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <span class="radio-button"><input type="radio" name="fatality" value="Yes">&nbsp;Yes</span>
-                                        <span class="radio-button"><input type="radio" name="fatality" value="No" checked="checked">&nbsp;No</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="required">
-                                            <span>*</span>Did Incident result in injuries treated immediately away from the scene?
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <span class="radio-button"><input type="radio" name="injuries" value="Yes">&nbsp;Yes</span>
-                                        <span class="radio-button"><input type="radio" name="injuries" value="No" checked="checked">&nbsp;No</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="required">
-                                            <span>*</span>Did Incident result in any vehicle being towed away from the scene?
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <span class="radio-button"><input type="radio" name="towed" value="Yes">&nbsp;Yes</span>
-                                        <span class="radio-button"><input type="radio" name="towed" value="No" checked="checked">&nbsp;No</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="required">
-                                            <span>*</span>Did the driver involved in accident receive a traffic citation?
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <span class="radio-button"><input type="radio" name="citation" value="Yes">&nbsp;Yes</span>
-                                        <span class="radio-button"><input type="radio" name="citation" value="No" checked="checked">&nbsp;No</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center" colspan="2">
-                                        <input type="button" name="exitSubmit" id="exitSubmit" value="Exit">
-                                        <input type="button" name="nextSubmit" id="nextSubmit" value="Next">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                    <br>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--<div class="new-appl" id="main">
-    <div class="parametr-top">
-        <div class="parametr-bottom">
-            <div class="parametr-middle">
-                <form name="step1Form" method="post" action="/incident/create/step1" id="step1Form" class="select-parametr new-appl">
-                    <fieldset>
-                        <label>
-                            <span class="required">*</span>Incident Date:
-                        </label>
-                        <input type="text" value="" id="i_Date" name="i_Date" />
-
-                        <label><span class="required">*</span>Did Incident result in human Fatality?</label>
-                        <span class="radio-button"><input type="radio" name="fatality" value="Yes">&nbsp;Yes</span>
-                        <span class="radio-button"><input type="radio" name="fatality" value="No" checked="checked">&nbsp;No</span>
-
-                        <label><span class="required">*</span>Did Incident result in injuries treated immediately away from the scene?</label>
-                        <span class="radio-button"><input type="radio" name="injuries" value="Yes">&nbsp;Yes</span>
-                        <span class="radio-button"><input type="radio" name="injuries" value="No" checked="checked">&nbsp;No</span>
-
-                        <label><span class="required">*</span>Did Incident result in any vehicle being towed away from the scene?</label>
-                        <span class="radio-button"><input type="radio" name="towed" value="Yes">&nbsp;Yes</span>
-                        <span class="radio-button"><input type="radio" name="towed" value="No" checked="checked">&nbsp;No</span>
-
-                        <label><span class="required">*</span>Did the driver involved in accident receive a traffic citation?</label>
-                        <span class="radio-button"><input type="radio" name="citation" value="Yes">&nbsp;Yes</span>
-                        <span class="radio-button"><input type="radio" name="citation" value="No" checked="checked">&nbsp;No</span>
-
-                        <p class="submit-button"><input type="submit" value="Next"></p>
-                    </fieldset>
+<div class="new-appl" id="main">
+    <div class="parametr-top"><div class="parametr-bottom"><div class="parametr-middle">
+                <form class="select-parametr new-appl" id="step1Form" method="post"
+                      action="/incident/create/step1">
+                    <div style="padding: 0px 30px;">
+                        <fieldset>
+                            <p>
+                                <label>
+                                    <span>*</span>Incident Date:
+                                </label>
+                                <input type="text" value="" id="i_Date" name="i_Date" />
+                            </p>
+                            <p>
+                                <label>
+                                    <span>*</span>Did Incident result in human Fatality?
+                                </label>
+                                <span class="radio-button"><input type="radio" name="fatality" value="Yes">&nbsp;Yes</span>
+                                <span class="radio-button"><input type="radio" name="fatality" value="No" checked="checked">&nbsp;No</span>
+                            </p>
+                            <p>
+                                <label>
+                                    <span>*</span>Did Incident result in injuries treated immediately away from the scene?
+                                </label>
+                                <span class="radio-button"><input type="radio" name="injuries" value="Yes">&nbsp;Yes</span>
+                                <span class="radio-button"><input type="radio" name="injuries" value="No" checked="checked">&nbsp;No</span>
+                            </p>
+                            <p>
+                                <label>
+                                    <span>*</span>Did Incident result in any vehicle being towed away from the scene?
+                                </label>
+                                <span class="radio-button"><input type="radio" name="towed" value="Yes">&nbsp;Yes</span>
+                                <span class="radio-button"><input type="radio" name="towed" value="No" checked="checked">&nbsp;No</span>
+                            </p>
+                            <p>
+                                <label>
+                                    <span>*</span>Did the driver involved in accident receive a traffic citation?
+                                </label>
+                                <span class="radio-button"><input type="radio" name="citation" value="Yes">&nbsp;Yes</span>
+                                <span class="radio-button"><input type="radio" name="citation" value="No" checked="checked">&nbsp;No</span>
+                            </p>
+                            <p class="submit-button">
+                                <input type="submit" name="nextSubmit" id="nextSubmit" value="Next">
+                            </p>
+                        </fieldset>
+                    </div>
                 </form>
-            </div>
-        </div>
-    </div>
-</div>-->
+            </div></div></div>
+
+</div>

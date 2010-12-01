@@ -10,31 +10,22 @@
     </div>
 </div>
 
-<div class="driver-information" id="main">
-    <div class="post-top">
-        <div class="post-bottom">
-            <div class="post-middle">
-                <div class="clear"></div>
-                <div class="second">
-                    <form class="select-parametr2" id="step2Form" method="post"
-                          action="/incident/create/step2">
-                        <table cellspacing="0" class="inform">
-                            <tbody>
-                                <tr>
-                                    <td><a href="/driver/index/involved-in-incident-drivers/incident_id/0" >Please click here to chose driver form drivers list.</a></td>
-                                </tr>
-                                <tr>
-                                    <td align="center" colspan="2">
-                                        <input type="button" name="exitSubmit" id="exitSubmit" value="Exit">
-                                        <input type="button" name="nextSubmit" id="nextSubmit" value="Next">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                    <br>
-                    <br>
-                </div>
+<div class="new-appl" id="main">
+    <div class="parametr-top">
+        <div class="parametr-bottom"><div class="parametr-middle">
+                <form class="select-parametr new-appl" id="step2Form" method="post"
+                      action="/incident/create/Exit">
+                    <div style="padding: 0px 30px;">
+                        <fieldset>
+                            <p>
+                                <a href="/driver/index/involved-in-incident-drivers/incident_id/new" >Please click here to chose driver from drivers list.</a>
+                            </p>
+                            <p class="submit-button">
+                                <input type="submit" name="exitSubmit" id="nextSubmit" value="Exit">
+                            </p>
+                        </fieldset>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

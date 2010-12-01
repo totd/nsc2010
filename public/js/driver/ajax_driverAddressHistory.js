@@ -1,6 +1,5 @@
 
 function clearNewDriverAddressForm(){
-    document.getElementById("error_custom_add_Address_Table").innerHTML="";
     document.getElementsByName("dah_Address1")[0].value="";
     document.getElementsByName("dah_City")[0].value="";
     document.getElementsByName("dah_State")[0].value="";
@@ -11,7 +10,6 @@ function clearNewDriverAddressForm(){
     document.getElementsByName("dah_Current_Address")[0].value="";
 }
 function addAddressHistoryRecord(){
-    document.getElementById("error_custom_add_Address_Table").innerHTML="";
     dah_Driver_ID = document.getElementsByName("dah_Driver_ID")[0].value;
     dah_Address1 = document.getElementsByName("dah_Address1")[0].value;
     dah_City = document.getElementsByName("dah_City")[0].value;
@@ -35,12 +33,11 @@ function addAddressHistoryRecord(){
             dah_Current_Address: ""+dah_Current_Address+""
         }, function(data){
             if(data==1){
-                document.getElementById("error_custom_add_Address_Table").innerHTML="";
                 refreshAddressHistoryRecords(dah_Driver_ID);
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                document.getElementById("error_custom_add_Address_Table").innerHTML=""+data+"";
+                alert(data);
             }
            });
 }
@@ -79,19 +76,24 @@ function editAddressHistoryRecord(record_id,dah_Driver_ID){
             if(data!=false){
                 document.getElementById("addressRecordID_"+record_id).innerHTML="";
                 document.getElementById("addressRecordID_"+record_id).innerHTML=data;
-                $('#edit_dah_Start_Date').datepicker();
-                $('#edit_dah_End_Date').datepicker();
-                //refreshAddressHistoryRecords(dah_Driver_ID);
+                $('#edit_dah_Start_Date').datepicker({
+                   changeMonth: true,
+                   changeYear: true,
+                            yearRange: '1950:2020'
+                  });
+                $('#edit_dah_End_Date').datepicker({
+                   changeMonth: true,
+                   changeYear: true,
+                            yearRange: '1950:2020'
+                  });
                 return true;
             }if(data==false){
-               // alert("asd");
-                document.getElementById("error_custom_add_Address_Table").innerHTML=""+data+"";
+                alert(data);
             }
            });
 }
 function updateAddressHistoryRecord(dah_ID){
 
-    document.getElementById("error_custom_add_Address_Table").innerHTML="";
     dah_ID = document.getElementsByName("edit_dah_ID")[0].value;
     dah_Driver_ID = document.getElementsByName("edit_dah_Driver_ID")[0].value;
     dah_Address1 = document.getElementsByName("edit_dah_Address1")[0].value;
@@ -117,12 +119,11 @@ function updateAddressHistoryRecord(dah_ID){
             dah_Current_Address: ""+dah_Current_Address+""
         }, function(data){
             if(data==1){
-                document.getElementById("error_custom_add_Address_Table").innerHTML="";
                 refreshAddressHistoryRecords(dah_Driver_ID);
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                document.getElementById("error_custom_add_Address_Table").innerHTML=""+data+"";
+                alert(data);
             }
            });
     

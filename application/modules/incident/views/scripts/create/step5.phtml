@@ -29,11 +29,11 @@
                           action="/incident/create/step5">
                         <table  cellspacing="0" class="inform">
                             <tbody>
-                                <tr>
+<!--                                <tr>
                                     <td bgcolor="#ffffff" colspan="4" class="MainText">
                                         <b>Number of accident points earned for this accident:</b>&nbsp;&nbsp;<input type="text" maxlength="30" value="0" size="15" name="AccPoints">
                                     </td>
-                                </tr>
+                                </tr>-->
                                 <!--                                Driver Information -->
                                 <tr>
                                     <th colspan="2">
@@ -108,19 +108,19 @@
                                     <td colspan="2" style="padding-right: 0px;">
                                         <select id="colMovements" class="multiselect" multiple="multiple" name="colMovements[]">
                                             <option value="Stopped">Stopped</option>
-                                            <option value="ProceedingStraight">ProceedingStraight</option>
-                                            <option value="RunOffRoadway">RunOffRoadway</option>
-                                            <option value="MakingLeftTurn">MakingLeftTurn</option>
-                                            <option value="MakingRightTurn">MakingRightTurn</option>
-                                            <option value="MakingUTurn">MakingUTurn</option>
+                                            <option value="ProceedingStraight">Proceeding Straight</option>
+                                            <option value="RunOffRoadway">Run Off Roadway</option>
+                                            <option value="MakingLeftTurn">Making Left Turn</option>
+                                            <option value="MakingRightTurn">Making Right Turn</option>
+                                            <option value="MakingUTurn">Making UTurn</option>
                                             <option value="Backing">Backing</option>
                                             <option value="Slowing">Slowing</option>
                                             <option value="Stopping">Stopping</option>
                                             <option value="Passing">Passing</option>
-                                            <option value="ChangingLanes">ChangingLanes</option>
+                                            <option value="ChangingLanes">Changing Lanes</option>
                                             <option value="Parking">Parking</option>
-                                            <option value="EnteringTraffic">EnteringTraffic</option>
-                                            <option value="UnsafeTurning">UnsafeTurning</option>
+                                            <option value="EnteringTraffic">Entering Traffic</option>
+                                            <option value="UnsafeTurning">Unsafe Turning</option>
                                             <option value="Parked">Parked</option>
                                             <option value="Merging">Merging</option>
                                             <option value="WrongWay">WrongWay</option>
@@ -132,7 +132,7 @@
                                     <td width="20%" bgcolor="#ffffff" colspan="4" class="MainText">
 
                                         &nbsp;&nbsp;Other :&nbsp;&nbsp;
-                                        <input type="text" maxlength="80" value="" size="80" name="OtherMovement">
+                                        <input type="text" maxlength="80" value="" size="80" name="colMovementsOther">
 
 
                                     </td>
@@ -147,8 +147,13 @@
                                         Injured
                                     </td>
                                     <td>
-                                        <input type="radio" name="injured" value="Yes">&nbsp;Yes
-                                        <input type="radio" name="injured" checked="checked" value="No">&nbsp;No
+                                        <?php if ($this->injured == 'Yes') : ?>
+                                            <input type="radio" name="injured" checked="checked" value="Yes">&nbsp;Yes
+                                            <input type="radio" name="injured" value="No">&nbsp;No
+                                        <?php else : ?>
+                                            <input type="radio" name="injured" value="Yes">&nbsp;Yes
+                                            <input type="radio" name="injured" checked="checked" value="No">&nbsp;No
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                                 <tr class="color-dark">
@@ -156,8 +161,14 @@
                                         Deceased
                                     </td>
                                     <td>
-                                        <input type="radio" name="deceased" value="Yes">&nbsp;Yes
-                                        <input type="radio" name="deceased" checked="checked" value="No">&nbsp;No
+                                        <?php if ($this->deceased == 'Yes') : ?>
+                                            <input type="radio" name="deceased"  checked="checked" value="Yes">&nbsp;Yes
+                                            <input type="radio" name="deceased" value="No">&nbsp;No
+                                        <?php else : ?>
+                                            <input type="radio" name="deceased" value="Yes">&nbsp;Yes
+                                            <input type="radio" name="deceased" checked="checked" value="No">&nbsp;No
+                                        <?php endif; ?>
+                                        
                                     </td>
                                 </tr>
                                 <tr>
@@ -168,8 +179,14 @@
                                 <tr>
                                     <td>Alcohol test was conducted within:</td>
                                     <td>
-                                        <input type="radio" name="alcoholTest" value="Yes">&nbsp;Yes
-                                        <input type="radio" name="alcoholTest" checked="checked" value="No">&nbsp;No
+                                        <?php if ($this->alcoholTest == 'Yes') : ?>
+                                            <input type="radio" name="alcoholTest" checked="checked" value="Yes">&nbsp;Yes
+                                            <input type="radio" name="alcoholTest" value="No">&nbsp;No
+                                        <?php else : ?>
+                                            <input type="radio" name="alcoholTest" value="Yes">&nbsp;Yes
+                                            <input type="radio" name="alcoholTest" checked="checked" value="No">&nbsp;No
+                                        <?php endif; ?>
+                                        
                                     </td>
                                 </tr>
                                 <tr class="color-dark">
@@ -177,14 +194,20 @@
                                         Drug test was conducted within:
                                     </td>
                                     <td>
-                                        <input type="radio" name="drugTest" value="Yes">&nbsp;Yes
-                                        <input type="radio" name="drugTest" checked="checked" value="No">&nbsp;No
+                                        <?php if ($this->drugTest == 'Yes') : ?>
+                                            <input type="radio" name="drugTest" checked="checked" value="Yes">&nbsp;Yes
+                                            <input type="radio" name="drugTest" value="No">&nbsp;No
+                                        <?php else : ?>
+                                            <input type="radio" name="drugTest" value="Yes">&nbsp;Yes
+                                            <input type="radio" name="drugTest" checked="checked" value="No">&nbsp;No
+                                        <?php endif; ?>
+                                        
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="center" colspan="2">
-                                        <input type="button" value="Exit">
-                                        <input type="button" value="Next">
+                                        <input type="button" id="exitSubmit" value="Exit">
+                                        <input type="button" id="saveSubmit" value="Save">
                                     </td>
                                 </tr>
                             </tbody>

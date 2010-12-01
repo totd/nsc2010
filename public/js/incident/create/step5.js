@@ -1,5 +1,5 @@
 $(function() {
-    $("#nextSubmit").click(function() {
+    $("#saveSubmit").click(function() {
         document.getElementById("step5Form").submit();
     });
 

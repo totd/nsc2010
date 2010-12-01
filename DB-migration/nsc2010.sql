@@ -599,7 +599,7 @@ CREATE TABLE IF NOT EXISTS `incident` (
   `i_ID` int(11) NOT NULL AUTO_INCREMENT,
   `i_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Violation_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
-  `I_Driver_ID` int(11) NOT NULL,
+  `i_Driver_ID` int(11) NOT NULL,
   `i_Date` date NOT NULL,
   `i_Time` time DEFAULT NULL,
   `i_Status` enum('Pending','Open','Closed') COLLATE latin1_general_ci NOT NULL DEFAULT 'Pending',

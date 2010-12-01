@@ -10,22 +10,80 @@
     </div>
 </div>
 
-<div class="new-appl" id="main">
-    <div class="parametr-top">
-        <div class="parametr-bottom"><div class="parametr-middle">
-                <form class="select-parametr new-appl" id="step2Form" method="post"
-                      action="/incident/create/Exit">
-                    <div style="padding: 0px 30px;">
-                        <fieldset>
-                            <p>
-                                <a href="/driver/index/involved-in-incident-drivers/incident_id/new" >Please click here to chose driver from drivers list.</a>
-                            </p>
-                            <p class="submit-button">
-                                <input type="submit" name="exitSubmit" id="nextSubmit" value="Exit">
-                            </p>
-                        </fieldset>
-                    </div>
-                </form>
+<div class="driver-information" id="main">
+
+    <div class="post-top"><div class="post-bottom"><div class="post-middle">
+                <br>
+                <br>
+                <table class="inform">
+                    <tbody><tr>
+                            <td colspan="2"><h2><span class="data"><?= $this->driverName; ?></span></h2></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><h2>Accident Status:&nbsp;<span class="data">Pending</span></h2></td>
+                        </tr>
+                    </tbody></table>
+                <div class="clear"></div>
+                <div class="second">
+                    <form class="select-parametr2" id="step3Form" method="post"
+                      action="/incident/create/step3">
+                        <table cellspacing="0" class="inform">
+                            <tbody>
+                                <tr>
+                                    <th colspan="2">
+                                        ACCIDENT IMPLICATION
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Injured
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="injured" value="Yes">&nbsp;Yes
+                                        <input type="radio" name="injured" checked="checked" value="No">&nbsp;No
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>
+                                        Deceased
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="deceased" value="Yes">&nbsp;Yes
+                                        <input type="radio" name="deceased" checked="checked" value="No">&nbsp;No
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">
+                                        POST ACCIDENT TEST
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>Alcohol test was conducted within:</td>
+                                    <td>
+                                        <input type="radio" name="alcoholTest" value="Yes">&nbsp;Yes
+                                        <input type="radio" name="alcoholTest" checked="checked" value="No">&nbsp;No
+                                    </td>
+                                </tr>
+                                <tr class="color-dark">
+                                    <td>
+                                        Drug test was conducted within:
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="drugTest" value="Yes">&nbsp;Yes
+                                        <input type="radio" name="drugTest" checked="checked" value="No">&nbsp;No
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <input type="button" id="exitSubmit" value="Exit">
+                                        <input type="button" id="nextSubmit" value="Next">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <br><br>
+                </div>
             </div>
         </div>
     </div>

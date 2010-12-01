@@ -73,7 +73,7 @@ class Incident_ListController extends Zend_Controller_Action
                         $searctDate = $this->_request->getPost('SearchText');
                         if (!empty($searctDate)) {
                             $date = new Zend_Date($searctDate, "MM-dd-YYYY");
-                            $options['SearchText'] = $date->toString("YYYY-dd-MM");
+                            $options['SearchText'] = $date->toString("YYYY-MM-dd");
                         }
                     } catch (Exception $e) {
                         $options['SearchBy'] = '-';
@@ -89,8 +89,8 @@ class Incident_ListController extends Zend_Controller_Action
                 $status = $this->_request->getPost('Status');
                 $orderBy = $this->_request->getPost('orderBy');
                 $orderWay = $this->_request->getPost('orderWay');
-                $searchBy = $this->_request->getPost('searchBy');
-                $searchText = $this->_request->getPost('searchText');
+                $searchBy = $this->_request->getPost('SearchBy');
+                $searchText = $this->_request->getPost('SearchText');
             }
         } elseif (!isset($options['SearchBy']) ||
                 !isset($options['Status']) ||
@@ -132,7 +132,7 @@ class Incident_ListController extends Zend_Controller_Action
             $this->view->incidents = null;
         }
 
-        if ($searchBy != '-' && empty($searchBy) && !empty($searchText)) {
+        if ($searchBy != '-' && !empty($searchBy) && !empty($searchText)) {
             foreach ($this->_filterFields as $key => &$value) {
                 if ($searchBy == $key) {
                     $value['selected'] = true;
@@ -143,13 +143,19 @@ class Incident_ListController extends Zend_Controller_Action
         } else {
             $this->_filterFields['-']['selected'] = 'true';
         }
-
         $this->view->filterFields = $this->_filterFields;
+
+        foreach ($this->_statuses as $key => &$value) {
+            if ($status == $key) {
+                $value['selected'] = true;
+                break;
+            }
+        }
         $this->view->statuses = $this->_statuses;
+        
         $this->view->pageTitle = 'LIST OF INCIDENTS';
         $this->view->headScript()->appendFile('/js/jquery.url.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/equipment/list.js', 'text/javascript');
-        
     }
 
 }

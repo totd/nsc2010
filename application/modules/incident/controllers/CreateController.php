@@ -79,10 +79,6 @@ class Incident_CreateController extends Zend_Controller_Action
             $this->exitAction();
         }
 
-        if ($this->_request->isPost()) {
-            $this->_redirect('/incident/create/step3');
-        }
-
         if (isset($incidentSession->newIncidentDataArray['i_DOT_Regulated'])) {
             $this->view->i_DOT_Regulated = $incidentSession->newIncidentDataArray['i_DOT_Regulated'];
         }
@@ -92,30 +88,10 @@ class Incident_CreateController extends Zend_Controller_Action
         $this->view->breadcrumbs .= "&nbsp;&gt;&nbsp;New Incident";
         
         $this->view->pageTitle = "NEW INCIDENT";
+         $this->view->headScript()->appendFile('/js/incident/create/step2.js', 'text/javascript');
     }
 
     public function step3Action()
-    {
-        $incidentSession = new Zend_Session_Namespace('newIncident');
-        if ($incidentSession->__isset('newIncidentDataArray')) {
-            $incidentDataArray = $incidentSession->newIncidentDataArray;
-            if (!isset($incidentDataArray['i_Date']) || !isset($incidentDataArray['i_DOT_Regulated'])) {
-                // User reaches this page without meeting previos steps
-                $this->exitAction();
-            }
-        } else {
-            // User reaches this page without meeting previos steps
-            $this->exitAction();
-        }
-
-        $this->view->breadcrumbs = '<a href="/incident/index">Incident Management</a>';
-        $this->view->breadcrumbs .= '&nbsp;&gt;&nbsp;<a href="/incident/list">Incident List</a>';
-        $this->view->breadcrumbs .= "&nbsp;&gt;&nbsp;New Incident";
-
-        $this->view->pageTitle = "NEW INCIDENT";
-    }
-
-    public function step4Action()
     {
         $incidentSession = new Zend_Session_Namespace('newIncident');
         if ($incidentSession->__isset('newIncidentDataArray')) {
@@ -146,7 +122,7 @@ class Incident_CreateController extends Zend_Controller_Action
             $incidentDataArray['i_Drug_Test'] = $drugTest;
 
             $incidentSession->newIncidentDataArray = $incidentDataArray;
-            $this->_redirect('/incident/create/step5');
+            $this->_redirect('/incident/create/step4');
         }
 
         
@@ -164,10 +140,10 @@ class Incident_CreateController extends Zend_Controller_Action
         $this->view->breadcrumbs .= "&nbsp;&gt;&nbsp;New Incident";
 
         $this->view->pageTitle = "NEW INCIDENT";
-        $this->view->headScript()->appendFile('/js/incident/create/step4.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/incident/create/step3.js', 'text/javascript');
     }
 
-    public function step5Action()
+    public function step4Action()
     {
         $incidentSession = new Zend_Session_Namespace('newIncident');
         if ($incidentSession->__isset('newIncidentDataArray')) {
@@ -282,7 +258,7 @@ class Incident_CreateController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/jquery-ui.min.js');
         $this->view->headScript()->appendFile('/js/multiselect/plugins/tmpl/jquery.tmpl.1.1.1.js');
         $this->view->headScript()->appendFile('/js/multiselect/ui.multiselect.js');
-        $this->view->headScript()->appendFile('/js/incident/create/step5.js');
+        $this->view->headScript()->appendFile('/js/incident/create/step4.js');
     }
 
     public function saveAction($incidentRow = null)
@@ -326,7 +302,7 @@ class Incident_CreateController extends Zend_Controller_Action
         } else {
             $incidentDataArray['i_Driver_ID'] = $driver_id;
             $incidentSession->newIncidentDataArray = $incidentDataArray;
-            $this->_redirect('/incident/create/step4');
+            $this->_redirect('/incident/create/step3');
         }
     }
 

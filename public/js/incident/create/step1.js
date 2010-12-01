@@ -1,5 +1,9 @@
 $(function() {
-    $("#i_Date").datepicker();
+    $( "#i_Date" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+            yearRange: '-10:+10'
+		});
 
     $("#step1Form").validate({
         rules: {

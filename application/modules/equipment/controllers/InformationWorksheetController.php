@@ -68,6 +68,54 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->headLink()->appendStylesheet('/css/main.css');
         $this->view->headScript()->appendFile('/js/imgpreview.min.0.22.jquery.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/equipment/index.js', 'text/javascript');
+
+
+        // update VIW data
+        // create state select.
+        $stateModel = new State_Model_State();
+        $states = $stateModel->getList();
+
+        $selectStateArray = array('' => array('text' => '-'));
+        foreach ($states as $state) {
+            if (is_object($state)) {
+                $selectStateArray[$state->s_id] = array('text' => $state->s_name);
+            } else {
+                $selectStateArray[$state['s_id']] = array('text' => $state['s_name']);
+            }
+        }
+
+        if (isset($equipmentRow['e_Registration_State']) && !is_null($equipmentRow['e_Registration_State'])) {
+            foreach ($selectStateArray as $key => &$value) {
+                if ($equipmentRow['e_Registration_State'] == $key) {
+                    $value['selected'] = true;
+                    break;
+                }
+            }
+        } else {
+            $selectStateArray['']['selected'] = true;
+        }
+        $this->view->states = $selectStateArray;
+
+        // create equipment type select.
+        $equipmentTypeModel = new EquipmentType_Model_EquipmentType();
+        $equipmentTypes = $equipmentTypeModel->getList();
+
+        $selectEquipmentTypeArray = array('' => array('text' => '-'));
+        foreach ($equipmentTypes as $equipmentType) {
+            $selectEquipmentTypeArray[$equipmentType->et_id] = array('text' => $equipmentType->et_type);
+        }
+
+        if (isset($equipmentRow['e_type_id']) && !is_null($equipmentRow['e_type_id'])) {
+            foreach ($selectEquipmentTypeArray as $key => &$value) {
+                if ($equipmentRow['e_type_id'] == $key) {
+                    $value['selected'] = true;
+                    break;
+                }
+            }
+        } else {
+            $selectEquipmentTypeArray['']['selected'] = true;
+        }
+        $this->view->equipmentTypes = $selectEquipmentTypeArray;
     }
 
     public function createNewAction($VIN = null)
@@ -239,11 +287,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             }
             $this->render('completed_errors');
         }
-
-        // TODO implement comlete action.
-//        $equipmentModel = new Equipment_Model_Equipment();
-//        $equipmentModel->changeNewEquipmentStatus('Completed', $id);
-        //return $this->_redirect('equipment/list');
     }
 
     public function declinedAction()
@@ -313,7 +356,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
             $equipmentModel->update($data, $where);
 
-            return $this->_redirect('equipment/list');
+            //return $this->_redirect('equipment/list');
+            return $this->_redirect($_SERVER['HTTP_REFERER']);
         }
     }
 

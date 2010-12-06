@@ -108,6 +108,28 @@ function editEmploymentHistoryRecord(record_id,pe_Driver_ID){
 
                 $(function(){$('#edit_pe_Employment_Start_Date').datepicker();});
                 $(function(){$('#edit_pe_Employment_Stop_Date').datepicker();});
+
+                $("#edit_pe_Employer_Name").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
+                    extraParams:{"searchBy":'pe_Employer_Name'}
+                });
+                $("#edit_pe_Address1").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
+                    extraParams:{"searchBy":'pe_Address1'}
+                });
+                $("#edit_pe_City").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
+                    extraParams:{"searchBy":'pe_City'}
+                });
+                $("#edit_pe_Postal_Code").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
+                    extraParams:{"searchBy":'pe_Postal_Code'}
+                });
+                $("#edit_pe_Phone").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
+                    extraParams:{"searchBy":'pe_Phone'}
+                });
+                $("#edit_pe_Fax").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
+                    extraParams:{"searchBy":'pe_Fax'}
+                });
+                $("#edit_pe_Position").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
+                    extraParams:{"searchBy":'pe_Position'}
+                });
                 return true;
             }if(data==false){
                 alert(data);

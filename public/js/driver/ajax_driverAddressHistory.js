@@ -86,6 +86,13 @@ function editAddressHistoryRecord(record_id,dah_Driver_ID){
                    changeYear: true,
                             yearRange: '1950:2020'
                   });
+
+                $("#edit_dah_City").focus().autocomplete("/driver/ajax-driver-address-history/autocomplete-Address-History/",{
+                    extraParams:{"searchBy":'dah_City'}
+                });
+                $("#edit_dah_Postal_Code").focus().autocomplete("/driver/ajax-driver-address-history/autocomplete-Address-History/",{
+                    extraParams:{"searchBy":'dah_Postal_Code'}
+                });
                 return true;
             }if(data==false){
                 alert(data);

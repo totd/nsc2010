@@ -107,6 +107,18 @@ class Driver_DriverController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/driver/ajax_homebase2depot.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/driver/ajax_driver_hos.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
+        
+        $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.ajaxQueue.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/JQ-autocomplite/thickbox-compressed.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/css/JQ-autocomplite/jquery.autocomplete.css', 'text/css');
+        $this->view->headScript()->appendFile('/css/JQ-autocomplite/thickbox.css', 'text/css');
+        
+        #custom autocomplite handlers goes here:
+        $this->view->headScript()->appendFile('/js/driver/ajax_autocomplite.js', 'text/javascript');
+
+        
         # Breadcrumbs & page title goes here:
         $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
         $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-information/id/".$driverID."' >DQF</a>&nbsp;&gt;&nbsp;Driver Profile";

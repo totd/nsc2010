@@ -283,5 +283,12 @@ class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Acti
         }
     }
 
+    public function autocompleteEmployerAction()
+    {
+        $result = Driver_Model_DriverPreviousEmployment::getRecordByQuery($_GET['q'],$_GET['searchBy']);
+        foreach($result as $k => $v){
+            echo $v[$_GET['searchBy']]."\n";
+        }
+    }
 
 }

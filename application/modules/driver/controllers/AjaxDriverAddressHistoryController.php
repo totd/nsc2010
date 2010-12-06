@@ -46,7 +46,7 @@ class Driver_AjaxDriverAddressHistoryController extends Zend_Controller_Action
             $errors++;
             $msg=$msg."City should contain ONLY Alpha-numeric sybols, and '-.&, ' symbols!\n";
         }
-        if($dah_State==null){
+        if($dah_State==null || $dah_State=="-"){
             $errors++;
             $msg=$msg."Please, select State.\n";
         }
@@ -215,6 +215,14 @@ class Driver_AjaxDriverAddressHistoryController extends Zend_Controller_Action
 
             Driver_Model_DriverAddressHistory::updateRecord($data);
             echo 1;
+        }
+    }
+    
+    public function autocompleteAddressHistoryAction()
+    {
+        $result = Driver_Model_DriverAddressHistory::getRecordByQuery($_GET['q'],$_GET['searchBy']);
+        foreach($result as $k => $v){
+            echo $v[$_GET['searchBy']]."\n";
         }
     }
 }

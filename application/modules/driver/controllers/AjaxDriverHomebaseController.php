@@ -14,10 +14,6 @@ class Driver_AjaxDriverHomebaseController extends Zend_Controller_Action
     {
     }
 
-    public function homebaseAction()
-    {
-    }
-
     public function getDepotListAction()
     {
         

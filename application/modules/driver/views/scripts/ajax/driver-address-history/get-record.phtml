@@ -24,7 +24,6 @@
                 <Input type="text" id="edit_dah_City" name="edit_dah_City" size=15 maxlength="50" value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_City'];?>"/>&nbsp;&nbsp;&nbsp;
                 <label class="required" for="edit_dah_State"><span>*</span>State:</label>
                 <SELECT id='edit_dah_State' name='edit_dah_State'>
-                <OPTION value='-' selected>-</OPTION>
                 <?php
                     foreach($this->layout()->stateList as $k => $v)
                     {

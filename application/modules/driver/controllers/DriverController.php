@@ -2,10 +2,14 @@
 
 class Driver_DriverController extends Zend_Controller_Action
 {
-
+    var $auth;
     public function init()
     {
-        /* Initialize action controller here */
+        $this->auth = Zend_Auth::getInstance();
+
+        if ($this->auth->hasIdentity()) {
+            $this->view->identity = $this->auth->getIdentity();
+        }
     }
 
     public function indexAction()
@@ -15,185 +19,174 @@ class Driver_DriverController extends Zend_Controller_Action
 
     public function editDriverInformationAction()
     {
-        $driverID = (int)$this->_request->getParam('id');
-        # Page title goes here:
-        $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
-        $this->view->breadcrumbs = "<a href='/driver/index/index'>DQF</a>&nbsp;&gt;&nbsp;Driver Profile List";
 
+        if ($this->auth->hasIdentity()) {
 
-        $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
-
-        $driverPersonalInfo_Form = new Driver_Form_DriverPersonalInformation();
-        $driverPersonalInfo_Form->getForm($driverInfo);
-        $driverPersonalInfo_Form->setAction('/driver/new-Driver/driver-Information-Worksheet-View/id/'.$driverID);
-
-        # checking incomind data for Application Information Form.
-        # if data correct - saving changes to DB, else - show notification to user:
-        if($_POST['form_id']=='driver_applicationInformation_Form'){
-            if ($this->_request->isPost() && $driver_applicationInformation_Form->isValid($_POST)) {
-                # TODO: create action in Model to save changes
-            }
-        }
-
-        # checking incomind data for Application Information Form.
-        # if data correct - saving changes to DB, else - show notification to user:
-        if($_POST['form_id']=='driver_applicationInformation_Form'){
-            if ($this->_request->isPost() && $driverPersonalInfo_Form->isValid($_POST)) {
-                # TODO: create action in Model to save changes
-            }
         }
     }
 
     public function saveDriverInformationAction()
     {
-        $driverID = $_POST['d_ID'];
-        # Breadcrumbs & page title goes here:
-        $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
-        $this->view->pageTitle = "SAVE DRIVER INFORMATION";
-        $errors = "";
-        if($_POST['d_First_Name']==""){
-            $errors = $errors."First Name - is required!<br/>";
-        }
-        if($_POST['d_Last_Name']==""){
-            $errors = $errors."Last Name - is required!<br/>";
-        }
-        if($_POST['d_Telephone_Number1']==""){
-            $errors = $errors."Telephone Number #1 - is required!<br/>";
-        }
-        if($_POST['d_homebase_ID']==""){
-            $errors = $errors."Homebase - is required!<br/>";
-        }
+        if ($this->auth->hasIdentity()) {
+            $driverID = $_POST['d_ID'];
+            # Breadcrumbs & page title goes here:
+            $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
+            $this->view->pageTitle = "SAVE DRIVER INFORMATION";
+            $errors = "";
+            if($_POST['d_First_Name']==""){
+                $errors = $errors."First Name - is required!<br/>";
+            }
+            if($_POST['d_Last_Name']==""){
+                $errors = $errors."Last Name - is required!<br/>";
+            }
+            if($_POST['d_Telephone_Number1']==""){
+                $errors = $errors."Telephone Number #1 - is required!<br/>";
+            }
+            if($_POST['d_homebase_ID']==""){
+                $errors = $errors."Homebase - is required!<br/>";
+            }
 
-        if($errors == ""){
+            if($errors == ""){
 
-        }else{
+            }else{
 
-        }
-        $date = new Zend_Date();
-        try{
-            $date->set($_POST['d_Medical_Card_Expiration_Date'],"MM/dd/YYYY");
-            $_POST['d_Medical_Card_Expiration_Date']=$date->toString("YYYY-MM-dd");
-        }catch(Exception $e){
-            $_POST['d_Medical_Card_Expiration_Date']=null;
-        }
-        try{
-            $date->set($_POST['d_TWIC_expiration'],"MM/dd/YYYY");
-            $_POST['d_TWIC_expiration']=$date->toString("YYYY-MM-dd");
-        }catch(Exception $e){
-            $_POST['d_TWIC_expiration']=null;
-        }
-        try{
-            $date->set($_POST['d_R_A_expiration'],"MM/dd/YYYY");
-            $_POST['d_R_A_expiration']=$date->toString("YYYY-MM-dd");
-        }catch(Exception $e){
-            $_POST['d_R_A_expiration']=null;
-        }
-        $_POST['d_ID']=$driverID;
-        unset($_POST['Driver_Personal_Information']);
-        if(Driver_Model_Driver::saveDriverInfo($_POST)==true){
-            $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
-        }
-        elseif(Driver_Model_Driver::saveDriverInfo($_POST)==0){
-            $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+            }
+            $date = new Zend_Date();
+            try{
+                $date->set($_POST['d_Medical_Card_Expiration_Date'],"MM/dd/YYYY");
+                $_POST['d_Medical_Card_Expiration_Date']=$date->toString("YYYY-MM-dd");
+            }catch(Exception $e){
+                $_POST['d_Medical_Card_Expiration_Date']=null;
+            }
+            try{
+                $date->set($_POST['d_TWIC_expiration'],"MM/dd/YYYY");
+                $_POST['d_TWIC_expiration']=$date->toString("YYYY-MM-dd");
+            }catch(Exception $e){
+                $_POST['d_TWIC_expiration']=null;
+            }
+            try{
+                $date->set($_POST['d_R_A_expiration'],"MM/dd/YYYY");
+                $_POST['d_R_A_expiration']=$date->toString("YYYY-MM-dd");
+            }catch(Exception $e){
+                $_POST['d_R_A_expiration']=null;
+            }
+            $_POST['d_ID']=$driverID;
+            unset($_POST['Driver_Personal_Information']);
+            if(Driver_Model_Driver::saveDriverInfo($_POST)==true){
+                $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+            }
+            elseif(Driver_Model_Driver::saveDriverInfo($_POST)==0){
+                $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+            }
         }
     }
     public function viewDriverInformationAction()
     {
-        $driverID = (int)$this->_request->getParam('id');
-        $this->view->headScript()->appendFile('/js/driver/ajax_validate_driver.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/driver/ajax_driverAddressHistory.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/driver/ajax_employment_history.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/driver/ajax_driver_license.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/driver/ajax_homebase2depot.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/driver/ajax_driver_hos.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
-        
-        $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.ajaxQueue.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/JQ-autocomplite/thickbox-compressed.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/css/JQ-autocomplite/jquery.autocomplete.css', 'text/css');
-        $this->view->headScript()->appendFile('/css/JQ-autocomplite/thickbox.css', 'text/css');
-        
-        #custom autocomplite handlers goes here:
-        $this->view->headScript()->appendFile('/js/driver/ajax_autocomplite.js', 'text/javascript');
+        if ($this->auth->hasIdentity()) {
+            $driverID = (int)$this->_request->getParam('id');
+            $this->view->headScript()->appendFile('/js/driver/ajax_validate_driver.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/driver/ajax_driverAddressHistory.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/driver/ajax_employment_history.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/driver/ajax_driver_license.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/driver/ajax_homebase2depot.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/driver/ajax_driver_hos.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
 
-        
-        # Breadcrumbs & page title goes here:
-        $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
-        $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-information/id/".$driverID."' >DQF</a>&nbsp;&gt;&nbsp;Driver Profile";
+            $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.ajaxQueue.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/JQ-autocomplite/thickbox-compressed.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/css/JQ-autocomplite/jquery.autocomplete.css', 'text/css');
+            $this->view->headScript()->appendFile('/css/JQ-autocomplite/thickbox.css', 'text/css');
 
-        $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
-        $homebaseList = Homebase_Model_Homebase::getHomebaseList(null,1);
-        $depotList = Depot_Model_Depot::getDepotList($driverInfo['d_homebase_ID'],1);
-        $homebase = Homebase_Model_Homebase::getHomebase($driverInfo['d_homebase_ID']);
-        $depot = Depot_Model_Depot::getDepot($driverInfo['d_depot_ID']);
-        $stateList = State_Model_State::getList();
-        $currentDriverHistoryList = new Driver_Model_DriverAddressHistory();
-        $currentDriverHistoryList->getList($driverID);
-        $currentDriverHosList = Driver_Model_DriverHos::getList($driverID,1);
-        $currentDriverLrfwRecord = Driver_Model_DriverLrfw::getRecord($driverID);
+            #custom autocomplite handlers goes here:
+            $this->view->headScript()->appendFile('/js/driver/ajax_autocomplite.js', 'text/javascript');
 
-        $toDate = date("Y-m-d");
-        $arr = explode("-",$toDate);
-        for($i=0;$i<=6;$i++){
-            $date = date("Y-m-d",mktime(0, 0, 0, $arr[1], $arr[2]-$i, $arr[0]));
-            $dt = explode("-",$date);
-            $week[$i]['dhos_date']=$dt[1]."/".$dt[2]."/".$dt[0];
-            $week[$i]['dhos_hours']="-";
-            $week[$i]['dhos_ID']="";
-            foreach($currentDriverHosList as $k => $v){
-                if (in_array($date, $v)) {
-                    $week[$i]['dhos_hours'] = $v['dhos_hours'];
-                    $week[$i]['dhos_ID'] = $v['dhos_ID'];
+
+            # Breadcrumbs & page title goes here:
+            $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
+            $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-information/id/".$driverID."' >DQF</a>&nbsp;&gt;&nbsp;Driver Profile";
+
+            $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
+            $homebaseList = Homebase_Model_Homebase::getHomebaseList(null,1);
+            $depotList = Depot_Model_Depot::getDepotList($driverInfo['d_homebase_ID'],1);
+            $homebase = Homebase_Model_Homebase::getHomebase($driverInfo['d_homebase_ID']);
+            $depot = Depot_Model_Depot::getDepot($driverInfo['d_depot_ID']);
+            $stateList = State_Model_State::getList();
+            $currentDriverHistoryList = new Driver_Model_DriverAddressHistory();
+            $currentDriverHistoryList->getList($driverID);
+            $currentDriverHosList = Driver_Model_DriverHos::getList($driverID,1);
+            $currentDriverLrfwRecord = Driver_Model_DriverLrfw::getRecord($driverID);
+
+            $toDate = date("Y-m-d");
+            $arr = explode("-",$toDate);
+            for($i=0;$i<=6;$i++){
+                $date = date("Y-m-d",mktime(0, 0, 0, $arr[1], $arr[2]-$i, $arr[0]));
+                $dt = explode("-",$date);
+                $week[$i]['dhos_date']=$dt[1]."/".$dt[2]."/".$dt[0];
+                $week[$i]['dhos_hours']="-";
+                $week[$i]['dhos_ID']="";
+                foreach($currentDriverHosList as $k => $v){
+                    if (in_array($date, $v)) {
+                        $week[$i]['dhos_hours'] = $v['dhos_hours'];
+                        $week[$i]['dhos_ID'] = $v['dhos_ID'];
+                    }
                 }
             }
-        }
 
-        $this->view->driverId = $driverID;
-        $this->view->driverInfo = $driverInfo;
-        $this->view->homebaseList = $homebaseList;
-        $this->view->depotList = $depotList;
-        $this->view->homebase = $homebase;
-        $this->view->depot = $depot;
-        $this->view->stateList = $stateList;
-        $this->view->currentDriverHistoryList = $currentDriverHistoryList;
-        $this->view->currentDriverHoSList = $week;
-        $this->view->currentDriverLrfwRecord = $currentDriverLrfwRecord;
+            $this->view->driverId = $driverID;
+            $this->view->driverInfo = $driverInfo;
+            $this->view->homebaseList = $homebaseList;
+            $this->view->depotList = $depotList;
+            $this->view->homebase = $homebase;
+            $this->view->depot = $depot;
+            $this->view->stateList = $stateList;
+            $this->view->currentDriverHistoryList = $currentDriverHistoryList;
+            $this->view->currentDriverHoSList = $week;
+            $this->view->currentDriverLrfwRecord = $currentDriverLrfwRecord;
+    }
     }
 
     public function dqfAction()
     {
-        // DRIVER QUALIFICATION FILE
-        $driverID = (int)$this->_request->getParam('driver_id');
-        # Breadcrumbs & page title goes here:
-        $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
-        $this->view->pageTitle = "DRIVER QUALIFICATION FILE";
+        if ($this->auth->hasIdentity()) {
+            // DRIVER QUALIFICATION FILE
+            $driverID = (int)$this->_request->getParam('driver_id');
+            # Breadcrumbs & page title goes here:
+            $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
+            $this->view->pageTitle = "DRIVER QUALIFICATION FILE";
+        }
     }
     public function driverCompleteAction()
       {
-        $driverID = (int)$this->_request->getParam('id');
-        $data['d_ID']=$driverID;
-        $data['d_Status']=2;
 
-        if(Driver_Model_Driver::saveDriverInfo($data)==true){
-            $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
-        }
-        elseif(Driver_Model_Driver::saveDriverInfo($data)==0){
-            $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+        if ($this->auth->hasIdentity()) {
+            $driverID = (int)$this->_request->getParam('id');
+            $data['d_ID']=$driverID;
+            $data['d_Status']=2;
+
+            if(Driver_Model_Driver::saveDriverInfo($data)==true){
+                $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+            }
+            elseif(Driver_Model_Driver::saveDriverInfo($data)==0){
+                $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+            }
         }
       }
     public function driverDeclineAction()
       {
-        $driverID = (int)$this->_request->getParam('id');
-        $data['d_ID']=$driverID;
-        $data['d_Status']=5;
 
-        if(Driver_Model_Driver::saveDriverInfo($data)==true){
-            $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
-        }
-        elseif(Driver_Model_Driver::saveDriverInfo($data)==0){
-            $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+        if ($this->auth->hasIdentity()) {
+            $driverID = (int)$this->_request->getParam('id');
+            $data['d_ID']=$driverID;
+            $data['d_Status']=5;
+
+            if(Driver_Model_Driver::saveDriverInfo($data)==true){
+                $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+            }
+            elseif(Driver_Model_Driver::saveDriverInfo($data)==0){
+                $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+            }
         }
       }
 

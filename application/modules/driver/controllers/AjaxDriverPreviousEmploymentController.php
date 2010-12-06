@@ -28,11 +28,6 @@ class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Acti
         echo $layout->render();
     }
 
-    public function editPreviouseEmploymentAction()
-    {
-        // action body
-    }
-
     public function addRecordAction()
     {
         $pe_Driver_ID = $_REQUEST['pe_Driver_ID'];

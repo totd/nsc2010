@@ -49,6 +49,98 @@ class Permission_Model_Permission
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                
+                'driver' => array('resource' => 'driver'),
+                'driver/index' => array( 'resource' => 'driver:index',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'dqf',
+                                                                    'archives',
+                                                                    'involved-In-Incident-Drivers'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Address-History' => array( 'resource' => 'driver:Ajax-Driver-Address-History',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Address-History-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record',
+                                                                    'autocomplete-Address-History'
+                                                                )
+                    ),
+                'driver/Ajax-Driver' => array( 'resource' => 'driver:Ajax-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'validate-Driver-Info'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-homebase' => array( 'resource' => 'driver:Ajax-Driver-homebase',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Depot-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-License' => array( 'resource' => 'driver:Ajax-Driver-License',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Licenses-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Previous-Employment' => array( 'resource' => 'driver:Ajax-Driver-Previous-Employment',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Previous-Employment-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Search' => array( 'resource' => 'driver:Ajax-Driver-Search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'search'
+                                                                )
+                    ),
+                'driver/Driver' => array( 'resource' => 'driver:Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'edit-Driver-Information',
+                                                                    'save-Driver-Information',
+                                                                    'view-Driver-Information',
+                                                                    'dqf',
+                                                                    'driver-Complete',
+                                                                    'driver-Decline'
+                                                                )
+                    ),
+                'driver/new-Driver' => array( 'resource' => 'driver:new-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'new-Driver-Search'
+                                                                )
+                    ),
+                'driver/search' => array( 'resource' => 'driver:search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'driver-Search'
+                                                                )
+                    ),
             )
         ),
         'NSC_LEVEL_2' => array(
@@ -96,6 +188,96 @@ class Permission_Model_Permission
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'driver' => array('resource' => 'driver'),
+                'driver/index' => array( 'resource' => 'driver:index',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'dqf',
+                                                                    'archives',
+                                                                    'involved-In-Incident-Drivers'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Address-History' => array( 'resource' => 'driver:Ajax-Driver-Address-History',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Address-History-List',
+                                                                    'get-Record',
+                                                                    'update-Record',
+                                                                    'autocomplete-Address-History'
+                                                                )
+                    ),
+                'driver/Ajax-Driver' => array( 'resource' => 'driver:Ajax-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'validate-Driver-Info'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-homebase' => array( 'resource' => 'driver:Ajax-Driver-homebase',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Depot-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-License' => array( 'resource' => 'driver:Ajax-Driver-License',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Licenses-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Previous-Employment' => array( 'resource' => 'driver:Ajax-Driver-Previous-Employment',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Previous-Employment-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Search' => array( 'resource' => 'driver:Ajax-Driver-Search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'search'
+                                                                )
+                    ),
+                'driver/Driver' => array( 'resource' => 'driver:Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'edit-Driver-Information',
+                                                                    'save-Driver-Information',
+                                                                    'view-Driver-Information',
+                                                                    'dqf',
+                                                                    'driver-Complete',
+                                                                    'driver-Decline'
+                                                                )
+                    ),
+                'driver/new-Driver' => array( 'resource' => 'driver:new-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'new-Driver-Search'
+                                                                )
+                    ),
+                'driver/search' => array( 'resource' => 'driver:search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'driver-Search'
+                                                                )
+                    ),
             )
         ),
         'NSC_LEVEL_3' => array(
@@ -139,6 +321,93 @@ class Permission_Model_Permission
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'driver' => array('resource' => 'driver'),
+                'driver/index' => array( 'resource' => 'driver:index',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'dqf',
+                                                                    'archives',
+                                                                    'involved-In-Incident-Drivers'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Address-History' => array( 'resource' => 'driver:Ajax-Driver-Address-History',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Address-History-List',
+                                                                    'autocomplete-Address-History'
+                                                                )
+                    ),
+                'driver/Ajax-Driver' => array( 'resource' => 'driver:Ajax-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'validate-Driver-Info'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-homebase' => array( 'resource' => 'driver:Ajax-Driver-homebase',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Depot-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-License' => array( 'resource' => 'driver:Ajax-Driver-License',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Licenses-List',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Previous-Employment' => array( 'resource' => 'driver:Ajax-Driver-Previous-Employment',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Previous-Employment-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Search' => array( 'resource' => 'driver:Ajax-Driver-Search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'search'
+                                                                )
+                    ),
+                'driver/Driver' => array( 'resource' => 'driver:Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'edit-Driver-Information',
+                                                                    'save-Driver-Information',
+                                                                    'view-Driver-Information',
+                                                                    'dqf',
+                                                                    'driver-Complete',
+                                                                    'driver-Decline'
+                                                                )
+                    ),
+                'driver/new-Driver' => array( 'resource' => 'driver:new-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'new-Driver-Search'
+                                                                )
+                    ),
+                'driver/search' => array( 'resource' => 'driver:search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'driver-Search'
+                                                                )
+                    ),
             )
         ),
         'NSC_LEVEL_4' => array(
@@ -167,6 +436,81 @@ class Permission_Model_Permission
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'driver' => array('resource' => 'driver'),
+                'driver/index' => array( 'resource' => 'driver:index',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'dqf',
+                                                                    'archives',
+                                                                    'involved-In-Incident-Drivers'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Address-History' => array( 'resource' => 'driver:Ajax-Driver-Address-History',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Driver-Address-History-List',
+                                                                    'autocomplete-Address-History'
+                                                                )
+                    ),
+                'driver/Ajax-Driver' => array( 'resource' => 'driver:Ajax-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'validate-Driver-Info'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-homebase' => array( 'resource' => 'driver:Ajax-Driver-homebase',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Depot-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-License' => array( 'resource' => 'driver:Ajax-Driver-License',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Driver-Licenses-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Previous-Employment' => array( 'resource' => 'driver:Ajax-Driver-Previous-Employment',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Previous-Employment-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Search' => array( 'resource' => 'driver:Ajax-Driver-Search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'search'
+                                                                )
+                    ),
+                'driver/Driver' => array( 'resource' => 'driver:Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'view-Driver-Information',
+                                                                    'dqf'
+                                                                )
+                    ),
+                'driver/new-Driver' => array( 'resource' => 'driver:new-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'new-Driver-Search'
+                                                                )
+                    ),
+                'driver/search' => array( 'resource' => 'driver:search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'driver-Search'
+                                                                )
+                    ),
             )
         ),
         'CUSTOMER_LEVEL_1' => array(
@@ -213,6 +557,96 @@ class Permission_Model_Permission
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'driver' => array('resource' => 'driver'),
+                'driver/index' => array( 'resource' => 'driver:index',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'dqf',
+                                                                    'archives',
+                                                                    'involved-In-Incident-Drivers'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Address-History' => array( 'resource' => 'driver:Ajax-Driver-Address-History',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Address-History-List',
+                                                                    'get-Record',
+                                                                    'update-Record',
+                                                                    'autocomplete-Address-History'
+                                                                )
+                    ),
+                'driver/Ajax-Driver' => array( 'resource' => 'driver:Ajax-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'validate-Driver-Info'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-homebase' => array( 'resource' => 'driver:Ajax-Driver-homebase',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Depot-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-License' => array( 'resource' => 'driver:Ajax-Driver-License',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Licenses-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Previous-Employment' => array( 'resource' => 'driver:Ajax-Driver-Previous-Employment',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Previous-Employment-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Search' => array( 'resource' => 'driver:Ajax-Driver-Search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'search'
+                                                                )
+                    ),
+                'driver/Driver' => array( 'resource' => 'driver:Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'edit-Driver-Information',
+                                                                    'save-Driver-Information',
+                                                                    'view-Driver-Information',
+                                                                    'dqf',
+                                                                    'driver-Complete',
+                                                                    'driver-Decline'
+                                                                )
+                    ),
+                'driver/new-Driver' => array( 'resource' => 'driver:new-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'new-Driver-Search'
+                                                                )
+                    ),
+                'driver/search' => array( 'resource' => 'driver:search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'driver-Search'
+                                                                )
+                    ),
             )
         ),
         'CUSTOMER_LEVEL_2' => array(
@@ -259,6 +693,96 @@ class Permission_Model_Permission
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'driver' => array('resource' => 'driver'),
+                'driver/index' => array( 'resource' => 'driver:index',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'dqf',
+                                                                    'archives',
+                                                                    'involved-In-Incident-Drivers'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Address-History' => array( 'resource' => 'driver:Ajax-Driver-Address-History',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Address-History-List',
+                                                                    'get-Record',
+                                                                    'update-Record',
+                                                                    'autocomplete-Address-History'
+                                                                )
+                    ),
+                'driver/Ajax-Driver' => array( 'resource' => 'driver:Ajax-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'validate-Driver-Info'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-homebase' => array( 'resource' => 'driver:Ajax-Driver-homebase',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Depot-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-License' => array( 'resource' => 'driver:Ajax-Driver-License',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Licenses-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Previous-Employment' => array( 'resource' => 'driver:Ajax-Driver-Previous-Employment',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Previous-Employment-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Search' => array( 'resource' => 'driver:Ajax-Driver-Search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'search'
+                                                                )
+                    ),
+                'driver/Driver' => array( 'resource' => 'driver:Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'edit-Driver-Information',
+                                                                    'save-Driver-Information',
+                                                                    'view-Driver-Information',
+                                                                    'dqf',
+                                                                    'driver-Complete',
+                                                                    'driver-Decline'
+                                                                )
+                    ),
+                'driver/new-Driver' => array( 'resource' => 'driver:new-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'new-Driver-Search'
+                                                                )
+                    ),
+                'driver/search' => array( 'resource' => 'driver:search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'driver-Search'
+                                                                )
+                    ),
             )
         ),
         'CUSTOMER_LEVEL_3' => array(
@@ -302,6 +826,95 @@ class Permission_Model_Permission
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'driver' => array('resource' => 'driver'),
+                'driver/index' => array( 'resource' => 'driver:index',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'dqf',
+                                                                    'archives',
+                                                                    'involved-In-Incident-Drivers'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Address-History' => array( 'resource' => 'driver:Ajax-Driver-Address-History',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Address-History-List',
+                                                                    'get-Record',
+                                                                    'update-Record',
+                                                                    'autocomplete-Address-History'
+                                                                )
+                    ),
+                'driver/Ajax-Driver' => array( 'resource' => 'driver:Ajax-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'validate-Driver-Info'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-homebase' => array( 'resource' => 'driver:Ajax-Driver-homebase',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Depot-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-License' => array( 'resource' => 'driver:Ajax-Driver-License',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Driver-Licenses-List',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Previous-Employment' => array( 'resource' => 'driver:Ajax-Driver-Previous-Employment',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'add-Record',
+                                                                    'get-Previous-Employment-List',
+                                                                    'delete-Record',
+                                                                    'get-Record',
+                                                                    'update-Record'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Search' => array( 'resource' => 'driver:Ajax-Driver-Search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'search'
+                                                                )
+                    ),
+                'driver/Driver' => array( 'resource' => 'driver:Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'edit-Driver-Information',
+                                                                    'save-Driver-Information',
+                                                                    'view-Driver-Information',
+                                                                    'dqf',
+                                                                    'driver-Complete',
+                                                                    'driver-Decline'
+                                                                )
+                    ),
+                'driver/new-Driver' => array( 'resource' => 'driver:new-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'new-Driver-Search'
+                                                                )
+                    ),
+                'driver/search' => array( 'resource' => 'driver:search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'driver-Search'
+                                                                )
+                    ),
             )
         ),
         'EXTERNAL_LEVEL_1' => array(
@@ -330,6 +943,80 @@ class Permission_Model_Permission
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'driver' => array('resource' => 'driver'),
+                'driver/index' => array( 'resource' => 'driver:index',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'dqf',
+                                                                    'archives',
+                                                                    'involved-In-Incident-Drivers'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Address-History' => array( 'resource' => 'driver:Ajax-Driver-Address-History',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Driver-Address-History-List',
+                                                                    'autocomplete-Address-History'
+                                                                )
+                    ),
+                'driver/Ajax-Driver' => array( 'resource' => 'driver:Ajax-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-homebase' => array( 'resource' => 'driver:Ajax-Driver-homebase',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Depot-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-License' => array( 'resource' => 'driver:Ajax-Driver-License',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Driver-Licenses-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Previous-Employment' => array( 'resource' => 'driver:Ajax-Driver-Previous-Employment',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Previous-Employment-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Search' => array( 'resource' => 'driver:Ajax-Driver-Search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'search'
+                                                                )
+                    ),
+                'driver/Driver' => array( 'resource' => 'driver:Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'view-Driver-Information',
+                                                                    'dqf'
+                                                                )
+                    ),
+                'driver/new-Driver' => array( 'resource' => 'driver:new-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'new-Driver-Search'
+                                                                )
+                    ),
+                'driver/search' => array( 'resource' => 'driver:search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'driver-Search'
+                                                                )
+                    ),
             )
         ),
         'EXTERNAL_LEVEL_2' => array(
@@ -358,6 +1045,80 @@ class Permission_Model_Permission
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'driver' => array('resource' => 'driver'),
+                'driver/index' => array( 'resource' => 'driver:index',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'dqf',
+                                                                    'archives',
+                                                                    'involved-In-Incident-Drivers'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Address-History' => array( 'resource' => 'driver:Ajax-Driver-Address-History',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Driver-Address-History-List',
+                                                                    'autocomplete-Address-History'
+                                                                )
+                    ),
+                'driver/Ajax-Driver' => array( 'resource' => 'driver:Ajax-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-homebase' => array( 'resource' => 'driver:Ajax-Driver-homebase',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Depot-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-License' => array( 'resource' => 'driver:Ajax-Driver-License',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Driver-Licenses-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Previous-Employment' => array( 'resource' => 'driver:Ajax-Driver-Previous-Employment',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'get-Previous-Employment-List'
+                                                                )
+                    ),
+                'driver/Ajax-Driver-Search' => array( 'resource' => 'driver:Ajax-Driver-Search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'search'
+                                                                )
+                    ),
+                'driver/Driver' => array( 'resource' => 'driver:Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'view-Driver-Information',
+                                                                    'dqf'
+                                                                )
+                    ),
+                'driver/new-Driver' => array( 'resource' => 'driver:new-Driver',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'new-Driver-Search'
+                                                                )
+                    ),
+                'driver/search' => array( 'resource' => 'driver:search',
+                                                            'module' => 'driver',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'driver-Search'
+                                                                )
+                    ),
             )
         ),
         'Guest' => array(

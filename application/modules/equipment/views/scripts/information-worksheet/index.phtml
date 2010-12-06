@@ -199,59 +199,6 @@
             <div class="post-bottom">
                 <div class="post-middle">
                     <div id="viewAssignmentDiv" class="AssignmentDiv">
-                        <div class="second">
-                            <table cellspacing="0" class="inform">
-                                <tbody>
-                                    <tr>
-                                        <th colspan="2">
-                                            Equipment Assignment
-                                        </th>
-                                    </tr>
-                                    <?php  if(is_array($this->equipmentAssignmentRow) && count($this->equipmentAssignmentRow) > 2) : ?>
-                                        <tr class="color-dark">
-                                            <td>Homebase:</td>
-                                            <td><span><?= isset($this->equipmentAssignmentRow['h_Name']) ? $this->equipmentAssignmentRow['h_Name'] : ''; ?></span></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Depot:</td>
-                                            <td><span><?= isset($this->equipmentAssignmentRow['dp_Name']) ? $this->equipmentAssignmentRow['dp_Name'] : '';?></span></td>
-                                        </tr>
-                                        <tr class="color-dark">
-                                            <td>Owner:</td>
-                                            <td><span><?= isset($this->equipmentAssignmentRow['eo_name']) ? $this->equipmentAssignmentRow['eo_name'] : ''; ?></span></td>
-                                        </tr>
-                                    <?php else : ?>
-                                        <tr class="color-dark">
-                                            <td colspan="2"><span class="text-red">There is no equipment assignment </span></td>
-                                        </tr>
-                                    <?php endif; ?>
-                                    <tr>
-                                        <th colspan="2">
-                                            &nbsp;
-                                        </th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table cellspacing="0" class="inform">
-                                <tbody>
-                                    <tr>
-                                        <th colspan="2">
-                                            <?php if ($this->identity->permissions->equipment_assignment_create_permission === true) : ?>
-                                                <span class="blue-button">
-                                                    <span>
-                                                        <a class="EquipmentAssigmentActionLink">
-                                                            Update Assignment Information
-                                                        </a>
-                                                    </span>
-                                                </span>
-                                            <?php else : ?>
-                                                &nbsp;
-                                            <?php endif ?>
-                                        </th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                     <?php echo
                         $this->partial('partials/_add-assignment.phtml', array(
@@ -269,11 +216,11 @@
         </div>
     </div>
 
-     <div class="driver-information vehicle">
-        <div class="post-top">
-            <div class="post-bottom">
-                <div class="post-middle">
-                    <div id="viewAssignmentDiv" class="AssignmentDiv">
+    <div id="viewAssignmentDiv" class="AssignmentDiv">
+        <div class="driver-information vehicle">
+            <div class="post-top">
+                <div class="post-bottom">
+                    <div class="post-middle">
                         <div class="second">
                             <table cellspacing="0" class="inform">
                                 <tbody>

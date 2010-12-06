@@ -147,6 +147,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
         $this->_redirect("/equipment/information-worksheet/index/VIN/{$equipmentRow['e_Number']}");
     }
+
     /**
      * @author Andryi Ilnytskiy 04.11.2010
      *
@@ -372,7 +373,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 //                throw new Exception("Return Code: " . $_FILES[$fieldName]["error"] . "<br />");
                 return null;
             } else {
-                $extension= end(explode(".", $_FILES[$fieldName]['name']));
+                $extension = end(explode(".", $_FILES[$fieldName]['name']));
 
                 $userId = '';
                 $auth = Zend_Auth::getInstance();
@@ -382,24 +383,24 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 }
 
                 $currentDate = new Zend_Date();
-                $strDate =  $currentDate->toString("dd") . "_" .
-                            $currentDate->toString("MM") . "_" .
-                            $currentDate->toString("YYYY") . "_" .
-                            $currentDate->toString("HH") . "_" .
-                            $currentDate->toString("mm") . "_" .
-                            $currentDate->toString("ss");
+                $strDate = $currentDate->toString("dd") . "_" .
+                        $currentDate->toString("MM") . "_" .
+                        $currentDate->toString("YYYY") . "_" .
+                        $currentDate->toString("HH") . "_" .
+                        $currentDate->toString("mm") . "_" .
+                        $currentDate->toString("ss");
                 $randomVal = rand(0, 9999);
                 $storeName = $userId . "_" . $strDate . "_" . $randomVal;
                 if (!empty($extension)) {
                     $storeName .= ".$extension";
                 }
-                
+
                 if (file_exists(self::uploadPath . $storeName)) {
 //                    throw new Exception("$storeName already exists. ");
                     return null;
                 } else {
                     $result = move_uploaded_file($_FILES[$fieldName]["tmp_name"],
-                            self::uploadPath . $storeName);
+                                    self::uploadPath . $storeName);
                     if ($result) {
                         return $storeName;
                     } else {
@@ -414,13 +415,13 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
     public function saveAssignmentAction()
     {
-        if ($this->_request->isPost()) {
+        if ($this->_request->isXmlHttpRequest()) {
             $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
             $cols = $equipmentAssignmentModel->info(Zend_Db_Table_Abstract::COLS);
 
             $data = array();
             // TODO implement filling manual all table fields with validating.
-            foreach ($this->_request->getPost() as $key => $value) {
+            foreach ($this->_request->getQuery() as $key => $value) {
                 if (in_array($key, $cols)) {
 
                     if ($key == 'ea_driver_id' || $key == 'ea_depot_id') {
@@ -442,18 +443,120 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 }
             }
 
-            if (!array_key_exists('ea_depot_id', $this->_request->getPost())) {
+            if (!array_key_exists('ea_depot_id', $this->_request->getQuery())) {
                 $data['ea_depot_id'] = null;
             }
 
-            if (!array_key_exists('ea_driver_id', $this->_request->getPost())) {
+            if (!array_key_exists('ea_driver_id', $this->_request->getQuery())) {
                 $data['ea_driver_id'] = null;
             }
 
-
             $equipmentAssignmentModel->saveAssignment($data);
 
-            return $this->_redirect('equipment/list');
+            $this->_helper->layout->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
+
+            echo 1;
+        }
+    }
+
+    public function getAssignmentAction($equipmentId = null)
+    {
+        if (is_null($equipmentId)) {
+            if ($this->_request->isXmlHttpRequest()) {
+                $equipmentId = $this->_request->getParam('equipmentId');
+
+                $layout = new Zend_Layout();
+                $layout->setLayoutPath(APPLICATION_PATH . '/modules/equipment/views/scripts/information-worksheet');
+                $layout->setLayout('view-assignment-form');
+                
+
+                $equipmentModel = new Equipment_Model_Equipment();
+                $layout->VIN = $equipmentModel->getVIN($equipmentId);
+
+                $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
+                $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentId);
+
+                if (is_null($equipmentAssigmentRow) || empty($equipmentAssigmentRow)) {
+                    $equipmentAssigmentRow['e_id'] = $equipmentId;
+                    $equipmentAssigmentRow['ea_equipment_id'] = $equipmentId;
+
+                    $layout->equipmentAssignmentRow = $equipmentAssigmentRow;
+                } elseif (is_array($equipmentAssigmentRow) && count($equipmentAssigmentRow)) {
+                    if (!empty($equipmentAssigmentRow['ea_start_date']) && $equipmentAssigmentRow['ea_start_date'] != '0000-00-00') {
+                        $dateObj = new Zend_Date($equipmentAssigmentRow['ea_start_date'], "YYYY-MM-dd");
+                        $equipmentAssigmentRow['ea_start_date'] = $dateObj->toString("MM/dd/YYYY");
+                    } else {
+                        $equipmentAssigmentRow['ea_start_date'] = '';
+                    }
+
+                    if (!empty($equipmentAssigmentRow['ea_end_date']) && $equipmentAssigmentRow['ea_end_date'] != '0000-00-00') {
+                        $dateObj = new Zend_Date($equipmentAssigmentRow['ea_end_date']);
+                        $equipmentAssigmentRow['ea_end_date'] = $dateObj->toString("MM/dd/YYYY", "YYYY-MM-dd");
+                    } else {
+                        $equipmentAssigmentRow['ea_end_date'] = '';
+                    }
+
+
+                    $layout->equipmentAssignmentRow = $equipmentAssigmentRow;
+                }
+
+                // Prepearing data for the form
+                // Homebases
+                $layout->homebases = $this->getSelectList('homebase', 'h_id', 'h_Name',
+                                (isset($equipmentAssigmentRow['ea_homebase_id']) ? $equipmentAssigmentRow['ea_homebase_id'] : null)
+                );
+
+                // Depots
+                $depotModel = new Depot_Model_Depot();
+                $homebaseId = (isset($equipmentAssigmentRow['ea_homebase_id'])) ? $equipmentAssigmentRow['ea_homebase_id'] : null;
+                $depotList = $depotModel->getDepotList($homebaseId);
+
+                $selectArray = array('' => array('text' => '-'));
+                if (!is_null($depotList)) {
+                    foreach ($depotList as $depot) {
+                        $selectArray[$depot['dp_id']] = array('text' => $depot['dp_Name']);
+                    }
+
+                    if (isset($equipmentAssigmentRow['ea_depot_id']) && !is_null($equipmentAssigmentRow['ea_depot_id'])) {
+                        foreach ($selectArray as $key => &$value) {
+                            if ($equipmentAssigmentRow['ea_depot_id'] == $key) {
+                                $value['selected'] = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        $selectArray['']['selected'] = true;
+                    }
+                }
+
+                $layout->depots = $selectArray;
+
+                // Owners
+                $layout->owners = $this->getSelectList('equipmentOwner', 'eo_id', 'eo_name',
+                                (isset($equipmentAssigmentRow['ea_owner_id']) ? $equipmentAssigmentRow['ea_owner_id'] : null)
+                );
+
+                // Drivers
+                $layout->drivers = $this->getSelectList('driver', 'd_ID', array('d_Driver_SSN', 'd_Last_Name'),
+                                (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
+                );
+
+                // Service providers
+                $layout->serviceProviders = $this->getSelectList('serviceProvider', 'sp_ID', 'sp_Name',
+                                (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
+                );
+
+                // Incidents
+                $layout->incidents = $this->getSelectList('incident', 'i_ID', 'i_Violation_ID',
+                                (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
+                );
+
+                $this->_helper->layout->disableLayout();
+                $this->_helper->viewRenderer->setNoRender(true);
+
+                echo $layout->render();
+            }
         }
     }
 
@@ -463,12 +566,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $equipmentId = $this->_request->getParam('equipmentId');
             $VIN = $this->_request->getParam('VIN');
         }
-
-//        $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
-//        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
-//        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
-//        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';
-//        $this->view->breadcrumbs .= '&nbsp;Assignment Update';
 
         if (is_null($equipmentId)) {
             $this->view->errorMessage = "Equipment is undefined";
@@ -555,7 +652,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             );
         }
 
-//        $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
         $this->view->headLink()->appendStylesheet('/css/main.css');
     }
 

@@ -1,0 +1,53 @@
+<div class="second">
+    <table cellspacing="0" class="inform">
+        <tbody>
+            <tr>
+                <th colspan="2">
+                    Equipment Assignment
+                </th>
+            </tr>
+            <?php  if(is_array($this->layout()->equipmentAssignmentRow) && count($this->layout()->equipmentAssignmentRow) > 2) : ?>
+                <tr class="color-dark">
+                    <td>Homebase:</td>
+                    <td><span><?= isset($this->layout()->equipmentAssignmentRow['h_Name']) ? $this->layout()->equipmentAssignmentRow['h_Name'] : ''; ?></span></td>
+                </tr>
+                <tr class="">
+                    <td>Depot:</td>
+                    <td><span><?= isset($this->layout()->equipmentAssignmentRow['dp_Name']) ? $this->layout()->equipmentAssignmentRow['dp_Name'] : '';?></span></td>
+                </tr>
+                <tr class="color-dark">
+                    <td>Owner:</td>
+                    <td><span><?= isset($this->layout()->equipmentAssignmentRow['eo_name']) ? $this->layout()->equipmentAssignmentRow['eo_name'] : ''; ?></span></td>
+                </tr>
+            <?php else : ?>
+                <tr class="color-dark">
+                    <td colspan="2"><span class="text-red">There is no equipment assignment </span></td>
+                </tr>
+            <?php endif; ?>
+            <tr>
+                <th colspan="2">
+                    &nbsp;
+                </th>
+            </tr>
+        </tbody>
+    </table>
+    <table cellspacing="0" class="inform">
+        <tbody>
+            <tr>
+                <th colspan="2">
+                    <?php if ($this->identity->permissions->equipment_assignment_create_permission === true) : ?>
+                        <span class="blue-button">
+                            <span>
+                                <a class="EquipmentAssignmentActionLink" id="EquipmentAssigmentUpdateLink" onclick="hideViewAssignment();">
+                                    Update Assignment Information
+                                </a>
+                            </span>
+                        </span>
+                    <?php else : ?>
+                        &nbsp;
+                    <?php endif ?>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>

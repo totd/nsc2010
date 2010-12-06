@@ -1,10 +1,14 @@
 <div id="addAssignmentDiv"  style="display: none" class="AssignmentDiv">
-    <form id="updateAsignment" method="post"  class="select-parametr2" action="/equipment/information-worksheet/save-assignment/id/<?php echo $this->equipmentAssignmentRow['ea_equipment_id']; ?>">
+    <form id="updateAsignment" method="post"  class="select-parametr2" >
         <div class="second">
             <table cellspacing="0" class="inform">
                 <tbody>
                     <tr>
-                        <th colspan="2">Equipment Assignment Information</th>
+                        <th colspan="2">
+                            Equipment Assignment
+                            <input type="hidden" value="<?= (isset($this->equipmentAssignmentRow['ea_equipment_id'])) ? $this->equipmentAssignmentRow['ea_equipment_id'] : '' ; ?>" id="ea_equipment_id" name="ea_equipment_id" />
+                            <input type="hidden" value="<?= (isset($this->equipmentAssignmentRow['ea_id'])) ? $this->equipmentAssignmentRow['ea_id'] : '' ; ?>" id="ea_id" name="ea_id" />
+                        </th>
                     </tr>
                     <tr>
                         <td>
@@ -128,7 +132,7 @@
                             </span>
                             <span class="blue-button">
                                 <span>
-                                    <a class="EquipmentAssignmentActionLink">
+                                    <a class="EquipmentAssignmentActionLink" id="EquipmentAssigmentCancelLink">
                                         Cancel
                                     </a>
                                 </span>

@@ -631,7 +631,7 @@ CREATE TABLE IF NOT EXISTS `incident` (
   `i_Narrative` text COLLATE latin1_general_ci,
   `i_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
   PRIMARY KEY (`i_ID`),
-  KEY `fk_driver_id` (`I_Driver_ID`)
+  KEY `fk_driver_id` (`i_Driver_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --

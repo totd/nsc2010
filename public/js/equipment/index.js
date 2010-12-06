@@ -22,6 +22,38 @@ function changeType() {
 
 
 $(function() {
+    // Show/hide VIW edit form
+    $(".VIWActionLink").each(function() {
+       $(this).click(function() {
+            $(".VIWDiv").toggle("slow");
+            return false;
+        });
+    });
+
+    $('.EquipmentAssigmentActionLink').each(function() {
+       $(this).click(function() {
+            $('.AssignmentDiv').toggle("showOrHide");
+            return false;
+        });
+    });
+
+    $("#e_License_Expiration_Date").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-20:+20'
+    });
+
+    $("#e_type_id").change(function() {
+        changeType();
+    })
+
+    changeType();
+
+    $("#VIWSaveLink").click(function() {
+        document.getElementById("updateVIM").submit();
+    });
+
+    
     $("#attachFile").imgPreview({
         containerID: 'imgPreviewWithStyles',
         imgCSS: {
@@ -47,29 +79,7 @@ $(function() {
         }
     });
 
-    // Show/hide VIW edit form
-    $('.VIWActionLink').each(function() {
-       $(this).click(function() {
-            $('.VIWDiv').toggle("showOrHide");
-            return false;
-        });
-    });
-
-    $("#e_License_Expiration_Date").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '-20:+20'
-    });
-
-    $("#e_type_id").change(function() {
-        changeType();
-    })
-
-    changeType();
-
-    $("#VIWSaveLink").click(function() {
-        document.getElementById("updateVIM").submit();
-    });
+    
 
 });
 

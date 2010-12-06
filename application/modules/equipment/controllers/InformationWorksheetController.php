@@ -116,6 +116,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $selectEquipmentTypeArray['']['selected'] = true;
         }
         $this->view->equipmentTypes = $selectEquipmentTypeArray;
+
+        $this->addAssignment($equipmentRow['e_id'], $equipmentRow['e_Number']);
     }
 
     public function createNewAction($VIN = null)
@@ -455,20 +457,18 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
     }
 
-    public function addAssignmentAction($equipmentId = null, $VIN = null)
+    private function addAssignment($equipmentId = null, $VIN = null)
     {
-
-
         if (is_null($equipmentId)) {
             $equipmentId = $this->_request->getParam('equipmentId');
             $VIN = $this->_request->getParam('VIN');
         }
 
-        $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;Assignment Update';
+//        $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
+//        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
+//        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
+//        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';
+//        $this->view->breadcrumbs .= '&nbsp;Assignment Update';
 
         if (is_null($equipmentId)) {
             $this->view->errorMessage = "Equipment is undefined";
@@ -511,7 +511,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
             // Depots
             $depotModel = new Depot_Model_Depot();
-            $depotList = $depotModel->getDepotList($equipmentAssigmentRow['ea_homebase_id']);
+            $homebaseId = (isset($equipmentAssigmentRow['ea_homebase_id'])) ? $equipmentAssigmentRow['ea_homebase_id'] : null;
+            $depotList = $depotModel->getDepotList($homebaseId);
 
             $selectArray = array('' => array('text' => '-'));
             if (!is_null($depotList)) {
@@ -554,9 +555,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             );
         }
 
-        //$this->view->equipmentRow = $equipmentRow;
-        $this->view->pageTitle = 'UPDATE EQUIPMENT ASSIGNMENT';
-        $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
+//        $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
         $this->view->headLink()->appendStylesheet('/css/main.css');
     }
 

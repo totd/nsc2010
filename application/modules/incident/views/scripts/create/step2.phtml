@@ -15,10 +15,10 @@
         <div class="parametr-bottom">
             <div class="parametr-middle">
                 <form class="select-parametr new-appl" id="step2Form" method="post"
-                      action="/incident/create/step2">
-                    <div style="padding: 0px 30px;">
+                      action="/incident/create/exit">
+                    <div style="padding: 0px 0px;">
                         <fieldset>
-                            <p>
+                            <p  align="center">
                                 <?php if (isset($this->i_DOT_Regulated) && $this->i_DOT_Regulated == 'Yes') : ?>
                                     <label>
                                         <span>
@@ -31,17 +31,49 @@
                                     </label>
                                 <?php endif; ?>
                             </p>
-                            <p>
-                                <label>
-                                        Please click on NEXT to enter driver information.
-                                </label>
-                            </p>
+                            
                             <p class="submit-button">
-                                <input type="submit" name="nextSubmit" id="nextSubmit" value="Next">
+                                <input type="button" name="exitSubmit" id="exitSubmit" value="Exit">
+                                <input type="button" name="chooseDriver" id="chooseDriver" value="Choose Driver">
                             </p>
                         </fieldset>
                     </div>
                 </form>
+<!--                <form class="select-parametr2" id="step2Form" method="post"
+                      action="/incident/create/step2">
+                    <div style="padding: 0px 30px;">
+                        <table cellspacing="0" class="inform">
+                            <tbody>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <?php if (isset($this->i_DOT_Regulated) && $this->i_DOT_Regulated == 'Yes') : ?>
+                                            <label>
+                                                <span>
+                                                    Incident is DOT reportable. Please contact safety coordinator immediately.
+                                                </span>
+                                            </label>
+                                        <?php else : ?>
+                                            <label>
+                                                    Incident is not DOT reportable.
+                                            </label>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <input type="button" id="exitSubmit" value="Exit">
+                                        <input type="button" id="chooseDriver" value="Choose Driver">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>-->
             </div>
         </div>
     </div>

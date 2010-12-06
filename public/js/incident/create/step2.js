@@ -1,10 +1,9 @@
 $(function() {
-    $("#nextSubmit").click(function() {
-        document.getElementById("step2Form").submit();
+    $("#chooseDriver").click(function() {
+        window.location.href='/driver/index/involved-in-incident-drivers/incident_id/new';
     });
 
     $("#exitSubmit").click(function() {
         window.location.href='/incident/create/exit';
     });
-
 });

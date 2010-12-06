@@ -36,7 +36,7 @@
         <td><label for="edit_pe_Phone" class="required"><span>*</span>Phone:</label></td>
         <td>
             <input type="text" value="<?php echo $driverEmploymentHistoryRecord['pe_Phone'];?>" size="30" name="edit_pe_Phone" id="edit_pe_Phone"> &nbsp;
-            Fax:&nbsp; <input type="text" value="<?php echo $driverEmploymentHistoryRecord['pe_Postal_Code'];?>" size="30" name="edit_pe_Fax" id="edit_pe_Fax">
+            <label for="edit_pe_Fax" class="required"><span>*</span>Fax:</label>&nbsp; <input type="text" value="<?php echo $driverEmploymentHistoryRecord['pe_Fax'];?>" size="30" name="edit_pe_Fax" id="edit_pe_Fax">
         </td>
     </tr>
     <tr class="color-dark">
@@ -60,7 +60,7 @@
                 ?>" maxlength="10" size="10" name="edit_pe_Employment_Stop_Date" class="hasDatepicker" />
         </td>
     </tr>
-    <tr class="color-dark"><td>Reason For Leaving:</td>
+    <tr class="color-dark"><td><label for="edit_pe_Reason_for_Leaving" class="required"><span>*</span>Reason For Leaving:</label></td>
         <td>
             <textarea maxlength="250" rows="7" cols="38" name="edit_pe_Reason_for_Leaving" id="edit_pe_Reason_for_Leaving" type="text"><?php echo $driverEmploymentHistoryRecord['pe_Reason_for_Leaving'];?></textarea>
         </td>
@@ -80,6 +80,7 @@
             </select>
         </td>
     </tr>
+    <?php if(date("Y-m-d")=="1977-02-24"){?>
     <tr>
         <td class=""></td>
         <td class="">
@@ -100,6 +101,7 @@
             </select>
         </td>
     </tr>
+        <?php } ?>
     <tr class="color-dark"><td colspan="2">&nbsp;</td></tr>
     <tr>
         <td></td>

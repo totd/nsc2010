@@ -1,5 +1,9 @@
 $(function() {
-    $("#e_activation_date").datepicker();
+    $("#e_activation_date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+            yearRange: '-10:+10'
+		});
 
     $("#completeForm").validate({
         rules: {

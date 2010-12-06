@@ -1,6 +1,6 @@
 <?php
 
-class Ajax_DriverAddressHistoryController extends Zend_Controller_Action
+class Driver_AjaxDriverAddressHistoryController extends Zend_Controller_Action
 {
 
     public function init()
@@ -112,7 +112,7 @@ class Ajax_DriverAddressHistoryController extends Zend_Controller_Action
         $stateList = State_Model_State::getList();
 
         $layout = new Zend_Layout();
-        $layout->setLayoutPath(APPLICATION_PATH.'/modules/ajax/views/scripts/driver-address-history/');
+        $layout->setLayoutPath(APPLICATION_PATH.'/modules/driver/views/scripts/ajax/driver-address-history/');
         $layout->setLayout('get-driver-address-history-list');
         $layout->driverAddressHistoryList = $arr->getList($dah_Driver_ID);
         $layout->stateList = $stateList;
@@ -131,7 +131,7 @@ class Ajax_DriverAddressHistoryController extends Zend_Controller_Action
         $arr = new Driver_Model_DriverAddressHistory();
         $stateList = State_Model_State::getList();
         $layout = new Zend_Layout();
-        $layout->setLayoutPath(APPLICATION_PATH.'/modules/ajax/views/scripts/driver-address-history/');
+        $layout->setLayoutPath(APPLICATION_PATH.'/modules/driver/views/scripts/ajax/driver-address-history/');
         $layout->setLayout('get-record');
         $layout->driverAddressHistoryRecord = $arr->getRecord($dah_ID);
         $layout->stateList = $stateList;

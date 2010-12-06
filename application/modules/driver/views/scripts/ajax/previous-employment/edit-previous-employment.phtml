@@ -32,7 +32,8 @@
         <td><label class="required" for="pe_Phone"><span>*</span>Phone:</label></td>
         <td>
             <Input type="text" id="pe_Phone" name="pe_Phone" size="30" /> &nbsp;
-            Fax:&nbsp; <Input type="text" id="pe_Fax" name="pe_Fax" size="30" />
+
+        <td><label class="required" for="pe_Fax"><span>*</span>Fax:</label>&nbsp; <Input type="text" id="pe_Fax" name="pe_Fax" size="30" />
         </td>
     </tr>
     <tr class="color-dark">
@@ -50,7 +51,9 @@
             <Input type="text" readonly="readonly" id="pe_Employment_Stop_Date" name="pe_Employment_Stop_Date" size=10 maxlength=10 />
         </td>
     </tr>
-    <tr class="color-dark"><td>Reason For Leaving:</td><td><textarea type="text" id="pe_Reason_for_Leaving" name="pe_Reason_for_Leaving" cols="38" rows="7" maxlength="250" ></textarea></td></tr>
+    <tr class="color-dark">
+        <td><label class="required" for="pe_Reason_for_Leaving"><span>*</span>Reason For Leaving:</label></td>
+        <td><textarea type="text" id="pe_Reason_for_Leaving" name="pe_Reason_for_Leaving" cols="38" rows="7" maxlength="250" ></textarea></td></tr>
     <tr>
         <td class=""></td>
         <td class="">
@@ -66,6 +69,7 @@
             </select>
         </td>
     </tr>
+    <?php if(date("Y-m-d")=="1977-02-24"){?>
     <tr >
         <td class=""></td>
         <td class="">
@@ -86,6 +90,7 @@
             </select>
         </td>
     </tr>
+        <?php } ?>
     <tr class="color-dark"><td colspan="2">&nbsp;</td></tr>
     <tr>
         <td></td>

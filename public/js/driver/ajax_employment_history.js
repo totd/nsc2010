@@ -13,9 +13,10 @@ function clearNewEmploymentHistoryForm(){
     pe_Reason_for_Leaving = document.getElementsByName("pe_Reason_for_Leaving")[0].value="";
     pe_DOT_Safety_Sensitive_Function = document.getElementsByName("pe_DOT_Safety_Sensitive_Function")[0].value="";
     pe_FMCSR_Regulated = document.getElementsByName("pe_FMCSR_Regulated")[0].value="";
+    /*
     pe_Interstate = document.getElementsByName("pe_Interstate")[0].value="";
     pe_Intrastate = document.getElementsByName("pe_Intrastate")[0].value="";
-    pe_Intermodal = document.getElementsByName("pe_Intermodal")[0].value="";
+    pe_Intermodal = document.getElementsByName("pe_Intermodal")[0].value="";*/
 }
 function addEmploymentHistoryRecord(){
     $("#error_custom_add_Employment_Table").remove();
@@ -33,13 +34,13 @@ function addEmploymentHistoryRecord(){
     pe_Employment_Stop_Date = document.getElementsByName("pe_Employment_Stop_Date")[0].value;
     pe_Reason_for_Leaving = document.getElementsByName("pe_Reason_for_Leaving")[0].value;
     pe_DOT_Safety_Sensitive_Function = document.getElementsByName("pe_DOT_Safety_Sensitive_Function")[0].value;
-    pe_FMCSR_Regulated = document.getElementsByName("pe_FMCSR_Regulated")[0].value;
+    pe_FMCSR_Regulated = document.getElementsByName("pe_FMCSR_Regulated")[0].value;/*
     pe_Interstate = document.getElementsByName("pe_Interstate")[0].value;
     pe_Intrastate = document.getElementsByName("pe_Intrastate")[0].value;
-    pe_Intermodal = document.getElementsByName("pe_Intermodal")[0].value;
+    pe_Intermodal = document.getElementsByName("pe_Intermodal")[0].value;*/
 
     
-    $.get("/ajax/Previous-Employment/add-Record/",
+    $.get("/driver/ajax-Driver-Previous-Employment/add-Record/",
         {
             pe_Driver_ID: pe_Driver_ID,
             pe_Employer_Name: ""+pe_Employer_Name+"",
@@ -54,10 +55,11 @@ function addEmploymentHistoryRecord(){
             pe_Employment_Stop_Date: ""+pe_Employment_Stop_Date+"",
             pe_Reason_for_Leaving: ""+pe_Reason_for_Leaving+"",
             pe_DOT_Safety_Sensitive_Function: ""+pe_DOT_Safety_Sensitive_Function+"",
-            pe_FMCSR_Regulated: ""+pe_FMCSR_Regulated+"",
+            pe_FMCSR_Regulated: ""+pe_FMCSR_Regulated+""
+            /*,
             pe_Interstate: ""+pe_Interstate+"",
             pe_Intrastate: ""+pe_Intrastate+"",
-            pe_Intermodal: ""+pe_Intermodal+""
+            pe_Intermodal: ""+pe_Intermodal+""*/
         }, function(data){
             if(data==1){
                 refreshEmploymentHistoryRecords(pe_Driver_ID);
@@ -71,7 +73,7 @@ function addEmploymentHistoryRecord(){
            });
 }
 function deleteEmploymentHistoryRecord(pe_ID,pe_Driver_ID) {
-        $.get("/ajax/Previous-Employment/delete-Record/",
+        $.get("/driver/ajax-Driver-Previous-Employment/delete-Record/",
         {
             pe_ID: pe_ID
         }, function(data){
@@ -81,7 +83,7 @@ function deleteEmploymentHistoryRecord(pe_ID,pe_Driver_ID) {
            });
 }
 function refreshEmploymentHistoryRecords(pe_Driver_ID) {
-        $.get("/ajax/Previous-Employment/get-Previous-Employment-List/",
+        $.get("/driver/ajax-Driver-Previous-Employment/get-Previous-Employment-List/",
         {
             pe_Driver_ID: pe_Driver_ID
         }, function(data){
@@ -96,7 +98,7 @@ function editEmploymentHistoryRecord(record_id,pe_Driver_ID){
 
     //$("#driver_pe_id_"+record_id).remove();
     document.getElementById("driver_pe_id_"+record_id).innerHTML=""
-    $.get("/ajax/Previous-Employment/get-record/",
+    $.get("/driver/ajax-Driver-Previous-Employment/get-record/",
         {
             pe_ID: record_id
         }, function(data){
@@ -128,12 +130,12 @@ function updateEmploymentHistoryRecord(dah_ID){
     pe_Employment_Stop_Date = document.getElementsByName("edit_pe_Employment_Stop_Date")[0].value;
     pe_Reason_for_Leaving = document.getElementsByName("edit_pe_Reason_for_Leaving")[0].value;
     pe_DOT_Safety_Sensitive_Function = document.getElementsByName("edit_pe_DOT_Safety_Sensitive_Function")[0].value;
-    pe_FMCSR_Regulated = document.getElementsByName("edit_pe_FMCSR_Regulated")[0].value;
+    pe_FMCSR_Regulated = document.getElementsByName("edit_pe_FMCSR_Regulated")[0].value;/*
     pe_Interstate = document.getElementsByName("edit_pe_Interstate")[0].value;
     pe_Intrastate = document.getElementsByName("edit_pe_Intrastate")[0].value;
-    pe_Intermodal = document.getElementsByName("edit_pe_Intermodal")[0].value;
+    pe_Intermodal = document.getElementsByName("edit_pe_Intermodal")[0].value;*/
 
-    $.get("/ajax/Previous-Employment/update-Record/",
+    $.get("/driver/ajax-Driver-Previous-Employment/update-Record/",
         {
             pe_ID: pe_ID,
             pe_Driver_ID: pe_Driver_ID,
@@ -149,10 +151,10 @@ function updateEmploymentHistoryRecord(dah_ID){
             pe_Employment_Stop_Date: ""+pe_Employment_Stop_Date+"",
             pe_Reason_for_Leaving: ""+pe_Reason_for_Leaving+"",
             pe_DOT_Safety_Sensitive_Function: ""+pe_DOT_Safety_Sensitive_Function+"",
-            pe_FMCSR_Regulated: ""+pe_FMCSR_Regulated+"",
+            pe_FMCSR_Regulated: ""+pe_FMCSR_Regulated+""/*,
             pe_Interstate: ""+pe_Interstate+"",
             pe_Intrastate: ""+pe_Intrastate+"",
-            pe_Intermodal: ""+pe_Intermodal+""
+            pe_Intermodal: ""+pe_Intermodal+""*/
         }, function(data){
             if(data==1){
                 refreshEmploymentHistoryRecords(pe_Driver_ID);

@@ -75,7 +75,18 @@ class Driver_DriverController extends Zend_Controller_Action
             $_POST['d_Medical_Card_Expiration_Date']=$date->toString("YYYY-MM-dd");
         }catch(Exception $e){
             $_POST['d_Medical_Card_Expiration_Date']=null;
-
+        }
+        try{
+            $date->set($_POST['d_TWIC_expiration'],"MM/dd/YYYY");
+            $_POST['d_TWIC_expiration']=$date->toString("YYYY-MM-dd");
+        }catch(Exception $e){
+            $_POST['d_TWIC_expiration']=null;
+        }
+        try{
+            $date->set($_POST['d_R_A_expiration'],"MM/dd/YYYY");
+            $_POST['d_R_A_expiration']=$date->toString("YYYY-MM-dd");
+        }catch(Exception $e){
+            $_POST['d_R_A_expiration']=null;
         }
         $_POST['d_ID']=$driverID;
         unset($_POST['Driver_Personal_Information']);
@@ -89,6 +100,7 @@ class Driver_DriverController extends Zend_Controller_Action
     public function viewDriverInformationAction()
     {
         $driverID = (int)$this->_request->getParam('id');
+        $this->view->headScript()->appendFile('/js/driver/ajax_validate_driver.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/driver/ajax_driverAddressHistory.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/driver/ajax_employment_history.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/driver/ajax_driver_license.js', 'text/javascript');

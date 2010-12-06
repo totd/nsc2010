@@ -1,5 +1,5 @@
 <?php
-class Ajax_DriverLicenseController extends Zend_Controller_Action
+class Driver_AjaxDriverLicenseController extends Zend_Controller_Action
 {
     public function init()
     {
@@ -58,7 +58,7 @@ class Ajax_DriverLicenseController extends Zend_Controller_Action
             $errors++;
             $msg=$msg."Please, select YES or NO from DOT Regulated.\n";
         }
-        if(preg_match("/^[\w]{0,100}+$/",$l_License_Restrictions)==0){
+        if(sizeof($l_License_Restrictions)>100){
             $errors++;
             $msg=$msg."License Restrictions cannot contain more than 100 symbols!\n";
         }
@@ -92,7 +92,7 @@ class Ajax_DriverLicenseController extends Zend_Controller_Action
         $stateList = State_Model_State::getList();
 
         $layout = new Zend_Layout();
-        $layout->setLayoutPath(APPLICATION_PATH.'/modules/ajax/views/scripts/driver-license/');
+        $layout->setLayoutPath(APPLICATION_PATH.'/modules/driver/views/scripts/ajax/driver-license/');
         $layout->setLayout('get-driver-licenses-list');
         $layout->driverLicensesList = $arr->getList($l_Driver_ID);
         $layout->stateList = $stateList;
@@ -111,7 +111,7 @@ class Ajax_DriverLicenseController extends Zend_Controller_Action
         $arr = new Driver_Model_License();
         $stateList = State_Model_State::getList();
         $layout = new Zend_Layout();
-        $layout->setLayoutPath(APPLICATION_PATH.'/modules/ajax/views/scripts/driver-license/');
+        $layout->setLayoutPath(APPLICATION_PATH.'/modules/driver/views/scripts/ajax/driver-license/');
         $layout->setLayout('get-record');
         $layout->driverLicenseRecord = $arr->getRecord($l_ID);
         $layout->stateList = $stateList;
@@ -163,7 +163,7 @@ class Ajax_DriverLicenseController extends Zend_Controller_Action
             $errors++;
             $msg=$msg."Please, select YES or NO from DOT Regulated.\n";
         }
-        if(preg_match("/^[\w]{0,100}+$/",$l_License_Restrictions)==0){
+        if(sizeof($l_License_Restrictions)==0){
             $errors++;
             $msg=$msg."License Restrictions cannot contain more than 100 symbols!\n";
         }

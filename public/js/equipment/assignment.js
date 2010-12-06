@@ -1,6 +1,14 @@
 $(function() {
-    $("#ea_start_date").datepicker();
-    $("#ea_end_date").datepicker();
+    $("#ea_start_date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+            yearRange: '-10:+10'
+		});
+    $("#ea_end_date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+            yearRange: '-10:+10'
+		});
 
     $("#updateAsignment").validate({
         rules: {

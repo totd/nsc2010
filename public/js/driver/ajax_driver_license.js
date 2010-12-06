@@ -6,7 +6,7 @@ function clearNewLicenseForm(){
     document.getElementsByName("l_DOT_Regulated")[0].value="NO";
     document.getElementsByName("l_License_Restrictions")[0].value="";
     for (i = 0; i < document.getElementsByName("l_License_Endorsements").length; i++){
-        document.getElementsByName("l_License_Endorsements")[i].checked==false;
+        document.getElementsByName("l_License_Endorsements")[i].checked=false;
     }
     document.getElementsByName("l_Points_Score")[0].value="";
 }
@@ -26,7 +26,7 @@ function addLicenseRecord(){
     }
     l_Points_Score = document.getElementsByName("l_Points_Score")[0].value;
 
-    $.get("/ajax/Driver-License/add-Record/",
+    $.get("/Driver/ajax-Driver-License/add-Record/",
         {
             l_Driver_ID: l_Driver_ID,
             l_Driver_License_Number: ""+l_Driver_License_Number+"",
@@ -41,8 +41,6 @@ function addLicenseRecord(){
             if(data==1){
                 refreshLicenseRecords(l_Driver_ID);
                 clearNewLicenseForm();
-                $('#add_driver_License_Table').hide();
-                document.getElementById("toggleDriverLicenseAdd").innerHTML="Show";
                 return true;
             }else{
                 alert(""+data+"");
@@ -50,26 +48,23 @@ function addLicenseRecord(){
            });
 }
 function deleteLicenseRecord(l_ID,l_Driver_ID) {
-        $.get("/ajax/Driver-License/delete-Record/",
+        $.get("/driver/ajax-Driver-License/delete-Record/",
         {
             l_ID: l_ID
         }, function(data){
-                //document.getElementById("currentDriverAddressHistoryList").innerHTML=data;
                 refreshLicenseRecords(l_Driver_ID);
                 return true;
            });
 }
 function refreshLicenseRecords(l_Driver_ID) {
-        $.get("/ajax/Driver-License/get-Driver-Licenses-List/",
+        $.get("/driver/ajax-Driver-License/get-Driver-Licenses-List/",
         {
             l_Driver_ID: l_Driver_ID
         }, function(data){
                 $("#driverLicensesList").hide(250);
                 document.getElementById("driverLicensesList").innerHTML=data;
                 $("#driverLicensesList").show(250);
-                clearNewDriverAddressForm();
-                $('#add_driver_License_Table').hide();
-                document.getElementById("toggleDriverLicenseAdd").innerHTML="Show";
+                clearNewLicenseForm();
                 return true;
            });
 }
@@ -78,7 +73,7 @@ function editLicenseRecord(l_ID,l_Driver_ID){
     clearNewDriverAddressForm();
     $('#add_Address_Table').hide(0);
 
-    $.get("/ajax/Driver-License/get-record/",
+    $.get("/driver/ajax-Driver-License/get-record/",
         {
             l_ID: l_ID
         }, function(data){
@@ -114,7 +109,7 @@ function updateLicenseRecord(l_ID){
     }
     l_Points_Score = document.getElementsByName("edit_l_Points_Score")[0].value;
     
-    $.get("/ajax/Driver-License/update-Record/",
+    $.get("/driver/ajax-Driver-License/update-Record/",
         {
             l_ID: l_ID,
             l_Driver_ID: l_Driver_ID,

@@ -51,11 +51,18 @@
             <td>First:&nbsp;<span><?php echo $this->driverInfo['d_First_Name']; ?></span>
                 Last:&nbsp;<span><?php echo $this->driverInfo['d_Last_Name']; ?></span>
                 Middle:&nbsp;<span><?php echo $this->driverInfo['d_Middle_Name']; ?></span></td></tr>
-        <tr class="color-dark"><td>Date Of Birth</td><td><span><?php echo $this->driverInfo['d_Date_Of_Birth']; ?></span></td></tr>
+        <tr class="color-dark"><td>Date Of Birth</td><td><span><?php
+                        $date->set($this->driverInfo['d_Date_Of_Birth'],"YYYY-MM-dd");
+                  echo  $date->toString("MM/dd/YYYY");
+                  ?></span></td></tr>
         <tr><td>Social Security #</td><td><span><?php echo $this->driverInfo['d_Driver_SSN']; ?></span></td></tr>
         <tr class="color-dark">
             <td>Medical Card</td>
-            <td>Expires:&nbsp;<span><?php echo $this->driverInfo['d_Medical_Card_Expiration_Date']; ?></span>
+            <td>Expires:&nbsp;<span><?php
+                        if(isset($this->driverInfo['d_Medical_Card_Expiration_Date'])){
+                        $date->set($this->driverInfo['d_Medical_Card_Expiration_Date'],"YYYY-MM-dd");
+                  echo  $date->toString("MM/dd/YYYY");}
+                  ?></span>
                 Medical Examiner's Name:&nbsp;<span><?php echo $this->driverInfo['d_Doctor_Name']; ?></span></td></tr>
         <tr>
             <td>Phone Information</td>
@@ -83,6 +90,22 @@
             <?
         }
         ?>
+        <tr class="color-dark"><td>TWIC #:</td><td><span><?php echo $this->driverInfo['d_TWIC']; ?></span></td></tr>
+        <tr><td>TWIC expiration date:</td><td><span>
+                  <?php
+                        if(isset($this->driverInfo['d_TWIC_expiration'])){
+                            $date->set($this->driverInfo['d_TWIC_expiration'],"YYYY-MM-dd");
+                            echo  $date->toString("MM/dd/YYYY");
+                        }
+                  ?></span></td></tr>
+        <tr class="color-dark"><td>R/A card #:</td><td><span><?php echo $this->driverInfo['d_R_A']; ?></span></td></tr>
+        <tr><td>R/A card expiration date:</td><td><span>
+                  <?php
+                        if(isset($this->driverInfo['d_R_A_expiration'])){
+                            $date->set($this->driverInfo['d_R_A_expiration'],"YYYY-MM-dd");
+                            echo  $date->toString("MM/dd/YYYY");
+                        }
+                  ?></span></td></tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody></table>
         <?php echo $this->partial('partials/_edit-Driver-Information-Table.phtml',array('driverInfo' => $this->driverInfo,"stateList" => $this->stateList,"homebaseList" => $this->homebaseList,"depotList" => $this->depotList)); ?>
@@ -109,7 +132,7 @@
         <tbody>
         <tr class="title-dark">
             <td>
-                ADD ADDRESS [ <a id="toggleAddressAdd">Show</a> ]
+                ADD ADDRESS [ <a id="toggleAddressAdd">SHOW</a> ]
             </td>
         </tr>
         </tbody>
@@ -127,7 +150,7 @@
         <tbody>
             <tr>
                 <th colspan="2">Commercial Driver's Licenses<br>
-                <span class="red">Please list all Commercial Driver's Licenses.</span><br>
+                <span class="red">Please list all Commercial Driver's Licenses held in last 3 years.</span><br>
                 <span class="discr">Endorsements:&nbsp;<span class="bold">P</span>-Passenger,&nbsp;<span class="bold">T</span>-Doubles &amp; Triples,&nbsp;<span class="bold">H</span>-Hazardous Materials,&nbsp;<span class="bold">N</span>-Tankers,&nbsp;<span class="bold">X</span>-Hazardous &amp; Tankers.</span>
                 </th>
             </tr>
@@ -137,7 +160,7 @@
     </table>
     <table cellspacing="0"  class="inform">
         <tbody id="driverLicensesListAdd">
-            <tr class="title-dark"><td colspan="2">ADD LICENSE [ <a id="toggleDriverLicenseAdd" onclick="">Show</a> ]</td></tr>
+            <tr class="title-dark"><td colspan="2">ADD LICENSE [ <a id="toggleDriverLicenseAdd">SHOW</a> ]</td></tr>
         </tbody>
         <tbody id="add_driver_License_Table">
             <?php echo $this->partial('partials/_add-Driver-License-Table.phtml',array('driverId' => $this->driverId,"stateList" => $this->stateList)); ?>
@@ -170,17 +193,17 @@
         <tbody>
         <tr class="title-dark">
             <td>
-                ADD EMPLOYER [ <a id="toggleEmploymentHistoryAdd">Show</a> ]
+                ADD EMPLOYER [ <a id="toggleEmploymentHistoryAdd">SHOW</a> ]
             </td>
         </tr>
         </tbody>
     </table>
+   <?php echo $this->partial('partials/_add-Employment-Table.phtml',array('driverId' => $this->driverId,"stateList" => $this->stateList)); ?>
     <script type="text/javascript">
         $(document).ready(function() {
             $('#add_Employment_Table').hide();
         });
     </script>
-   <?php echo $this->partial('partials/_add-Employment-Table.phtml',array('driverId' => $this->driverId,"stateList" => $this->stateList)); ?>
 </div></div></div>
 <!--
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
@@ -198,6 +221,7 @@
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
     <table cellspacing="0" class="inform adress">
         <tr><th colspan="7">Hours Of Service In Previous 7 Days [ <a id="toggleHoS" onclick="">EDIT</a> ]</th></tr>
+        <tbody id="hos_list">
         <tr align="center">
             <td><?php echo $this->currentDriverHoSList[6]['dhos_date'];?></td>
             <td><?php echo $this->currentDriverHoSList[5]['dhos_date'];?></td>
@@ -207,7 +231,6 @@
             <td><?php echo $this->currentDriverHoSList[1]['dhos_date'];?></td>
             <td><?php echo $this->currentDriverHoSList[0]['dhos_date'];?></td>
         </tr>
-        <tbody id="hos_list">
         <tr class="color-dark" align="center">
             <td><?php echo $this->currentDriverHoSList[6]['dhos_hours'];?></td>
             <td><?php echo $this->currentDriverHoSList[5]['dhos_hours'];?></td>
@@ -218,27 +241,7 @@
             <td><?php echo $this->currentDriverHoSList[0]['dhos_hours'];?></td>
         </tr>
         </tbody>
-        <tbody id="edit_hos_list">
-        <tr style="display:none;">
-            <td><input type="text" id="Driver_ID" size="8" value="<?php echo $this->driverId;?>" /></td>
-            <td><input type="text" name="edit_dhos_date" size="8" value="<?php echo $this->currentDriverHoSList[6]['dhos_date'];?>" /></td>
-            <td><input type="text" name="edit_dhos_date" size="8" value="<?php echo $this->currentDriverHoSList[5]['dhos_date'];?>" /></td>
-            <td><input type="text" name="edit_dhos_date" size="8" value="<?php echo $this->currentDriverHoSList[4]['dhos_date'];?>" /></td>
-            <td><input type="text" name="edit_dhos_date" size="8" value="<?php echo $this->currentDriverHoSList[3]['dhos_date'];?>" /></td>
-            <td><input type="text" name="edit_dhos_date" size="8" value="<?php echo $this->currentDriverHoSList[2]['dhos_date'];?>" /></td>
-            <td><input type="text" name="edit_dhos_date" size="8" value="<?php echo $this->currentDriverHoSList[1]['dhos_date'];?>" /></td>
-            <td><input type="text" name="edit_dhos_date" size="8" value="<?php echo $this->currentDriverHoSList[0]['dhos_date'];?>" /></td>
-        </tr>
-        <tr class="color-dark" align="center">
-            <td><input type="text" maxlength="2" name="edit_dhos_hours" size="5" value="<?php echo $this->currentDriverHoSList[6]['dhos_hours'];?>" /></td>
-            <td><input type="text" maxlength="2" name="edit_dhos_hours" size="5" value="<?php echo $this->currentDriverHoSList[5]['dhos_hours'];?>" /></td>
-            <td><input type="text" maxlength="2" name="edit_dhos_hours" size="5" value="<?php echo $this->currentDriverHoSList[4]['dhos_hours'];?>" /></td>
-            <td><input type="text" maxlength="2" name="edit_dhos_hours" size="5" value="<?php echo $this->currentDriverHoSList[3]['dhos_hours'];?>" /></td>
-            <td><input type="text" maxlength="2" name="edit_dhos_hours" size="5" value="<?php echo $this->currentDriverHoSList[2]['dhos_hours'];?>" /></td>
-            <td><input type="text" maxlength="2" name="edit_dhos_hours" size="5" value="<?php echo $this->currentDriverHoSList[1]['dhos_hours'];?>" /></td>
-            <td><input type="text" maxlength="2" name="edit_dhos_hours" size="5" value="<?php echo $this->currentDriverHoSList[0]['dhos_hours'];?>" /></td>
-        </tr>
-        </tbody>
+        <?php echo $this->partial('partials/_edit-HoS-Table.phtml',array('currentDriverHoSList' => $this->currentDriverHoSList,"driverId" => $this->driverId)); ?>
         <tbody id="lrfw_list">
         <tr>
             <td colspan="7">Last relieved from work:&nbsp;<span></span>Date:&nbsp;
@@ -252,24 +255,8 @@
             </td>
         </tr>
         </tbody>
-        <tbody id="edit_lrfw_list">
-        <tr>
-            <td colspan="7">Last relieved from work:&nbsp;<span></span>Date:&nbsp;
-                <input type="text" name="edit_dlrfw_date"  maxlength="10" size="8" readonly="readonly" id="edit_lrfw_date" value="<?php
-                if(isset($this->currentDriverLrfwRecord[0]['dlrfw_date'])){
-                    $date->set($this->currentDriverLrfwRecord[0]['dlrfw_date'],"YYYY-MM-dd");
-                    echo $date->toString("MM/dd/YYYY");
-                }
-                ?>" />
-                Time:&nbsp;<input name="edit_dlrfw_from_time" type="text" maxlength="5" size="7" value="<?php if($this->currentDriverLrfwRecord!=null){echo $this->currentDriverLrfwRecord[0]['dlrfw_from_time'];}?>" /> (hh:mm)
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><span class="blue-button float-left"><a onclick="updateHosAndLrfwRecord();">Save</a></span>
-            </td>
-        </tr>
-        </tbody>
+        <?php echo $this->partial('partials/_edit-lrfw-Table.phtml',array('currentDriverLrfwRecord' => $this->currentDriverLrfwRecord)); ?>
+        
         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody></table>
     <script type="text/javascript">
@@ -300,6 +287,16 @@
             yearRange: '1950:2020'
   });
         $("#d_Medical_Card_Expiration_Date").datepicker({
+   changeMonth: true,
+   changeYear: true,
+            yearRange: '1950:2020'
+  });
+        $("#d_TWIC_expiration").datepicker({
+   changeMonth: true,
+   changeYear: true,
+            yearRange: '1950:2020'
+  });
+        $("#d_R_A_expiration").datepicker({
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'

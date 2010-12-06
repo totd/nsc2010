@@ -1,20 +1,12 @@
-/**
- * Created by IntelliJ IDEA.
- * User: vlad
- * Date: 22.11.2010
- * Time: 12:42:51
- * To change this template use File | Settings | File Templates.
- */
 
 // Show/hide Driver Addresses adding form
 $(document).ready(function() {
     $('#toggleAddressAdd').click(function() {
         $('#add_Address_Table').toggle(400);
-        //if((document.getElementById("#toggleAddressAdd").innerHTML)=="Show"){
-        if((document.getElementById("toggleAddressAdd").innerHTML)=="Show"){
-            document.getElementById("toggleAddressAdd").innerHTML="Hide";
+        if((document.getElementById("toggleAddressAdd").innerHTML)=="SHOW"){
+            document.getElementById("toggleAddressAdd").innerHTML="HIDE";
         }else{
-            document.getElementById("toggleAddressAdd").innerHTML="Show";
+            document.getElementById("toggleAddressAdd").innerHTML="SHOW";
         }
         return false;
     });
@@ -23,10 +15,10 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#toggleEmploymentHistoryAdd').click(function() {
         $('#add_Employment_Table').toggle(400);
-        if((document.getElementById("toggleEmploymentHistoryAdd").innerHTML)=="Show"){
-            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="Hide";
+        if((document.getElementById("toggleEmploymentHistoryAdd").innerHTML)=="SHOW"){
+            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="HIDE";
         }else{
-            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="Show";
+            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="SHOW";
         }
         return false;
     });
@@ -35,10 +27,10 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#toggleDriverLicenseAdd').click(function() {
         $('#add_driver_License_Table').toggle(400);
-        if((document.getElementById("toggleDriverLicenseAdd").innerHTML)=="Show"){
-            document.getElementById("toggleDriverLicenseAdd").innerHTML="Hide";
+        if((document.getElementById("toggleDriverLicenseAdd").innerHTML)=="SHOW"){
+            document.getElementById("toggleDriverLicenseAdd").innerHTML="HIDE";
         }else{
-            document.getElementById("toggleDriverLicenseAdd").innerHTML="Show";
+            document.getElementById("toggleDriverLicenseAdd").innerHTML="SHOW";
         }
         return false;
     });

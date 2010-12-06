@@ -1,7 +1,8 @@
 <?php
 
-class Ajax_DriverHosController extends Zend_Controller_Action
+class Driver_AjaxDriverHoursOfServiceController extends Zend_Controller_Action
 {
+
     public function init()
     {
         //Turn off autorender of templites
@@ -9,14 +10,11 @@ class Ajax_DriverHosController extends Zend_Controller_Action
         // turn of templites
         $this->_helper->layout()->disableLayout();
     }
-    public function indexAction()
-    {
-        // action body
-    }
+
 
     public function proceedHosAction()
     {
-        
+
         $Driver_ID = $_GET['Driver_ID'];
         $dhos_date_str = trim($_GET['dhos_date']);
         $dhos_hours_str = preg_replace("/[^0-9-|\s]+/","",trim($_GET['dhos_hours']));
@@ -55,19 +53,49 @@ class Ajax_DriverHosController extends Zend_Controller_Action
                     }
                 }
             }
-            $date->set($dlrfw_date,"MM/dd/YYYY");
-            $dlrfw_date =Driver_Model_DriverLrfw::getRecord($Driver_ID);
-            if($dlrfw_date!=null){
-                Driver_Model_DriverLrfw::updateRecord(array("dlrfw_Driver_ID"=>$Driver_ID,"dlrfw_date"=>$date->toString("YYYY-MM-dd"),"dlrfw_from_time"=>$dlrfw_from_time));
-            }else{
-                Driver_Model_DriverLrfw::createRecord(array("dlrfw_Driver_ID"=>$Driver_ID,"dlrfw_date"=>$date->toString("YYYY-MM-dd"),"dlrfw_from_time"=>$dlrfw_from_time));
+            if($dlrfw_date!=""){
+                $date->set($dlrfw_date,"MM/dd/YYYY");
+                $dlrfw_date = Driver_Model_DriverLrfw::getRecord($Driver_ID);
+                if($dlrfw_date!=null){
+                    Driver_Model_DriverLrfw::updateRecord(array("dlrfw_Driver_ID"=>$Driver_ID,"dlrfw_date"=>$date->toString("YYYY-MM-dd"),"dlrfw_from_time"=>$dlrfw_from_time));
+                }else{
+                    Driver_Model_DriverLrfw::createRecord(array("dlrfw_Driver_ID"=>$Driver_ID,"dlrfw_date"=>$date->toString("YYYY-MM-dd"),"dlrfw_from_time"=>$dlrfw_from_time));
+                }
             }
         }
         echo 1;
     }
 
+    public function getDriverHoSListAction()
+    {
+        $dah_Driver_ID = $_REQUEST['dah_Driver_ID'];
+
+        $currentDriverHosList = Driver_Model_DriverHos::getList($driverID,1);
+        $currentDriverLrfwRecord = Driver_Model_DriverLrfw::getRecord($driverID);
+
+        $toDate = date("Y-m-d");
+        $arr = explode("-",$toDate);
+        for($i=0;$i<=6;$i++){
+            $date = date("Y-m-d",mktime(0, 0, 0, $arr[1], $arr[2]-$i, $arr[0]));
+            $dt = explode("-",$date);
+            $week[$i]['dhos_date']=$dt[1]."/".$dt[2]."/".$dt[0];
+            $week[$i]['dhos_hours']="-";
+            $week[$i]['dhos_ID']="";
+            foreach($currentDriverHosList as $k => $v){
+                if (in_array($date, $v)) {
+                    $week[$i]['dhos_hours'] = $v['dhos_hours'];
+                    $week[$i]['dhos_ID'] = $v['dhos_ID'];
+                }
+            }
+        }
+
+
+        $layout = new Zend_Layout();
+        $layout->setLayoutPath(APPLICATION_PATH.'/modules/driver/views/scripts/ajax/driver-hos/');
+        $layout->setLayout('index');
+        $this->view->currentDriverHoSList = $week;
+        $this->view->currentDriverLrfwRecord = $currentDriverLrfwRecord;
+        echo $layout->render();
+    }
 
 }
-
-
-

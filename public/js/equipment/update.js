@@ -21,7 +21,11 @@ function changeType() {
 }
 
 $(function() {
-		$("#e_License_Expiration_Date").datepicker();
+		$("#e_License_Expiration_Date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+            yearRange: '-10:+10'
+		});
 
         /*$("#updateVIM").validate({
             rules: {

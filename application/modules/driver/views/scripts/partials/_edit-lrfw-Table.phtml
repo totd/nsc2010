@@ -1,0 +1,19 @@
+
+    <tbody id="edit_lrfw_list">
+        <tr>
+            <td colspan="7">Last relieved from work:&nbsp;<span></span>Date:&nbsp;
+                <input type="text" name="edit_dlrfw_date"  maxlength="10" size="8" readonly="readonly" id="edit_lrfw_date" value="<?php
+                if(isset($this->currentDriverLrfwRecord[0]['dlrfw_date'])){
+                    $date->set($this->currentDriverLrfwRecord[0]['dlrfw_date'],"YYYY-MM-dd");
+                    echo $date->toString("MM/dd/YYYY");
+                }
+                ?>" />
+                Time:&nbsp;<input name="edit_dlrfw_from_time" type="text" maxlength="5" size="7" value="<?php if($this->currentDriverLrfwRecord!=null){echo $this->currentDriverLrfwRecord[0]['dlrfw_from_time'];}?>" /> (hh:mm)
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><span class="blue-button float-left"><a onclick="updateHosAndLrfwRecord();">Save</a></span>
+            </td>
+        </tr>
+    </tbody>

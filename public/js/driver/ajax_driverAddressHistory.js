@@ -20,7 +20,7 @@ function addAddressHistoryRecord(){
     dah_End_Date = document.getElementsByName("dah_End_Date")[0].value;
     dah_Current_Address = document.getElementsByName("dah_Current_Address")[0].value;
     
-    $.get("/ajax/Driver-Address-History/add-Record/",
+    $.get("/driver/ajax-Driver-Address-History/add-Record/",
         {
             dah_Driver_ID: dah_Driver_ID,
             dah_Address1: ""+dah_Address1+"",
@@ -42,7 +42,7 @@ function addAddressHistoryRecord(){
            });
 }
 function deleteAddressHistoryRecord(dah_ID,dah_Driver_ID) {
-        $.get("/ajax/Driver-Address-History/delete-Record/",
+        $.get("/driver/ajax-Driver-Address-History/delete-Record/",
         {
             dah_ID: dah_ID
         }, function(data){
@@ -52,7 +52,7 @@ function deleteAddressHistoryRecord(dah_ID,dah_Driver_ID) {
            });
 }
 function refreshAddressHistoryRecords(dah_Driver_ID) {
-        $.get("/ajax/Driver-Address-History/get-Driver-Address-History-List/",
+        $.get("/driver/ajax-Driver-Address-History/get-Driver-Address-History-List/",
         {
             dah_Driver_ID: dah_Driver_ID
         }, function(data){
@@ -69,7 +69,7 @@ function editAddressHistoryRecord(record_id,dah_Driver_ID){
     $('#add_Address_Table').hide(0);
     document.getElementById("toggleAddressAdd").innerHTML="Show";
 
-    $.get("/ajax/driver-address-history/get-record/",
+    $.get("/driver/ajax-driver-address-history/get-record/",
         {
             dah_ID: record_id
         }, function(data){
@@ -105,7 +105,7 @@ function updateAddressHistoryRecord(dah_ID){
     dah_End_Date = document.getElementsByName("edit_dah_End_Date")[0].value;
     dah_Current_Address = document.getElementsByName("edit_dah_Current_Address")[0].value;
 
-    $.get("/ajax/Driver-Address-History/update-Record/",
+    $.get("/driver/ajax-Driver-Address-History/update-Record/",
         {
             dah_ID: dah_ID,
             dah_Driver_ID: dah_Driver_ID,

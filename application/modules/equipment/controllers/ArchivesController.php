@@ -100,9 +100,6 @@ class Equipment_ArchivesController extends Zend_Controller_Action
         );
 
         $filterFields = array(
-            '-' => array(
-                'text' => '-'
-            ),
             'e_Unit_Number' => array(
                 'text' => 'Unit #'
             ),
@@ -135,7 +132,7 @@ class Equipment_ArchivesController extends Zend_Controller_Action
                 }
             }
         } else {
-            $filterFields['-']['selected'] = 'true';
+            $filterFields['e_Unit_Number']['selected'] = 'true';
         }
         $this->view->filterFields = $filterFields;
 

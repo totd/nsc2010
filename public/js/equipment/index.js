@@ -68,7 +68,7 @@ $(function() {
                 ea_id : $("#ea_id").val()
             }, function(data) {
                     if (data == 1) {
-                        $("#viewAssignmentDiv").innerHTML = "";
+                        $("#viewAssignmentDiv").html("");
                         refreshEquipmentAssigment($("#ea_equipment_id").val());
                         $(".AssignmentDiv").toggle("slow");
                         return true;
@@ -108,7 +108,7 @@ $(function() {
                     e_RFID_No : $("#e_RFID_No").val()
                 }, function(data) {
                     if (data == 1) {
-                        $("#viewVIWdiv").innerHTML = "";
+                        $("#viewVIWdiv").html("");
                         refreshVIW($("#e_Number").val());
                         $(".VIWDiv").toggle("slow");
                         return true;
@@ -145,6 +145,7 @@ function ajaxFileUpload()
             secureuri:false,
             fileElementId: "uploadPicture",
             dataType: 'json',
+            async:false,
             success: function (data, status)
             {
                 if(typeof(data.error) != 'undefined')
@@ -169,12 +170,22 @@ function ajaxFileUpload()
 
 
 function refreshVIW(VIN) {
-    $.get("/equipment/information-worksheet/get-viw/",
+   /* $.get("/equipment/information-worksheet/get-viw/",
         {
             VIN : VIN
         }, function(data){
             document.getElementById("viewVIWdiv").innerHTML=data;
             atachPreview();
+    });*/
+
+     $.ajax({
+            type: "GET",
+            url: "/equipment/information-worksheet/get-viw/",
+            data: "VIN=" + VIN,
+            success: function(data){
+                $("#viewVIWdiv").html(data);
+                atachPreview();
+        }
     });
 }
 
@@ -183,14 +194,14 @@ function refreshEquipmentAssigment(equipmentId) {
         {
             equipmentId : equipmentId
         }, function(data){
-            document.getElementById("viewAssignmentDiv").innerHTML=data;
+            $("#viewAssignmentDiv").html(data);
     });
 
     $.get("/equipment/information-worksheet/get-assignment-driver/",
         {
             equipmentId : equipmentId
         }, function(data) {
-            document.getElementById("viewAssignmentDriverDiv").innerHTML = data;
+            $("#viewAssignmentDriverDiv").html(data);
             return true;
     });
 }

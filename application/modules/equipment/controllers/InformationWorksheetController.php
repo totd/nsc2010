@@ -41,6 +41,17 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $this->_redirect('equipment/list');
         }
 
+        $equipmentSession = new Zend_Session_Namespace('Equipment');
+        if ($equipmentSession->__isset('VIW')) {
+            // Clean session
+            $equipmentSession->__unset('VIW');
+        }
+        $equipmentSession->VIW = array();
+        $equipmentSession->VIW['e_id'] = $equipmentRow['e_id'];
+        $equipmentSession->VIW['e_Number'] = $equipmentRow['e_Number'];
+
+
+
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
             $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
             $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
@@ -68,6 +79,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->headLink()->appendStylesheet('/css/main.css');
         $this->view->headScript()->appendFile('/js/imgpreview.min.0.22.jquery.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/equipment/index.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/ajaxfileupload/ajaxfileupload.js', 'text/javascript');
 
 
         // update VIW data
@@ -329,14 +341,17 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
      */
     public function saveVimAction()
     {
-        if ($this->_request->isPost()) {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if ($this->_request->isXmlHttpRequest()) {
             $equipmentModel = new Equipment_Model_Equipment();
 
             $data = array();
             // TODO implement filling manual all table fields with validating.
-            $data = $this->_request->getPost();
+            $data = $this->_request->getQuery();
             foreach ($data as $key => &$value) {
-                if ($key == 'e_License_Expiration_Date') {
+                if ($key == 'e_License_Expiration_Date'/* || $key == 'e_Entry_Date'*/) {
                     try {
                         $myDate = new Zend_Date($value, "MM/dd/YYYY");
                         $data[$key] = $myDate->toString("YYYY-MM-dd");
@@ -348,19 +363,37 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 }
             }
 
-            if (isset($_FILES['e_Picture'])) {
-                $fileName = $this->saveUploadData('e_Picture');
-                if (!is_null($fileName)) {
-                    $data['e_Picture'] = $fileName;
-                }
-            }
-
-            $where = $equipmentModel->getAdapter()->quoteInto('e_id = ?', $this->_request->getPost('e_id'));
+            $where = $equipmentModel->getAdapter()->quoteInto('e_id = ?', $this->_request->getParam('e_id'));
 
             $equipmentModel->update($data, $where);
 
             //return $this->_redirect('equipment/list');
-            return $this->_redirect($_SERVER['HTTP_REFERER']);
+            //return $this->_redirect($_SERVER['HTTP_REFERER']);
+            echo 1;
+        }
+    }
+
+    public function uploadPictureAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if ($this->_request->isPost()) {
+            if (isset($_FILES['uploadPicture'])) {
+                $equipmentSession = new Zend_Session_Namespace('Equipment');
+                $equipmentVIW = $equipmentSession->VIW;
+                $fileName = $this->saveUploadData('uploadPicture');
+                if (!is_null($fileName)) {
+                    $equipmentVIW['e_Picture'] = $fileName;
+                    $equipmentSession->VIW = $equipmentVIW;
+
+                    //echo $fileName;
+                    echo "{";
+                    echo				"error: '" . '' . "',\n";
+                    echo				"fileName: '" . $fileName . "'\n";
+                    echo "}";
+                }
+            }
         }
     }
 
@@ -460,6 +493,50 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
     }
 
+    public function getViwAction($VIN = null)
+    {
+        if (is_null($VIN)) {
+            if ($this->_request->isXmlHttpRequest()) {
+                $VIN = $this->_request->getParam('VIN');
+
+                $layout = new Zend_Layout();
+                $layout->setLayoutPath(APPLICATION_PATH . '/modules/equipment/views/scripts/information-worksheet');
+                $layout->setLayout('viw');
+
+                $equipmentModel = new Equipment_Model_Equipment();
+                $equipmentRow = $equipmentModel->findEquipmentByVIN($VIN);
+
+                if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
+                    $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
+                    $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
+                } else {
+                    $equipmentRow['e_License_Expiration_Date'] = '';
+                }
+
+                $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
+                $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentRow['e_id']);
+
+                if (!is_null($equipmentAssigmentRow) && !empty($equipmentAssigmentRow)) {
+                    $layout->equipmentAssignmentRow = $equipmentAssigmentRow;
+                }
+
+                if (isset($equipmentRow['enes_type']) && $equipmentRow['enes_type'] == 'Completed') {
+                    $layout->equipmentStatus = (isset($equipmentRow['eas_type'])) ? $equipmentRow['eas_type'] : '';
+                } else {
+                    $layout->equipmentStatus = (isset($equipmentRow['enes_type'])) ? $equipmentRow['enes_type'] : '';
+                }
+
+                $layout->equipmentRow = $equipmentRow;
+                $layout->uploadPath = self::uploadPath;
+
+                $this->_helper->layout->disableLayout();
+                $this->_helper->viewRenderer->setNoRender(true);
+
+                echo $layout->render();
+            }
+        }
+    }
+
     public function getAssignmentAction($equipmentId = null)
     {
         if (is_null($equipmentId)) {
@@ -468,7 +545,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
                 $layout = new Zend_Layout();
                 $layout->setLayoutPath(APPLICATION_PATH . '/modules/equipment/views/scripts/information-worksheet');
-                $layout->setLayout('view-assignment-form');
+                $layout->setLayout('assignment');
                 
 
                 $equipmentModel = new Equipment_Model_Equipment();
@@ -559,6 +636,32 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             }
         }
     }
+
+    public function getAssignmentDriverAction($equipmentId = null)
+    {
+        if (is_null($equipmentId)) {
+            if ($this->_request->isXmlHttpRequest()) {
+                $equipmentId = $this->_request->getParam('equipmentId');
+
+                $layout = new Zend_Layout();
+                $layout->setLayoutPath(APPLICATION_PATH . '/modules/equipment/views/scripts/information-worksheet');
+                $layout->setLayout('assignment-driver');
+
+
+                $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
+                $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentId);
+                if (is_array($equipmentAssigmentRow) && count($equipmentAssigmentRow)) {
+                    $layout->equipmentAssignmentRow = $equipmentAssigmentRow;
+                }
+
+                $this->_helper->layout->disableLayout();
+                $this->_helper->viewRenderer->setNoRender(true);
+
+                echo $layout->render();
+            }
+        }
+    }
+
 
     private function addAssignment($equipmentId = null, $VIN = null)
     {

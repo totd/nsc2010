@@ -21,11 +21,17 @@ function changeType() {
 }
 
 $(function() {
+    refreshVIW($("#e_Number").val());
+
     refreshEquipmentAssigment($("#ea_equipment_id").val());
 });
 
 function hideViewAssignment() {
     $(".AssignmentDiv").toggle("slow");
+}
+
+function hideViewVIW() {
+    $(".VIWDiv").toggle("slow");
 }
 
 
@@ -61,16 +67,56 @@ $(function() {
                 ea_equipment_id : $("#ea_equipment_id").val(),
                 ea_id : $("#ea_id").val()
             }, function(data) {
-                if(data==1){
-                    $("#viewAssignmentDiv").innerHTML="";
-                    refreshEquipmentAssigment($("#ea_equipment_id").val());
-                     $(".AssignmentDiv").toggle("slow");
-                    return true;
-                }else{
-                    alert(data);
-                    return false;
-                }
+                    if (data == 1) {
+                        $("#viewAssignmentDiv").innerHTML = "";
+                        refreshEquipmentAssigment($("#ea_equipment_id").val());
+                        $(".AssignmentDiv").toggle("slow");
+                        return true;
+                    } else {
+                        alert(data);
+                        return false;
+                    }
            });
+    });
+
+    $("#VIWSaveLink").click(function() {
+        $.get("/equipment/information-worksheet/save-vim/",
+                {
+                    e_id : $("#e_id").val(),
+                    e_Picture : $("#e_Picture").val(),
+                    e_Unit_Number : $("#e_Unit_Number").val(),
+                    e_type_id : $("#e_type_id").val(),
+                    e_Start_Mileage : $("#e_Start_Mileage").val(),
+                    e_Registration_State : $("#e_Registration_State").val(),
+                    e_Name : $("#e_Name").val(),
+                    e_Description : $("#e_Description").val(),
+                    e_Axles : $("#e_Axles").val(),
+                    e_License_Number : $("#e_License_Number").val(),
+                    e_License_Expiration_Date : $("#e_License_Expiration_Date").val(),
+                    e_Owner_Number : $("#e_Owner_Number").val(),
+                    e_Alternate_ID : $("#e_Alternate_ID").val(),
+                    e_DOT_Regulated : $("#e_DOT_Regulated").val(),
+                    e_Model : $("#e_Model").val(),
+                    e_Year: $("#e_Year").val(),
+                    e_Make : $("#e_Make").val(),
+                    e_Color : $("#e_Color").val(),
+                    e_Unladen_Weight : $("#e_Unladen_Weight").val(),
+                    e_Gross_Vehicle_Registered_Weight : $("#e_Gross_Vehicle_Registered_Weight").val(),
+                    e_Gross_Vehicle_Weight_Rating : $("#e_Gross_Vehicle_Weight_Rating").val(),
+                    e_Title_Status : $("#e_Title_Status").val(),
+                    e_Fee : $("#e_Fee").val(),
+                    e_RFID_No : $("#e_RFID_No").val()
+                }, function(data) {
+                    if (data == 1) {
+                        $("#viewVIWdiv").innerHTML = "";
+                        refreshVIW($("#e_Number").val());
+                        $(".VIWDiv").toggle("slow");
+                        return true;
+                    } else {
+                        alert(data);
+                        return false;
+                    }
+                });
     });
 
     $("#e_License_Expiration_Date").datepicker({
@@ -83,13 +129,54 @@ $(function() {
         changeType();
     })
 
-    changeType();
-    
+    /*$("#uploadPicture").change(function() {
+        ajaxFileUpload();
+    });*/
 
-    $("#VIWSaveLink").click(function() {
-        document.getElementById("updateVIM").submit();
-    });
+    changeType();
 });
+
+function ajaxFileUpload()
+{
+    $.ajaxFileUpload
+    (
+        {
+            url:'/equipment/information-worksheet/upload-picture/',
+            secureuri:false,
+            fileElementId: "uploadPicture",
+            dataType: 'json',
+            success: function (data, status)
+            {
+                if(typeof(data.error) != 'undefined')
+                {
+                    if (data.error != '') {
+                        //alert(data.error);
+                    } else {
+                        result = data.fileName;
+                        $("#e_Picture").val(result);
+                    }
+                }
+            },
+            error: function (data, status, e)
+            {
+                //alert(e);
+            }
+        }
+    )
+    return false;
+
+}
+
+
+function refreshVIW(VIN) {
+    $.get("/equipment/information-worksheet/get-viw/",
+        {
+            VIN : VIN
+        }, function(data){
+            document.getElementById("viewVIWdiv").innerHTML=data;
+            atachPreview();
+    });
+}
 
 function refreshEquipmentAssigment(equipmentId) {
     $.get("/equipment/information-worksheet/get-assignment/",
@@ -97,13 +184,19 @@ function refreshEquipmentAssigment(equipmentId) {
             equipmentId : equipmentId
         }, function(data){
             document.getElementById("viewAssignmentDiv").innerHTML=data;
+    });
+
+    $.get("/equipment/information-worksheet/get-assignment-driver/",
+        {
+            equipmentId : equipmentId
+        }, function(data) {
+            document.getElementById("viewAssignmentDriverDiv").innerHTML = data;
             return true;
     });
 }
 
 
-
- $(function() {
+ function atachPreview() {
      $("#attachFile").imgPreview({
             containerID: 'imgPreviewWithStyles',
             imgCSS: {
@@ -128,5 +221,5 @@ function refreshEquipmentAssigment(equipmentId) {
                 $(link).stop().animate({opacity:1});
             }
         });
- });
+ }
 

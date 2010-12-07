@@ -38,7 +38,7 @@ class Incident_CreateController extends Zend_Controller_Action
             }
 
             
-            $incidentSession->newIncidentDataArray == array();
+            $incidentSession->newIncidentDataArray = array();
             $incidentSession->newIncidentDataArray['i_Date'] = $incidentDate;
 
             $fatality = $this->_request->getPost('fatality');

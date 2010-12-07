@@ -1,0 +1,51 @@
+<div class="driver-information vehicle">
+    <div class="post-top">
+        <div class="post-bottom">
+            <div class="post-middle">
+                <div class="second">
+                    <table cellspacing="0" class="inform">
+                        <tbody>
+                            <tr>
+                                <th colspan="2">
+                                    Driver Information
+                                </th>
+                            </tr>
+                            <?php  if(is_array($this->layout()->equipmentAssignmentRow) && count($this->layout()->equipmentAssignmentRow) > 0) : ?>
+                                <tr class="color-dark">
+                                    <td>SSN:</td>
+                                    <td><span><?= isset($this->layout()->equipmentAssignmentRow['eo_name']) ? $this->layout()->equipmentAssignmentRow['d_Driver_SSN'] : '';?></span></td>
+                                </tr>
+                                <tr>
+                                    <td>First Name:</td>
+                                    <td><span><?= isset($this->layout()->equipmentAssignmentRow['eo_name']) ? $this->layout()->equipmentAssignmentRow['d_First_Name'] : '';?></span></td>
+                                </tr>
+                                 <tr class="color-dark">
+                                    <td>Last Name:</td>
+                                    <td><span><?= isset($this->layout()->equipmentAssignmentRow['eo_name']) ? $this->layout()->equipmentAssignmentRow['d_Last_Name'] : '';?></span></td>
+                                </tr>
+                            <?php else : ?>
+                                <tr class="color-dark">
+                                    <td colspan="2"><span class="text-red">No drivers joined to the truck</span></td>
+                                </tr>
+                            <?php endif; ?>
+                            <tr>
+                                <th colspan="2">
+                                    &nbsp;
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                     <table cellspacing="0" class="inform">
+                        <tbody>
+                            <tr>
+                                <th colspan="2">
+                                    &nbsp;
+                                </th>
+                            </tr>
+                        </tbody>
+                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

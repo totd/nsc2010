@@ -662,7 +662,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
     }
 
-
     private function addAssignment($equipmentId = null, $VIN = null)
     {
         if (is_null($equipmentId)) {

@@ -19,17 +19,20 @@ class Permission_Model_Permission
                 'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
                                                             'module' => 'equipment',
                                                             'actions' => array(
-                                                                    'add-assignment',
-                                                                    'completed',
-                                                                    'declined',
-                                                                    'create-new',
                                                                     'index',
-                                                                    'reactivated',
-                                                                    'save-assignment',
-                                                                    'save-vim',
-                                                                    'show-complete-form',
+                                                                    'create-new',
                                                                     'update',
-                                                                    'validate-completed'
+                                                                    'validate-completed',
+                                                                    'declined',
+                                                                    'reactivated',
+                                                                    'save-vim',
+                                                                    'upload-picture',
+                                                                    'save-assignment',
+                                                                    'get-viw',
+                                                                    'get-assignment',
+                                                                    'get-assignment-driver',
+                                                                    'completed',
+                                                                    'show-complete-form'
                                                                 )
                     ),
                 'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
@@ -66,17 +69,20 @@ class Permission_Model_Permission
                 'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
                                                             'module' => 'equipment',
                                                             'actions' => array(
-                                                                    'add-assignment',
-                                                                    'completed',
-                                                                    'declined',
-                                                                    'create-new',
                                                                     'index',
-                                                                    'reactivated',
-                                                                    'save-assignment',
-                                                                    'save-vim',
-                                                                    'show-complete-form',
+                                                                    'create-new',
                                                                     'update',
-                                                                    'validate-completed'
+                                                                    'validate-completed',
+                                                                    'declined',
+                                                                    'reactivated',
+                                                                    'save-vim',
+                                                                    'upload-picture',
+                                                                    'save-assignment',
+                                                                    'get-viw',
+                                                                    'get-assignment',
+                                                                    'get-assignment-driver',
+                                                                    'completed',
+                                                                    'show-complete-form'
                                                                 )
                     ),
                 'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
@@ -111,15 +117,19 @@ class Permission_Model_Permission
                 'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
                                                             'module' => 'equipment',
                                                             'actions' => array(
-                                                                    'completed',
-                                                                    'declined',
-                                                                    'create-new',
                                                                     'index',
+                                                                    'create-new',
+                                                                    'update',
+                                                                    'validate-completed',
+                                                                    'declined',
                                                                     'reactivated',
                                                                     'save-vim',
-                                                                    'show-complete-form',
-                                                                    'update',
-                                                                    'validate-completed'
+                                                                    'upload-picture',
+                                                                    'get-viw',
+                                                                    'get-assignment',
+                                                                    'get-assignment-driver',
+                                                                    'completed',
+                                                                    'show-complete-form'
                                                                 )
                     ),
                 'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
@@ -151,7 +161,15 @@ class Permission_Model_Permission
                 'user/list' => array('resource' => 'user:list', 'module' => 'user'),
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
                 'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
-                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment', 'actions' => array('index')),
+                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-viw',
+                                                                'get-assignment',
+                                                                'get-assignment-driver'
+                                                                )
+                    ),
                 'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
@@ -183,17 +201,20 @@ class Permission_Model_Permission
                 'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
                                                             'module' => 'equipment',
                                                             'actions' => array(
-                                                                    'add-assignment',
-                                                                    'completed',
-                                                                    'declined',
-                                                                    'create-new',
                                                                     'index',
-                                                                    'reactivated',
-                                                                    'save-assignment',
-                                                                    'save-vim',
-                                                                    'show-complete-form',
+                                                                    'create-new',
                                                                     'update',
-                                                                    'validate-completed'
+                                                                    'validate-completed',
+                                                                    'declined',
+                                                                    'reactivated',
+                                                                    'save-vim',
+                                                                    'upload-picture',
+                                                                    'save-assignment',
+                                                                    'get-viw',
+                                                                    'get-assignment',
+                                                                    'get-assignment-driver',
+                                                                    'completed',
+                                                                    'show-complete-form'
                                                                 )
                     ),
                 'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
@@ -229,17 +250,20 @@ class Permission_Model_Permission
                 'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
                                                             'module' => 'equipment',
                                                             'actions' => array(
-                                                                    'add-assignment',
-                                                                    'completed',
-                                                                    'declined',
-                                                                    'create-new',
                                                                     'index',
-                                                                    'reactivated',
-                                                                    'save-assignment',
-                                                                    'save-vim',
-                                                                    'show-complete-form',
+                                                                    'create-new',
                                                                     'update',
-                                                                    'validate-completed'
+                                                                    'validate-completed',
+                                                                    'declined',
+                                                                    'reactivated',
+                                                                    'save-vim',
+                                                                    'upload-picture',
+                                                                    'save-assignment',
+                                                                    'get-viw',
+                                                                    'get-assignment',
+                                                                    'get-assignment-driver',
+                                                                    'completed',
+                                                                    'show-complete-form'
                                                                 )
                     ),
                 'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
@@ -274,15 +298,19 @@ class Permission_Model_Permission
                 'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
                                                             'module' => 'equipment',
                                                             'actions' => array(
-                                                                    'completed',
-                                                                    'declined',
-                                                                    'create-new',
                                                                     'index',
+                                                                    'create-new',
+                                                                    'update',
+                                                                    'validate-completed',
+                                                                    'declined',
                                                                     'reactivated',
                                                                     'save-vim',
-                                                                    'show-complete-form',
-                                                                    'update',
-                                                                    'validate-completed'
+                                                                    'upload-picture',
+                                                                    'get-viw',
+                                                                    'get-assignment',
+                                                                    'get-assignment-driver',
+                                                                    'completed',
+                                                                    'show-complete-form'
                                                                 )
                     ),
                 'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
@@ -314,7 +342,15 @@ class Permission_Model_Permission
                 'user/list' => array('resource' => 'user:list', 'module' => 'user'),
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
                 'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
-                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment', 'actions' => array('index')),
+                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-viw',
+                                                                'get-assignment',
+                                                                'get-assignment-driver'
+                                                                )
+                    ),
                 'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
@@ -342,7 +378,15 @@ class Permission_Model_Permission
                 'user/list' => array('resource' => 'user:list', 'module' => 'user'),
                 'equipment/index' => array('resource' => 'equipment:index', 'module' => 'equipment'),
                 'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
-                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet', 'module' => 'equipment', 'actions' => array('index')),
+                'equipment/information-worksheet' => array('resource' => 'equipment:information-worksheet',
+                                                            'module' => 'equipment',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-viw',
+                                                                'get-assignment',
+                                                                'get-assignment-driver'
+                                                                )
+                    ),
                 'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(

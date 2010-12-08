@@ -35,7 +35,7 @@ class Permission_Model_Permission
                                                                     'show-complete-form'
                                                                 )
                     ),
-                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
                                                                     'index',
@@ -177,7 +177,7 @@ class Permission_Model_Permission
                                                                     'show-complete-form'
                                                                 )
                     ),
-                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
                                                                     'index',
@@ -314,7 +314,7 @@ class Permission_Model_Permission
                                                                     'show-complete-form'
                                                                 )
                     ),
-                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
                                                                     'index',
@@ -439,7 +439,7 @@ class Permission_Model_Permission
                                                                 'get-assignment-driver'
                                                                 )
                     ),
-                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
                                                                     'index'
@@ -561,7 +561,7 @@ class Permission_Model_Permission
                                                                     'show-complete-form'
                                                                 )
                     ),
-                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
                                                                     'index',
@@ -700,7 +700,7 @@ class Permission_Model_Permission
                                                                     'show-complete-form'
                                                                 )
                     ),
-                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
                                                                     'index',
@@ -837,7 +837,7 @@ class Permission_Model_Permission
                                                                     'show-complete-form'
                                                                 )
                     ),
-                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
                                                                     'index',
@@ -964,7 +964,7 @@ class Permission_Model_Permission
                                                                 'get-assignment-driver'
                                                                 )
                     ),
-                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
                                                                     'index'
@@ -1074,7 +1074,7 @@ class Permission_Model_Permission
                                                                 'get-assignment-driver'
                                                                 )
                     ),
-                'equipment/vehicle-file' => array( 'resource' => 'equipment:vehicle-file',
+                'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
                                                             'module' => 'equipment',
                                                             'actions' => array(
                                                                     'index'

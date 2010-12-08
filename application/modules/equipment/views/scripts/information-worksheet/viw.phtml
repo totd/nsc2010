@@ -1,7 +1,7 @@
 <table class="first">
     <tbody>
         <tr>
-            <td>VIN</td>
+            <td>EIN</td>
             <td><?php echo $this->layout()->equipmentRow['e_Number'] ?></td>
         </tr>
         <tr>
@@ -18,7 +18,7 @@
 <div class="second">
     <table cellspacing="0" class="inform">
         <tbody>
-                <tr><th colspan="2">Vehicle Information</th></tr>
+                <tr><th colspan="2">Equipment Information</th></tr>
             <tr class="color-dark">
                 <td>Unit</td>
                 <td><span><?= $this->layout()->equipmentRow['e_Unit_Number']; ?></span></td>
@@ -36,7 +36,7 @@
                 </td>
             </tr>
             <tr class="color-dark">
-                <td>Vehicle Type</td>
+                <td>Equipment Type</td>
                 <td><span><?= $this->layout()->equipmentRow['et_type']; ?></span></td>
             </tr>
             <tr>
@@ -90,7 +90,7 @@
                         <span class="blue-button">
                             <span>
                                 <a class="VIWActionLink" id="UpdateActionLink" onclick="hideViewVIW();">
-                                    Update Vehicle Information
+                                    Update Equipment Information
                                 </a>
                             </span>
                         </span>
@@ -125,12 +125,12 @@
                 <td><span><?= $this->layout()->equipmentRow['e_Unladen_Weight']; ?></span></td>
             </tr>
             <tr class="color-dark">
-                <td>Gross Vehicle Weight</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Gross_Vehicle_Weight_Rating']; ?></span></td>
+                <td>Gross Equipment Weight</td>
+                <td><span><?= $this->layout()->equipmentRow['e_Gross_Equipment_Weight_Rating']; ?></span></td>
             </tr>
             <tr>
-                <td>Gross Vehicle Registered Weight</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Gross_Vehicle_Registered_Weight']; ?></span></td>
+                <td>Gross Equipment Registered Weight</td>
+                <td><span><?= $this->layout()->equipmentRow['e_Gross_Equipment_Registered_Weight']; ?></span></td>
             </tr>
             <tr class="color-dark">
                 <td>Title Status</td>

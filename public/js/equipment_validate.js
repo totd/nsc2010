@@ -2,7 +2,7 @@ $(document).ready(function() {
     $("#new-Equipment-Search").validate({
         rules: {
             AppType: "required",
-            VIN: {
+            EIN: {
                 required: true,
                 maxlength: 40
             }

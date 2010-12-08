@@ -104,12 +104,12 @@ class Equipment_ArchivesController extends Zend_Controller_Action
                 'text' => 'Unit #'
             ),
             'et_type' => array(
-                'text' => 'Veh. Type'
+                'text' => 'Eq. Type'
             ),
             'e_Number' => array(
-                'text' => 'VIN'
+                'text' => 'EIN'
             ),
-            'e_Gross_Vehicle_Weight_Rating' => array(
+            'e_Gross_Equipment_Weight_Rating' => array(
                 'text' => 'GVW'
             ),
             'e_license_Number' => array(
@@ -210,7 +210,7 @@ class Equipment_ArchivesController extends Zend_Controller_Action
 
             $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
             $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/truck-files">Truck Files</a>&nbsp;&gt;';
-            $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/vehicle-file/index/id/' . $id . '">Vehicle File</a>&nbsp;&gt;';
+            $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/equipment-file/index/id/' . $id . '">Equipment File</a>&nbsp;&gt;';
             $this->view->breadcrumbs .= '&nbsp;Change Status';
 
             $auth = Zend_Auth::getInstance();
@@ -225,7 +225,7 @@ class Equipment_ArchivesController extends Zend_Controller_Action
             $date = new Zend_Date();
             $this->view->currentDate = $date->toString("MM/dd/YYYY");
 
-            $this->view->pageTitle = 'Change Vehicle Status';
+            $this->view->pageTitle = 'Change Equipment Status';
             $this->view->headScript()->appendFile('/js/equipment/terminate.js', 'text/javascript');
             $this->view->headLink()->appendStylesheet('/css/main.css');
 

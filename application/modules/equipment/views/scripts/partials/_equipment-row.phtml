@@ -17,8 +17,8 @@ Set content for the row in the users list.
         ?>
     </td>
 
-    <td><?= $this->e_Gross_Vehicle_Weight_Rating; //  GVW ?></td>
+    <td><?= $this->e_Gross_Equipment_Weight_Rating; //  GVW ?></td>
     <td><?= ($this->e_Axles == 0) ? '' : $this->e_Axles ; // #Axles ?></td>
     <td><?= $this->enes_type; // Status ?></td>
-    <td><a href="/equipment/information-worksheet/index/VIN/<?= $this->e_Number; ?>">View</a></td>
+    <td><a href="/equipment/information-worksheet/index/EIN/<?= $this->e_Number; ?>">View</a></td>
 </tr>

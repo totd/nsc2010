@@ -51,10 +51,10 @@ class Equipment_Form_SearchEquipment extends Zend_Form
                     'decorators' => $this->elementDecorators
                 )));
 
-        $this->addElement(new Zend_Form_Element_Text('VIN', array(
+        $this->addElement(new Zend_Form_Element_Text('EIN', array(
                     'maxlength' => 30,
                     'size' => 20,
-                    'label' => 'Vehicle Identification Number',
+                    'label' => 'Equipment Identification Number',
                     'decorators' => $this->elementDecorators
                 )));
 

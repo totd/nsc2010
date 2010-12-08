@@ -20,23 +20,23 @@
                     <table class="inform">
                         <tbody>
                             <tr>
-                                <td colspan="2"><h2>VIM:&nbsp;<span class="data"><?= $this->VIN; ?></span></h2></td>
+                                <td colspan="2"><h2>VIM:&nbsp;<span class="data"><?= $this->EIN; ?></span></h2></td>
                             </tr>
                             <tr>
                                 <td colspan="2"><h2>Unit Number:&nbsp;<span class="data"><?= $this->UnitNumber; ?></span></h2></td>
                             </tr>
                             <tr class="color-dark">
-                                <td width="400"><a href="/equipment/information-worksheet/index/VIN/<?= $this->VIN; ?>">Review Vehicle Application</a><br>
+                                <td width="400"><a href="/equipment/information-worksheet/index/EIN/<?= $this->EIN; ?>">Review Equipment Application</a><br>
                                     <div class="warning">
                                         <?php if (isset($this->warningArray) && is_array($this->warningArray)) {
                                             foreach ($this->warningArray as $field => $title) {
-                                                echo "Warning: Vehicle $title record is missing.<br /> ";
+                                                echo "Warning: Equipment $title record is missing.<br /> ";
                                             }
                                         } ?>
                                     </div>
                                     <?php if (!$this->hasInspection) : ?>
                                         <div class="error_custom">
-                                            Error: Record about vehicle inspection (federal or state) is missing. You can not complete application without vehicle inspection record.
+                                            Error: Record about equipment inspection (federal or state) is missing. You can not complete application without equipment inspection record.
                                         </div>
                                     <?php endif; ?>
                                 </td>
@@ -45,7 +45,7 @@
                             </tr>
                             <tr>
 <!--                                <td><a href="/equipment/information-worksheet/show-complete-form/id/<?= $this->ID; ?>">COMPLETE APPLICATION</a></td>-->
-                                <td><a href="/equipment/information-worksheet/index/VIN/<?= $this->VIN; ?>">Vehicle Information Worksheet</a></td>
+                                <td><a href="/equipment/information-worksheet/index/EIN/<?= $this->EIN; ?>">Equipment Information Worksheet</a></td>
                             </tr>
                         </tbody>
                     </table>

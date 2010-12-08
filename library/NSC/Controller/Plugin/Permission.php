@@ -13,7 +13,7 @@ class NSC_Controller_Plugin_Permission extends  Zend_Controller_Plugin_Abstract
             $this->identity->permissions->equipment_create_permission = $permission->doesRoleHaveResource($this->identity->vau_role,
                     'equipment/information-worksheet', 'create-new');
             $this->identity->permissions->equipment_assignment_create_permission = $permission->doesRoleHaveResource($this->identity->vau_role,
-                    'equipment/information-worksheet', 'add-assignment');
+                    'equipment/information-worksheet', 'save-assignment');
             $this->identity->permissions->equipment_modify_permission = $permission->doesRoleHaveResource($this->identity->vau_role,
                     'equipment/information-worksheet', 'completed');
         }

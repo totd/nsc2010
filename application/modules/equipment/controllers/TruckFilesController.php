@@ -105,12 +105,12 @@ class Equipment_TruckFilesController extends Zend_Controller_Action
                 'text' => 'Unit #'
             ),
             'et_type' => array(
-                'text' => 'Veh. Type'
+                'text' => 'Eq. Type'
             ),
             'e_Number' => array(
-                'text' => 'VIN'
+                'text' => 'EIN'
             ),
-            'e_Gross_Vehicle_Weight_Rating' => array(
+            'e_Gross_Equipment_Weight_Rating' => array(
                 'text' => 'GVW'
             ),
             'e_license_Number' => array(

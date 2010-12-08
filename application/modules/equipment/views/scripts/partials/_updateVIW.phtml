@@ -13,7 +13,7 @@
         <table class="first">
             <tbody>
                 <tr>
-                    <td>VIN</td>
+                    <td>EIN</td>
                     <td><?php echo $this->equipmentRow['e_Number'] ?></td>
                 </tr>
                 <tr>
@@ -30,7 +30,7 @@
             <table cellspacing="0" class="inform">
                 <tbody>
                     <tr>
-                        <th colspan="2">Vehicle Information</th>
+                        <th colspan="2">Equipment Information</th>
                     </tr>
                     <tr class="color-dark">
                         <td><label class="required"><span>*</span>Unit</label></td>
@@ -50,7 +50,7 @@
                         </td>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required"><span>*</span>Vehicle Type</label></td>
+                        <td><label class="required"><span>*</span>Equipment Type</label></td>
                         <td>
                             <select  class="rc10" name="e_type_id" id="e_type_id">
                                 <?php
@@ -224,17 +224,17 @@
                         </td>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required"><span>*</span>Gross Vehicle Registered Weight</label></td>
+                        <td><label class="required"><span>*</span>Gross Equipment Registered Weight</label></td>
                         <td>
-                            <input type="text" value="<?= $this->equipmentRow['e_Gross_Vehicle_Registered_Weight']; ?>"
-                                   id="e_Gross_Vehicle_Registered_Weight" name="e_Gross_Vehicle_Registered_Weight" />
+                            <input type="text" value="<?= $this->equipmentRow['e_Gross_Equipment_Registered_Weight']; ?>"
+                                   id="e_Gross_Equipment_Registered_Weight" name="e_Gross_Equipment_Registered_Weight" />
                         </td>
                     </tr>
                     <tr>
-                        <td><label class="required"><span>*</span>Gross Vehicle Weight</label></td>
+                        <td><label class="required"><span>*</span>Gross Equipment Weight</label></td>
                         <td>
-                            <input type="text" value="<?= $this->equipmentRow['e_Gross_Vehicle_Weight_Rating']; ?>"
-                                   id="e_Gross_Vehicle_Weight_Rating" name="e_Gross_Vehicle_Weight_Rating" />
+                            <input type="text" value="<?= $this->equipmentRow['e_Gross_Equipment_Weight_Rating']; ?>"
+                                   id="e_Gross_Equipment_Weight_Rating" name="e_Gross_Equipment_Weight_Rating" />
                         </td>
                     </tr>
                     <tr class="color-dark">

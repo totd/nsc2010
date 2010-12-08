@@ -30,7 +30,7 @@
 </div>
 
 
-<div class="driver-information vehicle" id="main">
+<div class="driver-information equipment" id="main">
     <div class="post-top">
         <div class="post-bottom">
             <div class="post-middle">
@@ -38,11 +38,11 @@
                     <table class="first">
                         <tbody>
                             <tr>
-                                <td>Equipment VIN</td>
+                                <td>Equipment EIN</td>
                                 <td>
                                     <input type="hidden" value="<?= (isset($this->equipmentAssignmentRow['ea_equipment_id'])) ? $this->equipmentAssignmentRow['ea_equipment_id'] : '' ; ?>" id="ea_equipment_id" name="ea_equipment_id" />
                                     <input type="hidden" value="<?= (isset($this->equipmentAssignmentRow['ea_id'])) ? $this->equipmentAssignmentRow['ea_id'] : '' ; ?>" id="ea_id" name="ea_id" />
-                                    <?= $this->VIN; ?>
+                                    <?= $this->EIN; ?>
                                 </td>
                             </tr>
                         </tbody>

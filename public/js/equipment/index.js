@@ -101,8 +101,8 @@ $(function() {
                     e_Make : $("#e_Make").val(),
                     e_Color : $("#e_Color").val(),
                     e_Unladen_Weight : $("#e_Unladen_Weight").val(),
-                    e_Gross_Vehicle_Registered_Weight : $("#e_Gross_Vehicle_Registered_Weight").val(),
-                    e_Gross_Vehicle_Weight_Rating : $("#e_Gross_Vehicle_Weight_Rating").val(),
+                    e_Gross_Equipment_Registered_Weight : $("#e_Gross_Equipment_Registered_Weight").val(),
+                    e_Gross_Equipment_Weight_Rating : $("#e_Gross_Equipment_Weight_Rating").val(),
                     e_Title_Status : $("#e_Title_Status").val(),
                     e_Fee : $("#e_Fee").val(),
                     e_RFID_No : $("#e_RFID_No").val()
@@ -169,10 +169,10 @@ function ajaxFileUpload()
 }
 
 
-function refreshVIW(VIN) {
+function refreshVIW(EIN) {
    /* $.get("/equipment/information-worksheet/get-viw/",
         {
-            VIN : VIN
+            EIN : EIN
         }, function(data){
             document.getElementById("viewVIWdiv").innerHTML=data;
             atachPreview();
@@ -181,7 +181,7 @@ function refreshVIW(VIN) {
      $.ajax({
             type: "GET",
             url: "/equipment/information-worksheet/get-viw/",
-            data: "VIN=" + VIN,
+            data: "EIN=" + EIN,
             success: function(data){
                 $("#viewVIWdiv").html(data);
                 atachPreview();

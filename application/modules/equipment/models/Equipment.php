@@ -9,8 +9,8 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         'e_License_Number' => 'license plate number',
         'e_Start_Mileage' => 'start mileage',
         'e_Registration_State' => 'registration state',
-        'e_Gross_Vehicle_Weight_Rating' => 'gross vehicle weight',
-        'e_Gross_Vehicle_Registered_Weight' => 'gross vehicle registered weight',
+        'e_Gross_Equipment_Weight_Rating' => 'gross equipment weight',
+        'e_Gross_Equipment_Registered_Weight' => 'gross equipment registered weight',
         'e_Unladen_Weight' => 'unladen weight',
         'e_Axles' => 'number of axles',
         'e_Name' => 'name',
@@ -306,7 +306,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
     /**
      * @author Andryi Ilnytskyi
      * 
-     * Find equipment by VIN
+     * Find equipment by EIN
      * 
      * @param string $valueVIN
      * 

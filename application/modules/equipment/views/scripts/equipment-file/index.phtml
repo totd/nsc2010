@@ -1,10 +1,10 @@
 <div class="bottom-nav">
     <span class="name-driver">
-        Vehicle type:
+        Equipment type:
         <span>
             <?= (isset($this->equipmentRow['et_type'])) ? $this->equipmentRow['et_type'] : ''; ?>
         </span>
-        VIN:
+        EIN:
         <span>
             <?= ((isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : ''); ?>
         </span>
@@ -50,27 +50,27 @@
         <h2>Other Available Actions</h2>
         <div class="col">
             <ul>
-                <li>Vehicle Actions<ul>
+                <li>Equipment Actions<ul>
                         <li>
-                            <a href="/equipment/information-worksheet/index/VIN/<?= (isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : ''; ?>">
-                                View/Update Vehicle Profile (VIW)
+                            <a href="/equipment/information-worksheet/index/EIN/<?= (isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : ''; ?>">
+                                View/Update Equipment Profile (VIW)
                             </a>
                         </li>
                         <?php if ($this->identity->permissions->equipment_modify_permission === true) : ?>
                             <li>
                                 <?php if (isset($this->equipmentRow['eas_type']) && $this->equipmentRow['eas_type'] == 'In Service') : ?>
-                                    <a href="/equipment/vehicle-file/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/Out%20of%20Service">
-                                        Put vehicle out of service
+                                    <a href="/equipment/equipment-file/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/Out%20of%20Service">
+                                        Put equipment out of service
                                     </a>
                                 <?php elseif (isset($this->equipmentRow['eas_type']) && $this->equipmentRow['eas_type'] == 'Out of Service') : ?>
-                                    <a href="/equipment/vehicle-file/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/In%20Service">
-                                        Activate vehicle
+                                    <a href="/equipment/equipment-file/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/In%20Service">
+                                        Activate equipment
                                     </a>
                                 <?php endif; ?>
                             </li>
                             <li>
                                 <a href="/equipment/archives/terminate/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/Terminated">
-                                    Terminate Vehicle
+                                    Terminate Equipment
                                 </a>
                             </li>
                         <?php endif; ?>
@@ -79,7 +79,7 @@
             <ul>
                 <li>Documents Actions<ul>
                         <li><a href="#">Scan Other Documents</a></li>
-                        <li><a href="#">Scan Vehicle Picture</a></li></ul></li>
+                        <li><a href="#">Scan Equipment Picture</a></li></ul></li>
             </ul>
         </div>
     </div>

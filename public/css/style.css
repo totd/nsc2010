@@ -914,11 +914,11 @@ table.first tr td:first-child {
 	padding:8px 0;
 	width:215px;}
 	
-.vehicle .inform {
+.equipment .inform {
 	float:left;
 	width:440px;}
 	
-.vehicle .second table:first-child {
+.equipment .second table:first-child {
 	margin-right:9px;
 	display:inline;}
 
@@ -934,11 +934,11 @@ span.blue-button a {
 	font-weight:normal;
 	text-transform:none;}	
 	
-.vehicle .second{
+.equipment .second{
 	float:left;
 	background:url(../images/gradient-table-second.gif) repeat-x #f7f7fb;}
 	
-.vehicle .blue-nav { width:330px;}
+.equipment .blue-nav { width:330px;}
 
 .second.post {
 	background:url(../images/gradient-second.gif) repeat-x #f7f7fb;

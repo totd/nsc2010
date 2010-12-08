@@ -391,8 +391,8 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_License_Expiration_Date` date NOT NULL DEFAULT '0000-00-00',
   `e_Start_Mileage` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Registration_State` tinyint(2) DEFAULT NULL,
-  `e_Gross_Vehicle_Weight_Rating` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
-  `e_Gross_Vehicle_Registered_Weight` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Gross_Equipment_Weight_Rating` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Gross_Equipment_Registered_Weight` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Unladen_Weight` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Axles` tinyint(2) DEFAULT NULL,
   `e_Name` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
@@ -494,7 +494,7 @@ CREATE TABLE IF NOT EXISTS `equipment_owner` (
 DROP TABLE IF EXISTS `equipment_identifier`;
 CREATE TABLE IF NOT EXISTS `equipment_identifier` (
   `ei_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ei_Equipment_Type_Types` set('VIN','Serial Number','Vessel Number') COLLATE latin1_general_ci NOT NULL,
+  `ei_Equipment_Type_Types` set('EIN','Serial Number','Vessel Number') COLLATE latin1_general_ci NOT NULL,
   `ei_Equipment_Number_ID` int(11) NOT NULL,
   PRIMARY KEY (`ei_id`),
   KEY `fk_equipment_identifier_equipment1` (`ei_Equipment_Number_ID`)

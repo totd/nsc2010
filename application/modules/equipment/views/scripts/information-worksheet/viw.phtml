@@ -2,15 +2,19 @@
     <tbody>
         <tr>
             <td>EIN</td>
-            <td><?php echo $this->layout()->equipmentRow['e_Number'] ?></td>
+            <td><?= $this->layout()->equipmentRow['e_Number'] ?></td>
+        </tr>
+        <tr>
+            <td>Unit Number</td>
+            <td><?= isset($this->layout()->equipmentRow['e_Unit_Number']) ? $this->layout()->equipmentRow['e_Unit_Number'] : ''; ?></td>
         </tr>
         <tr>
             <td>Entry Date</td>
-            <td><?php echo $this->layout()->equipmentRow['e_Entry_Date'] ?></td>
+            <td><?= $this->layout()->equipmentRow['e_Entry_Date'] ?></td>
         </tr>
         <tr>
             <td>Status</td>
-            <td><?php echo $this->layout()->equipmentStatus ?></td>
+            <td><?= $this->layout()->equipmentStatus ?></td>
         </tr>
     </tbody>
 </table>
@@ -20,7 +24,7 @@
         <tbody>
                 <tr><th colspan="2">Equipment Information</th></tr>
             <tr class="color-dark">
-                <td>Unit</td>
+                <td>Unit Number</td>
                 <td><span><?= $this->layout()->equipmentRow['e_Unit_Number']; ?></span></td>
             </tr>
             <tr>
@@ -36,7 +40,7 @@
                 </td>
             </tr>
             <tr class="color-dark">
-                <td>Equipment Type</td>
+                <td>Type</td>
                 <td><span><?= $this->layout()->equipmentRow['et_type']; ?></span></td>
             </tr>
             <tr>
@@ -60,18 +64,14 @@
                 <td><span><?= ($this->layout()->equipmentRow['e_Axles'] == '0') ? '' : $this->layout()->equipmentRow['e_Axles']; ?></span></td>
             </tr>
             <tr class="color-dark">
-                <td>License Plate Number</td>
-                <td><span><?= $this->layout()->equipmentRow['e_License_Number']; ?></span></td>
+                <td>DOT Regulated</td>
+                <td><span><?= $this->layout()->equipmentRow['e_DOT_Regulated']; ?></span></td>
             </tr>
             <tr>
-                <td>License Expiration Date</td>
-                <td><span><?= $this->layout()->equipmentRow['e_License_Expiration_Date']; ?></span></td>
+                <td>Fee</td>
+                <td><span><?= $this->layout()->equipmentRow['e_Fee']; ?></span></td>
             </tr>
             <tr class="color-dark">
-                <td>Owner Number</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Owner_Number']; ?></span></td>
-            </tr>
-            <tr>
                 <td>Alternate ID</td>
                 <td><span><?= $this->layout()->equipmentRow['e_Alternate_ID']; ?></span></td>
             </tr>
@@ -99,15 +99,15 @@
                     <?php endif ?>
                 </th>
             </tr>
-
             <tr class="color-dark">
-                <td>DOT Regulated</td>
-                <td><span><?= $this->layout()->equipmentRow['e_DOT_Regulated']; ?></span></td>
+                <td>License Plate Number</td>
+                <td><span><?= $this->layout()->equipmentRow['e_License_Number']; ?></span></td>
             </tr>
             <tr>
-                <td>Model</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Model']; ?></span></td>
+                <td>License Expiration Date</td>
+                <td><span><?= $this->layout()->equipmentRow['e_License_Expiration_Date']; ?></span></td>
             </tr>
+            
             <tr class="color-dark">
                 <td>Year</td>
                 <td><span><?= ($this->layout()->equipmentRow['e_Year'] == '0000') ? '' : $this->layout()->equipmentRow['e_Year']; ?></span></td>
@@ -125,20 +125,20 @@
                 <td><span><?= $this->layout()->equipmentRow['e_Unladen_Weight']; ?></span></td>
             </tr>
             <tr class="color-dark">
-                <td>Gross Equipment Weight</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Gross_Equipment_Weight_Rating']; ?></span></td>
-            </tr>
-            <tr>
                 <td>Gross Equipment Registered Weight</td>
                 <td><span><?= $this->layout()->equipmentRow['e_Gross_Equipment_Registered_Weight']; ?></span></td>
             </tr>
+            <tr>
+                <td>Gross Equipment Weight</td>
+                <td><span><?= $this->layout()->equipmentRow['e_Gross_Equipment_Weight_Rating']; ?></span></td>
+            </tr>
             <tr class="color-dark">
-                <td>Title Status</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Title_Status']; ?></span></td>
+                <td>Model</td>
+                <td><span><?= $this->layout()->equipmentRow['e_Model']; ?></span></td>
             </tr>
             <tr>
-                <td>Fee</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Fee']; ?></span></td>
+                <td>Title Status</td>
+                <td><span><?= $this->layout()->equipmentRow['e_Title_Status']; ?></span></td>
             </tr>
             <tr class="color-dark">
                 <td>Radio Frequency Identify</td>

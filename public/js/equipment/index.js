@@ -106,11 +106,11 @@ $(function() {
     changeType();
 
     $("#EquipmentAssignmentSaveLink").click(function() {
-          test2();
+         saveAssignment();
     });
 
     $("#VIWSaveLink").click(function() {
-        test();
+        saveViw();
     });
 
     $("#commonSaveButton").click(function() {
@@ -130,7 +130,7 @@ $(function() {
             modal: true,
             buttons: {
                 "Yes": function() {
-                    restoreViwValues();
+                    restoreValues();
                     $(this).dialog("close");
                 },
                 "No": function() {
@@ -143,7 +143,7 @@ $(function() {
         
     );
     var $dialogNoChanges = $('<div></div>')
-		.html("You didn't make any changes yet?")
+		.html("You didn't make any changes yet")
 		.dialog({
 			autoOpen: false,
             modal: true,
@@ -156,15 +156,63 @@ $(function() {
 	$('#discardButton').click(function() {
         if ($("#updateVIWdiv").css('display') == 'none' && $("#addAssignmentDiv").css('display') == 'none') {
             $dialogNoChanges.dialog('open');
+        } else if (compareValues(Viw) && compareValues(Assignment)) {
+            $dialogNoChanges.dialog('open');
         } else {
             $dialogDiscard.dialog('open');
         }
 	});
 
+    var $dialogExit = $('<div></div>')
+		.html("Are you sure you want to leave without saving all changes?")
+		.dialog({
+			autoOpen: false,
+            modal: true,
+            buttons: {
+                "Yes": function() {
+                    $(this).dialog("close");
+                    window.location = "/equipment/list" ;
+                },
+                "No": function() {
+                    $(this).dialog("close");
+                }
+            },
+            resizable: false,
+			title: 'Attention!'
+		}
+
+    );
+
+    $(".exitButton").click(function() {
+        if (compareValues(Viw) && compareValues(Assignment)) {
+            window.location = "/equipment/list" ;
+        } else {
+            $dialogExit.dialog("open");
+        }
+    });
+
 
 });
 
-function restoreViwValues() {
+/**
+ * Compare object values: current and previous (primary).
+ * If the are identity - return true, else - false;
+ */
+function compareValues(comparedObject) {
+    var result = true;
+    var separator;
+    for (var key in comparedObject) {
+        separator = "#" + key;
+        if (comparedObject[key] != $(separator).val()) {
+            result = false;
+            break;
+        }
+    }
+
+    return result;
+}
+
+function restoreValues() {
     if ($("#updateVIWdiv").css('display') != 'none') {
         for(var key1 in Viw) {
             var selector1 = "#" + key1;

@@ -51,6 +51,19 @@ CREATE TABLE IF NOT EXISTS `driver__lrfw` (
 
 -- --------------------------------------------------------
 
+DROP TABLE IF EXISTS `driver__equipment_operated`;
+CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
+  `deo_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `deo_Driver_ID` int(11) NOT NULL,
+  `deo_Equipment_Type_ID` int(11) NOT NULL,
+  `deo_is_operated` enum('Yes','No') NOT NULL DEFAULT 'No',
+  `deo_From_Date` date NOT NULL,
+  `deo_To_Date` date DEFAULT NULL,
+  `deo_Total_Miles` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`deo_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+-- --------------------------------------------------------
+
 --
 -- Структура таблицы `company`
 --
@@ -636,7 +649,7 @@ CREATE TABLE IF NOT EXISTS `incident` (
   `i_Narrative` text COLLATE latin1_general_ci,
   `i_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
   PRIMARY KEY (`i_ID`),
-  KEY `fk_driver_id` (`I_Driver_ID`)
+  KEY `fk_driver_id` (`i_Driver_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --

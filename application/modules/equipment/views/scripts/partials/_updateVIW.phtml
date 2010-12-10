@@ -43,6 +43,8 @@
                         <td>Picture</td>
                         <td>
                             <input type="file" value="<?= $this->equipmentRow['e_Picture']; ?>"
+                                   id="uploadPicture" name="uploadPicture" onChange="ajaxFileUpload();"/>
+                            <input type="hidden" value="<?= $this->equipmentRow['e_Picture']; ?>"
                                    id="e_Picture" name="e_Picture" />
                             <label>Size limit is 2mb (jpeg or tiff only)</label>
                         </td>
@@ -158,7 +160,7 @@
                             </span>
                             <span class="blue-button">
                                 <span>
-                                    <a class="VIWActionLink">
+                                    <a class="VIWActionLink" id="CancelActionLink">
                                         Cancel
                                     </a>
                                 </span>

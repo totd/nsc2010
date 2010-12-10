@@ -1,3 +1,10 @@
+/**
+ * Created by IntelliJ IDEA.
+ * User: vlad
+ * Date: 22.11.2010
+ * Time: 12:42:51
+ * To change this template use File | Settings | File Templates.
+ */
 
 // Show/hide Driver Addresses adding form
 $(document).ready(function() {

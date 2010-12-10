@@ -34,7 +34,15 @@ function validateDriverInfo(){
                 document.getElementById('driver_DriverPersonalInformation_Form').submit();
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 }

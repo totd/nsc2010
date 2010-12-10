@@ -26,7 +26,7 @@ function addLicenseRecord(){
     }
     l_Points_Score = document.getElementsByName("l_Points_Score")[0].value;
 
-    $.get("/Driver/ajax-Driver-License/add-Record/",
+    $.get("/driver/ajax-Driver-License/add-Record/",
         {
             l_Driver_ID: l_Driver_ID,
             l_Driver_License_Number: ""+l_Driver_License_Number+"",
@@ -43,7 +43,15 @@ function addLicenseRecord(){
                 clearNewLicenseForm();
                 return true;
             }else{
-                alert(""+data+"");
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 }
@@ -88,7 +96,15 @@ function editLicenseRecord(l_ID,l_Driver_ID){
                // refreshLicenseRecords(l_Driver_ID);
                 return true;
             }if(data==false){
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 }
@@ -127,7 +143,15 @@ function updateLicenseRecord(l_ID){
                 clearNewLicenseForm();
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 

@@ -68,7 +68,15 @@ function addEmploymentHistoryRecord(){
                 document.getElementById("toggleEmploymentHistoryAdd").innerHTML="Show";
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 }
@@ -132,7 +140,15 @@ function editEmploymentHistoryRecord(record_id,pe_Driver_ID){
                 });
                 return true;
             }if(data==false){
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 }
@@ -183,7 +199,15 @@ function updateEmploymentHistoryRecord(dah_ID){
                 clearNewEmploymentHistoryForm();
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 

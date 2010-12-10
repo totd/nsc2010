@@ -30,37 +30,37 @@ class Driver_AjaxDriverLicenseController extends Zend_Controller_Action
         $errors=0;
         if((int)$l_Driver_ID==null){
             $errors++;
-            $msg=$msg."Driver ID losted. Please, contact system administrator!\n";
+            $msg=$msg."Driver ID losted. Please, contact system administrator!<br/>";
         }
         if($l_Driver_License_Number==null){
             $errors++;
-            $msg=$msg."Please, fill CDL#.\n";
+            $msg=$msg."Please, fill CDL#.<br/>";
         }elseif(preg_match("/^[\w]{2,24}+$/",$l_Driver_License_Number)==0){
             $errors++;
-            $msg=$msg."CDL should contain ONLY Alpha-numeric sybols! MAX 24 symbols!\n";
+            $msg=$msg."CDL should contain ONLY Alpha-numeric sybols! MAX 24 symbols!<br/>";
         }
         if(preg_match("/^[0-9]+$/",$l_Driver_Issue_State_id)==0){
             $errors++;
-            $msg=$msg."Please, select State.\n";
+            $msg=$msg."Please, select State.<br/>";
         }
         if(preg_match("/^[A-Za-z]$/",$l_Class)==0){
             $errors++;
-            $msg=$msg."Please, select Class.\n";
+            $msg=$msg."Please, select Class.<br/>";
         }
         if($l_Expiration_Date==null){
             $errors++;
-            $msg=$msg."Please, select Expiration Date!\n";
+            $msg=$msg."Please, select Expiration Date!<br/>";
         }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$l_Expiration_Date)==0){
             $errors++;
-            $msg=$msg."Please, select correct date (mm/dd/yyyy)!\n";
+            $msg=$msg."Please, select correct date (mm/dd/yyyy)!<br/>";
         }
         if(strtoupper($l_DOT_Regulated)!="YES" && strtoupper($l_DOT_Regulated)!="NO"){
             $errors++;
-            $msg=$msg."Please, select YES or NO from DOT Regulated.\n";
+            $msg=$msg."Please, select YES or NO from DOT Regulated.<br/>";
         }
         if(sizeof($l_License_Restrictions)>100){
             $errors++;
-            $msg=$msg."License Restrictions cannot contain more than 100 symbols!\n";
+            $msg=$msg."License Restrictions cannot contain more than 100 symbols!<br/>";
         }
 
 
@@ -135,37 +135,37 @@ class Driver_AjaxDriverLicenseController extends Zend_Controller_Action
         $errors=0;
         if((int)$l_Driver_ID==null){
             $errors++;
-            $msg=$msg."Driver ID losted. Please, contact system administrator!\n";
+            $msg=$msg."Driver ID losted. Please, contact system administrator!<br/>";
         }
         if($l_Driver_License_Number==null){
             $errors++;
-            $msg=$msg."Please, fill CDL#.\n";
+            $msg=$msg."Please, fill CDL#.<br/>";
         }elseif(preg_match("/^[\w]{2,24}+$/",$l_Driver_License_Number)==0){
             $errors++;
-            $msg=$msg."CDL should contain ONLY Alpha-numeric sybols! MAX 24 symbols!\n";
+            $msg=$msg."CDL should contain ONLY Alpha-numeric sybols! MAX 24 symbols!<br/>";
         }
         if(preg_match("/^[0-9]+$/",$l_Driver_Issue_State_id)==0){
             $errors++;
-            $msg=$msg."Please, select State.\n";
+            $msg=$msg."Please, select State.<br/>";
         }
         if(preg_match("/^[A-Za-z]$/",$l_Class)==0){
             $errors++;
-            $msg=$msg."Please, select Class.\n";
+            $msg=$msg."Please, select Class.<br/>";
         }
         if($l_Expiration_Date==null){
             $errors++;
-            $msg=$msg."Please, select Expiration Date!\n";
+            $msg=$msg."Please, select Expiration Date!<br/>";
         }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$l_Expiration_Date)==0){
             $errors++;
-            $msg=$msg."Please, select correct date (mm/dd/yyyy)!\n";
+            $msg=$msg."Please, select correct date (mm/dd/yyyy)!<br/>";
         }
         if(strtoupper($l_DOT_Regulated)!="YES" && strtoupper($l_DOT_Regulated)!="NO"){
             $errors++;
-            $msg=$msg."Please, select YES or NO from DOT Regulated.\n";
+            $msg=$msg."Please, select YES or NO from DOT Regulated.<br/>";
         }
         if(sizeof($l_License_Restrictions)==0){
             $errors++;
-            $msg=$msg."License Restrictions cannot contain more than 100 symbols!\n";
+            $msg=$msg."License Restrictions cannot contain more than 100 symbols!<br/>";
         }
 
 

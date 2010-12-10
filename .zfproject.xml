@@ -657,7 +657,6 @@
           <testApplicationControllerFile filesystemName="HoursOfServiceControllerTest.php"/>
           <testApplicationControllerFile filesystemName="PreviousEmploymentControllerTest.php"/>
           <testApplicationControllerFile filesystemName="DriverLicenseControllerTest.php"/>
-          <testApplicationControllerFile filesystemName="DriverHosControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

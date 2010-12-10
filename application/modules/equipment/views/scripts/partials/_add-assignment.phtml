@@ -1,0 +1,209 @@
+<div id="addAssignmentDiv"  style="display: none" class="AssignmentDiv">
+    <form id="updateAsignment" method="post"  class="select-parametr2" >
+        <div class="second">
+            <table cellspacing="0" class="inform">
+                <tbody>
+                    <tr>
+                        <th colspan="2">
+                            Equipment Assignment
+                            <input type="hidden" value="<?= (isset($this->equipmentAssignmentRow['ea_equipment_id'])) ? $this->equipmentAssignmentRow['ea_equipment_id'] : '' ; ?>" id="ea_equipment_id" name="ea_equipment_id" />
+                            <input type="hidden" value="<?= (isset($this->equipmentAssignmentRow['ea_id'])) ? $this->equipmentAssignmentRow['ea_id'] : '' ; ?>" id="ea_id" name="ea_id" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class='required'><span>*</span>
+                                Homebase
+                            </label>
+                        </td>
+                        <td>
+                            <select name="ea_homebase_id" id="ea_homebase_id">
+                                <?php
+                                foreach ($this->homebases as $key => $value) {
+                                    if (isset($value['selected']) && $value['selected']) {
+                                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                                    } else {
+                                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="color-dark">
+                        <td>Depot</td>
+                        <td>
+                            <select  class="rc10" name="ea_depot_id" id="ea_depot_id">
+                                <?php
+                                foreach ($this->depots as $key => $value) {
+                                    if (isset($value['selected']) && $value['selected']) {
+                                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                                    } else {
+                                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class='required'><span>*</span>
+                                 DOT Regulated
+                            </label>
+                        </td>
+                        <td>
+                            <span class="radio-button">
+                                <?php if (isset($this->equipmentAssignmentRow['ea_DOT_regulated']) && $this->equipmentAssignmentRow['ea_DOT_regulated'] == 'Yes') : ?>
+                                    <input type="radio" name="ea_DOT_regulated" id="ea_DOT_Regulated" value="Yes" checked="checked">
+                                <?php else : ?>
+                                        <input type="radio" name="ea_DOT_regulated" id="ea_DOT_Regulated" value="Yes">
+                                <?php endif; ?>
+                                        &nbsp;Yes
+                            </span>
+                            <span class="radio-button">
+                                <?php if (isset($this->equipmentAssignmentRow['ea_DOT_regulated']) && $this->equipmentAssignmentRow['ea_DOT_regulated'] == 'No') : ?>
+                                            <input type="radio" name="ea_DOT_regulated" id="ea_DOT_Regulated" value="No" checked="checked">
+                                <?php else : ?>
+                                                <input type="radio" name="ea_DOT_regulated" id="ea_DOT_Regulated" value="No">
+                                <?php endif; ?>
+                                                &nbsp;No
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="color-dark">
+                        <td>
+                            <label class='required'><span>*</span>
+                                Owner
+                            </label>
+                        </td>
+                        <td>
+                            <select  class="rc10" name="ea_owner_id" id="ea_owner_id">
+                                <?php
+                                foreach ($this->owners as $key => $value) {
+                                    if (isset($value['selected']) && $value['selected']) {
+                                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                                    } else {
+                                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Driver</td>
+                        <td>
+                            <select  class="rc10" name="ea_driver_id" id="ea_driver_id">
+                                <?php
+                                foreach ($this->drivers as $key => $value) {
+                                    if (isset($value['selected']) && $value['selected']) {
+                                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                                    } else {
+                                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="color-dark">
+                        <td>Mileage</td>
+                        <td>
+                            <input type="text" value="" id="ea_mileage" name="ea_mileage" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            &nbsp;
+                        </td>
+                    </tr>
+            </table>
+            <table cellspacing="0" class="inform">
+                <tbody>
+                    <tr>
+                        <th colspan="2">
+                            <span class="blue-button">
+                                <span>
+                                    <a id="EquipmentAssignmentSaveLink">
+                                        Save
+                                    </a>
+                                </span>
+                            </span>
+                            <span class="blue-button">
+                                <span>
+                                    <a class="EquipmentAssignmentActionLink" id="EquipmentAssigmentCancelLink">
+                                        Cancel
+                                    </a>
+                                </span>
+                            </span>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Inspection</td>
+                        <td>
+                            <span>
+                                <a href="/inspection/index/create/equipmentId/<?= (isset($this->equipmentAssignmentRow['e_id'])) ? $this->equipmentAssignmentRow['e_id'] : '' ; ?>">
+                                    Add inspection
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="color-dark">
+                        <td>Maintenance</td>
+                        <td>
+                            <span>
+                                <a href="/equipmentMaintenance/create/index/equipmentId/<?= (isset($this->equipmentAssignmentRow['e_id'])) ? $this->equipmentAssignmentRow['e_id'] : '' ; ?>">
+                                    Add maintenance
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Incident</td>
+                        <td>
+                            <span>
+                                <a href="/incident/create/index/equipmen</div>tId/<?= (isset($this->equipmentAssignmentRow['e_id'])) ? $this->equipmentAssignmentRow['e_id'] : '' ; ?>">
+                                    Add incident
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="color-dark">
+                        <td>Service Provider</td>
+                        <td>
+                            <a href="/serviceProvider/create/index/equipmentId/<?= (isset($this->equipmentAssignmentRow['e_id'])) ? $this->equipmentAssignmentRow['e_id'] : '' ; ?>">
+                                    Add Service Provider
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class='required'><span>*</span>
+                                Start Date
+                            </label>
+                        </td>
+                        <td>
+                            <input type="text" value="<?= (isset($this->equipmentAssignmentRow['ea_start_date'])) ? $this->equipmentAssignmentRow['ea_start_date'] : '' ; ?>" id="ea_start_date" name="ea_start_date" />
+                        </td>
+                    </tr>
+                    <tr class="color-dark">
+                        <td>
+                            <label class='required'><span>*</span>
+                                End Date
+                            </label>
+                        </td>
+                        <td>
+                            <input type="text" value="<?= (isset($this->equipmentAssignmentRow['ea_end_date'])) ? $this->equipmentAssignmentRow['ea_end_date'] : '' ; ?>" id="ea_end_date" name="ea_end_date" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>

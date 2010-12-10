@@ -78,7 +78,7 @@ ALTER TABLE `incident_cause`
 -- Constraints for table `incident`
 --
 ALTER TABLE `incident`
-  ADD CONSTRAINT `fk_driver_id` FOREIGN KEY (`I_Driver_ID`) REFERENCES `driver` (`d_ID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_driver_id` FOREIGN KEY (`i_Driver_ID`) REFERENCES `driver` (`d_ID`) ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `incident__investigator`

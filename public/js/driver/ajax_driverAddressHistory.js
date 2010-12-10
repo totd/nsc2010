@@ -37,10 +37,18 @@ function addAddressHistoryRecord(){
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
-}
+    }
 function deleteAddressHistoryRecord(dah_ID,dah_Driver_ID) {
         $.get("/driver/ajax-Driver-Address-History/delete-Record/",
         {
@@ -59,7 +67,7 @@ function refreshAddressHistoryRecords(dah_Driver_ID) {
                 $("#currentDriverAddressHistoryList").hide(250);
                 document.getElementById("currentDriverAddressHistoryList").innerHTML=data;
                 $("#currentDriverAddressHistoryList").show(250);
-            clearNewDriverAddressForm();
+                clearNewDriverAddressForm();
                 return true;
            });
 }
@@ -95,7 +103,15 @@ function editAddressHistoryRecord(record_id,dah_Driver_ID){
                 });
                 return true;
             }if(data==false){
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 }
@@ -130,7 +146,15 @@ function updateAddressHistoryRecord(dah_ID){
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
     

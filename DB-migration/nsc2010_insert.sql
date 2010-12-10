@@ -145,9 +145,9 @@ INSERT INTO `equipment__new_equipment_status` (`enes_id`, `enes_type`) VALUES
 
 INSERT INTO `homebase` (`h_id`, `h_Company_Account_Number`, `h_Carrier_Number`, `h_Name`, `h_Contact_Table_ID`, `h_Annual_Support`, `h_Road_Test_Record_Required`, `h_DOT_Regulated`) VALUES
 (1, 1, 'hb1', 'hb1', 1, '', '', ''),
-(2, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes'),
+(2, 1, NULL, 'Homebase1', 2, 'No', 'Yes', 'Yes'),
 (4, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes'),
-(5, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes');
+(5, 1, NULL, 'Homebase3', 2, 'No', 'Yes', 'Yes');
 
 
 INSERT INTO `incident__highway_street_travel_direction` (`ihstd_id`, `ihstd_type`) VALUES

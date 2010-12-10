@@ -3,13 +3,13 @@
 class Driver_NewDriverController extends Zend_Controller_Action
 {
 
+    var $auth;
     public function init()
     {
-        // Fetch the current instance of Zend_Auth
-        $auth = Zend_Auth::getInstance();
-        // Check whether an identity is set.
-        if ($auth->hasIdentity()) {
-            $this->view->identity = $auth->getIdentity();
+        $this->auth = Zend_Auth::getInstance();
+
+        if ($this->auth->hasIdentity()) {
+            $this->view->identity = $this->auth->getIdentity();
             $this->driver = new Driver_Model_Driver(); 
         }else{
             return $this->_redirect('user/login');
@@ -33,24 +33,21 @@ class Driver_NewDriverController extends Zend_Controller_Action
      */
     public function newDriverSearchAction()
     {
-        $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/driver/jQuery_validate_driver_search.js', 'text/javascript');
 
-        # Breadcrumbs & page title goes here:
-        $this->view->breadcrumbs = "<a href='/driver/index/index'>DQF</a>&nbsp;&gt;&nbsp;New Driver - Look for a New Driver";
-        $this->view->pageTitle = "NEW DRIVER - LOOK FOR A DRIVER";
+        if ($this->auth->hasIdentity()) {
+            $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/driver/jQuery_validate_driver_search.js', 'text/javascript');
 
-        # origin - http://www.driverqualificationonline.com/ProdClient/Application/NewDriverSearch.asp
-        # pre-create Driver search. If there no such Driver in DB - offer to create new one.
-        $auth = Zend_Auth::getInstance();
+            # Breadcrumbs & page title goes here:
+            $this->view->breadcrumbs = "<a href='/driver/index/index'>DQF</a>&nbsp;&gt;&nbsp;New Driver - Look for a New Driver";
+            $this->view->pageTitle = "NEW DRIVER - LOOK FOR A DRIVER";
 
-
-        $this->view->systemMessage = "";
-
-        if ($auth->hasIdentity()) {
-            $this->view->identity = $auth->getIdentity();
+            # origin - http://www.driverqualificationonline.com/ProdClient/Application/NewDriverSearch.asp
+            # pre-create Driver search. If there no such Driver in DB - offer to create new one.
+            $auth = Zend_Auth::getInstance();
 
 
+            $this->view->systemMessage = "";
             if (sizeof($_POST)>0) {
                 $d_ssn = preg_match("/[0-9]{9}/",$_POST['d_Driver_SSN']);
                 $d_dob = preg_match("/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",$_POST['d_Date_Of_Birth']);
@@ -78,67 +75,10 @@ class Driver_NewDriverController extends Zend_Controller_Action
                     }
                 }
 
-                /*elseif(Driver_Model_Driver::searchNewDriver($NewDriverSearch_form->getValues())==false){
-                    # Show message, that Driver with such SSN exist in DB
-                    $d_Driver_SSN = $_POST['$d_Driver_SSN'];
-                    $this->view->driver_exist = true;
-                    $this->view->d_Driver_SSN = $d_Driver_SSN;
-                }else{
-                    # something strange occur O_o
-                }*/
             }
-            /*elseif($this->_request->isPost() && !$NewDriverSearch_form->isValid($_POST)){
-                # TODO: implement notification what exactly fields are incorrect
-                $this->view->systemMessage = "Check information in fields!";
-            }else{
-                $this->view->form_NewDriverSearch = $NewDriverSearch_form;
-            }*/
-        }else{
-            return $this->_redirect('user/login');
         }
     }
     
-
-    public function newDriverCompleteAction()
-    {
-        // action body
-    }
-    
-    /**
-     * @author Vlad Skachkov 04.11.2010
-     *
-     * Show table with driver information need to fill out
-     *
-     */
-    public function driverInformationWorksheetViewAction()
-    {
-        isset($_POST['form_id'])?/**/:$_POST['form_id']=null;
-        $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/driver/ajax_homebase2depot.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/driver/ajax_driverAddressHistory.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
-
-        # Breadcrumbs & page title goes here:
-        $this->view->breadcrumbs = "<a href='/driver/new-Driver/new-driver-search'>New Driver</a>&nbsp;&gt;&nbsp;Driver Information Worksheet";
-        $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET";
-
-        $driverID = (int)$this->_request->getParam('id');
-        $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
-        $homebaseList = Homebase_Model_Homebase::getHomebaseList(null,1);
-        $depotList = Depot_Model_Depot::getDepotList($driverInfo['d_homebase_ID'],1);
-        $stateList = State_Model_State::getList();
-        $currentDriverHistoryList = new Driver_Model_DriverAddressHistory();
-        $currentDriverHistoryList->getList($driverID);
-
-
-        $this->view->driverId = $driverID;
-        $this->view->driverInfo = $driverInfo;
-        $this->view->homebaseList = $homebaseList;
-        $this->view->depotList = $depotList;
-        $this->view->stateList = $stateList;
-        $this->view->currentDriverHistoryList = $currentDriverHistoryList;
-    }
-
 
 }
 

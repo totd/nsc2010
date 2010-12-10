@@ -510,14 +510,11 @@
 		   	<td width="150px">
     		</td>
 	    	<td bgcolor="cceeFF" class="MainLink2" align="left">
-		    		<a href='javascript:submit_UpdateDataSheetForm()' class="MainLink2">
-		    			<font color="#0000CC">Click here to update Hours Of Service</Font></a>
+		    		<a href='javascript:submit_UpdateDataSheetForm()'>Click here to update Hours Of Service</a>
 	    		&nbsp;
 			</td>
 		</tr>
     	</table>                    
-
-
                 </fieldset>
             </td>
         </tr>
@@ -528,9 +525,21 @@
 
 <script type="text/javascript">
     $(function() {
-        $("#d_Date_Of_Birth").datepicker();
-        $("#dah_Start_Date").datepicker();
-        $("#dah_End_Date").datepicker();
+        $("#d_Date_Of_Birth").datepicker({
+   changeMonth: true,
+   changeYear: true,
+            yearRange: '1950:2020'
+  });
+        $("#dah_Start_Date").datepicker({
+   changeMonth: true,
+   changeYear: true,
+            yearRange: '1950:2020'
+  });
+        $("#dah_End_Date").datepicker({
+   changeMonth: true,
+   changeYear: true,
+            yearRange: '1950:2020'
+  });
     });
 
 </script>

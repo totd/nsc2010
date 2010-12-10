@@ -194,6 +194,7 @@ CREATE TABLE IF NOT EXISTS `driver` (
   `d_Driver_SSN` varchar(11) COLLATE latin1_general_ci DEFAULT NULL,
   `d_Entry_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `d_Employment_Type` tinyint(4) NOT NULL DEFAULT '5',
+  `d_Suffix` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
   `d_Account` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `d_First_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `d_Middle_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
@@ -217,8 +218,12 @@ CREATE TABLE IF NOT EXISTS `driver` (
   `d_Medical_Card_Issue_Date` date DEFAULT NULL,
   `d_Medical_Card_Expiration_Date` date DEFAULT NULL,
   `d_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci DEFAULT NULL,
+  `d_TWIC` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_TWIC_expiration` date DEFAULT NULL,
+  `d_R_A` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `d_R_A_expiration` date DEFAULT NULL,
   PRIMARY KEY (`d_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 

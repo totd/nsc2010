@@ -24,7 +24,6 @@
                 <Input type="text" id="edit_dah_City" name="edit_dah_City" size=15 maxlength="50" value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_City'];?>"/>&nbsp;&nbsp;&nbsp;
                 <label class="required" for="edit_dah_State"><span>*</span>State:</label>
                 <SELECT id='edit_dah_State' name='edit_dah_State'>
-                <OPTION value='-' selected>-</OPTION>
                 <?php
                     foreach($this->layout()->stateList as $k => $v)
                     {
@@ -68,8 +67,7 @@
         <tr height=40 valign=middle>
             <td class="" align=center>&nbsp;</td>
             <td class="" align=left>
-            <a onclick="updateAddressHistoryRecord(<?php echo $this->layout()->driverAddressHistoryRecord['dah_ID'];?>);">
-                Click here to Save changes</a>
+                <span class="blue-button float-left"><a onclick="updateAddressHistoryRecord(<?php echo $this->layout()->driverAddressHistoryRecord['dah_ID'];?>);">Save</a></span>
             </td>
         </tr>
     </table>

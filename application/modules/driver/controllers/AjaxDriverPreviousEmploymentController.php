@@ -1,7 +1,6 @@
 <?php
-class Ajax_PreviousEmploymentController extends Zend_Controller_Action
+class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Action
 {
-
     public function init()
     {
         //Turn off autorender of templites
@@ -22,16 +21,11 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
         $stateList = State_Model_State::getList();
 
         $layout = new Zend_Layout();
-        $layout->setLayoutPath(APPLICATION_PATH.'/modules/ajax/views/scripts/previous-employment/');
+        $layout->setLayoutPath(APPLICATION_PATH.'/modules/driver/views/scripts/ajax/previous-employment/');
         $layout->setLayout('get-previous-employment-list');
         $layout->driverEmploymentHistoryList = $arr->getList($pe_Driver_ID);
         $layout->stateList = $stateList;
         echo $layout->render();
-    }
-
-    public function editPreviouseEmploymentAction()
-    {
-        // action body
     }
 
     public function addRecordAction()
@@ -49,10 +43,10 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
         $pe_Employment_Stop_Date = $_REQUEST['pe_Employment_Stop_Date'];
         $pe_Reason_for_Leaving = $_REQUEST['pe_Reason_for_Leaving'];
         $pe_DOT_Safety_Sensitive_Function = $_REQUEST['pe_DOT_Safety_Sensitive_Function'];
-        $pe_FMCSR_Regulated = $_REQUEST['pe_FMCSR_Regulated'];
+        $pe_FMCSR_Regulated = $_REQUEST['pe_FMCSR_Regulated'];/*
         $pe_Interstate = $_REQUEST['pe_Interstate'];
         $pe_Intrastate = $_REQUEST['pe_Intrastate'];
-        $pe_Intermodal = $_REQUEST['pe_Intermodal'];
+        $pe_Intermodal = $_REQUEST['pe_Intermodal'];*/
 
         $errors=0;
         $msg = "";
@@ -67,7 +61,7 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
             $msg=$msg."Please, fill Job Description!\n";}
         if($pe_Address1==null){
             $errors++;
-            $msg=$msg."Please fill Street!\n";}
+            $msg=$msg."Please, fill Street!\n";}
         if($pe_City==null){
             $errors++;
             $msg=$msg."Please fill City.\n";
@@ -90,13 +84,25 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
         if(preg_match("/[\d\-\s\(\)]{5,15}/",$pe_Phone)==0){
             $errors++;
             $msg=$msg."Phone should contain ONLY digits! 9 or 10 digits.\n";}
+        if($pe_Reason_for_Leaving==null){
+            $errors++;
+            $msg=$msg."Please, fill Reason For Leaving!\n";}
         $pe_Fax = preg_replace("/[^0-9]+/","",$pe_Fax);
+        if(preg_match("/[\d\-\s\(\)]{5,15}/",$pe_Fax)==0){
+            $errors++;
+            $msg=$msg."Fax should contain ONLY digits! 9 or 10 digits.\n";}
         if($pe_Employment_Start_Date==null){
             $errors++;
             $msg=$msg."Please select From Date!\n";
         }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$pe_Employment_Start_Date)==0){
             $errors++;
             $msg=$msg."Please, select correct From Date (mm/dd/yyyy)!\n";}
+        if($pe_Employment_Stop_Date==null){
+            $errors++;
+            $msg=$msg."Please select To Date!\n";
+        }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$pe_Employment_Stop_Date)==0){
+            $errors++;
+            $msg=$msg."Please, select correct To Date (mm/dd/yyyy)!\n";}
         if($errors>0){
             echo $msg;
         }else{
@@ -114,10 +120,10 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
             $pe_Employment_Stop_Date = $_REQUEST['pe_Employment_Stop_Date'];
             $pe_Reason_for_Leaving = $_REQUEST['pe_Reason_for_Leaving'];
             $pe_DOT_Safety_Sensitive_Function = $_REQUEST['pe_DOT_Safety_Sensitive_Function'];
-            $pe_FMCSR_Regulated = $_REQUEST['pe_FMCSR_Regulated'];
+            $pe_FMCSR_Regulated = $_REQUEST['pe_FMCSR_Regulated'];/*
             $pe_Interstate = $_REQUEST['pe_Interstate'];
             $pe_Intrastate = $_REQUEST['pe_Intrastate'];
-            $pe_Intermodal = $_REQUEST['pe_Intermodal'];
+            $pe_Intermodal = $_REQUEST['pe_Intermodal'];*/
             $data['pe_Driver_ID']=$pe_Driver_ID;
             $data['pe_Employer_Name']=$pe_Employer_Name;
             $data['pe_Address1']=$pe_Address1;
@@ -138,10 +144,10 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
             }
             $data['pe_Reason_for_Leaving']=$pe_Reason_for_Leaving;
             $data['pe_DOT_Safety_Sensitive_Function']=$pe_DOT_Safety_Sensitive_Function;
-            $data['pe_FMCSR_Regulated']=$pe_FMCSR_Regulated;
+            $data['pe_FMCSR_Regulated']=$pe_FMCSR_Regulated;/*
             $data['pe_Interstate']=$pe_Interstate;
             $data['pe_Intrastate']=$pe_Intrastate;
-            $data['pe_Intermodal']=$pe_Intermodal;
+            $data['pe_Intermodal']=$pe_Intermodal;*/
 
             Driver_Model_DriverPreviousEmployment::createRecord($data);
             echo 1;
@@ -160,7 +166,7 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
         $arr = new Driver_Model_DriverPreviousEmployment();
         $stateList = State_Model_State::getList();
         $layout = new Zend_Layout();
-        $layout->setLayoutPath(APPLICATION_PATH.'/modules/ajax/views/scripts/previous-employment/');
+        $layout->setLayoutPath(APPLICATION_PATH.'/modules/driver/views/scripts/ajax/previous-employment/');
         $layout->setLayout('get-record');
         $layout->driverEmploymentHistoryRecord = $arr->getRecord($pe_ID);
         $layout->stateList = $stateList;
@@ -182,10 +188,10 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
         $pe_Employment_Stop_Date = $_REQUEST['pe_Employment_Stop_Date'];
         $pe_Reason_for_Leaving = $_REQUEST['pe_Reason_for_Leaving'];
         $pe_DOT_Safety_Sensitive_Function = $_REQUEST['pe_DOT_Safety_Sensitive_Function'];
-        $pe_FMCSR_Regulated = $_REQUEST['pe_FMCSR_Regulated'];
+        $pe_FMCSR_Regulated = $_REQUEST['pe_FMCSR_Regulated'];/*
         $pe_Interstate = $_REQUEST['pe_Interstate'];
         $pe_Intrastate = $_REQUEST['pe_Intrastate'];
-        $pe_Intermodal = $_REQUEST['pe_Intermodal'];
+        $pe_Intermodal = $_REQUEST['pe_Intermodal'];*/
 
         $errors=0;
         $msg = "";
@@ -229,7 +235,13 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
             $msg=$msg."Please select From Date!\n";
         }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$pe_Employment_Start_Date)==0){
             $errors++;
-            $msg=$msg."Please, select correct From Date (mm/dd/yyyy)!\n";}
+            $msg=$msg."Please, select correct From Date (mm/dd/yyyy)!\n";} if($pe_Reason_for_Leaving==null){
+            $errors++;
+            $msg=$msg."Please, fill Reason For Leaving!\n";}
+        $pe_Fax = preg_replace("/[^0-9]+/","",$pe_Fax);
+        if(preg_match("/[\d\-\s\(\)]{5,15}/",$pe_Fax)==0){
+            $errors++;
+            $msg=$msg."Fax should contain ONLY digits! 9 or 10 digits.\n";}
         if($errors>0){
             echo $msg;
         }else{
@@ -256,23 +268,22 @@ class Ajax_PreviousEmploymentController extends Zend_Controller_Action
             }
             $data['pe_Reason_for_Leaving']=trim($_REQUEST['pe_Reason_for_Leaving']);
             $data['pe_DOT_Safety_Sensitive_Function']=ucwords($_REQUEST['pe_DOT_Safety_Sensitive_Function']);
-            $data['pe_FMCSR_Regulated']=ucwords($_REQUEST['pe_FMCSR_Regulated']);
+            $data['pe_FMCSR_Regulated']=ucwords($_REQUEST['pe_FMCSR_Regulated']);/*
             $data['pe_Interstate']=ucwords($_REQUEST['pe_Interstate']);
             $data['pe_Intrastate']=ucwords($_REQUEST['pe_Intrastate']);
-            $data['pe_Intermodal']=ucwords($_REQUEST['pe_Intermodal']);
+            $data['pe_Intermodal']=ucwords($_REQUEST['pe_Intermodal']);*/
 
             Driver_Model_DriverPreviousEmployment::updateRecord($data);
             echo 1;
         }
     }
 
+    public function autocompleteEmployerAction()
+    {
+        $result = Driver_Model_DriverPreviousEmployment::getRecordByQuery($_GET['q'],$_GET['searchBy']);
+        foreach($result as $k => $v){
+            echo $v[$_GET['searchBy']]."\n";
+        }
+    }
 
 }
-
-
-
-
-
-
-
-

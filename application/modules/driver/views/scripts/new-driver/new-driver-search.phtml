@@ -47,7 +47,11 @@
 
 <script type="text/javascript">
 $(function() {
-  $("#d_Date_Of_Birth").datepicker();
+  $("#d_Date_Of_Birth").datepicker({
+   changeMonth: true,
+   changeYear: true,
+            yearRange: '1950:2020'
+  });
 });
 
 </script>

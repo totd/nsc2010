@@ -1,16 +1,9 @@
 <?php
 class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
 {
-  protected $_name = 'previous_employment';
+    protected $_name = 'previous_employment';
 
-    /**
-     * @author Vlad Skachkov 22.11.2010
-     *
-     * get previous employment list for current driver
-     *
-     * @param int $iDriver
-     * @return mixed
-     */
+    
     public static function getList($iDriver)
     {
         if(isset($iDriver)){
@@ -26,14 +19,7 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
             return null;
         }
     }
-    /**
-     * @author Vlad Skachkov 22.11.2010
-     *
-     * get previous employment information
-     *
-     * @param int $iID
-     * @return mixed
-     */
+
     public static function getRecord($iID)
     {
         if(isset($iID)){
@@ -49,40 +35,19 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
             return null;
         }
     }
-    /**
-     * @author Vlad Skachkov 22.11.2010
-     *
-     * create previous employment history record
-     *
-     * @param mixed $mData
-     * @return mixed
-     */
+
     public function createRecord($mData)
     {
         $table = new Driver_Model_DriverPreviousEmployment();
         return $table->insert($mData);
     }
-    /**
-     * @author Vlad Skachkov 22.11.2010
-     *
-     * delete previous employment history record
-     *
-     * @param int $iRecord
-     * @return mixed
-     */
+
     public function deleteRecord($iRecord)
     {
         $table = new Driver_Model_DriverPreviousEmployment();
         return $table->delete("pe_ID = ".$iRecord);
     }
-    /**
-     * @author Vlad Skachkov 24.11.2010
-     *
-     * update previous employment history record
-     *
-     * @param mixed $mData
-     * @return mixed
-     */
+    
     public function updateRecord($mData)
     {
         $db = new Driver_Model_DriverPreviousEmployment();
@@ -90,4 +55,19 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
         return $db->update($mData,$w);
     }
 
+    public static function getRecordByQuery($sQuery,$sField)
+    {
+        if(isset($sQuery)){
+         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+         $stmt = $db->query('
+                      SELECT
+                       distinct '.$sField.'
+                      FROM previous_employment
+                      WHERE '.$sField.' like "%'.$sQuery.'%"
+        ');
+         return $stmt->fetchAll();
+        }else{
+            return null;
+        }
+    }
 }

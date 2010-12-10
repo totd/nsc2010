@@ -10,11 +10,10 @@
 $(document).ready(function() {
     $('#toggleAddressAdd').click(function() {
         $('#add_Address_Table').toggle(400);
-        //if((document.getElementById("#toggleAddressAdd").innerHTML)=="Show"){
-        if((document.getElementById("toggleAddressAdd").innerHTML)=="Show"){
-            document.getElementById("toggleAddressAdd").innerHTML="Hide";
+        if((document.getElementById("toggleAddressAdd").innerHTML)=="SHOW"){
+            document.getElementById("toggleAddressAdd").innerHTML="HIDE";
         }else{
-            document.getElementById("toggleAddressAdd").innerHTML="Show";
+            document.getElementById("toggleAddressAdd").innerHTML="SHOW";
         }
         return false;
     });
@@ -23,10 +22,10 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#toggleEmploymentHistoryAdd').click(function() {
         $('#add_Employment_Table').toggle(400);
-        if((document.getElementById("toggleEmploymentHistoryAdd").innerHTML)=="Show"){
-            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="Hide";
+        if((document.getElementById("toggleEmploymentHistoryAdd").innerHTML)=="SHOW"){
+            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="HIDE";
         }else{
-            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="Show";
+            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="SHOW";
         }
         return false;
     });
@@ -35,10 +34,10 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#toggleDriverLicenseAdd').click(function() {
         $('#add_driver_License_Table').toggle(400);
-        if((document.getElementById("toggleDriverLicenseAdd").innerHTML)=="Show"){
-            document.getElementById("toggleDriverLicenseAdd").innerHTML="Hide";
+        if((document.getElementById("toggleDriverLicenseAdd").innerHTML)=="SHOW"){
+            document.getElementById("toggleDriverLicenseAdd").innerHTML="HIDE";
         }else{
-            document.getElementById("toggleDriverLicenseAdd").innerHTML="Show";
+            document.getElementById("toggleDriverLicenseAdd").innerHTML="SHOW";
         }
         return false;
     });
@@ -53,6 +52,25 @@ $(document).ready(function() {
         }else{
             $('#idDriverInfoEdit').hide(400);
             document.getElementById("toggleDriverInfoEdit").innerHTML="EDIT";
+        }
+        return false;
+    });
+});
+// Show/hide Driver Hours of Service edit form
+$(document).ready(function() {
+    $('#toggleHoS').click(function() {
+        if((document.getElementById("toggleHoS").innerHTML)=="EDIT"){
+            document.getElementById("toggleHoS").innerHTML="CANCEL";
+            $('#hos_list').hide();
+            $('#lrfw_list').hide();
+            $('#edit_hos_list').show(300);
+            $('#edit_lrfw_list').show(300);
+        }else{
+            document.getElementById("toggleHoS").innerHTML="EDIT";
+            $('#edit_hos_list').hide();
+            $('#edit_lrfw_list').hide();
+            $('#hos_list').show(300);
+            $('#lrfw_list').show(300);
         }
         return false;
     });

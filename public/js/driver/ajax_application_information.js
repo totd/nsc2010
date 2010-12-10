@@ -1,6 +1,5 @@
 
 function addAddressHistoryRecord(){
-    document.getElementById("error_custom").innerHTML="";
     dah_Driver_ID = document.getElementsByName("dah_Driver_ID")[0].value;
     dah_Address1 = document.getElementsByName("dah_Address1")[0].value;
     dah_City = document.getElementsByName("dah_City")[0].value;
@@ -24,12 +23,11 @@ function addAddressHistoryRecord(){
             dah_Current_Address: ""+dah_Current_Address+""
         }, function(data){
             if(data==1){
-                document.getElementById("error_custom").innerHTML="";
                 refreshAddressHistoryRecords(dah_Driver_ID);
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                document.getElementById("error_custom").innerHTML=""+data+"";
+                alert(data);
             }
            });
 }

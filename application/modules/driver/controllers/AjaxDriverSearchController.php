@@ -1,6 +1,6 @@
 <?php
 
-class Ajax_DriverSearchController extends Zend_Controller_Action
+class Driver_AjaxDriverSearchController extends Zend_Controller_Action
 {
 
     public function init()

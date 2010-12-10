@@ -1,5 +1,5 @@
 <?php
-class Ajax_HomebaseController extends Zend_Controller_Action
+class Driver_AjaxDriverHomebaseController extends Zend_Controller_Action
 {
 
     public function init()
@@ -11,10 +11,6 @@ class Ajax_HomebaseController extends Zend_Controller_Action
     }
 
     public function indexAction()
-    {
-    }
-
-    public function homebaseAction()
     {
     }
 

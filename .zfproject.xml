@@ -174,6 +174,8 @@
             <modelFile modelName="DriverServiceHours"/>
             <modelFile modelName="DriverPreviousEmployment"/>
             <modelFile modelName="License"/>
+            <modelFile modelName="DriverHos"/>
+            <modelFile modelName="DriverLrfw"/>
           </modelsDirectory>
           <viewsDirectory>
             <viewScriptsDirectory>
@@ -403,6 +405,10 @@
               <actionMethod actionName="getRecord"/>
               <actionMethod actionName="updateRecord"/>
             </controllerFile>
+            <controllerFile controllerName="DriverHos">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="proceedHos"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
           <layoutsDirectory enabled="false"/>
@@ -491,6 +497,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="DriverLicense">
                 <viewScriptFile forActionName="updateRecord"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="DriverHos">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="DriverHos">
+                <viewScriptFile forActionName="proceedHos"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>

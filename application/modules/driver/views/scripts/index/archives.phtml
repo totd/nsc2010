@@ -1,0 +1,89 @@
+
+          <div class="bottom-nav">
+
+<ul class="blue-nav">
+   <li><span><a href="/driver/new-driver/new-driver-search">Add New Driver</a></span></li>
+</ul>
+            <form class="status" name="driver_get_list_by_status" id="driver_get_list_by_status" method="GET" enctype="application/x-www-form-urlencoded" action="/driver/index/index">
+              <fieldset>
+                <label>Status:</label>
+                <select name="status">
+                  <option value="All" <?php if($this->status=="All"){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">All</option>
+                        <option value="Terminated" <?php if($this->status == "Terminated"){ ?> selected="selected" <?php } ?> onclick="document['driver_get_list_by_status'].submit();">Terminated</option>
+                </select>
+              </fieldset>
+            </form>
+
+            <form class="search" action="#">
+              <fieldset>
+                <label>Search By:</label>
+                <select name="search_by" id="search_by">
+                  <option selected="selected" value="all">All</option>
+                  <option value="name">Name</option>
+                  <option value="ssn">SSN</option>
+                  <option value="dob">Date Of Birth</option>
+                </select>
+                <input type="text" id="search_by_value" name="search_by_value" value=""/>
+                <input type="submit" value=""/>
+              </fieldset>
+            </form>
+          </div>
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+    <div id="main" class="driver-profile">
+      <table class="application-forms" cellspacing="0">
+      <tr class="table-title">
+          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_First_Name-"; if($this->orderBy[0]=="d_First_Name"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >First Name</a></td>
+          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Last_Name-"; if($this->orderBy[0]=="d_Last_Name"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Last Name</a></td>
+          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Driver_SSN-"; if($this->orderBy[0]=="d_Driver_SSN"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >SSN</a></td>
+          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Employment_Type-"; if($this->orderBy[0]=="d_Employment_Type"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Employment</a></td>
+          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Status-"; if($this->orderBy[0]=="d_Status"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Status</a></td>
+          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Entry_Date-"; if($this->orderBy[0]=="d_Entry_Date"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Entry Date</a></td>
+          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Driver_Alternate_ID-"; if($this->orderBy[0]=="d_Driver_Alternate_ID"){echo $this->orderBy[1];}else{echo "asc";} ?>"  class="whiteLink">Account</a></td>
+          <td><a href=""  class="whiteLink">Action</a></td>
+        </tr>
+
+<?php
+
+      if ($this->Drivers != null) {
+        $row=1;
+
+?>
+        <?php echo $this->partial('partials/_driver-row.phtml', array('drivers'=>$this->Drivers)); ?>
+
+    <?php
+    $row++;
+      } ?>
+<tr><td class="page" colspan="8"> DQF
+    <?php
+        if($this->page=="1")
+        {
+            echo $this->page;
+        }elseif($this->page>1)
+        {
+            echo (20*($this->page-1));
+        }
+    ?> to <?php
+        if((20*($this->page))<sizeof($this->allDrivers)){
+            echo (20*($this->page));
+        }else{
+            echo sizeof($this->allDrivers);
+        }
+    ?>  ( <?php echo sizeof($this->allDrivers);?> )</td></tr>
+<tr>
+    <td class="page" id="paginator" colspan="8">
+        <?php echo $this->partial('partials/_paginator.phtml',array('drivers' => $this->allDrivers, 'page' => $this->page, 'status' => $this->status)); ?>
+    </td></tr>
+		</Table>
+
+
+    </div>

@@ -1,7 +1,7 @@
 <?php
     $date = new Zend_Date();
 ?>
-<form action="/driver/Driver/save-Driver-Information/id/<?php echo $this->driverId;?>" method="post" enctype="application/x-www-form-urlencoded" id="driver_DriverPersonalInformation_Form">
+<form action="/driver/Driver/save-Driver-Information/id/<?php echo $this->driverInfo['d_ID'];?>" method="post" enctype="application/x-www-form-urlencoded" id="driver_DriverPersonalInformation_Form">
     <table cellspacing="0" class="inform"  id="idDriverInfoEdit">
           <tbody>
           <tr>
@@ -56,12 +56,14 @@
           <tr>
               <th colspan="2">Driver Information</th>
           </tr>
+          <tr class="color-dark"><td>Suffix</td>
+              <td><input type="text" value="<?php echo $this->driverInfo['d_Suffix']; ?>" id="d_Suffix" name="d_Suffix" /></td></tr>
           <tr>
               <td>Driver Name</td>
               <td>
                 <label class="required" for="d_First_Name"><span>*</span>First:</label>&nbsp;<input type="text" value="<?php echo $this->driverInfo['d_First_Name']; ?>" id="d_First_Name" name="d_First_Name" />
                 Middle:&nbsp;<input type="text" value="<?php echo $this->driverInfo['d_Middle_Name']; ?>" id="d_Middle_Name" name="d_Middle_Name" />
-                <label class="required" for="d_First_Name"><span>*</span>Last:</label>:&nbsp;<input type="text" value="<?php echo $this->driverInfo['d_Last_Name']; ?>" id="d_Last_Name" name="d_Last_Name"/>
+                <label class="required" for="d_Last_Name"><span>*</span>Last:</label>:&nbsp;<input type="text" value="<?php echo $this->driverInfo['d_Last_Name']; ?>" id="d_Last_Name" name="d_Last_Name"/>
               </td>
           </tr>
           <tr class="color-dark">
@@ -73,7 +75,11 @@
           </tr>
               <tr>
                 <td>Medical Card</td>
-                <td>Expires:&nbsp;<input type="text" size="7" id="d_Medical_Card_Expiration_Date" name="d_Medical_Card_Expiration_Date" value="<?php echo $this->driverInfo['d_Medical_Card_Expiration_Date']; ?>" readonly="readonly" />&nbsp;&nbsp;&nbsp;
+                <td>Expires:&nbsp;<input type="text" size="7" id="d_Medical_Card_Expiration_Date" name="d_Medical_Card_Expiration_Date" value="<?php
+                        if(isset($this->driverInfo['d_Medical_Card_Expiration_Date'])){
+                        $date->set($this->driverInfo['d_Medical_Card_Expiration_Date'],"YYYY-MM-dd");
+                        echo  $date->toString("MM/dd/YYYY");}
+                    ?>" readonly="readonly" />&nbsp;&nbsp;&nbsp;
                     Medical Examiner's Name:&nbsp;<input type="text" id="d_Doctor_Name" name="d_Doctor_Name" value="<?php echo $this->driverInfo['d_Doctor_Name']; ?>" />
                 </td></tr>
                 <tr>
@@ -138,8 +144,36 @@
                         <?php } ?>
                         </select>
                     </td></tr>
-              <tr><td>&nbsp;</td><td>
-                        <input type="submit" value="Save" id="Driver_Personal_Information" name="Driver_Personal_Information" /></td></tr>
+              <tr>
+                <td>TWIC #:</td>
+                <td><input type="text" id="d_TWIC" name="d_TWIC" value="<?php echo $this->driverInfo['d_TWIC']; ?>"/>&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td>TWIC expiration date:</td>
+                <td><input type="text" size="7" readonly="readonly" id="d_TWIC_expiration" name="d_TWIC_expiration" value="<?php
+                        if(isset($this->driverInfo['d_TWIC_expiration'])){
+                        $date->set($this->driverInfo['d_TWIC_expiration'],"YYYY-MM-dd");
+                        echo  $date->toString("MM/dd/YYYY");}
+                    ?>"/>&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td>R/A card #:</td>
+                <td><input type="text" id="d_R_A" name="d_R_A" value="<?php echo $this->driverInfo['d_R_A']; ?>"/>&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td>R/A card expiration date:</td>
+                <td><input type="text" size="7" readonly="readonly" id="d_R_A_expiration" name="d_R_A_expiration" value="<?php
+                        if(isset($this->driverInfo['d_R_A_expiration'])){
+                        $date->set($this->driverInfo['d_R_A_expiration'],"YYYY-MM-dd");
+                        echo  $date->toString("MM/dd/YYYY");}
+                    ?>"/>&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                  <td>&nbsp;</td>
+                  <td>
+                    <span class="blue-button float-left"><a onclick="validateDriverInfo()">Save</a></span>
+                  </td>
+              </tr>
               <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody></table>
     </form>

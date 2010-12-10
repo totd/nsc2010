@@ -32,15 +32,22 @@ $(function() {
     });
 
     $("#ea_homebase_id").change(function() {
-        $.get("/ajax/homebase/get-Depot-List/", {id: $("#ea_homebase_id").val()}, function(data){
+        getDepotList();
+    });
+});
+
+function getDepotList() {
+    $.get(
+        "/driver/ajax-Driver-homebase/get-Depot-List/",
+        {id: $("#ea_homebase_id").val()},
+        function(data){
             $('#ea_depot_id option').remove();
             // add empty value
             $('#ea_depot_id').append($("<option></option>").
                           attr("value","").
                           text(" - "));
             $('#ea_depot_id').append(""+data+"");
-
-        });
     });
-});
+}
+
 

@@ -123,7 +123,66 @@ $(function() {
         }
     });
 
+    var $dialogDiscard = $('<div></div>')
+		.html('Are you sure you want to discard all changes?')
+		.dialog({
+			autoOpen: false,
+            modal: true,
+            buttons: {
+                "Yes": function() {
+                    restoreViwValues();
+                    $(this).dialog("close");
+                },
+                "No": function() {
+                    $(this).dialog("close");
+                }
+            },
+            resizable: false,
+			title: 'Confirm Discard'
+		}
+        
+    );
+    var $dialogNoChanges = $('<div></div>')
+		.html("You didn't make any changes yet?")
+		.dialog({
+			autoOpen: false,
+            modal: true,
+            resizable: false,
+			title: 'Attention!'
+		}
+
+    );
+
+	$('#discardButton').click(function() {
+        if ($("#updateVIWdiv").css('display') == 'none' && $("#addAssignmentDiv").css('display') == 'none') {
+            $dialogNoChanges.dialog('open');
+        } else {
+            $dialogDiscard.dialog('open');
+        }
+	});
+
+
 });
+
+function restoreViwValues() {
+    if ($("#updateVIWdiv").css('display') != 'none') {
+        for(var key1 in Viw) {
+            var selector1 = "#" + key1;
+            $(selector1).val(Viw[key1]);
+        }
+    }
+
+    if ($("#addAssignmentDiv").css('display') != 'none') {
+        for(var key2 in Assignment) {
+            var selector2 = "#" + key2;
+            $(selector2).val(Assignment[key2]);
+            if (key2 == "ea_homebase_id") {
+                getDepotList();
+            }
+        }
+    }
+
+}
 
 function saveAssignment() {
     $.get("/equipment/information-worksheet/save-assignment",

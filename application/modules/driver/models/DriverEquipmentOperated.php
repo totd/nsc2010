@@ -1,17 +1,16 @@
 <?php
-class Driver_Model_DriverAddressHistory extends Zend_Db_Table_Abstract
+class Driver_Model_DriverEquipmentOperated extends Zend_Db_Table_Abstract
 {
-  protected $_name = 'driver_address_history';
+  protected $_name = 'driver__equipment_operated';
 
 
     public function getList($iDriverID=null)
     {
-        $table = new Driver_Model_DriverAddressHistory();
+        $table = new Driver_Model_DriverEquipmentOperated();
         if((int)$iDriverID==null){
-            $row = $table->fetchAll(" dah_ID <> 0 "," dah_row_created DESC ");
+            return "ERROR: No Driver ID passed.";
         }else{
-            $sWhere = "dah_Driver_ID = ".$iDriverID;
-            $row = $table->fetchAll("dah_Driver_ID = ".$iDriverID," dah_row_created DESC ");
+            $row = $table->fetchAll("deo_Driver_ID = ".$iDriverID," deo_Equipment_Type_ID asc ");
         }
         $rowsetArray = $row->toArray();
         return $rowsetArray;

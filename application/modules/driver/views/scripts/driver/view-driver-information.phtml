@@ -186,26 +186,18 @@
             </tr>
         </tbody>
     </table>
-    <table cellspacing="0" class="inform" id="driverEquipmentOperatedList">
-    </table>
     <table cellspacing="0"  class="inform">
+              <tr class="title-dark"><td colspan="2">Equipment Operated [ <a id="toggleDriverEquipmentOperated">EDIT</a> ]</td></tr>
+        <tbody id="driverEquipmentOperatedList">
+        </tbody>
         <tbody id="driverEquipmentOperatedListEdit">
-                      <tr class="title-dark"><td colspan="2">Equipment Operated</td></tr>
-              <tr><td>Straight Truck</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-              <tr class="color-dark"><td>Tractor/Semi Trailer</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-
-              <tr><td>Doubles &amp; Triple</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-              <tr class="color-dark"><td>Bus</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-              <tr><td>Tankers (Hazmat)</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-
-              <tr class="color-dark"><td>Other - Dump etc.</td><td><span>No</span>From Date:&nbsp;<span></span>From Date:&nbsp;<span></span>Total Miles:&nbsp;<span></span></td></tr>
-              <tr><td>&nbsp;</td><td>&nbsp;</td></tr>    
+            <?php echo $this->partial('partials/_edit-Driver-Equipment-Operated-Table.phtml',array('driverId' => $this->driverId,"deoList" => $this->driverEquipmentOperatedList,"equipmentTypeList" => $this->equipmentTypeList)); ?>
         </tbody>
         </table>
     <script type="text/javascript">
         $(document).ready(function() {
-            //refreshLicenseRecords(<?php echo $this->driverId;?>);
-            //$('#add_driver_License_Table').hide();
+            refreshEquipmentOperatedRecords(<?php echo $this->driverId;?>);
+            $('#driverEquipmentOperatedListEdit').hide();
         });
     </script>
 </div></div></div>
@@ -358,6 +350,11 @@
             yearRange: '1950:2020'
   });
         $("#pe_Employment_Stop_Date").datepicker({
+   changeMonth: true,
+   changeYear: true,
+            yearRange: '1950:2020'
+  });
+        $(".datepicker").datepicker({
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'

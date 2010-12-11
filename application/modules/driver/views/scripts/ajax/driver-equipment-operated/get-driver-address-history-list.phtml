@@ -1,0 +1,49 @@
+<?php
+
+$driverEquipmentOperatedList = $this->layout()->driverEquipmentOperatedList;
+$equipmentTypeList = $this->layout()->equipmentTypeList;
+$date = new Zend_Date();
+if(sizeof($driverEquipmentOperatedList)<1){?>
+    <tr><td>No experience recorded yet. </td><td></td></tr>
+<?php }else{
+    foreach($driverEquipmentOperatedList as $k => $v){
+        ?>
+    <tr <?php  if(gettype($k/2) == 'double'){ echo " class='color-dark' ";} ?>>
+        <td>
+        <?php
+            for($i=0;$i<sizeof($equipmentTypeList);$i++){
+                if($equipmentTypeList[$i]['et_id']==$v['deo_Equipment_Type_ID']){
+                    echo $equipmentTypeList[$i]['et_type'];
+                }
+            }
+        ?>
+        </td>
+        <td>
+            <span><?php echo $v['deo_is_operated'];?></span>
+            From Date:&nbsp;
+            <span>
+                <?php
+                    $date->set($v['deo_From_Date'],"YYYY-MM-dd"); echo $date->toString("MM/dd/YYYY");
+                ?>
+            </span>
+            To Date:&nbsp;
+            <span>
+                <?php
+                    if(isset($v['deo_To_Date'])){
+                        $date->set($v['deo_To_Date'],"YYYY-MM-dd"); echo $date->toString("MM/dd/YYYY");
+                    }else{echo "";}
+                ?>
+            </span>
+            Total Miles:&nbsp;<span><?php echo $v['deo_Total_Miles'];?></span>
+        </td>
+    </tr>
+    <?php
+    }
+
+    ?>
+    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+    <?php
+    }
+
+?>

@@ -51,7 +51,10 @@ CREATE TABLE IF NOT EXISTS `driver__lrfw` (
 
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `driver__equipment_operated`;
+--
+-- Структура таблицы `driver__equipment_operated`
+--
+
 CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
   `deo_ID` int(11) NOT NULL AUTO_INCREMENT,
   `deo_Driver_ID` int(11) NOT NULL,
@@ -60,8 +63,10 @@ CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
   `deo_From_Date` date NOT NULL,
   `deo_To_Date` date DEFAULT NULL,
   `deo_Total_Miles` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`deo_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`deo_ID`),
+  UNIQUE KEY `deo_driver_equipment_assigment` (`deo_Driver_ID`,`deo_Equipment_Type_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
 -- --------------------------------------------------------
 
 --
@@ -979,8 +984,8 @@ CREATE TABLE IF NOT EXISTS `role` (
 -- `License`
 --
 
-DROP TABLE IF EXISTS `License`;
-CREATE TABLE `License` (
+DROP TABLE IF EXISTS `license`;
+CREATE TABLE `license` (
 `l_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `l_Driver_License_Number` VARCHAR( 24 ) NOT NULL ,
 `l_Driver_Issue_State_id` INT NOT NULL ,

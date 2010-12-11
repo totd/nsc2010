@@ -86,18 +86,19 @@ class Driver_DriverController extends Zend_Controller_Action
             $driverID = (int)$this->_request->getParam('id');
             $this->view->headScript()->appendFile('/js/driver/ajax_validate_driver.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_driverAddressHistory.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/driver/ajax_driver_equipment_operated.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_employment_history.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_driver_license.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_homebase2depot.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_driver_hos.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
 
-            $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.ajaxQueue.js', 'text/javascript');
-            $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
-            $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
-            $this->view->headScript()->appendFile('/js/JQ-autocomplite/thickbox-compressed.js', 'text/javascript');
-            $this->view->headScript()->appendFile('/css/JQ-autocomplite/jquery.autocomplete.css', 'text/css');
-            $this->view->headScript()->appendFile('/css/JQ-autocomplite/thickbox.css', 'text/css');
+            $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.ajaxQueue.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/jQ-autocomplite/thickbox-compressed.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/css/jQ-autocomplite/jquery.autocomplete.css', 'text/css');
+            $this->view->headScript()->appendFile('/css/jQ-autocomplite/thickbox.css', 'text/css');
 
             #custom autocomplite handlers goes here:
             $this->view->headScript()->appendFile('/js/driver/ajax_autocomplite.js', 'text/javascript');
@@ -117,6 +118,8 @@ class Driver_DriverController extends Zend_Controller_Action
             $currentDriverHistoryList->getList($driverID);
             $currentDriverHosList = Driver_Model_DriverHos::getList($driverID,1);
             $currentDriverLrfwRecord = Driver_Model_DriverLrfw::getRecord($driverID);
+            $driverEquipmentOperatedList = Driver_Model_DriverEquipmentOperated::getList($driverID);
+            $equipmentTypeList = new EquipmentType_Model_EquipmentType();
 
             $toDate = date("Y-m-d");
             $arr = explode("-",$toDate);
@@ -144,6 +147,8 @@ class Driver_DriverController extends Zend_Controller_Action
             $this->view->currentDriverHistoryList = $currentDriverHistoryList;
             $this->view->currentDriverHoSList = $week;
             $this->view->currentDriverLrfwRecord = $currentDriverLrfwRecord;
+            $this->view->driverEquipmentOperatedList = $driverEquipmentOperatedList;
+            $this->view->equipmentTypeList = $equipmentTypeList->getList2();
     }
     }
 

@@ -103,71 +103,48 @@ class Driver_AjaxDriverEquipmentOperatedController extends Zend_Controller_Actio
     }
     public function validateDriverEquipmentOperatedAction()
     {
+        $equipmentTypes = EquipmentType_Model_EquipmentType::getList2();
+        #print_r($equipmentTypes);
         $msg="";
-        if($_GET['d_homebase_ID']==""){
-            $msg = $msg."Homebase - is required<br/>";
-        }
-        if($_GET['d_First_Name']==""){
-            $msg = $msg."First Name - is required!<br/>";
-        }elseif(preg_match("/[\s\.\-A-Za-z]+/",$_GET['d_First_Name'])==0){
-            $msg = $msg."Invalid First Name!<br/>";
-        }
-        if($_GET['d_Last_Name']==""){
-            $msg = $msg."Last Name - is required!<br/>";
-        }elseif(preg_match("/[\s\.\-A-Za-z]+/",$_GET['d_Last_Name'])==0){
-            $msg = $msg."Invalid Last Name!<br/>";
-        }
-        if($_GET['d_Middle_Name']!=""){
-            if(preg_match("/[\s\.\-A-Za-z]+/",$_GET['d_Middle_Name'])==0){
-                $msg = $msg."Invalid Middle Name!<br/>";
+        $deo=array();
+        $_GET['deo_records'] = preg_replace("/\n$/","",$_GET['deo_records']);
+        $deo_records=explode("\n",$_GET['deo_records']);
+        foreach($deo_records as $k => $v){
+            $deo[$k]=array();
+            $l1 = explode(";",$v);
+            foreach($l1 as $k2=>$v2){
+                $deo[$k][$k2]=array();
+                $l2 = explode(":",$v2);
+                $deo[$k][$k2]=$l2[1];
             }
         }
-        if($_GET['d_Telephone_Number1']==""){
-            $msg = $msg."Telephone #1 - is required<br/>";
+        $fatal_errors=0;
+        for($i=0;$i<sizeof($deo);$i++){
+            if(preg_match("/[0-9]+/",$deo[$i][0])==0){
+                $msg=$msg."<div><span style='color:red;'>FATAL ERROR at row #{$deo[$i][0]}:</span> losted record ID.</div>";
+                $fatal_errors++;}
+            if($deo[$i][1]!="" && preg_match("/[0-9]+/",$deo[$i][1])==0){
+                $msg=$msg."<div><span style='color:red;'>FATAL ERROR at row #{$deo[$i][0]}:</span> losted record ID.</div>";
+                $fatal_errors++;}
+            if(preg_match("/[0-9]+/",$deo[$i][2])==0){
+                $msg=$msg."<div><span style='color:red;'>FATAL ERROR at row #{$deo[$i][0]}:</span> losted Driver ID.</div>";
+                $fatal_errors++;}
+            if(preg_match("/[0-9]+/",$deo[$i][3])==0){
+                $msg=$msg."<div><span style='color:red;'>FATAL ERROR at row #{$deo[$i][0]}:</span> losted Equipment Operated Type ID.</div>";
+                $fatal_errors++;}
+            if((strtolower($deo[$i][4])!="no") && (strtolower($deo[$i][4])!="yes")){
+                $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> select \"YES\" or \"NO\".</div>";}
+            if(preg_match("/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",$deo[$i][5])==0){
+                $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> From Date cant't be empty and should be correct (mm/dd/yyyy).</div>";}
+            if(preg_match("/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",$deo[$i][6])==0){
+                $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> To Date cant't be empty and should be correct (mm/dd/yyyy).</div>";}
+            if(preg_match("/^[0-9]+$/",$deo[$i][7])==1){
+                $deo[$i][6]=$deo[$i][6].".00";}
+            elseif(preg_match("/^[0-9]+\.[0-9]+$/",$deo[$i][7])==0){
+                $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> Total Miles can contain only digits and dot.</div>";}
+
         }
-        elseif(preg_match("/[\d\-\s\(\)]{5,15}/",$_GET['d_Telephone_Number1'])==0){
-            $msg=$msg."Telephone #1 should contain ONLY digits! 9 or 10 digits.<br/>";
-        }
-        if($_GET['d_Telephone_Number2']!=""){
-            if(preg_match("/[\d\-\s\(\)]{5,15}/",$_GET['d_Telephone_Number2'])==0){
-                $msg=$msg."Telephone #2 should contain ONLY digits! 9 or 10 digits.<br/>";
-            }
-        }
-        if($_GET['d_Telephone_Number3']!=""){
-            if(preg_match("/[\d\-\s\(\)]{5,15}/",$_GET['d_Telephone_Number3'])==0){
-                $msg=$msg."Telephone #3 should contain ONLY digits! 9 or 10 digits.<br/>";
-            }
-        }
-        if($_GET['d_Medical_Card_Expiration_Date']!=""){
-            if(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$_GET['d_Medical_Card_Expiration_Date'])==0){
-                $msg=$msg."Medical card expiration date is invalid! Please, select correct date (mm/dd/yyyy)!<br/>";
-            }
-        }
-        if($_GET['d_Doctor_Name']!=""){
-            if(preg_match("/[\s\w\.\-]+/",$_GET['d_Doctor_Name'])==0){
-                $msg = $msg."Invalid Doctors Name!<br/>";
-            }
-        }
-        if($_GET['d_TWIC']!=""){
-            if(preg_match("/[A-Za-z0-9]+/",$_GET['d_TWIC'])==0){
-                $msg = $msg."Invalid TWIC number! (Should contain only letters and numbers)<br/>";
-            }
-        }
-        if($_GET['d_TWIC_expiration']!=null){
-            if(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$_GET['d_TWIC_expiration'])==0){
-                $msg=$msg."TWIC expiration date is invalid! Please, select correct date (mm/dd/yyyy)!<br/>";
-            }
-        }
-        if($_GET['d_R_A']!=""){
-            if(preg_match("/[A-Za-z0-9]+/",$_GET['d_R_A'])==0){
-                $msg = $msg."Invalid R/A card number! (Should contain only letters and numbers)<br/>";
-            }
-        }
-        if($_GET['d_R_A_expiration']!=null){
-            if(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$_GET['d_R_A_expiration'])==0){
-                $msg=$msg."Resident/Alien card expiration date is invalid! Please, select correct date (mm/dd/yyyy)!<br/>";
-            }
-        }
+        
         if($msg!=""){
             echo $msg;
             return null;
@@ -176,4 +153,5 @@ class Driver_AjaxDriverEquipmentOperatedController extends Zend_Controller_Actio
             return true;
         }
     }
+
 }

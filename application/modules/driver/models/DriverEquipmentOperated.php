@@ -25,22 +25,54 @@ class Driver_Model_DriverEquipmentOperated extends Zend_Db_Table_Abstract
 
     public function createRecord($mData)
     {
-        $table = new Driver_Model_DriverAddressHistory();
-        return $table->insert($mData);
+        if(isset($mData)){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            try
+            {
+            $db->query('
+                      insert into driver__equipment_operated (deo_Driver_ID,deo_Equipment_Type_ID,deo_is_operated,deo_From_Date,deo_To_Date,deo_Total_Miles)
+                        values('.$mData[2].','.$mData[3].',"'.$mData[4].'","'.$mData[5].'","'.$mData[6].'","'.$mData[7].'")
+                ');
+            }catch(Exception $e)
+            {
+                return null;
+            }
+            return true;
+        }else{
+            return null;
+        }
     }
 
     public function deleteRecord($iRecord)
     {
-        $table = new Driver_Model_DriverAddressHistory();
+        $table = new Driver_Model_DriverEquipmentOperated();
         return $table->delete("dah_ID =".$iRecord);
     }
 
     public function updateRecord($mData)
     {
-        unset($mData['PHPSESSID']);
-        $db = new Driver_Model_DriverAddressHistory();
-        $w = 'dah_ID = '.$mData['dah_ID'];
-        return $db->update($mData,$w);
+        if(isset($mData)){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            try
+            {
+            $db->query('
+                      update driver__equipment_operated
+                        set deo_Driver_ID = '.$mData[2].',
+                            deo_Equipment_Type_ID = '.$mData[3].',
+                            deo_is_operated = "'.$mData[4].'",
+                            deo_From_Date = "'.$mData[5].'",
+                            deo_To_Date = "'.$mData[6].'",
+                            deo_Total_Miles = "'.$mData[7].'"
+                        where deo_ID = '.$mData[1].'
+                ');
+            }catch(Exception $e)
+            {
+                return null;
+            }
+            return true;
+        }else{
+            return null;
+        }
     }
 
     public static function getRecordByQuery($sQuery,$sField)

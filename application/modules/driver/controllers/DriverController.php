@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 class Driver_DriverController extends Zend_Controller_Action
 {
@@ -103,10 +103,9 @@ class Driver_DriverController extends Zend_Controller_Action
             #custom autocomplite handlers goes here:
             $this->view->headScript()->appendFile('/js/driver/ajax_autocomplite.js', 'text/javascript');
 
-
             # Breadcrumbs & page title goes here:
             $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
-            $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-information/id/".$driverID."' >DQF</a>&nbsp;&gt;&nbsp;Driver Profile";
+            $this->view->breadcrumbs = "<a href='/driver/index/index?status=All' >DQF</a>&nbsp;&gt;&nbsp;Driver Profile";
 
             $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
             $homebaseList = Homebase_Model_Homebase::getHomebaseList(null,1);

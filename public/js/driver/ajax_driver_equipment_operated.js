@@ -39,8 +39,9 @@ function validateDriverEquipmentOperated(){
             deo_records: deo_records
         }, function(data){
             if(data==1){
-                alert("Valid!");
-                //document.getElementById('driver_DriverPersonalInformation_Form').submit();
+                refreshEquipmentOperatedRecords(document.getElementsByName("deo_Driver_ID")[0].value);
+                $('#driverEquipmentOperatedListEdit').hide();
+            document.getElementById("toggleDriverEquipmentOperated").innerHTML="EDIT";
                 return true;
             }else{
                 var $dialog = $('<div></div>')
@@ -49,7 +50,7 @@ function validateDriverEquipmentOperated(){
                     autoOpen: false,
                     title: 'Form validation error!',
                     minHeight: 13,
-                    minWidth:550
+                    minWidth:600
                 });
                 $dialog.dialog('open');
                 return false;

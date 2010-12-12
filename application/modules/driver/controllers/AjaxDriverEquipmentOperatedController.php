@@ -103,7 +103,6 @@ class Driver_AjaxDriverEquipmentOperatedController extends Zend_Controller_Actio
     }
     public function validateDriverEquipmentOperatedAction()
     {
-        $equipmentTypes = EquipmentType_Model_EquipmentType::getList2();
         #print_r($equipmentTypes);
         $msg="";
         $deo=array();
@@ -119,11 +118,16 @@ class Driver_AjaxDriverEquipmentOperatedController extends Zend_Controller_Actio
             }
         }
         $fatal_errors=0;
+        $date = new Zend_Date(); 
         for($i=0;$i<sizeof($deo);$i++){
+
+            $create_new=0;
             if(preg_match("/[0-9]+/",$deo[$i][0])==0){
                 $msg=$msg."<div><span style='color:red;'>FATAL ERROR at row #{$deo[$i][0]}:</span> losted record ID.</div>";
                 $fatal_errors++;}
-            if($deo[$i][1]!="" && preg_match("/[0-9]+/",$deo[$i][1])==0){
+            if($deo[$i][1]==""){
+                $create_new=1;
+            }elseif($deo[$i][1]!="" && preg_match("/[0-9]+/",$deo[$i][1])==0){
                 $msg=$msg."<div><span style='color:red;'>FATAL ERROR at row #{$deo[$i][0]}:</span> losted record ID.</div>";
                 $fatal_errors++;}
             if(preg_match("/[0-9]+/",$deo[$i][2])==0){
@@ -136,13 +140,26 @@ class Driver_AjaxDriverEquipmentOperatedController extends Zend_Controller_Actio
                 $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> select \"YES\" or \"NO\".</div>";}
             if(preg_match("/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",$deo[$i][5])==0){
                 $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> From Date cant't be empty and should be correct (mm/dd/yyyy).</div>";}
+            else{
+                $date->set($deo[$i][5],"MM/dd/YYYY");
+                $deo[$i][5]=$date->toString("YYYY-MM-dd");
+            }
             if(preg_match("/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",$deo[$i][6])==0){
                 $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> To Date cant't be empty and should be correct (mm/dd/yyyy).</div>";}
+            else{
+                $date->set($deo[$i][6],"MM/dd/YYYY");
+                $deo[$i][6]=$date->toString("YYYY-MM-dd");
+            }
             if(preg_match("/^[0-9]+$/",$deo[$i][7])==1){
                 $deo[$i][6]=$deo[$i][6].".00";}
             elseif(preg_match("/^[0-9]+\.[0-9]+$/",$deo[$i][7])==0){
                 $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> Total Miles can contain only digits and dot.</div>";}
-
+            $deo[$i][7] = preg_replace("/\.([0-9][0-9])(.)+$/",".$1",$deo[$i][7]);
+            if($create_new==1){
+                Driver_Model_DriverEquipmentOperated::createRecord($deo[$i]);
+            }else{
+                Driver_Model_DriverEquipmentOperated::updateRecord($deo[$i]);
+            }
         }
         
         if($msg!=""){

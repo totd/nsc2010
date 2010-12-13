@@ -35,11 +35,35 @@ $(function() {
         getDepotList();
     });
 
-    
-});
+    $("#driver_autocomplete").autocomplete(
+        {
+            source: function (request, response) {
+                $.ajax({
+                    url: "/equipment/information-worksheet/get-autocomplete-drivers",
+                    dataType: 'json',
+                    data: request,
+                    success: function (data) {
+                        response(data.map(function (value) {
+                            return {
+                                'label': value.label,
+                                'value': value.label,
+                                'id': value.id
+                            };
+                        }));
+                        
+                    }
+                });
+            },
+            select: function( event, ui ) {
+                if (ui.item.id == 'new') {
+                    window.location.href = '/driver/new-driver/new-driver-search';
+                } else {
+                    $('#ea_driver_id').val(ui.item.id);
+                }
+            }
+        }
+    );
 
-$().ready(function() {
-    $("#driver_autocomplete").focus().autocomplete("/equipment/information-worksheet/get-autocomplete-drivers");
 });
 
 function getDepotList() {

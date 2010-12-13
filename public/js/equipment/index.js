@@ -351,19 +351,22 @@ function refreshVIW(EIN) {
 }
 
 function refreshEquipmentAssigment(equipmentId) {
-    $.get("/equipment/information-worksheet/get-assignment/",
-        {
-            equipmentId : equipmentId
-        }, function(data){
-            $("#viewAssignmentDiv").html(data);
+    $.ajax({
+            type: "GET",
+            url: "/equipment/information-worksheet/get-assignment/",
+            data: "equipmentId=" + equipmentId,
+            success: function(data){
+                $("#viewAssignmentDiv").html(data);
+        }
     });
 
-    $.get("/equipment/information-worksheet/get-assignment-driver/",
-        {
-            equipmentId : equipmentId
-        }, function(data) {
-            $("#viewAssignmentDriverDiv").html(data);
-            return true;
+     $.ajax({
+            type: "GET",
+            url: "/equipment/information-worksheet/get-assignment-driver/",
+            data: "equipmentId=" + equipmentId,
+            success: function(data){
+                $("#viewAssignmentDriverDiv").html(data);
+        }
     });
 
     storePrimaryAssignmentValues();

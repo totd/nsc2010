@@ -755,13 +755,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             );
         }
 
-        
-        $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.ajaxQueue.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/jQ-autocomplite/thickbox-compressed.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/css/JQ-autocomplite/jquery.autocomplete.css', 'text/css');
-        $this->view->headScript()->appendFile('/css/JQ-autocomplite/thickbox.css', 'text/css');
         $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
         $this->view->headLink()->appendStylesheet('/css/main.css');
     }
@@ -895,13 +888,28 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
     public function getAutocompleteDriversAction()
     {
-        if (isset($_GET['q'])) {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if (isset($_GET['term'])) {
             $driverModel = new Driver_Model_Driver();
             $fields = array('d_First_Name', 'd_Last_Name', 'd_Driver_SSN');
-            $result = $driverModel->getDriversByFieldsValues($fields, $_GET['q']);
+            $result = $driverModel->getDriversByFieldsValues($fields, $_GET['term']);
             foreach($result as $k => $v){
-                echo "{$v['d_First_Name']} {$v['d_Last_Name']} {$v['d_Driver_SSN']}\n";
+                $arrayPart = array();
+                $arrayPart['label'] = "{$v['d_First_Name']} {$v['d_Last_Name']} {$v['d_Driver_SSN']}";
+                $arrayPart['id'] = $v['d_ID'];
+                $result2[] = $arrayPart;
             }
+            
+            // TODO limit users which hasn't permission to create driver
+            $arrayPart = array();
+            $arrayPart['label'] = 'CREATE NEW DRIVER';
+            $arrayPart['id'] = 'new';
+            $result2[] = $arrayPart;
+
+            print json_encode($result2);
+
         }
     }
 

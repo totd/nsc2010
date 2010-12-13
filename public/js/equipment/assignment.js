@@ -34,6 +34,12 @@ $(function() {
     $("#ea_homebase_id").change(function() {
         getDepotList();
     });
+
+    
+});
+
+$().ready(function() {
+    $("#driver_autocomplete").focus().autocomplete("/equipment/information-worksheet/get-autocomplete-drivers");
 });
 
 function getDepotList() {

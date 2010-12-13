@@ -739,10 +739,11 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             );
 
             // Drivers
-            $this->view->drivers = $this->getSelectList('driver', 'd_ID', array('d_Driver_SSN', 'd_Last_Name'),
-                            (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
-            );
+//            $this->view->drivers = $this->getSelectList('driver', 'd_ID', array('d_Driver_SSN', 'd_Last_Name'),
+//                            (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
+//            );
 
+                
             // Service providers
             $this->view->serviceProviders = $this->getSelectList('serviceProvider', 'sp_ID', 'sp_Name',
                             (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
@@ -754,6 +755,13 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             );
         }
 
+        
+        $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.ajaxQueue.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/jQ-autocomplite/thickbox-compressed.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/css/JQ-autocomplite/jquery.autocomplete.css', 'text/css');
+        $this->view->headScript()->appendFile('/css/JQ-autocomplite/thickbox.css', 'text/css');
         $this->view->headScript()->appendFile('/js/equipment/assignment.js', 'text/javascript');
         $this->view->headLink()->appendStylesheet('/css/main.css');
     }
@@ -882,6 +890,18 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $equipmentModel->completeEquipment($row);
 
             $this->_redirect("/equipment/list");
+        }
+    }
+
+    public function getAutocompleteDriversAction()
+    {
+        if (isset($_GET['q'])) {
+            $driverModel = new Driver_Model_Driver();
+            $fields = array('d_First_Name', 'd_Last_Name', 'd_Driver_SSN');
+            $result = $driverModel->getDriversByFieldsValues($fields, $_GET['q']);
+            foreach($result as $k => $v){
+                echo "{$v['d_First_Name']} {$v['d_Last_Name']} {$v['d_Driver_SSN']}\n";
+            }
         }
     }
 

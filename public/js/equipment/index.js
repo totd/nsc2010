@@ -191,6 +191,10 @@ $(function() {
         }
     });
 
+    $("#pe_Employer_Name").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
+        extraParams:{"searchBy":'pe_Employer_Name'}
+    });
+
 
 });
 

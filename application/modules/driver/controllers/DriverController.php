@@ -92,10 +92,10 @@ class Driver_DriverController extends Zend_Controller_Action
             $this->view->headScript()->appendFile('/js/driver/ajax_driver_hos.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
 
-            $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.ajaxQueue.js', 'text/javascript');
-            $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
-            $this->view->headScript()->appendFile('/js/JQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
-            $this->view->headScript()->appendFile('/js/JQ-autocomplite/thickbox-compressed.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.ajaxQueue.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/jQ-autocomplite/thickbox-compressed.js', 'text/javascript');
             $this->view->headScript()->appendFile('/css/JQ-autocomplite/jquery.autocomplete.css', 'text/css');
             $this->view->headScript()->appendFile('/css/JQ-autocomplite/thickbox.css', 'text/css');
 

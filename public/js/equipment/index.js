@@ -36,6 +36,7 @@ function storePrimaryAssignmentValues() {
     Assignment.ea_end_date = $("#ea_end_date").val();
     Assignment.ea_equipment_id = $("#ea_equipment_id").val();
     Assignment.ea_id = $("#ea_id").val();
+    Assignment.driver_autocomplete = $("#driver_autocomplete").val();
 }
 
 
@@ -189,12 +190,9 @@ $(function() {
         } else {
             $dialogExit.dialog("open");
         }
-    });
 
-    $("#pe_Employer_Name").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
-        extraParams:{"searchBy":'pe_Employer_Name'}
+        $("#ea_depot_id").val(Assignment['ea_depot_id']);
     });
-
 
 });
 
@@ -229,14 +227,19 @@ function restoreValues() {
             var selector2 = "#" + key2;
             $(selector2).val(Assignment[key2]);
             if (key2 == "ea_homebase_id") {
-                getDepotList();
+                getDepotListNonAsync();
             }
         }
+        $("#ea_depot_id").val(Assignment['ea_depot_id']);
     }
 
 }
 
 function saveAssignment() {
+    if($.trim($("#driver_autocomplete").val()) == "") {
+        $("#ea_driver_id").val("");
+    }
+
     $.get("/equipment/information-worksheet/save-assignment",
                 {
                     ea_homebase_id: $("#ea_homebase_id").val(),

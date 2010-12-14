@@ -894,7 +894,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         if (isset($_GET['term'])) {
             $driverModel = new Driver_Model_Driver();
             $fields = array('d_First_Name', 'd_Last_Name', 'd_Driver_SSN');
-            $result = $driverModel->getDriversByFieldsValues($fields, $_GET['term']);
+            $result = $driverModel->getDriversByFieldsValues($fields, trim($_GET['term']));
             foreach($result as $k => $v){
                 $arrayPart = array();
                 $arrayPart['label'] = "{$v['d_First_Name']} {$v['d_Last_Name']} {$v['d_Driver_SSN']}";

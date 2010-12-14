@@ -98,7 +98,14 @@
 
 <div class="ui-widget">
 
-                            <input type="text" name="driver_autocomplete" id="driver_autocomplete" value="<?= "{$this->equipmentAssignmentRow['d_First_Name']} {$this->equipmentAssignmentRow['d_Last_Name']} {$this->equipmentAssignmentRow['d_Driver_SSN']}" ?>" class="ac_input"/>
+                            <input type="text" name="driver_autocomplete" id="driver_autocomplete" value="<?php
+                                    if (isset($this->equipmentAssignmentRow['d_First_Name']) &&
+                                            isset($this->equipmentAssignmentRow['d_Last_Name']) &&
+                                            isset($this->equipmentAssignmentRow['d_Driver_SSN'])) {
+                                        echo "{$this->equipmentAssignmentRow['d_First_Name']} {$this->equipmentAssignmentRow['d_Last_Name']} {$this->equipmentAssignmentRow['d_Driver_SSN']}";
+                                    }
+                                ?>"
+                                />
 <!--                            <input id="driver_autocomplete" />-->
 </div>
                             <input type="hidden" name="ea_driver_id" id="ea_driver_id" value="<?= isset($this->equipmentAssignmentRow['ea_driver_id']) ? $this->equipmentAssignmentRow['ea_driver_id'] : ''; ?>" />

@@ -3,6 +3,14 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
 {
     protected $_name = 'incident';
 
+    public function getIcidentDescription($id)
+    {
+        $row = $this->fetchRow("i_ID = $id");
+
+        return $row;
+
+    }
+
     /**
      * @author Andriy Ilnytskyi 16.11.2010
      *

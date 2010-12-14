@@ -80,4 +80,21 @@ function getDepotList() {
     });
 }
 
+function getDepotListNonAsync() {
+    $.ajax({
+            type: "GET",
+            url: "/driver/ajax-Driver-homebase/get-Depot-List/",
+            data: "id=" + $("#ea_homebase_id").val(),
+            async:false,
+            success: function(data){
+                $('#ea_depot_id option').remove();
+                // add empty value
+                $('#ea_depot_id').append($("<option></option>").
+                              attr("value","").
+                              text(" - "));
+                $('#ea_depot_id').append(""+data+"");
+        }
+    });
+}
+
 

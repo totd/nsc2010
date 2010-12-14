@@ -603,13 +603,14 @@ DROP TABLE IF EXISTS `incident`;
 CREATE TABLE IF NOT EXISTS `incident` (
   `i_ID` int(11) NOT NULL AUTO_INCREMENT,
   `i_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Type_ID` int(11) DEFAULT NULL,
   `i_Violation_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Driver_ID` int(11) NOT NULL,
   `i_Date` date NOT NULL,
   `i_Time` time DEFAULT NULL,
   `i_Status` enum('Pending','Open','Closed') COLLATE latin1_general_ci NOT NULL DEFAULT 'Pending',
   `i_City` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
-  `i_State` tinyint(2) DEFAULT NULL,
+  `i_State_ID` tinyint(2) DEFAULT NULL,
   `i_Postal_Code` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Highway_Street` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Highway_Street_Travel_Direction` tinyint(4) DEFAULT NULL,
@@ -639,11 +640,6 @@ CREATE TABLE IF NOT EXISTS `incident` (
   KEY `fk_driver_id` (`i_Driver_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
---
--- Дамп данных таблицы `incident`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -654,15 +650,13 @@ DROP TABLE IF EXISTS `incident_cause`;
 CREATE TABLE IF NOT EXISTS `incident_cause` (
   `ic_ID` int(11) NOT NULL AUTO_INCREMENT,
   `ic_Incident_ID` int(11) NOT NULL,
-  `ic_Incident_Cause` tinyint(4) DEFAULT NULL,
-  `ic_Preventable` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `ic_Incident_Witness` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `ic_Incident_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `ic_Incident_Cause` int(4) DEFAULT NULL,
+  `ic_Preventable` enum('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `ic_Incident_Witness` enum('Yes','No') COLLATE latin1_general_ci NOT NULL,
   `ic_Witness_ID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ic_ID`),
-  KEY `fk_incident_cause_incident1` (`ic_Incident_ID`),
-  KEY `fk_incident_cause_witness1` (`ic_Witness_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+  KEY `ic_Incident_ID` (`ic_Incident_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `incident_cause`

@@ -8,19 +8,20 @@
                             Incident Description
                         </th>
                     </tr>
-                    <tr>
+<!--                    <tr>
                         <td width="150">
-                            Accident type:
+                            Incident type:
                         </td>
                         <td>
-                            Test Test
+                            
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td width="150">
-                            Accident Number:</td>
+                            Incident Number:
+                        </td>
                         <td>
-                            3498328
+                            <?= (isset($this->layout()->incidentRow['i_Number']) ? $this->layout()->incidentRow['i_Number'] : ''); ?>
                         </td>
                     </tr>
                     <tr>
@@ -30,27 +31,37 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            City: Test Test &nbsp;&nbsp;&nbsp;&nbsp; County: Test Test State: &nbsp;&nbsp;&nbsp;&nbsp; Test Test
+                            City: &nbsp;&nbsp; <?= (isset($this->layout()->incidentRow['i_City']) ? $this->layout()->incidentRow['i_City'] : ''); ?> &nbsp;&nbsp;
+                            State: &nbsp;&nbsp; <?= (isset($this->layout()->incidentRow['s_name']) ? $this->layout()->incidentRow['s_name'] : ''); ?>&nbsp;&nbsp;
+                            Postal Code: &nbsp;&nbsp; <?= (isset($this->layout()->incidentRow['i_Postal_Code']) ? $this->layout()->incidentRow['i_Postal_Code'] : ''); ?> &nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr class="color-dark">
                         <td colspan="2">
-                            Highway/Street: &nbsp;&nbsp;&nbsp;&nbsp;  at intersection with: &nbsp;&nbsp;&nbsp;&nbsp;
+                            Highway/Street: &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Highway_Street']) ? $this->layout()->incidentRow['i_Highway_Street'] : ''); ?>&nbsp;&nbsp;
+                            at intersection with: &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_At_Intersection']) ? $this->layout()->incidentRow['i_At_Intersection'] : ''); ?>&nbsp;&nbsp;
                         </td>
                     </tr>
-                    <tr>
+<!--                    <tr>
                         <td colspan="2">
+
                             Or  &nbsp;&nbsp;&nbsp;&nbsp;  Feet from intersection with
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr class="color-dark">
                         <td colspan="2">
-                            Describe accident allocation to the nearest Mile Marker :
+                            Mile Marker : <?= (isset($this->layout()->incidentRow['i_Mile_Marker']) ? $this->layout()->incidentRow['i_Mile_Marker'] : ''); ?>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <b>DATE AND TIME</b>
+                        </td>
+                    </tr>
+                    <tr class="color-dark">
+                        <td colspan="2">
+                            Incident Date : &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Date']) ? $this->layout()->incidentRow['i_Date'] : ''); ?>&nbsp;&nbsp;
+                            Time: &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Time']) ? $this->layout()->incidentRow['i_Time'] : ''); ?>
                         </td>
                     </tr>
                     <tr>
@@ -60,34 +71,38 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            Photo taken by:  &nbsp;&nbsp;&nbsp;&nbsp;      Accident diagram taken:   &nbsp;&nbsp;&nbsp;&nbsp;
+                            Photo taken by:  &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Photo_Taken_By']) ? $this->layout()->incidentRow['i_Photo_Taken_By'] : ''); ?>&nbsp;&nbsp;
+                            Incident diagram taken:   &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Incident_Diagram_Taken']) ? $this->layout()->incidentRow['i_Incident_Diagram_Taken'] : ''); ?>&nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr class="color-dark">
                         <td colspan="2">
-                            Accident reported:  &nbsp;&nbsp;&nbsp;&nbsp;      Police department:   &nbsp;&nbsp;&nbsp;&nbsp;      Officer Name:   &nbsp;&nbsp;&nbsp;&nbsp;      Police report #:   &nbsp;&nbsp;&nbsp;&nbsp;
+                            Incident reported:  &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Reported']) ? $this->layout()->incidentRow['i_Reported'] : ''); ?>&nbsp;&nbsp;
+                            Police department:   &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Police_Department']) ? $this->layout()->incidentRow['i_Police_Department'] : ''); ?>&nbsp;&nbsp;
+                            Officer Name:   &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Officer_Name']) ? $this->layout()->incidentRow['i_Officer_Name'] : ''); ?>&nbsp;&nbsp;
+                            Police report #:   &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Police_Report_Number']) ? $this->layout()->incidentRow['i_Police_Report_Number'] : ''); ?>&nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <b>ACCIDENT NARRATIVE</b>
+                            <b>Incident Narrative:</b> &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Narrative']) ? $this->layout()->incidentRow['i_Narrative'] : ''); ?>&nbsp;&nbsp;
                         </td>
                     </tr>
-                    <tr>
+<!--                    <tr>
                         <td colspan="2">
                             Hazardous material (other than fuel) spilled :  No       Fuel spilled:   No
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr class="color-dark">
                         <td colspan="2">
-                            Accident Preventable:
+                            <b>Incident Preventable</b>: &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['ic_Preventable']) ? $this->layout()->incidentRow['ic_Preventable'] : ''); ?>&nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <span class="blue-button">
                                 <span>
-                                    <a href="#">
+                                    <a id="updateIncidentDescription" class="DescriptionActionLink" onclick="hideDescription();">
                                         Update Accident Description
                                     </a>
                                 </span>

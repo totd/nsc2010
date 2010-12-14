@@ -5,9 +5,17 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
 
     public function getIcidentDescription($id)
     {
-        $row = $this->fetchRow("i_ID = $id");
+        $select = "SELECT *
+                    FROM incident
+                    LEFT JOIN state ON i_State_ID = s_id
+                    LEFT JOIN incident_cause ON i_ID = ic_Incident_ID
+                    WHERE i_ID = {$this->getDefaultAdapter()->quote($id)}
+                    ";
+        $stmt = $this->getDefaultAdapter()->query($select);
 
-        return $row;
+        $row = $stmt->fetchAll();
+
+        return $row[0];
 
     }
 
@@ -40,7 +48,7 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
     {
         $limit = "LIMIT $offset, $count";
         $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM incident";
-        $join = " LEFT JOIN state ON i_State = s_id";
+        $join = " LEFT JOIN state ON i_State_ID = s_id";
         $join .= " LEFT JOIN driver ON i_Driver_ID = d_ID";
         $where = "";
         $orderBy = " ORDER BY ";

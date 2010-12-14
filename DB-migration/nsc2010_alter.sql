@@ -71,8 +71,7 @@ ALTER TABLE `homebase`
 -- Ограничения внешнего ключа таблицы `incident_cause`
 --
 ALTER TABLE `incident_cause`
-  ADD CONSTRAINT `fk_incident_cause_incident1` FOREIGN KEY (`ic_Incident_ID`) REFERENCES `incident` (`i_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_incident_cause_witness1` FOREIGN KEY (`ic_Witness_ID`) REFERENCES `witness` (`w_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_incident_cause_incident1` FOREIGN KEY (`ic_Incident_ID`) REFERENCES `incident` (`i_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `incident`

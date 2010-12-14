@@ -31,10 +31,14 @@
 </div>
 
 <div class="driver-information" id="main">
-    <div id="incidentDescription">
+    <input type="hidden" id="i_ID" value="<?= $this->i_ID; ?>"
+
+    <div id="viewDescriptionDiv" class="DescriptionDiv">
                     
     </div>
-
+    <div id="updateDescriptionDiv" class="DescriptionDiv" style="display: none;">
+        <?= $this->partial('partials/index/_update_description.phtml'); ?>
+    </div>
     
 
     <div class="post-top"><div class="post-bottom"><div class="post-middle">

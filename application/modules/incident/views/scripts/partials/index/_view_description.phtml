@@ -21,7 +21,7 @@
                             Incident Number:
                         </td>
                         <td>
-                            <?= (isset($this->layout()->incidentRow['i_Number']) ? $this->layout()->incidentRow['i_Number'] : ''); ?>
+                            <div id="view_i_Number"></div>
                         </td>
                     </tr>
                     <tr>
@@ -31,15 +31,15 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            City: &nbsp;&nbsp; <?= (isset($this->layout()->incidentRow['i_City']) ? $this->layout()->incidentRow['i_City'] : ''); ?> &nbsp;&nbsp;
-                            State: &nbsp;&nbsp; <?= (isset($this->layout()->incidentRow['s_name']) ? $this->layout()->incidentRow['s_name'] : ''); ?>&nbsp;&nbsp;
-                            Postal Code: &nbsp;&nbsp; <?= (isset($this->layout()->incidentRow['i_Postal_Code']) ? $this->layout()->incidentRow['i_Postal_Code'] : ''); ?> &nbsp;&nbsp;
+                            City: &nbsp;&nbsp; <div id="view_i_City"></div>&nbsp;&nbsp;
+                            State: &nbsp;&nbsp; <div id="view_s_name""></div>&nbsp;&nbsp;
+                            Postal Code: &nbsp;&nbsp; <div id="view_i_Postal_Code"></div>&nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr class="color-dark">
                         <td colspan="2">
-                            Highway/Street: &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Highway_Street']) ? $this->layout()->incidentRow['i_Highway_Street'] : ''); ?>&nbsp;&nbsp;
-                            at intersection with: &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_At_Intersection']) ? $this->layout()->incidentRow['i_At_Intersection'] : ''); ?>&nbsp;&nbsp;
+                            Highway/Street: &nbsp;&nbsp;<div id="view_i_Highway_Street"></div>&nbsp;&nbsp;
+                            at intersection with: &nbsp;&nbsp;<div id="view_i_At_Intersection"></div>&nbsp;&nbsp;
                         </td>
                     </tr>
 <!--                    <tr>
@@ -50,7 +50,7 @@
                     </tr>-->
                     <tr class="color-dark">
                         <td colspan="2">
-                            Mile Marker : <?= (isset($this->layout()->incidentRow['i_Mile_Marker']) ? $this->layout()->incidentRow['i_Mile_Marker'] : ''); ?>
+                            Mile Marker : <div id="view_i_Mile_Marker"></div>
                         </td>
                     </tr>
                     <tr>
@@ -60,8 +60,8 @@
                     </tr>
                     <tr class="color-dark">
                         <td colspan="2">
-                            Incident Date : &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Date']) ? $this->layout()->incidentRow['i_Date'] : ''); ?>&nbsp;&nbsp;
-                            Time: &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Time']) ? $this->layout()->incidentRow['i_Time'] : ''); ?>
+                            Incident Date : &nbsp;&nbsp;<div id="view_i_Date"></div>&nbsp;&nbsp;
+                            Time: &nbsp;&nbsp;<div id="view_i_Time"></div>
                         </td>
                     </tr>
                     <tr>
@@ -71,21 +71,21 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            Photo taken by:  &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Photo_Taken_By']) ? $this->layout()->incidentRow['i_Photo_Taken_By'] : ''); ?>&nbsp;&nbsp;
-                            Incident diagram taken:   &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Incident_Diagram_Taken']) ? $this->layout()->incidentRow['i_Incident_Diagram_Taken'] : ''); ?>&nbsp;&nbsp;
+                            Photo taken by:  &nbsp;&nbsp;<div id="view_i_Photo_Taken_By"></div>&nbsp;&nbsp;
+                            Incident diagram taken:   &nbsp;&nbsp;<div id="view_i_Incident_Diagram_Taken"></div>&nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr class="color-dark">
                         <td colspan="2">
-                            Incident reported:  &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Reported']) ? $this->layout()->incidentRow['i_Reported'] : ''); ?>&nbsp;&nbsp;
-                            Police department:   &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Police_Department']) ? $this->layout()->incidentRow['i_Police_Department'] : ''); ?>&nbsp;&nbsp;
-                            Officer Name:   &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Officer_Name']) ? $this->layout()->incidentRow['i_Officer_Name'] : ''); ?>&nbsp;&nbsp;
-                            Police report #:   &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Police_Report_Number']) ? $this->layout()->incidentRow['i_Police_Report_Number'] : ''); ?>&nbsp;&nbsp;
+                            Incident reported:  &nbsp;&nbsp;<div id="view_i_Reported"></div>&nbsp;&nbsp;
+                            Police department:   &nbsp;&nbsp;<div id="view_i_Police_Department"></div>&nbsp;&nbsp;
+                            Officer Name:   &nbsp;&nbsp;<div id="view_i_Officer_Name"></div>&nbsp;&nbsp;
+                            Police report #:   &nbsp;&nbsp;<div id="view_i_Police_Report_Number"></div>&nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <b>Incident Narrative:</b> &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['i_Narrative']) ? $this->layout()->incidentRow['i_Narrative'] : ''); ?>&nbsp;&nbsp;
+                            <b>Incident Narrative:</b> &nbsp;&nbsp;<div id="view_i_Narrative"></div>&nbsp;&nbsp;
                         </td>
                     </tr>
 <!--                    <tr>
@@ -95,7 +95,7 @@
                     </tr>-->
                     <tr class="color-dark">
                         <td colspan="2">
-                            <b>Incident Preventable</b>: &nbsp;&nbsp;<?= (isset($this->layout()->incidentRow['ic_Preventable']) ? $this->layout()->incidentRow['ic_Preventable'] : ''); ?>&nbsp;&nbsp;
+                            <b>Incident Preventable</b>: &nbsp;&nbsp;<div id="view_ic_Preventable"></div>&nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr>

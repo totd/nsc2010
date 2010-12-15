@@ -45,13 +45,47 @@
       <div class="header-bottom">
 
           <ul class="top-menu">
-              <li><span class="left"><span class="right"><a href="/driver/index/dqf?status=All"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="/driver/index/index?status=Pending"><span class="left"><span class="right">Drivers</span></span></a></span></span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/driver/index/index?status=Pending">Pending Drivers</a></li>
+                                <li><a href="/driver/new-driver/new-driver-search">Create New Driver</a></li>
+                                <li><a href="#">Search Drivers</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li><span class="left"><span class="right"><a href="/driver/index/dqf?status=All"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="/driver/index/archives?status=All""><span class="left"><span class="right">Archives</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
+              <div class="top-pod-menu"><ul>
+              <li><a href="#">SUMMARY  REPORTS</a><ul>
+                <li><a href="#">Summary Report</a></li></ul></li>
+              <li><a href="#">ACTIVITY  REPORTS</a><ul>
+                <li><a href="#">Activity Report</a></li>
+                <li><a href="#">Email Warning Report</a></li></ul></li>
+              <li><a href="#">GENERAL REPORTS</a><ul>
+                <li><a href="#">Driver List - Current Status Report</a></li>
+                <li><a href="#">Driver List - Active Drivers Report</a></li>
+                <li><a href="#">Driver List - By CDL class</a></li>
+                <li><a href="#">Driver's Expiration Report</a></li>
+                <li><a href="#">Get Driver's Expiration Report Letter</a></li>
+                <li><a href="#">Non-Compliant Detailed Report</a></li>
+                <li><a href="#">Non-Compliant by NSC check report</a></li>
+                <li><a href="#">Driver List - create your own look</a></li>
+                <li><a href="#">Equipment Report</a></li></ul></li>
+              </ul></div>
+            </li>
+            <li style="background:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
               <li>
                   <span class="left">
                       <span class="right">
-                          <a href="/equipment/index/index/status/Pending">
-                              <span class="left">
-                                  <span class="right">
+                          <a id="menuEquipment" href="/equipment/index/index/status/Pending" style="background:none; color:#1c357c; text-shadow:0px 1px 1px #fff;">
+                              <span class="left" style="background: none;">
+                                  <span class="right" style="background: none;">
                                       Equipment
                                   </span>
                               </span>
@@ -68,6 +102,28 @@
                                 <?php if ($this->identity->permissions->equipment_create_permission === true) : ?>
                                     <li><a href="/equipment/search/index">Create New Equipment</a></li>
                                 <?php endif; ?>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+              </li>
+              <li>
+                  <span class="left">
+                      <span class="right">
+                          <a href="/incident/list/index/status/Pending">
+                              <span class="left">
+                                  <span class="right">
+                                      Incident
+                                  </span>
+                              </span>
+                          </a>
+                      </span>
+                  </span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/incident/list/index/status/Pending">Incident List</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -120,21 +176,9 @@
                     </ul>
                 </div>
             </li>
-              
-            <li>
-                <span class="left">
-                    <span class="right">
-                        <a href="/driver/index/index">
-                            <span class="left">
-                                <span class="right">
-                                    Service Provider Management
-                                </span>
-                            </span>
-                        </a>
-                    </span>
-                </span>
-            </li>
+            <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Service Provider Management</span></span></a></span></span></li>
           </ul>
+
           <?php if(isset($this->pageTitle)){ ?><h1 class="page-title"><?php echo $this->pageTitle; ?></h1><?php } ?>
           <?php echo $this->layout()->content ?>
           <?php } else {?>

@@ -108,19 +108,23 @@ $(function() {
 
     $("#EquipmentAssignmentSaveLink").click(function() {
          saveAssignment();
+         $("#EquipmentAssignmentSaveLink").html('Updating...');
     });
 
     $("#VIWSaveLink").click(function() {
         saveViw();
+        $("#VIWSaveLink").html('Updating...');
     });
 
     $("#commonSaveButton").click(function() {
         if ($("#updateVIWdiv").css('display') != 'none') {
             saveViw();
+            $("#commonSaveButton").html('Updating...');
         }
 
         if ($("#addAssignmentDiv").css('display') != 'none') {
             saveAssignment();
+            $("#commonSaveButton").html('Updating...');
         }
     });
 
@@ -298,6 +302,7 @@ function saveViw() {
                     $("#viewVIWdiv").html("");
                     refreshVIW($("#e_Number").val());
                     $(".VIWDiv").toggle("slow");
+                    $(".saveButton").html("Save");
                     return true;
                 } else {
                     alert(data);

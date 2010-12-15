@@ -1,6 +1,11 @@
 <?php
 class Incident_IndexController extends Zend_Controller_Action
 {
+    public function  preDispatch()
+    {
+        $this->_helper->layout->setLayout('incidentLayout');
+    }
+
     public function  init()
     {
         

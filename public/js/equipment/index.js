@@ -118,13 +118,15 @@ $(function() {
 
     $("#commonSaveButton").click(function() {
         if ($("#updateVIWdiv").css('display') != 'none') {
-            saveViw();
             $("#commonSaveButton").html('Updating...');
+            saveViw();
+            
         }
 
         if ($("#addAssignmentDiv").css('display') != 'none') {
-            saveAssignment();
             $("#commonSaveButton").html('Updating...');
+            saveAssignment();
+            
         }
     });
 
@@ -261,6 +263,7 @@ function saveAssignment() {
                             $("#viewAssignmentDiv").html("");
                             refreshEquipmentAssigment($("#ea_equipment_id").val());
                             $(".AssignmentDiv").toggle("slow");
+                            $(".saveButton").html("Save");
                             return true;
                         } else {
                             alert(data);

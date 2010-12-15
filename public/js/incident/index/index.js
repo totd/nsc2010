@@ -25,12 +25,12 @@ function hideDescription() {
 function refreshIncidentDescription(id) {
     $.ajax({
             type: "GET",
-            url: "/incident/index/get-description/",
+            url: "/incident/index/get-description-update",
             data: "id=" + id,
             success: function(data) {
-                $("#viewDescriptionDiv").html(data);
-                storePrimaryDescriptionValues();
-        }
+                fillDescriptionView(data);
+            },
+            dataType: "json"
     });
 }
 
@@ -63,6 +63,25 @@ function fillDescriptionUpdate(data) {
     $("#i_Police_Report_Number").val(data.row.i_Police_Report_Number);
     $("#i_Narrative").val(data.row.i_Narrative);
     $("#ic_Preventable").val(data.row.ic_Preventable);
+}
+
+function fillDescriptionView(data) {
+    $("#view_i_Number").html(data.row.i_Number);
+    $("#view_i_City").html(data.row.i_City);
+    $("#view_s_name").html(data.row.s_name);
+    $("#view_i_Postal_Code").html(data.row.i_Postal_Code);
+    $("#view_i_Highway_Street").html(data.row.i_Highway_Street);
+    $("#view_i_At_Intersection").html(data.row.i_At_Intersection);
+    $("#view_i_Mile_Marker").html(data.row.i_Mile_Marker);
+    $("#view_i_Date").html(data.row.i_Date);
+    $("#view_i_Time").html(data.row.i_Time);
+    $("#view_i_Photo_Taken_By").html(data.row.i_Photo_Taken_By);
+    $("#view_i_Reported").html(data.row.i_Reported);
+    $("#view_i_Police_Department").html(data.row.i_Police_Department);
+    $("#view_i_Officer_Name").html(data.row.i_Officer_Name);
+    $("#view_i_Police_Report_Number").html(data.row.i_Police_Report_Number);
+    $("#view_i_Narrative").html(data.row.i_Narrative);
+    $("#view_ic_Preventable").html(data.row.ic_Preventable);
 }
 
 function storePrimaryDescriptionValues() {

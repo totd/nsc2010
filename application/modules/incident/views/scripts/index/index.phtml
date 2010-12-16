@@ -32,12 +32,13 @@
 
 <div class="driver-information" id="main">
     <input type="hidden" id="i_ID" value="<?= $this->i_ID; ?>"
-        <?= $this->partial('partials/index/_view_description.phtml'); ?>
+    <input type="hidden" id="ic_ID" value="<?= $this->ic_ID; ?>"
+        
     <div id="viewDescriptionDiv" class="DescriptionDiv">
-                    
+        <?= $this->partial('partials/index/_view_description.phtml'); ?>
     </div>
     <div id="updateDescriptionDiv" class="DescriptionDiv" style="display: none;">
-        <?= $this->partial('partials/index/_update_description.phtml'); ?>
+        <?= $this->partial('partials/index/_update_description.phtml', array('states' => $this->states)); ?>
     </div>
     
 

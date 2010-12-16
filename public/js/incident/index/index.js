@@ -1,18 +1,27 @@
+incidentID = new Object();
+incidentCauseID = new Object();
 $(function(){
-    refreshIncidentDescription($("#i_ID").val());
-    refreshIncidentDescriptionUpdate($("#i_ID").val());
+    incidentID = $("#i_ID");
+    incidentCauseID = $("#ic_ID");
+
+    refreshIncidentDescription(incidentID.val());
     
     $(".DescriptionActionLink").each(function() {
        $(this).click(function() {
             $(".DescriptionDiv").toggle("slow");
         });
     });
+
+    $("#i_Date").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-10:+10'
+    });
+
+    $("#saveIncidentDescription").click(function() {
+       saveDescription(incidentID.val()) ;
+    });
 });
-
-
-function hideDescription() {
-    $(".DescriptionDiv").toggle("slow");
-}
 
 /**
  * @author Andryi Ilnytskyi 13-12-2010
@@ -29,20 +38,9 @@ function refreshIncidentDescription(id) {
             data: "id=" + id,
             success: function(data) {
                 fillDescriptionView(data);
+                fillDescriptionUpdate(data);
             },
             dataType: "json"
-    });
-}
-
-function refreshIncidentDescriptionUpdate(id) {
-    $.ajax({
-       type: "GET",
-       url: "/incident/index/get-description-update",
-       data: "id=" + id,
-       success: function(data) {
-           fillDescriptionUpdate(data);
-       },
-       dataType: "json"
     });
 }
 
@@ -57,12 +55,54 @@ function fillDescriptionUpdate(data) {
     $("#i_Date").val(data.row.i_Date);
     $("#i_Time").val(data.row.i_Time);
     $("#i_Photo_Taken_By").val(data.row.i_Photo_Taken_By);
-    $("#i_Reported").val(data.row.i_Reported);
+    $("input:radio[@name=i_Reported]").each(function(){
+        if ($(this).val() == data.row.i_Reported) {
+            $(this).attr('checked', 'checked');
+        }
+    });
     $("#i_Police_Department").val(data.row.i_Police_Department);
     $("#i_Officer_Name").val(data.row.i_Officer_Name);
     $("#i_Police_Report_Number").val(data.row.i_Police_Report_Number);
     $("#i_Narrative").val(data.row.i_Narrative);
-    $("#ic_Preventable").val(data.row.ic_Preventable);
+    $("#ic_ID").val(data.row.ic_ID);
+    $("input:radio[@name=ic_Preventable]").each(function(){
+        if ($(this).val() == data.row.ic_Preventable) {
+            $(this).attr('checked', 'checked');
+        }
+    });
+}
+
+function saveDescription(id) {
+    $.get("/incident/index/save-description",
+            {
+                i_ID : id,
+                i_Number : $("#i_Number").val(),
+                i_City : $("#i_City").val(),
+                i_State_ID : $("#i_State_ID").val(),
+                i_Postal_Code : $("#i_Postal_Code").val(),
+                i_Highway_Street : $("#i_Highway_Street").val(),
+                i_At_Intersection : $("#i_At_Intersection").val(),
+                i_Mile_Marker : $("#i_Mile_Marker").val(),
+                i_Date: $("#i_Date").val(),
+                i_Time : $("#i_Time").val(),
+                i_Photo_Taken_By : $("#i_Photo_Taken_By").val(),
+                i_Reported : $("input:radio[@name=i_Reported]:checked").val(),
+                i_Police_Department : $("#i_Police_Department").val(),
+                i_Officer_Name : $("#i_Officer_Name").val(),
+                i_Police_Report_Number : $("#i_Police_Report_Number").val(),
+                i_Narrative : $("#i_Narrative").val(),
+                ic_ID : incidentCauseID.val(),
+                ic_Preventable : $("input:radio[@name=ic_Preventable]:checked").val()
+            }, function(data) {
+                if (data == 1) {
+                    refreshIncidentDescription(incidentID.val());
+                    $(".DescriptionDiv").toggle("slow");
+                    return true;
+                } else {
+                    alert(data);
+                    return false;
+                }
+            });
 }
 
 function fillDescriptionView(data) {

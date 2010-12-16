@@ -24,6 +24,21 @@ class Incident_IndexController extends Zend_Controller_Action
 
         $this->view->i_ID = $id;
 
+        // create state select.
+        $stateModel = new State_Model_State();
+        $states = $stateModel->getList();
+
+        $selectStateArray = array('' => '-');
+        foreach ($states as $state) {
+            if (is_object($state)) {
+                $selectStateArray[$state->s_id] = $state->s_name;
+            } else if (is_array ($state)){
+                $selectStateArray[$state['s_id']] = $state['s_name'];
+            }
+        }
+        $this->view->states = $selectStateArray;
+
+
         $this->view->breadcrumbs = '<a href="/incident/index">Incident Management</a>';
         $this->view->breadcrumbs .= '&nbsp;&gt;&nbsp;<a href="/incident/list">Incident List</a>';
         $this->view->breadcrumbs .= '&nbsp;&gt;&nbsp;Incident Profile';
@@ -93,5 +108,51 @@ class Incident_IndexController extends Zend_Controller_Action
 
     }
 
+    public function saveDescriptionAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if ($this->_request->isXmlHttpRequest()) {
+            $incidentModel = new Incident_Model_Incident();
+
+            $data = array();
+            $data = $this->_request->getQuery();
+            if (isset($data['i_Date'])) {
+                try {
+                    $date = new Zend_Date($data['i_Date'], "MM/dd/YYYY");
+                    $data['i_Date'] = $date->toString("YYYY-MM-dd");
+                } catch (Zend_Date_Exception $e) {
+                    $data['i_Date'] = '0000-00-00';
+                }
+            }
+
+            if (isset($data['ic_Preventable']) && isset($data['ic_ID'])) {
+                $dataCause = array();
+                if (!empty($data['ic_ID'])) {
+                    $dataCause['ic_ID'] = $data['ic_ID'];
+                } else {
+                    // Set value for the foreign key to avoid DB error.
+                    $dataCause['ic_Incident_ID'] = $data['i_ID'];
+                }
+
+                $dataCause['ic_Preventable'] = $data['ic_Preventable'];
+                
+
+                $modelIncidentCause = new Incident_Model_IncidentCause();
+                $modelIncidentCause->saveIncidentCause($dataCause);
+            }
+            unset($data['ic_ID']);
+            unset($data['ic_Preventable']);
+
+
+            $where = $incidentModel->getAdapter()->quoteInto('i_ID = ?', $this->_request->getParam('i_ID'));
+            
+
+            $incidentModel->update($data, $where);
+
+            echo 1;
+        }
+    }
 }
 

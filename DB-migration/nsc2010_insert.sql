@@ -1,7 +1,34 @@
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
+INSERT INTO `custom_document__form_category` (`cdfc_ID`, `cdfc_name`) VALUES
+(1, 'APPLICATION FORMS'),
+(2, 'RENEWAL AND TERMINATION FORMS');
 
+INSERT INTO `custom_document__form_name` (`cdfn_ID`, `cdfn_category_id`, `cdfn_name`) VALUES
+(1, 1, 'Application For Employment'),
+(2, 1, 'Certification Of Compliance With Driver License Requirements'),
+(3, 1, 'Employment Eligibility Verification'),
+(4, 1, 'Request For Information From Previous Employer'),
+(5, 1, 'Request/Consent For Alcohol And Controlled Substance Information'),
+(6, 1, 'Request for Motor Vehicle Report'),
+(7, 1, 'Record Of Road Test'),
+(8, 1, 'Driver Data Sheet'),
+(9, 2, 'Certification Of Violations'),
+(10, 2, 'Medical Card'),
+(11, 2, 'Commercial Driver License'),
+(12, 2, 'Social Security Card'),
+(13, 2, 'Motor Vehicle Report (MVR)'),
+(14, 2, 'Driver''s Physical Examination Form');
+
+INSERT INTO `driver__equipment_operated` (`deo_ID`, `deo_Driver_ID`, `deo_Equipment_Type_ID`, `deo_is_operated`, `deo_From_Date`, `deo_To_Date`, `deo_Total_Miles`) VALUES
+(1, 2, 2, 'Yes', '2010-12-02', '2010-12-02', 2123.21),
+(2, 2, 5, 'Yes', '2005-05-05', '2005-05-05', 23.00),
+(4, 2, 6, 'Yes', '2010-12-31', '2010-12-31', 123.43),
+(9, 2, 1, 'Yes', '2010-12-01', '2010-12-01', 1.00),
+(12, 2, 11, 'Yes', '2010-12-01', '2010-12-31', 23.00),
+(13, 5, 1, 'Yes', '1998-01-01', '2010-12-28', 2323.00),
+(15, 5, 8, 'Yes', '2010-12-01', '2010-12-31', 54645.00);
 
 INSERT INTO `company` (`c_id`, `c_Parent_Company_Account_Number`, `c_Number`, `c_EIN`, `c_SSN`, `c_DOT_Number`, `c_Carrier_Number`, `c_Name`, `c_Contact_Table_ID`, `c_Annual_Support`, `c_DOT_Regulated`) VALUES
 (1, 1, 'c1', NULL, NULL, NULL, NULL, 'c1', 0, '', '');
@@ -22,14 +49,14 @@ INSERT INTO `custom_document__fax_status` (`cdfs_id`, `cdfs_status`) VALUES
 
 
 INSERT INTO `custom_document__form_status` (`cdfms_id`, `cdfms_status`) VALUES
-(4, 'Vehicle Registration'),
-(5, 'Vehicle Insurance'),
-(6, 'Vehicle Other'),
-(7, 'Vehicle State Inspection Report'),
-(8, 'Vehicle Federal Inspection Report'),
-(9, 'Vehicle Maintenance Report/Record'),
-(10, 'Vehicle Receipts of Repair'),
-(11, 'Vehicle Roadside Inspection Report');
+(4, 'EIN Registration'),
+(5, 'EIN Insurance'),
+(6, 'EIN Other'),
+(7, 'EIN State Inspection Report'),
+(8, 'EIN Federal Inspection Report'),
+(9, 'EIN Maintenance Report/Record'),
+(10, 'EIN Receipts of Repair'),
+(11, 'EIN Roadside Inspection Report');
 
 
 INSERT INTO `depot` (`dp_id`, `dp_HomeBase_Account_Number`, `dp_Name`, `dp_Contact_Table_ID`, `dp_Annual_Support`, `dp_Road_Test_Record_Required`, `dp_DOT_Regulated`) VALUES
@@ -104,7 +131,7 @@ INSERT INTO `driver__status` (`ds_id`, `ds_type`) VALUES
 
 
 
-INSERT INTO `equipment` (`e_id`, `e_Number`, `e_Owner_Number`, `e_Unit_Number`, `e_Alternate_ID`, `e_RFID_No`, `e_Entry_Date`, `e_License_Number`, `e_License_Expiration_Date`, `e_Start_Mileage`, `e_Registration_State`, `e_Gross_Vehicle_Weight_Rating`, `e_Gross_Vehicle_Registered_Weight`, `e_Unladen_Weight`, `e_Axles`, `e_Name`, `e_Year`, `e_Make`, `e_Color`, `e_Model`, `e_Description`, `e_New_Equipment_Status`, `e_Active_Status`, `e_Fee`, `e_Title_Status`, `e_Picture`, `e_DOT_Regulated`, `e_type_id`, `e_activation_date`, `e_activation_comment`, `e_change_active_status_date`, `e_change_active_status_comment`) VALUES
+INSERT INTO `equipment` (`e_id`, `e_Number`, `e_Owner_Number`, `e_Unit_Number`, `e_Alternate_ID`, `e_RFID_No`, `e_Entry_Date`, `e_License_Number`, `e_License_Expiration_Date`, `e_Start_Mileage`, `e_Registration_State`, `e_Gross_Equipment_Weight_Rating`, `e_Gross_Equipment_Registered_Weight`, `e_Unladen_Weight`, `e_Axles`, `e_Name`, `e_Year`, `e_Make`, `e_Color`, `e_Model`, `e_Description`, `e_New_Equipment_Status`, `e_Active_Status`, `e_Fee`, `e_Title_Status`, `e_Picture`, `e_DOT_Regulated`, `e_type_id`, `e_activation_date`, `e_activation_comment`, `e_change_active_status_date`, `e_change_active_status_comment`) VALUES
 (1, 'test1', '', '1', '', '', '2010-11-24 16:06:37', '1', '2010-11-27', '1', 17, '1', '1', '1', 1, '1', 1976, '1', '1', '1', '1', 3, 3, '', '', 'root_24_11_2010_16_10_14_4942.jpg', 'No', 1, '2010-11-02', '', '2010-11-24', NULL),
 (2, 'test01', '', '324234', '', '', '2010-11-24 16:11:09', '23ew', '2010-11-01', '34', 6, '234', '223', 'wer23', 3, '3423', 2000, 'wer3', '34ew', '234234', '4ewefw', 1, NULL, '', '', NULL, 'Yes', 4, NULL, NULL, NULL, NULL),
 (3, 'test03', NULL, NULL, NULL, NULL, '2010-11-24 16:20:53', NULL, '0000-00-00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),

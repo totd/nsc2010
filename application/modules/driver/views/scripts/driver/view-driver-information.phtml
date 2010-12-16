@@ -1,4 +1,3 @@
-
 <div class="bottom-nav">
     <ul class="blue-nav">
         <li><span><a href="/driver/Driver/Driver-Complete/id/<?php echo $this->driverId;?>" >Complete</a></span></li>
@@ -30,18 +29,28 @@
         </tbody>
     </table>
     <table cellspacing="0" class="inform" id="idDriverInfoView">
-        <tbody>    
-        <tr><td>Application Type</td>
+        <tbody>
+        <tr class="color-dark"><td>Application Type</td>
             <td><span><?php echo $_SESSION['driver_info']['DriverEmploymentType_list'][$this->driverInfo['d_Employment_Type']];?></span></td>
         </tr>
-        <tr class="color-dark"><td>Entry Date</td>
-            <td><span>
+        <tr>
+            <?php if($_SESSION['driver_info']['DriverStatus_list'][$this->driverInfo['d_Status']]=="Pending"){?>
+                <td>Entry Date</td>
+                <td><span>
                   <?php
                         $date->set($this->driverInfo['d_Entry_Date'],"YYYY-MM-dd");
                   echo  $date->toString("MM/dd/YYYY");
                   ?></span></td>
+            <?php }else{?>
+                <td>Date Of Hire</td>
+            <td><span>
+            <?php
+                if(isset($this->driverInfo['d_Date_Of_Hire'])){
+                $date->set($this->driverInfo['d_Date_Of_Hire'],"YYYY-MM-dd");
+                echo  $date->toString("MM/dd/YYYY");}
+                ?></span></td>
+            <?php }?>
         </tr>
-        <tr><td>Date Of Hire</td><td><span><?php echo $this->driverInfo['d_Date_Of_Hire']; ?></span></td></tr>
         <tr class="color-dark"><td>Status</td><td><span><?php echo $_SESSION['driver_info']['DriverStatus_list'][$this->driverInfo['d_Status']];?></span></td></tr>
         <tr><td>Home Base Location</td><td><?php echo $this->homebase['h_Name'];?></td></tr>
         <tr class="color-dark"><td>Depot</td><td><?php echo $this->depot['dp_Name'];?></td></tr>
@@ -53,10 +62,17 @@
                 Last:&nbsp;<span><?php echo $this->driverInfo['d_Last_Name']; ?></span>
                 Middle:&nbsp;<span><?php echo $this->driverInfo['d_Middle_Name']; ?></span></td></tr>
         <tr class="color-dark"><td>Date Of Birth</td><td><span><?php
-                        $date->set($this->driverInfo['d_Date_Of_Birth'],"YYYY-MM-dd");
-                  echo  $date->toString("MM/dd/YYYY");
+                  $date->set($this->driverInfo['d_Date_Of_Birth'],"YYYY-MM-dd");
+                  echo $date->toString("MM/dd/YYYY");
                   ?></span></td></tr>
-        <tr><td>Social Security #</td><td><span><?php echo $this->driverInfo['d_Driver_SSN']; ?></span></td></tr>
+        <tr><td>Social Security #</td><td><span>
+        <?php
+            if($this->identity->vau_role=="NSC_LEVEL_0"){
+            echo  preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3",$this->driverInfo['d_Driver_SSN']);
+        }else{
+            echo  preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3",$this->driverInfo['d_Driver_SSN']);
+        }
+        ?></span></td></tr>
         <tr class="color-dark">
             <td>Medical Card</td>
             <td>Expires:&nbsp;<span><?php
@@ -109,7 +125,7 @@
                   ?></span></td></tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody></table>
-        <?php echo $this->partial('partials/_edit-Driver-Information-Table.phtml',array('driverInfo' => $this->driverInfo,"stateList" => $this->stateList,"homebaseList" => $this->homebaseList,"depotList" => $this->depotList)); ?>
+        <?php echo $this->partial('partials/_edit-Driver-Information-Table.phtml',array('driverInfo' => $this->driverInfo,"stateList" => $this->stateList,"homebaseList" => $this->homebaseList,"depotList" => $this->depotList,"identity" => $this->identity)); ?>
         <script type="text/javascript">
             $('#idDriverInfoEdit').hide(0);
         </script>
@@ -270,6 +286,7 @@
         </tr>
         </tbody>
         <?php echo $this->partial('partials/_edit-HoS-Table.phtml',array('currentDriverHoSList' => $this->currentDriverHoSList,"driverId" => $this->driverId)); ?>
+
         <tbody id="lrfw_list">
         <tr>
             <td colspan="7">Last relieved from work:&nbsp;<span></span>Date:&nbsp;
@@ -284,7 +301,7 @@
         </tr>
         </tbody>
         <?php echo $this->partial('partials/_edit-lrfw-Table.phtml',array('currentDriverLrfwRecord' => $this->currentDriverLrfwRecord)); ?>
-        
+
         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody></table>
     <script type="text/javascript">
@@ -305,56 +322,89 @@
 <script type="text/javascript">
     $(function() {
         $("#edit_lrfw_date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#d_Date_Of_Birth").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#d_Medical_Card_Expiration_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#d_TWIC_expiration").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#d_R_A_expiration").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#dah_Start_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#dah_End_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#l_Expiration_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#pe_Employment_Start_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#pe_Employment_Stop_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $(".datepicker").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'

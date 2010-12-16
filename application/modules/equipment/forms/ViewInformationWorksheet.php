@@ -4,7 +4,7 @@ class Equipment_Form_ViewInformationWorksheet extends Zend_Form
 {
     /**
      *
-     * @var string Vehicle Identification Number
+     * @var string Equipment Identification Number
      */
     private $_VIN;
 

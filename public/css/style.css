@@ -177,6 +177,18 @@ ul.top-menu li:hover a {
 	background:none;
 	color:#1c357c;
 	text-shadow:0px 1px 1px #fff;}
+
+ul.top-menu li a.top_active {
+    background:none;
+	color:#1c357c;
+}
+ul.top-menu li a.top_active .right {
+    background:none;
+}
+ul.top-menu li a.top_active .left {
+    background:none;
+}
+
 ul.top-menu li:hover a .right {background:none;}
 ul.top-menu li:hover a .left {background:none;}
 ul.top-menu li:hover ul li a { color:#fff; text-shadow:none; filter:none;}
@@ -349,7 +361,7 @@ form.status input[type="submit"], form.search input[type="submit"] {
 	cursor:pointer;}
 				
 ul.blue-nav {
-	float:right;}
+	float:right;  margin-right: 10px;}
 	
 .blue-nav li, span.blue-button {
 	float:left;
@@ -467,7 +479,39 @@ table.inform {
 
 table.inform td {
 	line-height:30px;
-	padding:0 0 0 45px;}
+	padding:0 0 0 25px;}/*
+	padding:0 0 0 45px;}*/
+/* ============================================================================== 2010-12-10 */
+table.inform td table.no-padding {
+	width: 795px;}
+table.no-padding td {
+	line-height: normal;
+	padding: 0px;}
+
+.txt {
+	white-space: nowrap;
+	display: inline-block;
+	float: left;
+	padding: 2px 0px 0px 0px;
+}
+.field {
+	display: inline-block;
+}
+.fLeft {
+	float: left;
+}
+.fRight {
+	float: right;
+}
+
+.txtInput100 {
+	width: 93%;
+}
+.txtInput90 {
+	width: 82%;
+}
+
+/* ============================================================================== 2010-12-10 */
 	
 table.inform td span {
 	color:#b95700;
@@ -481,7 +525,7 @@ table.inform th{
 	width:635px;
 	line-height:30px;
 	text-align:left;
-	padding:35px 0 0 45px;
+	padding:35px 0 0 25px;
 	font-size:14px;
 	font-weight:bold;
 	text-transform:uppercase;}
@@ -489,7 +533,7 @@ table.inform th{
 table.inform tr.color-dark td { background:#e6e8ee;}	
 
 table.inform td span.red {
-    color: #ff0000;
+    color: #ff4425;
     padding: 5px;
     margin: 0px;
 }
@@ -538,7 +582,7 @@ table.application-forms {
 
 table.application-forms th {
 	text-align:left;
-	padding-left:45px;
+	padding-left:25px;
 	font-weight:bold;
 	font-size:14px;
 	text-transform:uppercase;}
@@ -558,11 +602,11 @@ table.application-forms td {
 table.application-forms tr.color-dark td { background:#e6e8ee;}
 
 table.application-forms tr td:first-child {
-	padding-left:45px;
+	padding-left:25px;
 	width:445px;
 	text-align:left;}
 	
-.post { padding-left:45px;}
+.post { padding-left:25px;}
 
 .post h2 {
 	font-size:14px;
@@ -914,11 +958,11 @@ table.first tr td:first-child {
 	padding:8px 0;
 	width:215px;}
 	
-.vehicle .inform {
+.equipment .inform {
 	float:left;
 	width:440px;}
 	
-.vehicle .second table:first-child {
+.equipment .second table:first-child {
 	margin-right:9px;
 	display:inline;}
 
@@ -934,11 +978,11 @@ span.blue-button a {
 	font-weight:normal;
 	text-transform:none;}	
 	
-.vehicle .second{
+.equipment .second{
 	float:left;
 	background:url(../images/gradient-table-second.gif) repeat-x #f7f7fb;}
 	
-.vehicle .blue-nav { width:330px;}
+.equipment .blue-nav { width:330px;}
 
 .second.post {
 	background:url(../images/gradient-second.gif) repeat-x #f7f7fb;
@@ -1009,3 +1053,34 @@ span.blue-button a {
 }
 
 .clear { clear:both;}
+
+table.application-forms th h2, table.inform th h2 {
+	font-size:14px;
+	font-weight:bold;
+	display:inline;
+	padding-top: 5px;
+}
+
+div h2.status-ok {
+	background: url(images/status-ok.png) no-repeat 100% 23px;
+	padding-right: 30px;
+}
+
+div h2.status-warning{
+	background: url(images/attention.png) no-repeat 100% 23px; 
+	padding-right: 30px;
+}
+
+th h2.status-ok {
+	background: url(images/status-ok.png) no-repeat 100% 0px;
+	padding-right: 30px;
+}
+
+th h2.status-warning{
+	background: url(images/attention.png) no-repeat 100% 0px; 
+	padding-right: 30px;
+}
+
+.button-updating {
+	opacity:0.8;
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80);	}

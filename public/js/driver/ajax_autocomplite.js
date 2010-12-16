@@ -11,7 +11,7 @@ $().ready(function() {
 	function formatResult(row) {
 		return row[0].replace(/(<.+?>)/gi, '');
 	}
-    
+
 	$("#pe_Employer_Name").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
         extraParams:{"searchBy":'pe_Employer_Name'}
     });

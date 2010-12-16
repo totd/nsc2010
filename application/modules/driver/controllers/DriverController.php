@@ -1,10 +1,14 @@
-﻿<?php
+<?php
 
 class Driver_DriverController extends Zend_Controller_Action
 {
     var $auth;
     public function init()
     {
+
+            # For menu highlighting:
+            $this->view->currentPage = "DriverFiles";
+            
         $this->auth = Zend_Auth::getInstance();
 
         if ($this->auth->hasIdentity()) {
@@ -136,6 +140,7 @@ class Driver_DriverController extends Zend_Controller_Action
                 }
             }
 
+            
             $this->view->driverId = $driverID;
             $this->view->driverInfo = $driverInfo;
             $this->view->homebaseList = $homebaseList;
@@ -159,6 +164,8 @@ class Driver_DriverController extends Zend_Controller_Action
             # Breadcrumbs & page title goes here:
             $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
             $this->view->pageTitle = "DRIVER QUALIFICATION FILE";
+            
+            $this->view->documentsFormList = Documents_Model_CustomDocument::getList($driverID);
         }
     }
     public function driverCompleteAction()
@@ -168,7 +175,7 @@ class Driver_DriverController extends Zend_Controller_Action
             $driverID = (int)$this->_request->getParam('id');
             $data['d_ID']=$driverID;
             $data['d_Status']=2;
-
+            
             if(Driver_Model_Driver::saveDriverInfo($data)==true){
                 $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
             }
@@ -184,7 +191,7 @@ class Driver_DriverController extends Zend_Controller_Action
             $driverID = (int)$this->_request->getParam('id');
             $data['d_ID']=$driverID;
             $data['d_Status']=5;
-
+            
             if(Driver_Model_Driver::saveDriverInfo($data)==true){
                 $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
             }

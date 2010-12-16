@@ -45,6 +45,8 @@ function addAddressHistoryRecord(){
                     minHeight: 13
                 });
                 $dialog.dialog('open');
+                document.getElementById("addAddressHistoryRecord").setAttribute('class', '');
+                document.getElementById("addAddressHistoryRecord").innerHTML="Add new Address";
                 return false;
             }
            });
@@ -85,14 +87,20 @@ function editAddressHistoryRecord(record_id,dah_Driver_ID){
                 document.getElementById("addressRecordID_"+record_id).innerHTML="";
                 document.getElementById("addressRecordID_"+record_id).innerHTML=data;
                 $('#edit_dah_Start_Date').datepicker({
-                   changeMonth: true,
-                   changeYear: true,
-                            yearRange: '1950:2020'
+                    showOn: "button",
+                    buttonImage: "/images/select-data.gif",
+                    buttonImageOnly: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1950:2020'
                   });
                 $('#edit_dah_End_Date').datepicker({
-                   changeMonth: true,
-                   changeYear: true,
-                            yearRange: '1950:2020'
+                    showOn: "button",
+                    buttonImage: "/images/select-data.gif",
+                    buttonImageOnly: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1950:2020'
                   });
 
                 $("#edit_dah_City").focus().autocomplete("/driver/ajax-driver-address-history/autocomplete-Address-History/",{
@@ -116,7 +124,8 @@ function editAddressHistoryRecord(record_id,dah_Driver_ID){
            });
 }
 function updateAddressHistoryRecord(dah_ID){
-
+                document.getElementById("addAddressHistoryRecord").setAttribute('class', 'button-updating');
+    document.getElementById("updateAddressHistoryRecord").innerHTML='Updating...';
     dah_ID = document.getElementsByName("edit_dah_ID")[0].value;
     dah_Driver_ID = document.getElementsByName("edit_dah_Driver_ID")[0].value;
     dah_Address1 = document.getElementsByName("edit_dah_Address1")[0].value;
@@ -154,6 +163,8 @@ function updateAddressHistoryRecord(dah_ID){
                     minHeight: 13
                 });
                 $dialog.dialog('open');
+                document.getElementById("addAddressHistoryRecord").setAttribute('class', '');
+                document.getElementById("updateAddressHistoryRecord").innerHTML="Save";
                 return false;
             }
            });

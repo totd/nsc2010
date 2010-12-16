@@ -13,34 +13,39 @@
         <table class="first">
             <tbody>
                 <tr>
-                    <td>VIN</td>
-                    <td><?php echo $this->equipmentRow['e_Number'] ?></td>
+                    <td>EIN</td>
+                    <td><?= $this->equipmentRow['e_Number'] ?></td>
+                </tr>
+                <tr>
+                    <td>Unit Number</td>
+                    <td><?= isset($this->equipmentRow['e_Unit_Number']) ? $this->equipmentRow['e_Unit_Number'] : ''; ?></td>
                 </tr>
                 <tr>
                     <td>Entry Date</td>
-                    <td><?php echo $this->equipmentRow['e_Entry_Date'] ?></td>
+                    <td><?= $this->equipmentRow['e_Entry_Date'] ?></td>
                 </tr>
                 <tr>
                     <td>Status</td>
-                    <td><?php echo $this->equipmentStatus ?></td>
+                    <td><?= $this->equipmentStatus ?></td>
                 </tr>
             </tbody>
         </table>
         <div class="second">
             <table cellspacing="0" class="inform">
                 <tbody>
+
                     <tr>
-                        <th colspan="2">Vehicle Information</th>
+                        <th colspan="2">Equipment Information</th>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required"><span>*</span>Unit</label></td>
+                        <td><label class="required" title="Unit Number"><span>*</span>Unit #</label></td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_Unit_Number']; ?>"
                                    id="e_Unit_Number" name="e_Unit_Number" />
                         </td>
                     </tr>
                     <tr>
-                        <td>Picture</td>
+                        <td><label class="required"><span>*</span>Picture</label></td>
                         <td>
                             <input type="file" value="<?= $this->equipmentRow['e_Picture']; ?>"
                                    id="uploadPicture" name="uploadPicture" onChange="ajaxFileUpload();"/>
@@ -50,7 +55,7 @@
                         </td>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required"><span>*</span>Vehicle Type</label></td>
+                        <td><label class="required"><span>*</span>Type</label></td>
                         <td>
                             <select  class="rc10" name="e_type_id" id="e_type_id">
                                 <?php
@@ -66,14 +71,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label class="required"><span>*</span>Start Mileage</label></td>
+                        <td><label class="required"><span>*</span>Mileage</label></td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_Start_Mileage']; ?>"
                                    id="e_Start_Mileage" name="e_Start_Mileage" />
                         </td>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required"><span>*</span>Registration State</label></td>
+                        <td><label class="required"><span>*</span>Reg. State</label></td>
                         <td>
                             <select  class="rc10" name="e_Registration_State" id="e_Registration_State">
                             <?php
@@ -105,70 +110,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label class="required"><span>*</span>Number Of Axles</label></td>
+                        <td><label class="required" title="Number of Axles"><span>*</span>Axles #</label></td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_Axles']; ?>"
                                    id="e_Axles" name="e_Axles" />
                         </td>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required"><span>*</span>License Plate Number</label></td>
-                        <td>
-                            <input type="text" value="<?= $this->equipmentRow['e_License_Number']; ?>"
-                                   id="e_License_Number" name="e_License_Number" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="required"><span>*</span>License Expiration Date</label></td>
-                        <td>
-                            <input type="text" value="<?= $this->equipmentRow['e_License_Expiration_Date']; ?>" id="e_License_Expiration_Date" name="e_License_Expiration_Date" />
-                            <br />
-                            <label>(mm/dd/yyyy)</label>
-                        </td>
-                    </tr>
-                    <tr class="color-dark">
-                        <td>Owner Number</td>
-                        <td>
-                            <input type="text" value="<?= $this->equipmentRow['e_Owner_Number']; ?>"
-                                   id="e_Owner_Number" name="e_Owner_Number" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Alternate ID</td>
-                        <td>
-                            <input type="text" value="<?= $this->equipmentRow['e_Alternate_ID']; ?>"
-                                   id="e_Alternate_ID" name="e_Alternate_ID"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <table cellspacing="0" class="inform">
-                <tbody>
-                    <tr>
-                        <th colspan="2">
-                            <span class="blue-button">
-                                <span>
-                                    <a id="VIWSaveLink">
-                                        Save
-                                    </a>
-                                </span>
-                            </span>
-                            <span class="blue-button">
-                                <span>
-                                    <a class="VIWActionLink" id="CancelActionLink">
-                                        Cancel
-                                    </a>
-                                </span>
-                            </span>
-                        </th>
-                    </tr>
-                    <tr class="color-dark">
-                        <td><label class="required"><span>*</span>DOT Regulated</label></td>
+                        <td><label class="required" title="DOR Regulated"><span>*</span>DOT Regul.</label></td>
                         <td>
                             <span class="radio-button">
                                 <?php if ($this->equipmentRow['e_DOT_Regulated'] == 'Yes') : ?>
@@ -189,12 +138,62 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label class="required"><span>*</span>Model</label></td>
+                        <td>Fee</td>
                         <td>
-                            <input type="text" value="<?= $this->equipmentRow['e_Model']; ?>"
-                                   id="e_Model" name="e_Model" />
+                            <input type="text" value="<?= $this->equipmentRow['e_Fee']; ?>"
+                                   id="e_Fee" name="e_Fee" />
                         </td>
                     </tr>
+                    <tr class="color-dark">
+                        <td>Alternate ID</td>
+                        <td>
+                            <input type="text" value="<?= $this->equipmentRow['e_Alternate_ID']; ?>"
+                                   id="e_Alternate_ID" name="e_Alternate_ID"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table cellspacing="0" class="inform">
+                <tbody>
+                    <tr>
+                        <th colspan="2">
+                            <span class="blue-button">
+                                <span>
+                                    <a id="VIWSaveLink" class="saveButton">
+                                        Save
+                                    </a>
+                                </span>
+                            </span>
+                            <span class="blue-button">
+                                <span>
+                                    <a class="VIWActionLink" id="CancelActionLink">
+                                        Cancel
+                                    </a>
+                                </span>
+                            </span>
+                        </th>
+                    </tr>
+                    <tr class="color-dark">
+                        <td><label class="required" title="License Plate Number"><span>*</span>Lic. #</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->equipmentRow['e_License_Number']; ?>"
+                                   id="e_License_Number" name="e_License_Number" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required" title="License Expiration Date"><span>*</span>Lic. Date</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->equipmentRow['e_License_Expiration_Date']; ?>" id="e_License_Expiration_Date" name="e_License_Expiration_Date" />
+                            <br />
+                            <label>(mm/dd/yyyy)</label>
+                        </td>
+                    </tr>
+                    
                     <tr class="color-dark">
                         <td><label class="required"><span>*</span>Year</label></td>
                         <td>
@@ -224,35 +223,35 @@
                         </td>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required"><span>*</span>Gross Vehicle Registered Weight</label></td>
+                        <td><label class="required"><span>*</span>Gross Reg. Weight</label></td>
                         <td>
-                            <input type="text" value="<?= $this->equipmentRow['e_Gross_Vehicle_Registered_Weight']; ?>"
-                                   id="e_Gross_Vehicle_Registered_Weight" name="e_Gross_Vehicle_Registered_Weight" />
+                            <input type="text" value="<?= $this->equipmentRow['e_Gross_Equipment_Registered_Weight']; ?>"
+                                   id="e_Gross_Equipment_Registered_Weight" name="e_Gross_Equipment_Registered_Weight" />
                         </td>
                     </tr>
                     <tr>
-                        <td><label class="required"><span>*</span>Gross Vehicle Weight</label></td>
+                        <td><label class="required"><span>*</span>Gross Weight</label></td>
                         <td>
-                            <input type="text" value="<?= $this->equipmentRow['e_Gross_Vehicle_Weight_Rating']; ?>"
-                                   id="e_Gross_Vehicle_Weight_Rating" name="e_Gross_Vehicle_Weight_Rating" />
+                            <input type="text" value="<?= $this->equipmentRow['e_Gross_Equipment_Weight_Rating']; ?>"
+                                   id="e_Gross_Equipment_Weight_Rating" name="e_Gross_Equipment_Weight_Rating" />
                         </td>
                     </tr>
                     <tr class="color-dark">
+                        <td><label class="required"><span>*</span>Model</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->equipmentRow['e_Model']; ?>"
+                                   id="e_Model" name="e_Model" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Title Status</td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_Title_Status']; ?>"
                                    id="e_Title_Status" name="e_Title_Status" />
                         </td>
                     </tr>
-                    <tr>
-                        <td>Fee</td>
-                        <td>
-                            <input type="text" value="<?= $this->equipmentRow['e_Fee']; ?>"
-                                   id="e_Fee" name="e_Fee" />
-                        </td>
-                    </tr>
                     <tr class="color-dark">
-                        <td>Radio Frequency Identify</td>
+                        <td>Radio Frequency</td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_RFID_No']; ?>"
                                    id="e_RFID_No" name="e_RFID_No" />

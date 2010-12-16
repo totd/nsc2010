@@ -11,6 +11,8 @@ function refreshEquipmentOperatedRecords(deo_Driver_ID) {
            });
 }
 function validateDriverEquipmentOperated(){
+
+    document.getElementById("validateDriverEquipmentOperated").innerHTML="Updating...";
     deo_ID = "";
     deo_Driver_ID = "";
     deo_Equipment_Type_ID = "";
@@ -41,7 +43,8 @@ function validateDriverEquipmentOperated(){
             if(data==1){
                 refreshEquipmentOperatedRecords(document.getElementsByName("deo_Driver_ID")[0].value);
                 $('#driverEquipmentOperatedListEdit').hide();
-            document.getElementById("toggleDriverEquipmentOperated").innerHTML="EDIT";
+                document.getElementById("toggleDriverEquipmentOperated").innerHTML="EDIT";
+                document.getElementById("validateDriverEquipmentOperated").innerHTML="Save";
                 return true;
             }else{
                 var $dialog = $('<div></div>')
@@ -53,6 +56,7 @@ function validateDriverEquipmentOperated(){
                     minWidth:600
                 });
                 $dialog.dialog('open');
+                document.getElementById("validateDriverEquipmentOperated").innerHTML="Save";
                 return false;
             }
            });

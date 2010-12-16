@@ -1,5 +1,5 @@
 <?php
-class Equipment_VehicleFileController extends Zend_Controller_Action
+class Equipment_EquipmentFileController extends Zend_Controller_Action
 {
     public function init()
     {
@@ -40,9 +40,9 @@ class Equipment_VehicleFileController extends Zend_Controller_Action
             } else {
                 $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/truck-files">Truck Files</a>&nbsp;&gt;';
             }
-            $this->view->breadcrumbs .= '&nbsp;Vehicle File';
+            $this->view->breadcrumbs .= '&nbsp;Equipment File';
 
-            $this->view->pageTitle = 'Vehicle File';
+            $this->view->pageTitle = 'Equipment File';
         }
     }
 
@@ -57,7 +57,7 @@ class Equipment_VehicleFileController extends Zend_Controller_Action
                 $row['e_id'] = $data['e_id'];
 
                 if (isset($data['cancelChangeSubmit'])) {
-                    $this->_redirect("/equipment/vehicle-file/index/id/{$data['e_id']}");
+                    $this->_redirect("/equipment/equipment-file/index/id/{$data['e_id']}");
                 }
             } else {
                 $thid->view->errorMessage = 'Equipment ID is undefined';
@@ -112,7 +112,7 @@ class Equipment_VehicleFileController extends Zend_Controller_Action
 
             $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
             $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/truck-files">Truck Files</a>&nbsp;&gt;';
-            $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/vehicle-file/index/id/' . $id . '">Vehicle File</a>&nbsp;&gt;';
+            $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/equipment-file/index/id/' . $id . '">Equipment File</a>&nbsp;&gt;';
             $this->view->breadcrumbs .= '&nbsp;Change Status';
 
             $auth = Zend_Auth::getInstance();
@@ -127,7 +127,7 @@ class Equipment_VehicleFileController extends Zend_Controller_Action
             $date = new Zend_Date();
             $this->view->currentDate = $date->toString("MM/dd/YYYY");
 
-            $this->view->pageTitle = 'Change Vehicle Status';
+            $this->view->pageTitle = 'Change Equipment Status';
             $this->view->headScript()->appendFile('/js/equipment/change-active-status.js', 'text/javascript');
             $this->view->headLink()->appendStylesheet('/css/main.css');
 

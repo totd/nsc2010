@@ -27,7 +27,11 @@
         </div>
     </div>
 </div>
+          <?php
+print_r($this->documentsFormList);
 
+
+          ?>
     <div id="main" class="qualification-file">
 
       <table class="application-forms" cellspacing="0">
@@ -44,6 +48,9 @@
           <td>NSC Check</td>
 
         </tr>
+            <?php echo $this->partial('partials/_dqf-form-row.phtml',array('documentsFormList' => $this->documentsFormList)); ?>
+
+         <!--
         <tr>
           <td>Application For Employment</td>
           <td><img src="/images/ico-6.gif" alt=""/></td>
@@ -280,6 +287,7 @@
           <td><img src="/images/ico-2.gif" alt=""/></td>
           <td><img src="/images/ico-1.gif" alt=""/></td>
         </tr>
+        -->
         <tr><td colspan="8">&nbsp;</td></tr>
       </table>
 

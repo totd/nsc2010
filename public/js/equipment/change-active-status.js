@@ -18,7 +18,7 @@ $(function() {
     });
 
     $("#cancelChangeSubmit").click(function() {
-        window.location.href='/equipment/vehicle-file/index/id/' + $("#e_id").val();
+        window.location.href='/equipment/equipment-file/index/id/' + $("#e_id").val();
     });
 });
 

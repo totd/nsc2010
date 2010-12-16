@@ -23,7 +23,7 @@
 </div>
 
 
-<div class="driver-information vehicle" id="main">
+<div class="driver-information equipment" id="main">
     <div class="post-top">
         <div class="post-bottom">
             <div class="post-middle">
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <div class="driver-information vehicle">
+    <div class="driver-information equipment">
         <div class="post-top">
             <div class="post-bottom">
                 <div class="post-middle">
@@ -68,8 +68,22 @@
         
      </div>
 
-    <div class="blue-nav">
+    <div class="blue-nav" style="width:530px;">
         <ul>
+            <li>
+                <span>
+                    <a id="commonSaveButton" class="saveButton">
+                        Save
+                    </a>
+                </span>
+            </li>
+            <li>
+                <span>
+                    <a id="discardButton">
+                        Discard
+                    </a>
+                </span>
+            </li>
             <?=
                 $this->partial('partials/_view_action.phtml', array(
                     'equipmentID' => $this->equipmentRow['e_id'],

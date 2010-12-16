@@ -45,7 +45,7 @@
       <div class="header-bottom">
 
           <ul class="top-menu">
-            <li><span class="left"><span class="right"><a href="/driver/index/index?status=Pending"><span class="left"><span class="right">Drivers</span></span></a></span></span>
+            <li><span class="left"><span class="right"><a class=" <?php if($this->currentPage=="NewDriver"){echo " top_active";}?>" href="/driver/index/index?status=Pending"><span class="left"><span class="right">New Driver</span></span></a></span></span>
                 <div class="top-pod-menu">
                     <ul>
                         <li>
@@ -58,9 +58,9 @@
                     </ul>
                 </div>
             </li>
-            <li><span class="left"><span class="right"><a href="/driver/index/dqf?status=All"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
-            <li><span class="left"><span class="right"><a href="/driver/index/archives?status=All""><span class="left"><span class="right">Archives</span></span></a></span></span></li>
-            <li><span class="left"><span class="right"><a href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
+            <li><span class="left"><span class="right"><a class=" <?php if($this->currentPage=="DriverFiles"){echo " top_active";}?>" href="/driver/index/dqf?status=All"><span class="left"><span class="right">Driver Files</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a class=" <?php if($this->currentPage=="DriverArchives"){echo " top_active";}?>" href="/driver/index/archives?status=All""><span class="left"><span class="right">Archives</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a class=" <?php if($this->currentPage=="DriverReports"){echo " top_active";}?>" href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
               <div class="top-pod-menu"><ul>
               <li><a href="#">SUMMARY  REPORTS</a><ul>
                 <li><a href="#">Summary Report</a></li></ul></li>
@@ -76,7 +76,7 @@
                 <li><a href="#">Non-Compliant Detailed Report</a></li>
                 <li><a href="#">Non-Compliant by NSC check report</a></li>
                 <li><a href="#">Driver List - create your own look</a></li>
-                <li><a href="#">Vehicle Report</a></li></ul></li>
+                <li><a href="#">Equipment Report</a></li></ul></li>
               </ul></div>
             </li>
             <li style="background:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
@@ -176,7 +176,7 @@
                     </ul>
                 </div>
             </li>
-            <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Service Provider Management</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Service Provider</span></span></a></span></span></li>
           </ul>
           <?php if(isset($this->pageTitle)){ ?><h1 class="page-title"><?php echo $this->pageTitle; ?></h1><?php } ?>
 <!--          <div class="breadcrumbs-left"><div class="breadcrumbs-right"><div class="breadcrumbs-middle">

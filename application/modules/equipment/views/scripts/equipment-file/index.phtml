@@ -1,0 +1,88 @@
+<div class="bottom-nav">
+    <span class="name-driver">
+        Equipment type:
+        <span>
+            <?= (isset($this->equipmentRow['et_type'])) ? $this->equipmentRow['et_type'] : ''; ?>
+        </span>
+        EIN:
+        <span>
+            <?= ((isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : ''); ?>
+        </span>
+            -
+            <?= ((isset($this->equipmentRow['eas_type'])) ? $this->equipmentRow['eas_type'] : ''); ?>
+    </span>
+</div>
+
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?= $this->breadcrumbs; ?>
+            </span>
+            <a class="show-legend">Show legend</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="qualification-file" id="main">
+
+    <table cellspacing="0" class="application-forms">
+        <tbody><tr><th colspan="8">REQUIRED FORMS AND DOCUMENTS</th></tr>
+            <tr class="table-title">
+                <td>Form Name</td>
+                <td>Status</td>
+                <td>Date Requested</td>
+                <td>Date Completed</td>
+                <td>Scan</td>
+                <td>View</td>
+                <td>Delete</td>
+                <td>NSC Check</td>
+            </tr>
+            <tr>
+                <td colspan="8">&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <?php if (isset($this->equipmentRow['eas_type']) && $this->equipmentRow['eas_type'] != 'Terminated') : ?>
+    <div class="post">
+        <h2>Other Available Actions</h2>
+        <div class="col">
+            <ul>
+                <li>Equipment Actions<ul>
+                        <li>
+                            <a href="/equipment/information-worksheet/index/EIN/<?= (isset($this->equipmentRow['e_Number'])) ? $this->equipmentRow['e_Number'] : ''; ?>">
+                                View/Update Equipment Profile (VIW)
+                            </a>
+                        </li>
+                        <?php if ($this->identity->permissions->equipment_modify_permission === true) : ?>
+                            <li>
+                                <?php if (isset($this->equipmentRow['eas_type']) && $this->equipmentRow['eas_type'] == 'In Service') : ?>
+                                    <a href="/equipment/equipment-file/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/Out%20of%20Service">
+                                        Put equipment out of service
+                                    </a>
+                                <?php elseif (isset($this->equipmentRow['eas_type']) && $this->equipmentRow['eas_type'] == 'Out of Service') : ?>
+                                    <a href="/equipment/equipment-file/change-active-status/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/In%20Service">
+                                        Activate equipment
+                                    </a>
+                                <?php endif; ?>
+                            </li>
+                            <li>
+                                <a href="/equipment/archives/terminate/id/<?= (isset($this->equipmentRow['e_id'])) ? $this->equipmentRow['e_id'] : ''; ?>/status/Terminated">
+                                    Terminate Equipment
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    </ul></li>
+            </ul>
+            <ul>
+                <li>Documents Actions<ul>
+                        <li><a href="#">Scan Other Documents</a></li>
+                        <li><a href="#">Scan Equipment Picture</a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+

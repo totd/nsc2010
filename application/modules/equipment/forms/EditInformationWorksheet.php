@@ -8,7 +8,7 @@ class Equipment_Form_EditInformationWorksheet extends Zend_Form
 
     /**
      *
-     * @var string Vehicle Identification Number
+     * @var string Equipment Identification Number
      */
     private $_VIN = 'test'; // TODO remove afer save implementation.
 
@@ -44,10 +44,10 @@ class Equipment_Form_EditInformationWorksheet extends Zend_Form
     {
         $this->setMethod('post');
 
-        $this->addElement(new Zend_Form_Element_Text('VIN', array(
+        $this->addElement(new Zend_Form_Element_Text('EIN', array(
                     'maxlength' => 30,
                     'size' => 20,
-                    'label' => 'VIN',
+                    'label' => 'EIN',
                     'disable' => 'true',
                     'value' => $this->_VIN,
                     'decorators' => $this->elementDecorators
@@ -61,7 +61,7 @@ class Equipment_Form_EditInformationWorksheet extends Zend_Form
                 )));
 
         // TODO implement using DB
-        $this->addElement(new Zend_Form_Element_Select('VehicleType', array(
+        $this->addElement(new Zend_Form_Element_Select('EquipmentType', array(
                     'MultiOptions' => array(
                         '' => '-',
                         'Tractor' => 'Tractor',
@@ -69,7 +69,7 @@ class Equipment_Form_EditInformationWorksheet extends Zend_Form
                         'Trailer' => 'Trailer',
                         'Dolly' => 'Dolly'
                     ),
-                    'label' => 'Vehicle Type',
+                    'label' => 'Equipment Type',
                     'decorators' => $this->elementDecorators
                 )));
 
@@ -117,7 +117,7 @@ class Equipment_Form_EditInformationWorksheet extends Zend_Form
                     'maxlength' => 15,
                     'size' => 20,
                     'value' => '',
-                    'label' => 'Gross Vehicle Weight',
+                    'label' => 'Gross Equipment Weight',
                     'decorators' => $this->elementDecorators
                 )));
 
@@ -125,7 +125,7 @@ class Equipment_Form_EditInformationWorksheet extends Zend_Form
                     'maxlength' => 15,
                     'size' => 20,
                     'value' => '',
-                    'label' => 'Gross Vehicle Registered Weight',
+                    'label' => 'Gross Equipment Registered Weight',
                     'decorators' => $this->elementDecorators
                 )));
 
@@ -221,11 +221,11 @@ class Equipment_Form_EditInformationWorksheet extends Zend_Form
                     'decorators' => $this->elementDecorators
                 )));
 
-        $this->addElement(new Zend_Form_Element_Text('VehicleValue', array(
+        $this->addElement(new Zend_Form_Element_Text('EquipmentValue', array(
                     'maxlength' => 15,
                     'size' => 20,
                     'value' => 0,
-                    'label' => 'Vehicle Value',
+                    'label' => 'Equipment Value',
                     'decorators' => $this->elementDecorators
                 )));
 

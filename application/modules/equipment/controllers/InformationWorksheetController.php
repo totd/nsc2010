@@ -23,19 +23,19 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
     }
 
-    public function indexAction($VIN = null)
+    public function indexAction($EIN = null)
     {
         $this->view->breadcrumbs = "<a href='/equipment/index'>Equipment Management</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment List</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment Search</a>&nbsp;&gt;&nbsp;Equipment VIM";
 
-        if (is_null($VIN)) {
-            $VIN = $this->_request->getParam('VIN');
-            if (is_null($VIN)) {
+        if (is_null($EIN)) {
+            $EIN = $this->_request->getParam('EIN');
+            if (is_null($EIN)) {
                 $this->_redirect('/equipment/search');
             }
         }
 
         $equipmentModel = new Equipment_Model_Equipment();
-        $equipmentRow = $equipmentModel->findEquipmentByVIN($VIN);
+        $equipmentRow = $equipmentModel->findEquipmentByVIN($EIN);
 
         if (is_null($equipmentRow)) {
             $this->_redirect('equipment/list');
@@ -75,7 +75,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->equipmentRow = $equipmentRow;
         $this->view->uploadPath = self::uploadPath;
         $this->view->action = '/equipment/update-status/';
-        $this->view->pageTitle = 'VEHICLE INFORMATION WORKSHEET';
+        $this->view->pageTitle = 'EQUIPMENT INFORMATION WORKSHEET';
         $this->view->headLink()->appendStylesheet('/css/main.css');
         $this->view->headScript()->appendFile('/js/imgpreview.min.0.22.jquery.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/equipment/index.js', 'text/javascript');
@@ -132,32 +132,32 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->addAssignment($equipmentRow['e_id'], $equipmentRow['e_Number']);
     }
 
-    public function createNewAction($VIN = null)
+    public function createNewAction($EIN = null)
     {
-        if (is_null($VIN)) {
-            $VIN = $this->_request->getParam('VIN');
-            if (is_null($VIN)) {
+        if (is_null($EIN)) {
+            $EIN = $this->_request->getParam('EIN');
+            if (is_null($EIN)) {
                 $this->_redirect('/equipment/search');
             }
         }
 
-        if (is_null($VIN)) {
+        if (is_null($EIN)) {
             $this->_redirect('/equipment/list');
         }
 
         $equipmentModel = new Equipment_Model_Equipment();
-        $equipmentRow = $equipmentModel->findEquipmentByVIN($VIN);
+        $equipmentRow = $equipmentModel->findEquipmentByVIN($EIN);
 
 
         if (is_null($equipmentRow)) {
             $equipmentRow = array(
-                'e_Number' => $VIN,
+                'e_Number' => $EIN,
             );
-            // Create equipment only with VIN value
+            // Create equipment only with EIN value
             $equipmentRow = $equipmentModel->createEquipment($equipmentRow);
         }
 
-        $this->_redirect("/equipment/information-worksheet/index/VIN/{$equipmentRow['e_Number']}");
+        $this->_redirect("/equipment/information-worksheet/index/EIN/{$equipmentRow['e_Number']}");
     }
 
     /**
@@ -165,15 +165,15 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
      *
      * Save imformation worksheet of a new equipment.
      *
-     * @param string $VIN
+     * @param string $EIN
      *
      * @return mixed
      */
-    public function updateAction($VIN = null)
+    public function updateAction($EIN = null)
     {
-        if (is_null($VIN)) {
-            $VIN = $this->_request->getParam('VIN');
-            if (is_null($VIN)) {
+        if (is_null($EIN)) {
+            $EIN = $this->_request->getParam('EIN');
+            if (is_null($EIN)) {
                 $this->_redirect('/equipment/search');
             }
         }
@@ -181,22 +181,22 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $VIN . '">Equipment VIM</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/EIN/' . $EIN . '">Equipment VIM</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;VIM Update';
 
         $equipmentModel = new Equipment_Model_Equipment();
-        $equipmentRow = $equipmentModel->findEquipmentByVIN($VIN);
+        $equipmentRow = $equipmentModel->findEquipmentByVIN($EIN);
 
 
         if (is_null($equipmentRow)) {
             $equipmentRow = array(
-                'e_Number' => $VIN,
+                'e_Number' => $EIN,
             );
-            // Create equipment only with VIN value
+            // Create equipment only with EIN value
             $equipmentRow = $equipmentModel->createEquipment($equipmentRow);
         } else {
             // message about an existen equipment.
-            //$this->_redirect('/equipment/search/index/VIN/' . $VIN);
+            //$this->_redirect('/equipment/search/index/EIN/' . $EIN);
         }
 
         // create state select.
@@ -254,7 +254,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
 
         $this->view->equipmentRow = $equipmentRow;
-        $this->view->pageTitle = 'UPDATE VEHICLE INFORMATION WORKSHEET';
+        $this->view->pageTitle = 'UPDATE EQUIPMENT INFORMATION WORKSHEET';
         $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
         $this->view->headLink()->appendStylesheet('/css/main.css');
     }
@@ -277,13 +277,13 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
-        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $equipmentRow->e_Number . '">Equipment VIM</a>&nbsp;&gt;';
+        $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/EIN/' . $equipmentRow->e_Number . '">Equipment VIM</a>&nbsp;&gt;';
         $this->view->breadcrumbs .= '&nbsp;Validate Complete Action';
 
 
-        $this->view->pageTitle = 'COMPLETE VEHICLE APPLICATION';
-        $VIN = $equipmentRow->e_Number;
-        $this->view->VIN = $equipmentRow->e_Number;
+        $this->view->pageTitle = 'COMPLETE EQUIPMENT APPLICATION';
+        $EIN = $equipmentRow->e_Number;
+        $this->view->EIN = $equipmentRow->e_Number;
         $this->view->UnitNumber = $equipmentRow->e_Unit_Number;
         $this->view->ID = $equipmentRow->e_id;
 
@@ -493,18 +493,18 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
     }
 
-    public function getViwAction($VIN = null)
+    public function getViwAction($EIN = null)
     {
-        if (is_null($VIN)) {
+        if (is_null($EIN)) {
             if ($this->_request->isXmlHttpRequest()) {
-                $VIN = $this->_request->getParam('VIN');
+                $EIN = $this->_request->getParam('EIN');
 
                 $layout = new Zend_Layout();
                 $layout->setLayoutPath(APPLICATION_PATH . '/modules/equipment/views/scripts/information-worksheet');
                 $layout->setLayout('viw');
 
                 $equipmentModel = new Equipment_Model_Equipment();
-                $equipmentRow = $equipmentModel->findEquipmentByVIN($VIN);
+                $equipmentRow = $equipmentModel->findEquipmentByVIN($EIN);
 
                 if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
                     $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
@@ -549,7 +549,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 
 
                 $equipmentModel = new Equipment_Model_Equipment();
-                $layout->VIN = $equipmentModel->getVIN($equipmentId);
+                $layout->EIN = $equipmentModel->getVIN($equipmentId);
 
                 $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
                 $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentId);
@@ -662,18 +662,18 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
     }
 
-    private function addAssignment($equipmentId = null, $VIN = null)
+    private function addAssignment($equipmentId = null, $EIN = null)
     {
         if (is_null($equipmentId)) {
             $equipmentId = $this->_request->getParam('equipmentId');
-            $VIN = $this->_request->getParam('VIN');
+            $EIN = $this->_request->getParam('EIN');
         }
 
         if (is_null($equipmentId)) {
             $this->view->errorMessage = "Equipment is undefined";
         } else {
             $equipmentModel = new Equipment_Model_Equipment();
-            $this->view->VIN = $equipmentModel->getVIN($equipmentId);
+            $this->view->EIN = $equipmentModel->getVIN($equipmentId);
 
             $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
             $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentId);
@@ -739,10 +739,11 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             );
 
             // Drivers
-            $this->view->drivers = $this->getSelectList('driver', 'd_ID', array('d_Driver_SSN', 'd_Last_Name'),
-                            (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
-            );
+//            $this->view->drivers = $this->getSelectList('driver', 'd_ID', array('d_Driver_SSN', 'd_Last_Name'),
+//                            (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
+//            );
 
+                
             // Service providers
             $this->view->serviceProviders = $this->getSelectList('serviceProvider', 'sp_ID', 'sp_Name',
                             (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
@@ -822,7 +823,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $this->view->breadcrumbs = '<a href="/equipment/index">Equipment Management</a>&nbsp;&gt;';
             $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/list">Equipment List</a>&nbsp;&gt;';
             $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/search">Equipment Search</a>&nbsp;&gt;';
-            $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/VIN/' . $equipmentRow->e_Number . '">Equipment VIM</a>&nbsp;&gt;';
+            $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/index/EIN/' . $equipmentRow->e_Number . '">Equipment VIM</a>&nbsp;&gt;';
             $this->view->breadcrumbs .= '&nbsp;<a href="/equipment/information-worksheet/validate-completed/id/' . $id . '">Validate Complete Action</a>&nbsp;&gt;';
             $this->view->breadcrumbs .= '&nbsp;Validate Complete Action';
 
@@ -844,7 +845,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $date = new Zend_Date();
             $this->view->currentDate = $date->toString("MM/dd/YYYY");
             $this->view->equipmentRow = $equipmentRow;
-            $this->view->pageTitle = 'COMPLETE VEHICLE APPLICATION';
+            $this->view->pageTitle = 'COMPLETE EQUIPMENT APPLICATION';
             $this->view->headScript()->appendFile('/js/equipment/show-complete-form.js', 'text/javascript');
             $this->view->headLink()->appendStylesheet('/css/main.css');
         }
@@ -882,6 +883,33 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $equipmentModel->completeEquipment($row);
 
             $this->_redirect("/equipment/list");
+        }
+    }
+
+    public function getAutocompleteDriversAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if (isset($_GET['term'])) {
+            $driverModel = new Driver_Model_Driver();
+            $fields = array('d_First_Name', 'd_Last_Name', 'd_Driver_SSN');
+            $result = $driverModel->getDriversByFieldsValues($fields, trim($_GET['term']));
+            foreach($result as $k => $v){
+                $arrayPart = array();
+                $arrayPart['label'] = "{$v['d_First_Name']} {$v['d_Last_Name']} {$v['d_Driver_SSN']}";
+                $arrayPart['id'] = $v['d_ID'];
+                $result2[] = $arrayPart;
+            }
+            
+            // TODO limit users which hasn't permission to create driver
+            $arrayPart = array();
+            $arrayPart['label'] = 'CREATE NEW DRIVER';
+            $arrayPart['id'] = 'new';
+            $result2[] = $arrayPart;
+
+            print json_encode($result2);
+
         }
     }
 

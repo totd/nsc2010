@@ -109,62 +109,6 @@ class Incident_CreateController extends Zend_Controller_Action
         }
 
         if ($this->_request->isPost()) {
-            
-            $injured = $this->_request->getPost('injured', 'No');
-            $deceased = $this->_request->getPost('deceased', 'No');
-            $alcoholTest = $this->_request->getPost('alcoholTest', 'No');
-            $drugTest = $this->_request->getPost('drugTest', 'No');
-
-            $incidentDataArray = $incidentSession->newIncidentDataArray;
-            $incidentDataArray['i_Injured'] = $injured;
-            $incidentDataArray['i_Deceased'] = $deceased;
-            $incidentDataArray['i_Alcohol_Test'] = $alcoholTest;
-            $incidentDataArray['i_Drug_Test'] = $drugTest;
-
-            $incidentSession->newIncidentDataArray = $incidentDataArray;
-            $this->_redirect('/incident/create/step4');
-        }
-
-        
-        $driver_id = $incidentDataArray['i_Driver_ID'];
-        if (!is_null($driver_id)) {
-            $driverRow = Driver_Model_Driver::getDriverInfo($driver_id);
-        }
-        
-        if (is_array($driverRow) && count($driverRow) > 0) {
-            $this->view->driverName = "{$driverRow['d_First_Name']} {$driverRow['d_Middle_Name']} {$driverRow['d_Last_Name']}";
-        }
-
-        $this->view->breadcrumbs = '<a href="/incident/index">Incident Management</a>';
-        $this->view->breadcrumbs .= '&nbsp;&gt;&nbsp;<a href="/incident/list">Incident List</a>';
-        $this->view->breadcrumbs .= "&nbsp;&gt;&nbsp;New Incident";
-
-        $this->view->pageTitle = "NEW INCIDENT";
-        $this->view->headScript()->appendFile('/js/incident/create/step3.js', 'text/javascript');
-    }
-
-    public function step4Action()
-    {
-        $incidentSession = new Zend_Session_Namespace('newIncident');
-        if ($incidentSession->__isset('newIncidentDataArray')) {
-            $incidentDataArray = $incidentSession->newIncidentDataArray;
-            if (!isset($incidentDataArray['i_Date'])
-                    || !isset($incidentDataArray['i_DOT_Regulated'])
-                    || !isset($incidentDataArray['i_Driver_ID'])
-                    || !isset($incidentDataArray['i_Injured'])
-                    || !isset($incidentDataArray['i_Deceased'])
-                    || !isset($incidentDataArray['i_Alcohol_Test'])
-                    || !isset($incidentDataArray['i_Drug_Test'])
-                    ) {
-                // User reaches this page without meeting previos steps
-                $this->exitAction();
-            }
-        } else {
-            // User reaches this page without meeting previos steps
-            $this->exitAction();
-        }
-
-        if ($this->_request->isPost()) {
             $travelDirection = $this->_request->getPost('i_Highway_Street_Travel_Direction', '');
             if (!empty ($travelDirection)) {
                 $incidentDataArray['i_Highway_Street_Travel_Direction'] = $travelDirection;
@@ -241,11 +185,6 @@ class Incident_CreateController extends Zend_Controller_Action
         $selectTravelDirectionArray['']['selected'] = true;
         $this->view->travelDirections = $selectTravelDirectionArray;
 
-        $this->view->injured = $incidentDataArray['i_Injured'];
-        $this->view->deceased = $incidentDataArray['i_Deceased'];
-        $this->view->alcoholTest = $incidentDataArray['i_Alcohol_Test'];
-        $this->view->drugTest = $incidentDataArray['i_Drug_Test'];
-
         $this->view->breadcrumbs = '<a href="/incident/index">Incident Management</a>';
         $this->view->breadcrumbs .= '&nbsp;&gt;&nbsp;<a href="/incident/list">Incident List</a>';
         $this->view->breadcrumbs .= "&nbsp;&gt;&nbsp;New Incident";
@@ -258,7 +197,7 @@ class Incident_CreateController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/jquery-ui.min.js');
         $this->view->headScript()->appendFile('/js/multiselect/plugins/tmpl/jquery.tmpl.1.1.1.js');
         $this->view->headScript()->appendFile('/js/multiselect/ui.multiselect.js');
-        $this->view->headScript()->appendFile('/js/incident/create/step4.js');
+        $this->view->headScript()->appendFile('/js/incident/create/step3.js');
     }
 
     public function saveAction($incidentRow = null)

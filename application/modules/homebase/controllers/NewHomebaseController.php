@@ -15,4 +15,3 @@ class Homebase_NewHomebaseController extends Zend_Controller_Action
 
 
 }
-

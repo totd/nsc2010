@@ -1,0 +1,32 @@
+
+<?php
+    $date = new Zend_Date();
+    $documentsFormList=$this->documentsFormList;
+?>
+
+<?php
+    for($i=0;$i<sizeof($documentsFormList);$i++){
+?>
+
+
+<tr <?php
+    if(gettype($i/2) == 'double'){ echo " class='color-dark' ";}
+?>>
+    <td><?php echo $documentsFormList[$i]['cdfn_name']; ?></td>
+          <td><img src="/images/ico-6.gif" alt=""/></td>
+          <td><?php
+            if(isset($documentsFormList[$i]['cd_Date_Requested'])){
+            $date->set($documentsFormList[$i]['cd_Date_Requested'],"YYYY-MM-dd");
+            echo $date->toString("MM/dd/YYYY");}
+          ?></td>
+          <td><?php
+            if(isset($documentsFormList[$i]['cd_Date_Completed'])){
+            $date->set($documentsFormList[$i]['cd_Date_Completed'],"YYYY-MM-dd");
+            echo $date->toString("MM/dd/YYYY");}
+          ?></td>
+          <td><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-8.gif";}else{echo "/images/ico-5.gif";}?>" alt=""/></td>
+          <td><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-4.gif";}else{echo "/images/ico-3.gif";}?>" alt=""/></td>
+          <td><img src="/images/ico-2.gif" alt=""/></td>
+          <td><img src="<?php if(strtoupper($documentsFormList[$i]['cd_DOT_Regulated'])=="YES"){echo "/images/ico-1.gif";}elseif(strtoupper($documentsFormList[$i]['cd_DOT_Regulated'])=="NO"){echo "/images/ico-9.gif";}?>" alt=""/></td>
+</tr>
+        <?php } ?>

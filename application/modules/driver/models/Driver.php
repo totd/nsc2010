@@ -144,5 +144,43 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
        return $db->update($data,$w);
     }
 
+    /**
+     * @author Andryi Ilnytskyi 11.12.2010
+     *
+     * Search drivers by defined fields and a string or part of string.
+     *
+     * @param array $fiealds
+     * @param string $str
+     *
+     * @return mixed
+     */
+    public function getDriversByFieldsValues ($fields, $str)
+    {
+        $result = null;
+        $where = '';
+        $select = 'SELECT ';
+
+        if (!is_array($fields) && !empty ($str)) {
+            for ($i = 0; $i < count($fields); $i++) {
+                $field = $this->getDefaultAdapter()->quote($fields[$i]);
+                if ($i > 0) {
+                    $where .= " OR ";
+                    $select .= " , ";
+                } else if ($i === 0) {
+                    $where .= ' WHERE ';
+                }
+                $where .= " $field LIKE '%{$this->getDefaultAdapter()->quote($str)}%' ";
+                $select .= " $field ";
+            }
+
+            $select .= $where;
+
+            $stmt = $this->getDefaultAdapter()->query($select);
+            $result = $stmt->fetchAll();
+        }
+
+        return $result;
+    }
+
 }
 

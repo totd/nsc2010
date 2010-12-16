@@ -19,7 +19,7 @@
                 <table class="inform">
                     <tbody>
                         <tr>
-                            <td colspan="2"><h2>VIN:&nbsp;<span class="data"><?= (isset($this->equipmentRow->e_Number)) ? $this->equipmentRow->e_Number : ''; ?></span></h2></td>
+                            <td colspan="2"><h2>EIN:&nbsp;<span class="data"><?= (isset($this->equipmentRow->e_Number)) ? $this->equipmentRow->e_Number : ''; ?></span></h2></td>
                         </tr>
                         <tr>
                             <td colspan="2"><h2>Unit Number:&nbsp;<span class="data"><?= (isset($this->equipmentRow->e_Number)) ? $this->equipmentRow->e_Unit_Number : ''; ?></span></h2></td>
@@ -36,11 +36,11 @@
                                     <th colspan="2">APPLICATION INFORMATION</th>
                                 </tr>
                                 <tr>
-                                    <td>Application Date</td>
+                                    <td>Input Date</td>
                                     <td><input disabled="disabled" id="e_Entry_Date" name="e_Entry_Date" value="<?= (isset($this->equipmentRow->e_Entry_Date)) ? $this->equipmentRow->e_Entry_Date : ''; ?>" /></td>
                                 </tr>
                                 <tr>
-                                    <td><label><span>*</span>Date Of Vehicle Activation</label></td>
+                                    <td><label><span>*</span>Date Of Equipment Activation</label></td>
                                     <td>
                                         <input id="e_activation_date" name="e_activation_date" value="<?= (isset($this->currentDate)) ? $this->currentDate : ''; ?>" />
                                         <br />
@@ -57,7 +57,7 @@
                                 <tr class="color-dark">
                                     <td></td>
                                     <td><span><label>*</label></span>
-                                        <input id="wantCopleteCheckBox"  name="wantCopleteCheckBox" type="checkbox"> <b>Yes, I want to complete application for vehicle</b>
+                                        <input id="wantCopleteCheckBox"  name="wantCopleteCheckBox" type="checkbox"> <b>Yes, I want to complete application for equipment</b>
                                         <br />
                                         <label for="wantCopleteCheckBox" generated="true" class="error" />
                                     </td>

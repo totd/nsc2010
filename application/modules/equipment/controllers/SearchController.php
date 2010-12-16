@@ -23,9 +23,9 @@ class Equipment_SearchController extends Zend_Controller_Action
     /**
      * @author Andryi Ilnytskyi 07.11.2010
      *
-     * Create new equipment only with VIN value
+     * Create new equipment only with EIN value
      *
-     * @param string $valueVIN Value of the Vehicle Identification Number
+     * @param string $valueVIN Value of the Equipment Identification Number
      *
      */
     public function indexAction()
@@ -33,19 +33,19 @@ class Equipment_SearchController extends Zend_Controller_Action
         $this->view->breadcrumbs = "<a href='/equipment/index'>Equipment Management</a>&nbsp;&gt;&nbsp;<a href='/equipment/list#'>Equipment List</a>&nbsp;&gt;&nbsp;Equipment Search";
 
         if ($this->_request->isPost()) {
-            if (isset($_REQUEST['VIN'])) {
+            if (isset($_REQUEST['EIN'])) {
                 $equipment = new Equipment_Model_Equipment();
-                $vin = $_POST['VIN'];
+                $vin = $_POST['EIN'];
                 $searchResult = $equipment->findEquipmentByVIN($vin);
 
-                $this->view->VIN = $vin;
+                $this->view->EIN = $vin;
 
                 
                 if (is_null($searchResult)) {
-                    $this->view->pageTitle = 'NEW APPLICATION - VEHICLE';
+                    $this->view->pageTitle = 'NEW APPLICATION - EQUIPMENT';
                     $this->render('not_exist');
                 } else {
-                    $this->view->pageTitle = 'NEW APPLICATION - VEHICLE';
+                    $this->view->pageTitle = 'NEW APPLICATION - EQUIPMENT';
                     $this->view->newStatus = $searchResult['enes_type'];
                     $this->render('exist');
                 }
@@ -55,7 +55,7 @@ class Equipment_SearchController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/equipment_validate.js', 'text/javascript');
         $this->view->formAction = '/equipment/search';
         $this->view->breadcrumbs = '<a href="/equipment/list/index">Equipments</a>&nbsp;&gt;&nbsp;New Equipment Search';
-        $this->view->pageTitle = 'NEW VEHICLE';
+        $this->view->pageTitle = 'NEW EQUIPMENT';
     }
 }
 

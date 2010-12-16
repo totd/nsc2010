@@ -121,6 +121,21 @@ CREATE TABLE IF NOT EXISTS `contacts_table` (
 
 -- --------------------------------------------------------
 
+DROP TABLE IF EXISTS `custom_document__form_name`;
+CREATE TABLE IF NOT EXISTS `custom_document__form_name` (
+  `cdfn_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `cdfn_category_id` int(11) NOT NULL,
+  `cdfn_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`cdfn_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+
+DROP TABLE IF EXISTS `custom_document__form_category`;
+CREATE TABLE IF NOT EXISTS `custom_document__form_category` (
+  `cdfc_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `cdfc_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`cdfc_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
 --
 -- Структура таблицы `custom_document`
 --
@@ -131,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `custom_document` (
   `cd_Driver_ID` int(11) DEFAULT NULL,
   `cd_Company_ID` int(11) DEFAULT NULL,
   `cd_Homebase_ID` int(11) DEFAULT NULL,
-  `cd_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `cd_Form_Name_ID` tinyint(4) not NULL,
   `cd_Description` text COLLATE latin1_general_ci,
   `cd_Logo` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `cd_Fax_Status_id` tinyint(4) NOT NULL DEFAULT '1',
@@ -142,6 +157,7 @@ CREATE TABLE IF NOT EXISTS `custom_document` (
   `cd_Archived` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
   `cd_Electronic_Signature` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `cd_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `cd_Current_Page` TINYINT( 4 ) NOT NULL DEFAULT '1',
   PRIMARY KEY (`cd_ID`),
   KEY `fk_custom_document_company1` (`cd_Company_ID`),
   KEY `fk_custom_document_driver1` (`cd_Driver_ID`),
@@ -409,8 +425,8 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_License_Expiration_Date` date NOT NULL DEFAULT '0000-00-00',
   `e_Start_Mileage` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Registration_State` tinyint(2) DEFAULT NULL,
-  `e_Gross_Vehicle_Weight_Rating` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
-  `e_Gross_Vehicle_Registered_Weight` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Gross_Equipment_Weight_Rating` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
+  `e_Gross_Equipment_Registered_Weight` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Unladen_Weight` varchar(7) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Axles` tinyint(2) DEFAULT NULL,
   `e_Name` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
@@ -512,7 +528,7 @@ CREATE TABLE IF NOT EXISTS `equipment_owner` (
 DROP TABLE IF EXISTS `equipment_identifier`;
 CREATE TABLE IF NOT EXISTS `equipment_identifier` (
   `ei_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ei_Equipment_Type_Types` set('VIN','Serial Number','Vessel Number') COLLATE latin1_general_ci NOT NULL,
+  `ei_Equipment_Type_Types` set('EIN','Serial Number','Vessel Number') COLLATE latin1_general_ci NOT NULL,
   `ei_Equipment_Number_ID` int(11) NOT NULL,
   PRIMARY KEY (`ei_id`),
   KEY `fk_equipment_identifier_equipment1` (`ei_Equipment_Number_ID`)
@@ -621,13 +637,14 @@ DROP TABLE IF EXISTS `incident`;
 CREATE TABLE IF NOT EXISTS `incident` (
   `i_ID` int(11) NOT NULL AUTO_INCREMENT,
   `i_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Type_ID` int(11) DEFAULT NULL,
   `i_Violation_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Driver_ID` int(11) NOT NULL,
   `i_Date` date NOT NULL,
   `i_Time` time DEFAULT NULL,
   `i_Status` enum('Pending','Open','Closed') COLLATE latin1_general_ci NOT NULL DEFAULT 'Pending',
   `i_City` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
-  `i_State` tinyint(2) DEFAULT NULL,
+  `i_State_ID` tinyint(2) DEFAULT NULL,
   `i_Postal_Code` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Highway_Street` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Highway_Street_Travel_Direction` tinyint(4) DEFAULT NULL,
@@ -657,11 +674,6 @@ CREATE TABLE IF NOT EXISTS `incident` (
   KEY `fk_driver_id` (`i_Driver_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
---
--- Дамп данных таблицы `incident`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -672,15 +684,13 @@ DROP TABLE IF EXISTS `incident_cause`;
 CREATE TABLE IF NOT EXISTS `incident_cause` (
   `ic_ID` int(11) NOT NULL AUTO_INCREMENT,
   `ic_Incident_ID` int(11) NOT NULL,
-  `ic_Incident_Cause` tinyint(4) DEFAULT NULL,
-  `ic_Preventable` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `ic_Incident_Witness` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `ic_Incident_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
+  `ic_Incident_Cause` int(4) DEFAULT NULL,
+  `ic_Preventable` enum('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `ic_Incident_Witness` enum('Yes','No') COLLATE latin1_general_ci NOT NULL,
   `ic_Witness_ID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ic_ID`),
-  KEY `fk_incident_cause_incident1` (`ic_Incident_ID`),
-  KEY `fk_incident_cause_witness1` (`ic_Witness_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+  KEY `ic_Incident_ID` (`ic_Incident_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `incident_cause`

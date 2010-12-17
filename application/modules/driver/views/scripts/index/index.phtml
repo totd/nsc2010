@@ -63,7 +63,7 @@
         $row=1;
 
 ?>
-        <?php echo $this->partial('partials/_driver-row.phtml', array('drivers'=>$this->Drivers)); ?>
+        <?php echo $this->partial('partials/_driver-row.phtml', array('drivers'=>$this->Drivers,'identity'=>$this->identity)); ?>
 
     <?php
     $row++;

@@ -75,6 +75,7 @@ class Driver_DriverController extends Zend_Controller_Action
                 $_POST['d_R_A_expiration']=null;
             }
             $_POST['d_ID']=$driverID;
+            $_POST['d_last_update_date']=date("Y-m-d H:i:s");
             unset($_POST['Driver_Personal_Information']);
             if(Driver_Model_Driver::saveDriverInfo($_POST)==true){
                 $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);

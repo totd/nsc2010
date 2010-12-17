@@ -1,6 +1,6 @@
 <div class="bottom-nav">
     <span class="name-driver">
-        Status:&nbsp;<span>Pending</span>
+        Status:&nbsp;<span id="view_i_Status"></span>
     </span>
     <ul class="blue-nav">
         <li>
@@ -33,6 +33,7 @@
 <div class="driver-information" id="main">
     <input type="hidden" id="i_ID" value="<?= $this->i_ID; ?>"
     <input type="hidden" id="ic_ID" value="<?= $this->ic_ID; ?>"
+    <input type="hidden" id="i_Driver_ID" value="<?= $this->driverId; ?>"
         
     <div id="viewDescriptionDiv" class="DescriptionDiv">
         <?= $this->partial('partials/index/_view_description.phtml'); ?>
@@ -40,34 +41,14 @@
     <div id="updateDescriptionDiv" class="DescriptionDiv" style="display: none;">
         <?= $this->partial('partials/index/_update_description.phtml', array('states' => $this->states)); ?>
     </div>
-    
 
-    <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                <table cellspacing="0" class="inform">
-                    <tbody><tr><th colspan="2">Company Driver Information - involved in Incident</th></tr>
-                        <tr><td colspan="2"><b>PERSONAL INFORMATION</b></td></tr>
-                        <tr><td colspan="2">First Name: Charles  &nbsp;&nbsp;&nbsp;&nbsp;   Last Name:  Reed  &nbsp;&nbsp;&nbsp;&nbsp;  Middle Name: </td></tr>
-                        <tr class="color-dark"><td colspan="2">DOB: 10/19/1963  &nbsp;&nbsp;&nbsp;&nbsp;  SSN #: 625068989 </td></tr>
-                        <tr><td colspan="2">CDL #: A7569850  &nbsp;&nbsp;&nbsp;&nbsp;  Class: A  &nbsp;&nbsp;&nbsp;&nbsp;  Issued by State:  </td></tr>
-                        <tr class="color-dark"><td colspan="2">Status: Hired  &nbsp;&nbsp;&nbsp;&nbsp;  Date Of Hire: 9/23/2010  &nbsp;&nbsp;&nbsp;&nbsp;  Termination Date: </td></tr>
-                        <tr><td colspan="2">Sex: -  &nbsp;&nbsp;&nbsp;&nbsp;  Hair Color:   &nbsp;&nbsp;&nbsp;&nbsp;  Eyes Color:  &nbsp;&nbsp;&nbsp;&nbsp;   Height:  Feet   inch  &nbsp;&nbsp;&nbsp;&nbsp;  Weight: </td></tr>
-                        <tr><td colspan="2"><b>ADDRESS</b></td></tr>
-                        <tr><td colspan="2">Street: 856 East Ave &nbsp;&nbsp;&nbsp;&nbsp;   City: Oakland  &nbsp;&nbsp;&nbsp;&nbsp;  ZIP Code: 94609  &nbsp;&nbsp;&nbsp;&nbsp;  State: CA</td></tr>
-                        <tr class="color-dark"><td colspan="2">Home Phone: 510-889-6353  &nbsp;&nbsp;&nbsp;&nbsp;  Business Phone:</td></tr>
-                        <tr><td colspan="2"><b>PRE-COLLISION ACTIVITY</b></td></tr>
-                        <tr><td colspan="2">Travel Direction: -    on Street/Highway: &nbsp;&nbsp;&nbsp;&nbsp;   Actual Speed:   &nbsp;&nbsp;&nbsp;&nbsp;  Speed Limit</td></tr>
-                        <tr><td colspan="2"><b>PRE-COLLISION MOVEMENT</b></td></tr>
-                        <tr><td colspan="2"><b>ACCIDENT IMPLICATION</b></td></tr>
-                        <tr><td colspan="2">Injured:  Yes &nbsp;&nbsp;&nbsp;&nbsp;  Deceased:  Yes </td></tr>
-                        <tr class="color-dark"><td colspan="2">Injury Description: </td></tr>
-                        <tr><td colspan="2"><b>POST ACCIDENT TEST</b></td></tr>
-                        <tr><td colspan="2">Citation issued within:   No citation </td></tr>
-                        <tr class="color-dark"><td colspan="2">Alcohol test conducted within:   No alcohol test </td></tr>
-                        <tr><td colspan="2">Drug test conducted within:   No drug test</td></tr>
-                        <tr><td colspan="2"><span class="blue-button"><span><a href="#">Add Company Driver</a></span></span></td></tr>
-                        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    </tbody></table>
-            </div></div></div>
+    <div id="viewDriverInformation" class="DriverInformationDiv">
+        <?= $this->partial('partials/index/_view_driver_information.phtml', array('driverId' => $this->driverId)); ?>
+    </div>
+    <div id="updateDriverInformation" class="DriverInformationDiv" style="display: none;">
+        <?= $this->partial('partials/index/_update_driver_information.phtml', array('driverId' => $this->driverId)); ?>
+    </div>
+    
 
     <div class="post-top"><div class="post-bottom"><div class="post-middle">
                 <table cellspacing="0" class="inform">

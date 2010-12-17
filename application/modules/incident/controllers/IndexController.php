@@ -37,8 +37,7 @@ class Incident_IndexController extends Zend_Controller_Action
             }
         }
         $this->view->states = $selectStateArray;
-
-
+        
         $this->view->breadcrumbs = '<a href="/incident/index">Incident Management</a>';
         $this->view->breadcrumbs .= '&nbsp;&gt;&nbsp;<a href="/incident/list">Incident List</a>';
         $this->view->breadcrumbs .= '&nbsp;&gt;&nbsp;Incident Profile';
@@ -57,10 +56,6 @@ class Incident_IndexController extends Zend_Controller_Action
                 $id = $this->_request->getParam('id');
 
                 if (!is_null($id)) {
-                    $layout = new Zend_Layout();
-                    $layout->setLayoutPath(APPLICATION_PATH . '/modules/incident/views/scripts/partials/index');
-                    $layout->setLayout('_view_description');
-
                     $incidentModel = new Incident_Model_Incident();
                     $incidentRow = $incidentModel->getIcidentDescription($id);
 
@@ -69,43 +64,45 @@ class Incident_IndexController extends Zend_Controller_Action
                         $incidentRow['i_Date'] = $myDate->toString("MM/dd/YYYY");
                     }
 
-                    $layout->incidentRow = $incidentRow;
-
-                    echo $layout->render();
-                }
-             }
-        }
-        
-    }
-
-    public function getDescriptionUpdateAction($id = null)
-    {
-        $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
-
-        if (is_null($id)) {
-             if ($this->_request->isXmlHttpRequest()) {
-                $id = $this->_request->getParam('id');
-
-                if (!is_null($id)) {
-                    $layout = new Zend_Layout();
-                    $layout->setLayoutPath(APPLICATION_PATH . '/modules/incident/views/scripts/partials/index');
-                    $layout->setLayout('_view_description');
-
-                    $incidentModel = new Incident_Model_Incident();
-                    $incidentRow = $incidentModel->getIcidentDescription($id);
-
-                    if (isset($incidentRow['i_Date'])) {
-                        $myDate = new Zend_Date($incidentRow['i_Date'], "YYYY-MM-dd");
-                        $incidentRow['i_Date'] = $myDate->toString("MM/dd/YYYY");
+                    if (isset($incidentRow['i_Collision_Movement'])) {
+                        $incidentRow['i_Collision_Movement'] = str_replace(",", ", ", $incidentRow['i_Collision_Movement']);
+                        $incidentRow['i_Collision_Movement'] = ucfirst($this->from_camel_case($incidentRow['i_Collision_Movement']));
                     }
 
-                    $result['row'] = $incidentRow;
+                    $result = $incidentRow;
                     print json_encode($result);
                 }
              }
         }
 
+    }
+
+    function from_camel_case($str) {
+        $str[0] = strtolower($str[0]);
+        $func = create_function('$c', 'return " " . $c[1];');
+        return preg_replace_callback('/([A-Z])/', $func, $str);
+    }
+
+
+    public function getDriverInformationAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if ($this->_request->isXmlHttpRequest()) {
+            $incidentId =  $this->_request->getParam('id');
+
+            $incidentModel = new Incident_Model_Incident();
+            $driverId = $incidentModel->getIcidentFieldValueById($incidentId, 'i_Driver_ID');
+
+            if (!is_null($driverId)) {
+                $driverRow = Driver_Model_Driver::getDriverInfo($driverId);
+            }
+
+            if (is_array($driverRow) && count($driverRow) > 0) {
+                print json_encode($driverRow);
+            }
+        }
     }
 
     public function saveDescriptionAction()

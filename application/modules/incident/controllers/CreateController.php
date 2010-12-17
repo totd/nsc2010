@@ -114,9 +114,9 @@ class Incident_CreateController extends Zend_Controller_Action
                 $incidentDataArray['i_Highway_Street_Travel_Direction'] = $travelDirection;
             }
 
-            $street = $this->_request->getPost('i_Highway_Street', '');
+            $street = $this->_request->getPost('i_Collision_Highway_Street', '');
             if (!empty ($street)) {
-                $incidentDataArray['i_Highway_Street'] = $street;
+                $incidentDataArray['i_Collision_Highway_Street'] = $street;
             }
 
             $actualSpeed = $this->_request->getPost('i_Actual_Speed', '');

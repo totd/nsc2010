@@ -128,4 +128,19 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
 
         return $rowTable;
     }
+
+    public function getIcidentFieldValueById($id, $field)
+    {
+        $result = null;
+
+        if (!empty($id) && !empty($field)) {
+            $rowTable = $this->fetchRow("i_ID = {$this->getDefaultAdapter()->quote($id)}");
+
+            if (!is_null($rowTable)) {
+                $result = $rowTable->$field;
+            }
+        }
+
+        return $result;
+    }
 }

@@ -10,10 +10,16 @@ $(function(){
     refreshIncidentDescription(incidentId.val());
     refreshIncidentDriverInformation(incidentId.val());
     refreshIncidentAdditionalDriverInformation(incidentId.val());
-    
+
     $(".DescriptionActionLink").each(function() {
        $(this).click(function() {
             $(".DescriptionDiv").toggle("slow");
+        });
+    });
+
+    $(".DriverInformationActionLink").each(function() {
+       $(this).click(function() {
+            $(".DriverInformationDiv").toggle("slow");
         });
     });
 
@@ -26,6 +32,15 @@ $(function(){
     $("#saveIncidentDescription").click(function() {
        saveDescription(incidentId.val()) ;
     });
+
+    $("#saveIncidentDriverInformation").click(function() {
+       saveDriverInformation(incidentId.val()) ;
+    });
+
+    $("#changeDriverButton").click(function() {
+        window.location.href='/driver/index/involved-in-incident-drivers/incident_id/' + incidentId.val();
+    });
+    
 });
 
 /**
@@ -43,8 +58,8 @@ function refreshIncidentDescription(id) {
             data: "id=" + id,
             success: function(data) {
                 incidentStatus.html(data.i_Status);
-                fillDescriptionView(data);
-                fillDescriptionUpdate(data);
+                fillDescriptionView(data.row);
+                fillDescriptionUpdate(data.row);
             },
             dataType: "json"
     });
@@ -57,6 +72,7 @@ function refreshIncidentDriverInformation(id) {
             data: "id=" + id,
             success: function(data) {
                 fillDriverInformationView(data);
+                fillDriverInformationUpdate(data);
             },
             dataType: "json"
     });
@@ -68,8 +84,12 @@ function refreshIncidentAdditionalDriverInformation(id) {
             url: "/incident/index/get-description",
             data: "id=" + id,
             success: function(data) {
-                fillAdditionalDriverInformationView(data);
-                //fillAdditionalDriverInformationUpdate(data);
+                fillAdditionalDriverInformationView(data.row);
+                fillAdditionalDriverInformationUpdate(data.row);
+                // Hak for correct building multiselect
+                $("#colMovements").html(data.collisionSelectOptions);
+                $("#colMovements").multiselect();
+                $("#updateDriverInformation").css("display", "none");
             },
             dataType: "json"
     });
@@ -88,6 +108,33 @@ function fillAdditionalDriverInformationView(data) {
     $("#view_i_Drug_Test").html(data.i_Drug_Test);
 }
 
+function fillAdditionalDriverInformationUpdate(data) {
+    $("#i_Highway_Street_Travel_Direction").val(data.i_Highway_Street_Travel_Direction);
+    $("#i_Collision_Highway_Street").val(data.i_Collision_Highway_Street);
+    $("#i_Actual_Speed").val(data.i_Actual_Speed);
+    $("#i_Speed_Limit").val(data.i_Speed_Limit);
+    $("#i_Collision_Movement_Other").val(data.i_Collision_Movement_Other);
+    $(".i_Injured_Class").each(function(){
+        if ($(this).val() == data.i_Injured) {
+            $(this).attr('checked', 'checked');
+        }
+    });
+    $(".i_Drug_Test_Class").each(function(){
+        if ($(this).val() == data.i_Drug_Test) {
+            $(this).attr('checked', 'checked');
+        }
+    });
+    $(".i_Deceased_Class").each(function(){
+        if ($(this).val() == data.i_Deceased) {
+            $(this).attr('checked', 'checked');
+        }
+    });
+    $(".i_Alcohol_Test_Class").each(function(){
+        if ($(this).val() == data.i_Alcohol_Test) {
+            $(this).attr('checked', 'checked');
+        }
+    });
+}
 
 function fillDriverInformationView(data) {
     var href;
@@ -104,6 +151,21 @@ function fillDriverInformationView(data) {
     $("#view_d_Telephone_Number1").html(data.d_Telephone_Number1);
 }
 
+function fillDriverInformationUpdate(data) {
+    var href;
+    href = "/driver/driver/view-driver-Information/id/" + data.d_ID;
+    $("#update_editDriverLink").attr("href", href);
+
+    $("#view_update_d_First_Name").html(data.d_First_Name);
+    $("#view_update_d_Last_Name").html(data.d_Last_Name);
+    $("#view_update_d_Middle_Name").html(data.d_Middle_Name);
+    $("#view_update_d_Date_Of_Birth").html(data.d_Date_Of_Birth);
+    $("#view_update_d_Driver_SSN").html(data.d_Driver_SSN);
+    $("#view_update_d_Medical_Card_Expiration_Date").html(data.d_Medical_Card_Expiration_Date);
+    $("#view_update_d_Doctor_Name").html(data.d_Doctor_Name);
+    $("#view_update_d_Telephone_Number1").html(data.d_Telephone_Number1);
+}
+
 function fillDescriptionUpdate(data) {
     $("#i_Number").val(data.i_Number);
     $("#i_City").val(data.i_City);
@@ -115,12 +177,12 @@ function fillDescriptionUpdate(data) {
     $("#i_Date").val(data.i_Date);
     $("#i_Time").val(data.i_Time);
     $("#i_Photo_Taken_By").val(data.i_Photo_Taken_By);
-    $("input:radio[@name=i_Incident_Diagram_Taken]").each(function(){
+    $(".i_Incident_Diagram_Taken_Class").each(function(){
         if ($(this).val() == data.i_Incident_Diagram_Taken) {
             $(this).attr('checked', 'checked');
         }
     });
-    $("input:radio[@name=i_Reported]").each(function(){
+    $(".i_Reported_Class").each(function(){
         if ($(this).val() == data.i_Reported) {
             $(this).attr('checked', 'checked');
         }
@@ -130,11 +192,38 @@ function fillDescriptionUpdate(data) {
     $("#i_Police_Report_Number").val(data.i_Police_Report_Number);
     $("#i_Narrative").val(data.i_Narrative);
     $("#ic_ID").val(data.ic_ID);
-    $("input:radio[@name=ic_Preventable]").each(function(){
+    $(".ic_Preventable_Class").each(function(){
         if ($(this).val() == data.ic_Preventable) {
             $(this).attr('checked', 'checked');
         }
     });
+}
+
+function saveDriverInformation(id) {
+    $.get("/incident/index/save-driver-information",
+            {
+                i_ID : id,
+                i_Highway_Street_Travel_Direction : $("#i_Highway_Street_Travel_Direction").val(),
+                i_Collision_Highway_Street : $("#i_Collision_Highway_Street").val(),
+                i_Actual_Speed : $("#i_Actual_Speed").val(),
+                i_Speed_Limit : $("#i_Speed_Limit").val(),
+                colMovements : $("#colMovements").val(),
+                i_Collision_Movement_Other : $("#i_Collision_Movement_Other").val(),
+                i_Injured : $(".i_Injured_Class:checked").val(),
+                i_Deceased : $(".i_Deceased_Class:checked").val(),
+                i_Alcohol_Test : $(".i_Alcohol_Test_Class:checked").val(),
+                i_Drug_Test : $(".i_Drug_Test_Class:checked").val()
+            }, function(data) {
+                if (data == 1) {
+                    refreshIncidentDriverInformation(incidentId.val());
+                    refreshIncidentAdditionalDriverInformation(incidentId.val());
+                    $(".DriverInformationDiv").toggle("slow");
+                    return true;
+                } else {
+                    alert(data);
+                    return false;
+                }
+            });
 }
 
 function saveDescription(id) {
@@ -151,14 +240,14 @@ function saveDescription(id) {
                 i_Date: $("#i_Date").val(),
                 i_Time : $("#i_Time").val(),
                 i_Photo_Taken_By : $("#i_Photo_Taken_By").val(),
-                i_Incident_Diagram_Taken : $("input:radio[@name=i_Incident_Diagram_Taken]:checked").val(),
-                i_Reported : $("input:radio[@name=i_Reported]:checked").val(),
+                i_Incident_Diagram_Taken : $(".i_Incident_Diagram_Taken_Class:checked").val(),
+                i_Reported : $(".i_Reported_Class:checked").val(),
                 i_Police_Department : $("#i_Police_Department").val(),
                 i_Officer_Name : $("#i_Officer_Name").val(),
                 i_Police_Report_Number : $("#i_Police_Report_Number").val(),
                 i_Narrative : $("#i_Narrative").val(),
                 ic_ID : incidentCauseID.val(),
-                ic_Preventable : $("input:radio[@name=ic_Preventable]:checked").val()
+                ic_Preventable : $(".ic_Preventable_Class:checked").val()
             }, function(data) {
                 if (data == 1) {
                     refreshIncidentDescription(incidentId.val());

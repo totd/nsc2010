@@ -37,12 +37,30 @@ class Incident_IndexController extends Zend_Controller_Action
             }
         }
         $this->view->states = $selectStateArray;
+
+        $travelDirectionModel = new Incident_Model_TravelDirection();
+        $travelDirections = $travelDirectionModel->getList();
+
+        $selectTravelDirectionArray = array('' => array('text' => '-'));
+        foreach ($travelDirections as $travelDirection) {
+            $selectTravelDirectionArray[$travelDirection->ihstd_id] = array('text' => $travelDirection->ihstd_type);
+        }
+        $selectTravelDirectionArray['']['selected'] = true;
+        $this->view->travelDirections = $selectTravelDirectionArray;
         
         $this->view->breadcrumbs = '<a href="/incident/index">Incident Management</a>';
         $this->view->breadcrumbs .= '&nbsp;&gt;&nbsp;<a href="/incident/list">Incident List</a>';
         $this->view->breadcrumbs .= '&nbsp;&gt;&nbsp;Incident Profile';
 
         $this->view->pageTitle = 'INCIDENT INFORMATION WORKSHEET';
+
+        $this->view->headLink()->appendStylesheet('/css/main.css');
+        $this->view->headLink()->appendStylesheet('/css/multiselect/common.css');
+        $this->view->headLink()->appendStylesheet('/css/multiselect/ui.multiselect.css');
+        //$this->view->headScript()->appendFile('/js/jquery-ui.min.js', 'text/javascript');
+        $this->view->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/multiselect/plugins/tmpl/jquery.tmpl.1.1.1.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/multiselect/ui.multiselect.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/incident/index/index.js', 'text/javascript');
     }
 
@@ -64,12 +82,15 @@ class Incident_IndexController extends Zend_Controller_Action
                         $incidentRow['i_Date'] = $myDate->toString("MM/dd/YYYY");
                     }
 
+                    $collisionArray = explode(',', $incidentRow['i_Collision_Movement']);
+                    $result['collisionSelectOptions'] = $this->getCollisionSelectOptions($collisionArray);
+
                     if (isset($incidentRow['i_Collision_Movement'])) {
                         $incidentRow['i_Collision_Movement'] = str_replace(",", ", ", $incidentRow['i_Collision_Movement']);
                         $incidentRow['i_Collision_Movement'] = ucfirst($this->from_camel_case($incidentRow['i_Collision_Movement']));
                     }
 
-                    $result = $incidentRow;
+                    $result['row'] = $incidentRow;
                     print json_encode($result);
                 }
              }
@@ -150,6 +171,89 @@ class Incident_IndexController extends Zend_Controller_Action
 
             echo 1;
         }
+    }
+
+    public function saveDriverInformationAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if ($this->_request->isXmlHttpRequest()) {
+            $incidentModel = new Incident_Model_Incident();
+
+            $data = array();
+            $data = $this->_request->getQuery();
+
+            if (isset($data['colMovements']) && is_array($data['colMovements'])) {
+                $data['i_Collision_Movement'] = implode(",", $data['colMovements']);
+            }
+            unset($data['colMovements']);
+
+            $where = $incidentModel->getAdapter()->quoteInto('i_ID = ?', $this->_request->getParam('i_ID'));
+
+
+            $incidentModel->update($data, $where);
+
+            echo 1;
+        }
+        
+    }
+
+    public function getCollisionSelectOptions($selected) {
+        $collisionArray = array(
+            "Stopped" => array("text" => "Stopped"),
+            "ProceedingStraight" => array("text" => "Proceeding Straight"),
+            "RunOffRoadway" => array("text" => "Run Off Roadway"),
+            "MakingLeftTurn" => array("text" => "Making Left Turn"),
+            "MakingRightTurn" => array("text" => "Making Right Turn"),
+            "MakingUTurn" => array("text" => "Making UTurn"),
+            "Backing" => array("text" => "Backing"),
+            "Slowing" => array("text" => "Slowing"),
+            "Stopping" => array("text" => "Stopping"),
+            "Passing" => array("text" => "Passing"),
+            "ChangingLanes" => array("text" => "Changing Lanes"),
+            "Parking" => array("text" => "Parking"),
+            "EnteringTraffic" => array("text" => "Entering Traffic"),
+            "UnsafeTurning" => array("text" => "Unsafe Turning"),
+            "Parked" => array("text" => "Parked"),
+            "Merging" => array("text" => "Merging"),
+            "WrongWay" => array("text" => "WrongWay")
+        );
+
+        foreach($selected as $selectCollision) {
+            if (key_exists($selectCollision, $collisionArray)) {
+                $collisionArray[$selectCollision]['selected'] = true;
+            }
+        }
+
+        $result = '';
+        foreach ($collisionArray as $key=>$value) {
+            $result .= '<option value="' . $key . '"';
+
+            if (isset($value['selected'])) {
+                $result .= ' selected="selected"';
+            }
+
+            $result .= '>' . $value['text'] . '</option>';
+        }
+
+        return $result;
+    }
+
+    public function changeDriverAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        $incidentModel = new Incident_Model_Incident();
+
+        $data = array();
+        $data['i_Driver_ID'] = $this->_request->getParam('i_Driver_ID');
+
+        $where = $incidentModel->getAdapter()->quoteInto('i_ID = ?', $this->_request->getParam('i_ID'));
+        $incidentModel->update($data, $where);
+
+        $this->_redirect("/incident/index/index/id/{$this->_request->getParam('i_ID')}");
     }
 }
 

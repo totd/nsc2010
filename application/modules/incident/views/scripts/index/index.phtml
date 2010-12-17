@@ -45,18 +45,15 @@
     <div id="viewDriverInformation" class="DriverInformationDiv">
         <?= $this->partial('partials/index/_view_driver_information.phtml', array('driverId' => $this->driverId)); ?>
     </div>
-    <div id="updateDriverInformation" class="DriverInformationDiv" style="display: none;">
-        <?= $this->partial('partials/index/_update_driver_information.phtml', array('driverId' => $this->driverId)); ?>
-    </div>
-    
 
-    <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                <table cellspacing="0" class="inform">
-                    <tbody><tr><th colspan="2">Other non-company Driver Information - involved in Incident</th></tr>
-                        <tr><td colspan="2"><span class="blue-button"><span><a href="#">Add Non-Employee Driver</a></span></span></td></tr>
-                        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    </tbody></table>
-            </div></div></div>
+<!--    This block should be hidden. But for correct building of the multiselect element its element hided in the js-->
+    <div id="updateDriverInformation" class="DriverInformationDiv">
+        <?= $this->partial('partials/index/_update_driver_information.phtml', array(
+            'driverId' => $this->driverId,
+            'travelDirections' => $this->travelDirections
+                ));
+        ?>
+    </div>
 
     <div class="post-top"><div class="post-bottom"><div class="post-middle">
                 <table cellspacing="0" class="inform">

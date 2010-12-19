@@ -256,6 +256,7 @@ CREATE TABLE IF NOT EXISTS `driver` (
   `d_TWIC_expiration` date DEFAULT NULL,
   `d_R_A` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
   `d_R_A_expiration` date DEFAULT NULL,
+  `d_last_update_date` DATETIME DEFAULT NULL,
   PRIMARY KEY (`d_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=17 ;
 

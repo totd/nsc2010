@@ -46,6 +46,8 @@ function addAddressHistoryRecord(){
                 });
                 $dialog.dialog('open');
                 document.getElementById("addAddressHistoryRecord").setAttribute('class', '');
+                //document.getElementById("addAddressHistoryRecord").addClass("status-ok");
+                //document.getElementById("addAddressHistoryRecord").addClass("status-warning");
                 document.getElementById("addAddressHistoryRecord").innerHTML="Add new Address";
                 return false;
             }

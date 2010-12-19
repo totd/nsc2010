@@ -10,11 +10,8 @@
     <td><?php echo $Drivers[$i]['d_First_Name']; ?></td>
     <td><?php echo $Drivers[$i]['d_Last_Name']; ?></td>
     <td><?php
-            if($this->identity->vau_role=="NSC_LEVEL_0"){
-            echo  preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3",$Drivers[$i]['d_Driver_SSN']);
-        }else{
-            echo  preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3",$Drivers[$i]['d_Driver_SSN']);
-        } ?></td>
+            echo  $Drivers[$i]['d_Driver_SSN'];
+         ?></td>
     <td>
     <?php
     echo  $_SESSION['driver_info']['DriverEmploymentType_list'][$Drivers[$i]['d_Employment_Type']];

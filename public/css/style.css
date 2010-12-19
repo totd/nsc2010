@@ -1043,7 +1043,7 @@ span.blue-button a {
 	width: 350px;
 }*/
 
-.error_custom{
+.error{
     background: url(../images/error.png) no-repeat 0px 0px;
     display: inline;
     padding-left: 30px;
@@ -1061,23 +1061,23 @@ table.application-forms th h2, table.inform th h2 {
 	padding-top: 5px;
 }
 
-div h2.status-ok {
-	background: url(images/status-ok.png) no-repeat 100% 23px;
+h2.status-ok {
+	background: url(/images/status-ok.png) no-repeat 100% 23px;
 	padding-right: 30px;
 }
 
-div h2.status-warning{
-	background: url(images/attention.png) no-repeat 100% 23px; 
+h2.status-warning{
+	background: url(/images/attention.png) no-repeat 100% 23px;
 	padding-right: 30px;
 }
 
-th h2.status-ok {
-	background: url(images/status-ok.png) no-repeat 100% 0px;
+h2.status-ok {
+	background: url(/images/status-ok.png) no-repeat 100% 0px;
 	padding-right: 30px;
 }
 
-th h2.status-warning{
-	background: url(images/attention.png) no-repeat 100% 0px; 
+h2.status-warning{
+	background: url(/images/attention.png) no-repeat 100% 0px;
 	padding-right: 30px;
 }
 

@@ -111,8 +111,14 @@ class Driver_DriverController extends Zend_Controller_Action
             # Breadcrumbs & page title goes here:
             $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
             $this->view->breadcrumbs = "<a href='/driver/index/index?status=All' >DQF</a>&nbsp;&gt;&nbsp;Driver Profile";
-
             $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
+
+            if($this->auth->vau_role=="NSC_LEVEL_0"){
+                $driverInfo['d_Driver_SSN'] = preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3",$driverInfo['d_Driver_SSN']);
+            }else{
+                $driverInfo['d_Driver_SSN'] = preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3",$driverInfo['d_Driver_SSN']);
+            }
+
             $homebaseList = Homebase_Model_Homebase::getHomebaseList(null,1);
             $depotList = Depot_Model_Depot::getDepotList($driverInfo['d_homebase_ID'],1);
             $homebase = Homebase_Model_Homebase::getHomebase($driverInfo['d_homebase_ID']);
@@ -141,7 +147,7 @@ class Driver_DriverController extends Zend_Controller_Action
                 }
             }
 
-            
+
             $this->view->driverId = $driverID;
             $this->view->driverInfo = $driverInfo;
             $this->view->homebaseList = $homebaseList;
@@ -165,7 +171,10 @@ class Driver_DriverController extends Zend_Controller_Action
             # Breadcrumbs & page title goes here:
             $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
             $this->view->pageTitle = "DRIVER QUALIFICATION FILE";
-            
+            $driverID = (int)$this->_request->getParam('driver_id');
+            $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
+
+            $this->view->driverInfo = $driverInfo;
             $this->view->documentsFormList = Documents_Model_CustomDocument::getList($driverID);
         }
     }

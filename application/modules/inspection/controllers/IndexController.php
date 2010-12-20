@@ -21,7 +21,7 @@ class Inspection_IndexController extends Zend_Controller_Action
 
             // TODO implement creation through the form
             $row = array (
-                'i_Equipment_ID' => $equipmentId
+                'ins_Equipment_ID' => $equipmentId
             );
 
             try {

@@ -902,7 +902,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $result2[] = $arrayPart;
             }
             
-            // TODO limit users which hasn't permission to create driver
+            // TODO Hide next strings for users which hasn't permission to create driver
             $arrayPart = array();
             $arrayPart['label'] = 'CREATE NEW DRIVER';
             $arrayPart['id'] = 'new';
@@ -912,5 +912,4 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
         }
     }
-
 }

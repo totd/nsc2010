@@ -38,5 +38,29 @@ class Equipment_IndexController extends Zend_Controller_Action
             return $this->_redirect('/equipment/list/index');
         }
     }
+
+    public function getEquipmentInformationAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if ($this->_request->isXmlHttpRequest()) {
+            $equipmentId = $this->_request->getParam('equipmentId');
+            if (empty($equipmentId)) {
+                $result = array('empty' => true);
+            } else {
+                $equipmentModel = new Equipment_Model_Equipment();
+                $equipmentRow = $equipmentModel->getEquipmentInformation($equipmentId);
+                if (is_null($equipmentRow)) {
+                    $result = array('error' => "Equiment doesn't exists");
+                } else {
+                    $result = $equipmentRow;
+                }
+            }
+
+            print json_encode($result);
+        }
+
+    }
 }
 

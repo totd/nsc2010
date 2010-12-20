@@ -78,8 +78,8 @@ ALTER TABLE `incident_investigator`
 -- Ограничения внешнего ключа таблицы `inspection`
 --
 ALTER TABLE `inspection`
-  ADD CONSTRAINT `fk_inspection_equipment1` FOREIGN KEY (`i_Equipment_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_inspection_inspection_types1` FOREIGN KEY (`i_Type_ID`) REFERENCES `inspection_types` (`it_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_inspection_equipment1` FOREIGN KEY (`ins_Equipment_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_inspection_inspection_types1` FOREIGN KEY (`ins_Type_ID`) REFERENCES `inspection_types` (`it_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `service_provider__company_assignment`

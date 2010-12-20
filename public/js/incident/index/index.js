@@ -38,6 +38,29 @@ $(function(){
     $("#changeDriverButton").click(function() {
         window.location.href='/driver/index/involved-in-incident-drivers/incident_id/' + incidentId.val();
     });
+
+    var $dialogDeleteInvolvedEquipment = $('<div></div>')
+		.html('Do you really want to remove this equipment from incident?')
+		.dialog({
+			autoOpen: false,
+            modal: true,
+            buttons: {
+                "Yes": function() {
+                    window.location.href = "/incident/index/delete-involved-equipment/incidentId/" + incidentId.val();
+                    $(this).dialog("close");
+                },
+                "No": function() {
+                    $(this).dialog("close");
+                }
+            },
+            resizable: false,
+			title: 'Confirm Equipment Delete'
+		}
+    );
+
+    $("#deleteEquipmentButton").click(function() {
+        $dialogDeleteInvolvedEquipment.dialog('open');
+    });
     
 });
 
@@ -58,6 +81,10 @@ function refreshIncidentDescription(id) {
                 incidentStatus.html(data.i_Status);
                 fillDescriptionView(data.row);
                 fillDescriptionUpdate(data.row);
+
+                if (data.row.i_Equipment_ID != $("#i_Equipment_ID").val()) {
+                    refreshIncidentEquipmentInformation(data.row.i_Equipment_ID);
+                }
             },
             dataType: "json"
     });
@@ -276,6 +303,32 @@ function fillDescriptionView(data) {
     $("#view_i_Preventable").html(data.i_Preventable);
 }
 
-function storePrimaryDescriptionValues() {
-    
+function refreshIncidentEquipmentInformation(equipmentId) {
+    $.ajax({
+            type: "GET",
+            url: "/equipment/index/get-equipment-information",
+            data: "equipmentId=" + equipmentId,
+            success: function(data) {
+                fillEquipmentInformationView(data);
+            },
+            dataType: "json"
+    });
+}
+
+function fillEquipmentInformationView(data) {
+    if (data.empty == true) {
+        $("#IncidentEquipmentDiv").css('display', 'none');
+        $("#emptyIncidentEquipmentDiv").css('display', 'inline');
+    } else {
+        $("#e_Unit_Number").html(data.e_Unit_Number);
+        $("#e_Number").html(data.e_Number);
+        $("#s_name").html(data.s_name);
+        $("#et_type").html(data.et_type);
+        $("#e_Make").html(data.e_Make);
+        $("#e_Model").html(data.e_Model);
+        $("#s_Year").html(data.e_Year);
+
+        $("#IncidentEquipmentDiv").css('display', 'inline');
+        $("#emptyIncidentEquipmentDiv").css('display', 'none');
+    }
 }

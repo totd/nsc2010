@@ -5,8 +5,8 @@ class Inspection_Model_Inspection extends Zend_Db_Table_Abstract
 
     public function saveInspection($saveRow)
     {
-        if (isset($saveRow['e_Equipment_ID'])) {
-            $rowTable = $this->fetchRow("i_Equipment_ID = {$this->getDefaultAdapter()->quote($saveRow['i_Equipment_ID'])}");
+        if (isset($saveRow['ins_Equipment_ID'])) {
+            $rowTable = $this->fetchRow("ins_Equipment_ID = {$this->getDefaultAdapter()->quote($saveRow['ins_Equipment_ID'])}");
         } else {
             $rowTable = $this->createRow();
         }
@@ -20,7 +20,7 @@ class Inspection_Model_Inspection extends Zend_Db_Table_Abstract
             //return the new user
             return $rowTable;
         } else {
-            throw new Zend_Exception("Could not save equipment assignment!");
+            throw new Zend_Exception("Could not save inspection!");
         }
     }
 
@@ -29,7 +29,7 @@ class Inspection_Model_Inspection extends Zend_Db_Table_Abstract
         $result = true;
 
         // TODO uncomment it after Inspection implementation.
-//        $row = $this->fetchRow("i_Equipment_ID = $equipmentId");
+//        $row = $this->fetchRow("ins_Equipment_ID = $equipmentId");
 //
 //        if (!$row) {
 //            $resul = false;

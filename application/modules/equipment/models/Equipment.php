@@ -333,6 +333,32 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         return $result[0];
     }
 
+    public function getEquipmentInformation($id)
+    {
+        $result = null;
+        
+        if (!empty($id)) {
+            $db = $this->getAdapter();
+
+
+            $select = "SELECT *
+                        FROM equipment
+                        LEFT JOIN equipment__active_status ON e_Active_Status = eas_id
+                        JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id
+                        LEFT JOIN equipment_types ON et_id = e_type_id
+                        LEFT JOIN state ON e_Registration_State = s_id
+                        WHERE e_id = '$id'";
+
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $stmt = $db->query($select);
+
+            $resultArray = $stmt->fetchAll();
+            $result = (count($resultArray) > 0) ? $resultArray[0] : null;
+        }
+
+        return $result;
+    }
+
 
 
 }

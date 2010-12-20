@@ -777,25 +777,25 @@ CREATE TABLE IF NOT EXISTS `incident_investigator` (
 
 DROP TABLE IF EXISTS `inspection`;
 CREATE TABLE IF NOT EXISTS `inspection` (
-  `i_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `i_Equipment_ID` int(11) NOT NULL,
-  `i_Date` date NOT NULL,
-  `i_Start_Time` time NOT NULL,
-  `i_Entry_Date` date NOT NULL,
-  `i_Inspector_First_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `i_Inspector_Last_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `i_Inspector_ID_Number` int(11) DEFAULT NULL,
-  `i_Inspector_Certificate` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `i_Type_ID` int(11) NOT NULL,
-  `i_Result` tinyint(4) DEFAULT NULL,
-  `i_Next_Date` date NOT NULL,
-  `i_Reinspection_Date` date NOT NULL,
-  `i_Company` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `i_Diesel_Inspection_Information` text COLLATE latin1_general_ci,
-  `i_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`i_ID`),
-  KEY `fk_inspection_equipment1` (`i_Equipment_ID`),
-  KEY `fk_inspection_inspection_types1` (`i_Type_ID`)
+  `ins_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ins_Equipment_ID` int(11) NOT NULL,
+  `ins_Date` date NOT NULL,
+  `ins_Start_Time` time NOT NULL,
+  `ins_Entry_Date` date NOT NULL,
+  `ins_Inspector_First_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `ins_Inspector_Last_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `ins_Inspector_ID_Number` int(11) DEFAULT NULL,
+  `ins_Inspector_Certificate` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `ins_Type_ID` int(11) NOT NULL,
+  `ins_Result` tinyint(4) DEFAULT NULL,
+  `ins_Next_Date` date NOT NULL,
+  `ins_Reinspection_Date` date NOT NULL,
+  `ins_Company` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `ins_Diesel_Inspection_Information` text COLLATE latin1_general_ci,
+  `ins_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`ins_ID`),
+  KEY `fk_inspection_equipment1` (`ins_Equipment_ID`),
+  KEY `fk_inspection_inspection_types1` (`ins_Type_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --

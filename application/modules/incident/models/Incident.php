@@ -3,6 +3,15 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
 {
     protected $_name = 'incident';
 
+    public function deleteInvolvedEquipment($incidentId)
+    {
+        $rowTable = $this->fetchRow("i_ID = {$this->getDefaultAdapter()->quote($incidentId)}");
+        if ($rowTable) {
+            $rowTable->i_Equipment_ID = null;
+            $rowTable->save();
+        }
+    }
+
     public function getIcidentDescription($id)
     {
         $select = "SELECT *

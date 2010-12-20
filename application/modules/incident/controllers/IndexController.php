@@ -256,5 +256,21 @@ class Incident_IndexController extends Zend_Controller_Action
             $this->_redirect("/incident/list");
         }
     }
+
+    public function deleteInvolvedEquipmentAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        $incidentId = $this->_request->getParam('incidentId');
+
+        if (!empty($incidentId)) {
+            $incidentModel = new Incident_Model_Incident();
+            $incidentModel->deleteInvolvedEquipment($incidentId);
+            $this->_redirect("/incident/index/index/id/$incidentId");
+        } else {
+            $this->_redirect("/incident/list");
+        }
+    }
 }
 

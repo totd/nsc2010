@@ -5,19 +5,19 @@
     <tr>
         <td><label class="required" for="emp_Employer_Name"><span>*</span>Employer:</label></td>
         <td>
-            <div id="error_custom_add_Employment_Table" class="error_custom2"></div>
+            <Input type="hidden" id="emp_ID" name="emp_ID" size="50" maxlength="250" />
             <Input type="text" id="emp_Employer_Name" name="emp_Employer_Name" size="50" maxlength="250" onkeyup="autocomplete_custom()" /> <img src="/images/indicator.gif" id="emp_Employer_Name_indicator" style="display:none;" alt="">
             <div class="ac_results" id="emp_Employer_Name_ul" style="display:none; position: absolute; border: 1px solid rgb(170, 170, 170); width: 324px; background: none repeat scroll 0% 0% rgb(255, 255, 255);" >
             </div>
         </td>
     </tr>
     <tr class="color-dark">
-        <td><label class="required" for="pe_Address1"><span>*</span>Street:</label></td>
+        <td><label class="required" for="emp_Address1"><span>*</span>Street:</label></td>
 		<td>
-            <Input type="text" id="pe_Address1" name="pe_Address1" size="50" maxlength="250" />&nbsp;<br/>
-            <label class="required" for="pe_City"><span>*</span>City:</label><input type="text" id="pe_City" name="pe_City" size=15 maxlength="250" /> &nbsp;
-            <label class="required" for="pe_State"><span>*</span>State:</label>
-                <SELECT id='pe_State' name='pe_State'>
+            <Input type="text" id="emp_Address1" name="emp_Address1" size="50" maxlength="250" />&nbsp;<br/>
+            <label class="required" for="emp_City"><span>*</span>City:</label><input type="text" id="emp_City" name="emp_City" size=15 maxlength="250" /> &nbsp;
+            <label class="required" for="emp_State_ID"><span>*</span>State:</label>
+                <SELECT id='emp_State_ID' name='emp_State_ID'>
                     <OPTION value='-' selected>-</OPTION>
                     <?php
                         foreach($this->stateList as $k => $v)
@@ -28,14 +28,14 @@
                         }
                     ?>
                 </SELECT> &nbsp;
-            <label class="required" for="pe_Postal_Code"><span>*</span>Zip: </label><Input type="text" id="pe_Postal_Code" name="pe_Postal_Code" size=10 maxlength="20" />      
+            <label class="required" for="emp_Postal_Code"><span>*</span>Zip: </label><Input type="text" id="emp_Postal_Code" name="emp_Postal_Code" size=10 maxlength="20" />
         </td>
     </tr>
     <tr>
-        <td><label class="required" for="pe_Phone"><span>*</span>Phone:</label></td>
+        <td><label class="required" for="emp_Phone"><span>*</span>Phone:</label></td>
         <td>
-            <Input type="text" id="pe_Phone" name="pe_Phone" size="30" /> &nbsp;
-            <label class="required" for="pe_Fax"><span>*</span>Fax:</label>&nbsp; <Input type="text" id="pe_Fax" name="pe_Fax" size="30" />
+            <Input type="text" id="emp_Phone" name="emp_Phone" size="30" /> &nbsp;
+            <label class="required" for="emp_Fax"><span>*</span>Fax:</label>&nbsp; <Input type="text" id="emp_Fax" name="emp_Fax" size="30" />
         </td>
     </tr>
     <tr class="color-dark">
@@ -60,39 +60,17 @@
         <td class=""></td>
         <td class="">
             DOT Safety Sensitive:&nbsp;&nbsp;
-            <select name="pe_DOT_Safety_Sensitive_Function">
+            <select name="emp_DOT_Safety_Sensitive_Function" id="emp_DOT_Safety_Sensitive_Function">
                 <option value="NO" selected>No</option>
                 <option value="YES">Yes</option>
             </select>&nbsp;&nbsp;&nbsp;&nbsp;
             FMCSR Regulated:&nbsp;&nbsp;
-            <select name="pe_FMCSR_Regulated">
+            <select name="emp_FMCSR_Regulated" id="emp_FMCSR_Regulated">
                 <option value="NO" selected>No</option>
                 <option value="YES">Yes</option>
             </select>
         </td>
     </tr>
-    <?php if(date("Y-m-d")=="1977-02-24"){?> 
-    <tr >
-        <td class=""></td>
-        <td class="">
-            Interstate:&nbsp;&nbsp;
-            <select name="pe_Interstate">
-                <option value="NO" selected>No</option>
-                <option value="YES">Yes</option>
-            </select>&nbsp;&nbsp;&nbsp;&nbsp;
-            Intrastate:&nbsp;&nbsp;
-            <select name="pe_Intrastate">
-                <option value="NO" selected>No</option>
-                <option value="YES">Yes</option>
-            </select>&nbsp;&nbsp;&nbsp;&nbsp;
-            Intermodal:&nbsp;&nbsp;
-            <select name="pe_Intermodal">
-                <option value="NO" selected>No</option>
-                <option value="YES">Yes</option>
-            </select>
-        </td>
-    </tr>
-        <?php } ?>
     <tr class="color-dark"><td colspan="2">&nbsp;</td></tr>
     <tr>
         <td></td>

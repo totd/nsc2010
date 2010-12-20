@@ -16,7 +16,7 @@ START TRANSACTION;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES latin1 */;
 
 --
 -- Структура таблицы `company`
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   `country_ID` int(11) NOT NULL AUTO_INCREMENT,
   `country_name` varchar(100) NOT NULL,
   PRIMARY KEY (`country_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `custom_document__fax_status` (
   `cdfs_id` int(11) NOT NULL AUTO_INCREMENT,
   `cdfs_status` varchar(50) NOT NULL,
   PRIMARY KEY (`cdfs_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `custom_document__form_category` (
   `cdfc_ID` int(11) NOT NULL AUTO_INCREMENT,
   `cdfc_name` varchar(100) NOT NULL,
   PRIMARY KEY (`cdfc_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `custom_document__form_name` (
   `cdfn_category_id` int(11) NOT NULL,
   `cdfn_name` varchar(255) NOT NULL,
   PRIMARY KEY (`cdfn_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 -- --------------------------------------------------------
 
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `custom_document__form_status` (
   `cdfms_id` int(11) NOT NULL AUTO_INCREMENT,
   `cdfms_status` varchar(50) NOT NULL,
   PRIMARY KEY (`cdfms_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -307,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `driver__employment_type` (
   `det_id` int(11) NOT NULL AUTO_INCREMENT,
   `det_type` varchar(100) NOT NULL,
   PRIMARY KEY (`det_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -326,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
   `deo_Total_Miles` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`deo_ID`),
   UNIQUE KEY `deo_driver_equipment_assigment` (`deo_Driver_ID`,`deo_Equipment_Type_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
@@ -339,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `driver__eye_color` (
   `dhc_id` int(11) NOT NULL AUTO_INCREMENT,
   `dhc_type` varchar(100) NOT NULL,
   PRIMARY KEY (`dhc_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -352,7 +352,7 @@ CREATE TABLE IF NOT EXISTS `driver__gender` (
   `dg_id` int(11) NOT NULL AUTO_INCREMENT,
   `dg_type` varchar(100) NOT NULL,
   PRIMARY KEY (`dg_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -365,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `driver__hair_color` (
   `dhc_id` int(11) NOT NULL AUTO_INCREMENT,
   `dhc_type` varchar(100) NOT NULL,
   PRIMARY KEY (`dhc_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -380,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `driver__hos` (
   `dhos_date` date NOT NULL,
   `dhos_hours` int(11) NOT NULL,
   PRIMARY KEY (`dhos_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -394,7 +394,7 @@ CREATE TABLE IF NOT EXISTS `driver__lrfw` (
   `dlrfw_date` date NOT NULL,
   `dlrfw_from_time` varchar(5) NOT NULL,
   UNIQUE KEY `dlrfw_Driver_ID` (`dlrfw_Driver_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -427,7 +427,7 @@ CREATE TABLE IF NOT EXISTS `driver__status` (
   `ds_id` int(11) NOT NULL AUTO_INCREMENT,
   `ds_type` varchar(100) NOT NULL,
   PRIMARY KEY (`ds_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -612,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `equipment__active_status` (
   `eas_id` int(11) NOT NULL AUTO_INCREMENT,
   `eas_type` varchar(20) NOT NULL,
   PRIMARY KEY (`eas_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -625,7 +625,7 @@ CREATE TABLE IF NOT EXISTS `equipment__new_equipment_status` (
   `enes_id` int(11) NOT NULL AUTO_INCREMENT,
   `enes_type` varchar(10) NOT NULL,
   PRIMARY KEY (`enes_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -740,7 +740,7 @@ CREATE TABLE IF NOT EXISTS `incident__highway_street_travel_direction` (
   `ihstd_id` int(11) NOT NULL AUTO_INCREMENT,
   `ihstd_type` varchar(10) NOT NULL,
   PRIMARY KEY (`ihstd_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -753,7 +753,7 @@ CREATE TABLE IF NOT EXISTS `incident__incident_cause` (
   `iic_id` int(11) NOT NULL AUTO_INCREMENT,
   `iic_type` varchar(50) NOT NULL,
   PRIMARY KEY (`iic_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -853,7 +853,7 @@ CREATE TABLE IF NOT EXISTS `inspection__result` (
   `ir_id` int(11) NOT NULL AUTO_INCREMENT,
   `ir_type` varchar(50) NOT NULL,
   PRIMARY KEY (`ir_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -899,7 +899,7 @@ CREATE TABLE IF NOT EXISTS `license` (
   `l_Points_Score` varchar(10) NOT NULL,
   `l_DOT_Regulated` set('YES','NO') NOT NULL,
   PRIMARY KEY (`l_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1077,7 +1077,7 @@ CREATE TABLE IF NOT EXISTS `service_provider__type` (
   `spt_id` int(11) NOT NULL AUTO_INCREMENT,
   `spt_type` varchar(50) NOT NULL,
   PRIMARY KEY (`spt_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -1090,7 +1090,7 @@ CREATE TABLE IF NOT EXISTS `state` (
   `s_id` int(11) NOT NULL AUTO_INCREMENT,
   `s_name` varchar(2) NOT NULL,
   PRIMARY KEY (`s_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
 
 -- --------------------------------------------------------
 
@@ -1160,7 +1160,7 @@ CREATE TABLE IF NOT EXISTS `user__status` (
   `us_id` int(11) NOT NULL AUTO_INCREMENT,
   `us_type` varchar(50) NOT NULL,
   PRIMARY KEY (`us_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -1200,7 +1200,7 @@ CREATE TABLE IF NOT EXISTS `violation` (
   `v_Company_Number_id` int(11) NOT NULL,
   `v_DOT_Regulated` set('YES','NO') NOT NULL,
   PRIMARY KEY (`v_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1214,7 +1214,7 @@ CREATE TABLE IF NOT EXISTS `violation_type` (
   `vt_Item` varchar(100) NOT NULL DEFAULT '''turn signal'', ''brakes'', ''steering'', ''left front turn signal'', ''rear turn signal trailer'', ''etc''',
   `vt_Item_Specific` varchar(100) NOT NULL DEFAULT '''Right'', ''left'', ''Right Front'', ''Left Rear'', ''etc.''',
   PRIMARY KEY (`vt_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

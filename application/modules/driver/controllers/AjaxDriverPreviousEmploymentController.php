@@ -280,18 +280,28 @@ class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Acti
 
     public function autocompleteEmployerAction()
     {
-        $_GET['q'] = str_replace("'",'"',$_GET['q']);
-        $_GET['q'] = addcslashes($_GET['q'],'"');
-        $rows = Employer_Model_Employer::getRecordByQuery($_GET['q']);
-        if(sizeof($rows)>0){
-            $result = "<ul style='width: 319px;'>";
-            foreach($rows as $k => $v){
-                $result=$result."<li onclick='select_employer({$v['emp_ID']})'>".str_replace($_GET['q'],"<strong>".$_GET['q']."</strong>",$v['emp_Employer_Name']).', '.$v['emp_City'].', '.$v['s_name'].', '.$v['country_name']."</li>";
+        if($_GET['q']!=""){
+            $_GET['q'] = str_replace("'",'"',$_GET['q']);
+            $_GET['q'] = addcslashes($_GET['q'],'"');
+            $rows = Employer_Model_Employer::getRecordByQuery($_GET['q']);
+            if(sizeof($rows)>0){
+                $result = "<ul style='width: 319px;'>";
+                foreach($rows as $k => $v){
+                    $result=$result."<li onclick='select_employer({$v['emp_ID']})'>".str_replace($_GET['q'],"<strong>".$_GET['q']."</strong>",$v['emp_Employer_Name']).', '.$v['emp_City'].', '.$v['s_name'].', '.$v['country_name']."</li>";
+                }
+                $result=$result."</ul>";
+                echo $result;
             }
-            $result=$result."</ul>";
-            echo $result;
-        }
+        }else{echo "";}
 
+    }
+    public function getJsonRecordAction()
+    {
+        $emp_ID = $_REQUEST['emp_ID'];
+        $arr = new Employer_Model_Employer();
+        $arr->getRecord($emp_ID);
+        $json = Zend_Json::encode($arr->getRecord($emp_ID));
+        echo $json;
     }
 
 }

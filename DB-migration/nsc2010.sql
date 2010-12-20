@@ -16,7 +16,7 @@ START TRANSACTION;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES latin1 */;
 
 --
 -- База данных: `nsc2010`
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `driver__hos` (
   `dhos_date` date NOT NULL,
   `dhos_hours` int(11) NOT NULL,
   PRIMARY KEY (`dhos_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `driver__lrfw` (
   `dlrfw_date` date NOT NULL,
   `dlrfw_from_time` varchar(5) NOT NULL,
   UNIQUE KEY `dlrfw_Driver_ID` (`dlrfw_Driver_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
   `deo_Total_Miles` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`deo_ID`),
   UNIQUE KEY `deo_driver_equipment_assigment` (`deo_Driver_ID`,`deo_Equipment_Type_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -141,6 +141,10 @@ CREATE TABLE IF NOT EXISTS `contacts_table` (
   PRIMARY KEY (`ct_ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
+CREATE TABLE `nsc2010`.`country` (
+    `country_ID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    `country_name` VARCHAR( 100 ) NOT NULL
+) ENGINE = InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=5;
 
 -- --------------------------------------------------------
 
@@ -150,14 +154,14 @@ CREATE TABLE IF NOT EXISTS `custom_document__form_name` (
   `cdfn_category_id` int(11) NOT NULL,
   `cdfn_name` varchar(255) NOT NULL,
   PRIMARY KEY (`cdfn_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=15 ;
 
 DROP TABLE IF EXISTS `custom_document__form_category`;
 CREATE TABLE IF NOT EXISTS `custom_document__form_category` (
   `cdfc_ID` int(11) NOT NULL AUTO_INCREMENT,
   `cdfc_name` varchar(100) NOT NULL,
   PRIMARY KEY (`cdfc_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
 --
 -- Структура таблицы `custom_document`
@@ -199,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `custom_document__fax_status` (
   `cdfs_id` int(11) NOT NULL AUTO_INCREMENT,
   `cdfs_status` varchar(50) NOT NULL,
   PRIMARY KEY (`cdfs_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
 
 
 -- --------------------------------------------------------
@@ -213,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `custom_document__form_status` (
   `cdfms_id` int(11) NOT NULL AUTO_INCREMENT,
   `cdfms_status` varchar(50) NOT NULL,
   PRIMARY KEY (`cdfms_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=12 ;
 
 
 -- --------------------------------------------------------
@@ -372,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `driver__employment_type` (
   `det_id` int(11) NOT NULL AUTO_INCREMENT,
   `det_type` varchar(100) NOT NULL,
   PRIMARY KEY (`det_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
 
 
 -- --------------------------------------------------------
@@ -386,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `driver__eye_color` (
   `dhc_id` int(11) NOT NULL AUTO_INCREMENT,
   `dhc_type` varchar(100) NOT NULL,
   PRIMARY KEY (`dhc_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
 
 
 -- --------------------------------------------------------
@@ -400,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `driver__gender` (
   `dg_id` int(11) NOT NULL AUTO_INCREMENT,
   `dg_type` varchar(100) NOT NULL,
   PRIMARY KEY (`dg_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
 
 -- --------------------------------------------------------
@@ -414,7 +418,7 @@ CREATE TABLE IF NOT EXISTS `driver__hair_color` (
   `dhc_id` int(11) NOT NULL AUTO_INCREMENT,
   `dhc_type` varchar(100) NOT NULL,
   PRIMARY KEY (`dhc_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=7 ;
 
 
 -- --------------------------------------------------------
@@ -428,7 +432,7 @@ CREATE TABLE IF NOT EXISTS `driver__status` (
   `ds_id` int(11) NOT NULL AUTO_INCREMENT,
   `ds_type` varchar(100) NOT NULL,
   PRIMARY KEY (`ds_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -594,7 +598,7 @@ CREATE TABLE IF NOT EXISTS `equipment__active_status` (
   `eas_id` int(11) NOT NULL AUTO_INCREMENT,
   `eas_type` varchar(20) NOT NULL,
   PRIMARY KEY (`eas_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -607,7 +611,7 @@ CREATE TABLE IF NOT EXISTS `equipment__new_equipment_status` (
   `enes_id` int(11) NOT NULL AUTO_INCREMENT,
   `enes_type` varchar(10) NOT NULL,
   PRIMARY KEY (`enes_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -740,7 +744,7 @@ CREATE TABLE IF NOT EXISTS `incident_cause` (
   `ic_id` int(11) NOT NULL AUTO_INCREMENT,
   `ic_type` varchar(50) NOT NULL,
   PRIMARY KEY (`ic_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -854,7 +858,7 @@ CREATE TABLE IF NOT EXISTS `inspection__result` (
   `ir_id` int(11) NOT NULL AUTO_INCREMENT,
   `ir_type` varchar(50) NOT NULL,
   PRIMARY KEY (`ir_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -1068,12 +1072,12 @@ CREATE TABLE IF NOT EXISTS `service_provider` (
 DROP TABLE IF EXISTS `service_provider__company_assignment`;
 CREATE TABLE IF NOT EXISTS `service_provider__company_assignment` (
   `spсa_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `spсa_Service_Provider_ID` int(11) NOT NULL,
-  `spсa_Company_ID` int(11) NOT NULL,
+  `spca_Service_Provider_ID` int(11) NOT NULL,
+  `spca_Company_ID` int(11) NOT NULL,
   PRIMARY KEY (`spсa_ID`),
-  UNIQUE KEY `spсa_row` (`spсa_Service_Provider_ID`,`spсa_Company_ID`),
-  KEY `fk_service_provider__company_assignment_service_provider1` (`spсa_Service_Provider_ID`),
-  KEY `fk_service_provider__company_assignment_company1` (`spсa_Company_ID`)
+  UNIQUE KEY `spсa_row` (`spca_Service_Provider_ID`,`spca_Company_ID`),
+  KEY `fk_service_provider__company_assignment_service_provider1` (`spca_Service_Provider_ID`),
+  KEY `fk_service_provider__company_assignment_company1` (`spca_Company_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 --
@@ -1136,7 +1140,7 @@ CREATE TABLE IF NOT EXISTS `service_provider__type` (
   `spt_id` int(11) NOT NULL AUTO_INCREMENT,
   `spt_type` varchar(50) NOT NULL,
   PRIMARY KEY (`spt_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -1149,7 +1153,7 @@ CREATE TABLE IF NOT EXISTS `state` (
   `s_id` int(11) NOT NULL AUTO_INCREMENT,
   `s_name` varchar(2) NOT NULL,
   PRIMARY KEY (`s_id`)
-) ENGINE=InnoDB  ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=52 ;
 
 -- --------------------------------------------------------
 --
@@ -1161,7 +1165,7 @@ CREATE TABLE IF NOT EXISTS `travel_direction` (
   `td_id` int(11) NOT NULL AUTO_INCREMENT,
   `td_type` varchar(10) NOT NULL,
   PRIMARY KEY (`td_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 --
@@ -1177,7 +1181,7 @@ CREATE TABLE `Violation` (
 `v_Driver_Number_id` INT NOT NULL ,
 `v_Company_Number_id` INT NOT NULL ,
 `v_DOT_Regulated` SET( 'YES', 'NO' ) NOT NULL
-) ENGINE = InnoDB  ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE = InnoDB  ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 --
@@ -1259,7 +1263,7 @@ CREATE TABLE IF NOT EXISTS `user__status` (
   `us_id` int(11) NOT NULL AUTO_INCREMENT,
   `us_type` varchar(50) NOT NULL,
   PRIMARY KEY (`us_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 

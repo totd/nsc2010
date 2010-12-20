@@ -85,8 +85,8 @@ ALTER TABLE `inspection`
 -- Ограничения внешнего ключа таблицы `service_provider__company_assignment`
 --
 ALTER TABLE `service_provider__company_assignment`
-  ADD CONSTRAINT `fk_service_provider__company_assignment_company1` FOREIGN KEY (`spсa_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_service_provider__company_assignment_service_provider1` FOREIGN KEY (`spсa_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_service_provider__company_assignment_company1` FOREIGN KEY (`spca_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_service_provider__company_assignment_service_provider1` FOREIGN KEY (`spca_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `service_provider__insurance`

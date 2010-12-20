@@ -315,7 +315,7 @@ INSERT INTO `homebase` (`h_id`, `h_Company_Account_Number`, `h_Carrier_Number`, 
 -- Дамп данных таблицы `incident__incident_cause`
 --
 
-INSERT INTO `incident__incident_cause` (`iic_id`, `iic_type`) VALUES
+INSERT INTO `incident_cause` (`ic_id`, `ic_type`) VALUES
 (1, 'Weather'),
 (2, 'Alcohol'),
 (3, 'Drugs'),

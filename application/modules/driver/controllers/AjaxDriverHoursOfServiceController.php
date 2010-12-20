@@ -23,16 +23,16 @@ class Driver_AjaxDriverHoursOfServiceController extends Zend_Controller_Action
 
         $msg="";
         if($Driver_ID==""){
-            $msg=$msg."Driver ID has been lost! Pleas Contact system administrator!\n";
+            $msg=$msg."Driver ID has been lost! Pleas Contact system administrator!<br/>";
         }/*
         if($dlrfw_date!="" && preg_match("/^[0-9]+$/",$dhos_hours_str)==0){
-            $msg=$msg."Please check Date!\n (mm/dd/yyyy)";
+            $msg=$msg."Please check Date!<br/> (mm/dd/yyyy)";
         }*/
         if($dlrfw_date!="" && preg_match("/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/",$dlrfw_date)==0){
-            $msg=$msg."Please check Date!\n (mm/dd/yyyy)";
+            $msg=$msg."Please check Date!<br/> (mm/dd/yyyy)";
         }
         if($dlrfw_from_time!="" && preg_match("/^[0-9]{1,2}\:[0-9]{1,2}$/",$dlrfw_from_time)==0){
-            $msg=$msg."Please check Time! (hh:mm)\n";
+            $msg=$msg."Please check Time! (hh:mm)<br/>";
         }
         if($msg!=""){echo $msg;}
         else{

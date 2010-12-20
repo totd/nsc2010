@@ -1,4 +1,4 @@
-
+/*
 function addAddressHistoryRecord(){
     dah_Driver_ID = document.getElementsByName("dah_Driver_ID")[0].value;
     dah_Address1 = document.getElementsByName("dah_Address1")[0].value;
@@ -30,4 +30,4 @@ function addAddressHistoryRecord(){
                 alert(data);
             }
            });
-}
+}*/

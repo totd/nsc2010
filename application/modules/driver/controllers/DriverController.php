@@ -1,10 +1,14 @@
-﻿<?php
+<?php
 
 class Driver_DriverController extends Zend_Controller_Action
 {
     var $auth;
     public function init()
     {
+
+            # For menu highlighting:
+            $this->view->currentPage = "DriverFiles";
+            
         $this->auth = Zend_Auth::getInstance();
 
         if ($this->auth->hasIdentity()) {
@@ -71,6 +75,7 @@ class Driver_DriverController extends Zend_Controller_Action
                 $_POST['d_R_A_expiration']=null;
             }
             $_POST['d_ID']=$driverID;
+            $_POST['d_last_update_date']=date("Y-m-d H:i:s");
             unset($_POST['Driver_Personal_Information']);
             if(Driver_Model_Driver::saveDriverInfo($_POST)==true){
                 $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
@@ -86,6 +91,7 @@ class Driver_DriverController extends Zend_Controller_Action
             $driverID = (int)$this->_request->getParam('id');
             $this->view->headScript()->appendFile('/js/driver/ajax_validate_driver.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_driverAddressHistory.js', 'text/javascript');
+            $this->view->headScript()->appendFile('/js/driver/ajax_driver_equipment_operated.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_employment_history.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_driver_license.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_homebase2depot.js', 'text/javascript');
@@ -96,18 +102,23 @@ class Driver_DriverController extends Zend_Controller_Action
             $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/jQ-autocomplite/thickbox-compressed.js', 'text/javascript');
-            $this->view->headScript()->appendFile('/css/JQ-autocomplite/jquery.autocomplete.css', 'text/css');
-            $this->view->headScript()->appendFile('/css/JQ-autocomplite/thickbox.css', 'text/css');
+            $this->view->headScript()->appendFile('/css/jQ-autocomplite/jquery.autocomplete.css', 'text/css');
+            $this->view->headScript()->appendFile('/css/jQ-autocomplite/thickbox.css', 'text/css');
 
             #custom autocomplite handlers goes here:
             $this->view->headScript()->appendFile('/js/driver/ajax_autocomplite.js', 'text/javascript');
 
-
             # Breadcrumbs & page title goes here:
             $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
-            $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-information/id/".$driverID."' >DQF</a>&nbsp;&gt;&nbsp;Driver Profile";
-
+            $this->view->breadcrumbs = "<a href='/driver/index/index?status=All' >DQF</a>&nbsp;&gt;&nbsp;Driver Profile";
             $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
+
+            if($this->auth->vau_role=="NSC_LEVEL_0"){
+                $driverInfo['d_Driver_SSN'] = preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3",$driverInfo['d_Driver_SSN']);
+            }else{
+                $driverInfo['d_Driver_SSN'] = preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3",$driverInfo['d_Driver_SSN']);
+            }
+
             $homebaseList = Homebase_Model_Homebase::getHomebaseList(null,1);
             $depotList = Depot_Model_Depot::getDepotList($driverInfo['d_homebase_ID'],1);
             $homebase = Homebase_Model_Homebase::getHomebase($driverInfo['d_homebase_ID']);
@@ -117,6 +128,8 @@ class Driver_DriverController extends Zend_Controller_Action
             $currentDriverHistoryList->getList($driverID);
             $currentDriverHosList = Driver_Model_DriverHos::getList($driverID,1);
             $currentDriverLrfwRecord = Driver_Model_DriverLrfw::getRecord($driverID);
+            $driverEquipmentOperatedList = Driver_Model_DriverEquipmentOperated::getList($driverID);
+            $equipmentTypeList = new EquipmentType_Model_EquipmentType();
 
             $toDate = date("Y-m-d");
             $arr = explode("-",$toDate);
@@ -134,6 +147,7 @@ class Driver_DriverController extends Zend_Controller_Action
                 }
             }
 
+
             $this->view->driverId = $driverID;
             $this->view->driverInfo = $driverInfo;
             $this->view->homebaseList = $homebaseList;
@@ -144,6 +158,8 @@ class Driver_DriverController extends Zend_Controller_Action
             $this->view->currentDriverHistoryList = $currentDriverHistoryList;
             $this->view->currentDriverHoSList = $week;
             $this->view->currentDriverLrfwRecord = $currentDriverLrfwRecord;
+            $this->view->driverEquipmentOperatedList = $driverEquipmentOperatedList;
+            $this->view->equipmentTypeList = $equipmentTypeList->getList2();
     }
     }
 
@@ -155,6 +171,11 @@ class Driver_DriverController extends Zend_Controller_Action
             # Breadcrumbs & page title goes here:
             $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
             $this->view->pageTitle = "DRIVER QUALIFICATION FILE";
+            $driverID = (int)$this->_request->getParam('driver_id');
+            $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
+
+            $this->view->driverInfo = $driverInfo;
+            $this->view->documentsFormList = Documents_Model_CustomDocument::getList($driverID);
         }
     }
     public function driverCompleteAction()
@@ -164,7 +185,7 @@ class Driver_DriverController extends Zend_Controller_Action
             $driverID = (int)$this->_request->getParam('id');
             $data['d_ID']=$driverID;
             $data['d_Status']=2;
-
+            
             if(Driver_Model_Driver::saveDriverInfo($data)==true){
                 $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
             }
@@ -180,7 +201,7 @@ class Driver_DriverController extends Zend_Controller_Action
             $driverID = (int)$this->_request->getParam('id');
             $data['d_ID']=$driverID;
             $data['d_Status']=5;
-
+            
             if(Driver_Model_Driver::saveDriverInfo($data)==true){
                 $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
             }

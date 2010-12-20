@@ -1,7 +1,7 @@
 <?php
 class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
 {
-    protected $_name = 'previous_employment';
+    protected $_name = 'driver__previous_employment';
 
     
     public static function getList($iDriver)
@@ -11,8 +11,8 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
          $stmt = $db->query('
                       SELECT
                        *
-                      FROM previous_employment
-                      WHERE pe_Driver_ID='.$iDriver.'
+                      FROM driver__previous_employment
+                      WHERE dpe_Driver_ID='.$iDriver.'
         ');
          return $stmt->fetchAll();
         }else{
@@ -27,8 +27,8 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
          $stmt = $db->query('
                       SELECT
                        *
-                      FROM previous_employment
-                      WHERE pe_ID='.$iID.'
+                      FROM driver__previous_employment
+                      WHERE dpe_ID='.$iID.'
         ');
          return $stmt->fetch();
         }else{
@@ -45,13 +45,13 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
     public function deleteRecord($iRecord)
     {
         $table = new Driver_Model_DriverPreviousEmployment();
-        return $table->delete("pe_ID = ".$iRecord);
+        return $table->delete("dpe_ID = ".$iRecord);
     }
     
     public function updateRecord($mData)
     {
         $db = new Driver_Model_DriverPreviousEmployment();
-        $w = "pe_ID = ".(int)$mData['pe_ID'];
+        $w = "dpe_ID = ".(int)$mData['dpe_ID'];
         return $db->update($mData,$w);
     }
 
@@ -62,7 +62,7 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
          $stmt = $db->query('
                       SELECT
                        distinct '.$sField.'
-                      FROM previous_employment
+                      FROM driver__previous_employment
                       WHERE '.$sField.' like "%'.$sQuery.'%"
         ');
          return $stmt->fetchAll();

@@ -60,5 +60,5 @@ $licenseRecord = $this->layout()->driverLicenseRecord;
     </td>
 </tr>
 <tr>
-       <td><span style="margin-left: 45px;" class="blue-button float-left"><a onclick="updateLicenseRecord(<?php echo $licenseRecord['l_id'];?>);">Save</a></span></td>
+       <td><span style="margin-left: 45px;" class="blue-button float-left"><a id="updateLicenseRecord" onclick="this.innerHTML='Updating...'; updateLicenseRecord(<?php echo $licenseRecord['l_id'];?>);">Save</a></span></td>
 </tr>

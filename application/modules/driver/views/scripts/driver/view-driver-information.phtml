@@ -1,4 +1,3 @@
-
 <div class="bottom-nav">
     <ul class="blue-nav">
         <li><span><a href="/driver/Driver/Driver-Complete/id/<?php echo $this->driverId;?>" >Complete</a></span></li>
@@ -26,22 +25,32 @@
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
     <table cellspacing="0" class="inform">
         <tbody>
-        <tr><th colspan="2">Application Information [ <a id="toggleDriverInfoEdit">EDIT</a> ]</th></tr>
+        <tr><th colspan="2"><h2 class="status-ok">Application Information [ <a id="toggleDriverInfoEdit">EDIT</a> ]</h2></th></tr>
         </tbody>
     </table>
     <table cellspacing="0" class="inform" id="idDriverInfoView">
-        <tbody>    
-        <tr><td>Application Type</td>
+        <tbody>
+        <tr class="color-dark"><td>Application Type</td>
             <td><span><?php echo $_SESSION['driver_info']['DriverEmploymentType_list'][$this->driverInfo['d_Employment_Type']];?></span></td>
         </tr>
-        <tr class="color-dark"><td>Entry Date</td>
-            <td><span>
+        <tr>
+            <?php if($_SESSION['driver_info']['DriverStatus_list'][$this->driverInfo['d_Status']]=="Pending"){?>
+                <td>Entry Date</td>
+                <td><span>
                   <?php
                         $date->set($this->driverInfo['d_Entry_Date'],"YYYY-MM-dd");
                   echo  $date->toString("MM/dd/YYYY");
                   ?></span></td>
+            <?php }else{?>
+                <td>Date Of Hire</td>
+            <td><span>
+            <?php
+                if(isset($this->driverInfo['d_Date_Of_Hire'])){
+                $date->set($this->driverInfo['d_Date_Of_Hire'],"YYYY-MM-dd");
+                echo  $date->toString("MM/dd/YYYY");}
+                ?></span></td>
+            <?php }?>
         </tr>
-        <tr><td>Date Of Hire</td><td><span><?php echo $this->driverInfo['d_Date_Of_Hire']; ?></span></td></tr>
         <tr class="color-dark"><td>Status</td><td><span><?php echo $_SESSION['driver_info']['DriverStatus_list'][$this->driverInfo['d_Status']];?></span></td></tr>
         <tr><td>Home Base Location</td><td><?php echo $this->homebase['h_Name'];?></td></tr>
         <tr class="color-dark"><td>Depot</td><td><?php echo $this->depot['dp_Name'];?></td></tr>
@@ -53,10 +62,13 @@
                 Last:&nbsp;<span><?php echo $this->driverInfo['d_Last_Name']; ?></span>
                 Middle:&nbsp;<span><?php echo $this->driverInfo['d_Middle_Name']; ?></span></td></tr>
         <tr class="color-dark"><td>Date Of Birth</td><td><span><?php
-                        $date->set($this->driverInfo['d_Date_Of_Birth'],"YYYY-MM-dd");
-                  echo  $date->toString("MM/dd/YYYY");
+                  $date->set($this->driverInfo['d_Date_Of_Birth'],"YYYY-MM-dd");
+                  echo $date->toString("MM/dd/YYYY");
                   ?></span></td></tr>
-        <tr><td>Social Security #</td><td><span><?php echo $this->driverInfo['d_Driver_SSN']; ?></span></td></tr>
+        <tr><td>Social Security #</td><td><span>
+        <?php
+            echo  $this->driverInfo['d_Driver_SSN'];
+        ?></span></td></tr>
         <tr class="color-dark">
             <td>Medical Card</td>
             <td>Expires:&nbsp;<span><?php
@@ -109,7 +121,7 @@
                   ?></span></td></tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody></table>
-        <?php echo $this->partial('partials/_edit-Driver-Information-Table.phtml',array('driverInfo' => $this->driverInfo,"stateList" => $this->stateList,"homebaseList" => $this->homebaseList,"depotList" => $this->depotList)); ?>
+        <?php echo $this->partial('partials/_edit-Driver-Information-Table.phtml',array('driverInfo' => $this->driverInfo,"stateList" => $this->stateList,"homebaseList" => $this->homebaseList,"depotList" => $this->depotList,"identity" => $this->identity)); ?>
         <script type="text/javascript">
             $('#idDriverInfoEdit').hide(0);
         </script>
@@ -120,7 +132,7 @@
     <table cellspacing="0" class="inform">
         <tbody>
         <tr>
-            <th colspan="2">Driver Addresses<br><span class="red">Please fill in Addresses for the last 3 years.</span></th>
+            <th colspan="2"><h2 class="status-warning">Driver Addresses</h2><br><span class="red">Please fill in Addresses for the last 3 years.</span></th>
         </tr>
         </tbody>
     </table>
@@ -150,7 +162,7 @@
     <table cellspacing="0" class="inform">
         <tbody>
             <tr>
-                <th colspan="2">Commercial Driver's Licenses<br>
+                <th colspan="2"><h2 class="status-warning">Commercial Driver's Licenses</h2><br>
                 <span class="red">Please list all Commercial Driver's Licenses held in last 3 years.</span><br>
                 <span class="discr">Endorsements:&nbsp;<span class="bold">P</span>-Passenger,&nbsp;<span class="bold">T</span>-Doubles &amp; Triples,&nbsp;<span class="bold">H</span>-Hazardous Materials,&nbsp;<span class="bold">N</span>-Tankers,&nbsp;<span class="bold">X</span>-Hazardous &amp; Tankers.</span>
                 </th>
@@ -178,8 +190,35 @@
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
     <table cellspacing="0" class="inform">
         <tbody>
+            <tr>
+                <th colspan="2"><h2 class="status-ok">Equipment Operated</h2><br>
+                <span class="red">Please list all driver's experience.</span><br>
+                <span class="discr"></span>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+    <table cellspacing="0"  class="inform">
+              <tr class="title-dark"><td colspan="2">Equipment Operated [ <a id="toggleDriverEquipmentOperated">EDIT</a> ]</td></tr>
+        <tbody id="driverEquipmentOperatedList">
+        </tbody>
+        <tbody id="driverEquipmentOperatedListEdit">
+            <?php echo $this->partial('partials/_edit-Driver-Equipment-Operated-Table.phtml',array('driverId' => $this->driverId,"deoList" => $this->driverEquipmentOperatedList,"equipmentTypeList" => $this->equipmentTypeList)); ?>
+        </tbody>
+        </table>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            refreshEquipmentOperatedRecords(<?php echo $this->driverId;?>);
+            $('#driverEquipmentOperatedListEdit').hide();
+        });
+    </script>
+</div></div></div>
+
+<div class="post-top"><div class="post-bottom"><div class="post-middle">
+    <table cellspacing="0" class="inform">
+        <tbody>
         <tr>
-            <th colspan="2">Employment History<br>
+            <th colspan="2"><h2 class="status-warning">Employment History</h2><br>
                 <span class="red">Please list all employers in the last 3 years starting from the most recent.<br>If applicant has worked as a driver, list all employers in last 10 years.</span></th>
         </tr>
         </tbody>
@@ -221,7 +260,7 @@
 -->
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
     <table cellspacing="0" class="inform adress">
-        <tr><th colspan="7">Hours Of Service In Previous 7 Days [ <a id="toggleHoS" onclick="">EDIT</a> ]</th></tr>
+        <tr><th colspan="7"><h2 class="status-ok">Hours Of Service In Previous 7 Days [ <a id="toggleHoS" onclick="">EDIT</a> ]</h2></th></tr>
         <tbody id="hos_list">
         <tr align="center">
             <td><?php echo $this->currentDriverHoSList[6]['dhos_date'];?></td>
@@ -243,6 +282,7 @@
         </tr>
         </tbody>
         <?php echo $this->partial('partials/_edit-HoS-Table.phtml',array('currentDriverHoSList' => $this->currentDriverHoSList,"driverId" => $this->driverId)); ?>
+
         <tbody id="lrfw_list">
         <tr>
             <td colspan="7">Last relieved from work:&nbsp;<span></span>Date:&nbsp;
@@ -257,15 +297,24 @@
         </tr>
         </tbody>
         <?php echo $this->partial('partials/_edit-lrfw-Table.phtml',array('currentDriverLrfwRecord' => $this->currentDriverLrfwRecord)); ?>
-        
+
         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody></table>
     <script type="text/javascript">
         $("#edit_hos_list").hide();
         $("#edit_lrfw_list").hide();
     </script>
-</div></div></div>
+</div>
+</div>
+</div>
 
+<div><?php
+    if(isset($this->driverInfo['d_last_update_date'])){
+        $date->set($this->driverInfo['d_last_update_date'],"YYYY-MM-dd HH:mm:ss");
+        echo "<h3 style='padding-top: 15px; padding-left: 28px;'>Last saved: ".$date->toString("MM/dd/YYYY hh:mm")."</h3>";
+    }
+
+?></div>
 <div class="blue-nav">
     <ul>
         <li><span><a href="/driver/driver/dqf/driver_id/<?php echo $this->driverId;?>">Go to DQF</a></span></li>
@@ -278,51 +327,89 @@
 <script type="text/javascript">
     $(function() {
         $("#edit_lrfw_date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#d_Date_Of_Birth").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#d_Medical_Card_Expiration_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#d_TWIC_expiration").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#d_R_A_expiration").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#dah_Start_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#dah_End_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#l_Expiration_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#pe_Employment_Start_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'
   });
         $("#pe_Employment_Stop_Date").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
+   changeMonth: true,
+   changeYear: true,
+            yearRange: '1950:2020'
+  });
+        $(".datepicker").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
    changeMonth: true,
    changeYear: true,
             yearRange: '1950:2020'

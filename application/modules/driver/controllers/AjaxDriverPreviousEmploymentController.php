@@ -52,57 +52,57 @@ class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Acti
         $msg = "";
         if((int)$pe_Driver_ID==null){
             $errors++;
-            $msg=$msg."Driver ID losted.\n";}
+            $msg=$msg."Driver ID losted.<br/>";}
         if($pe_Employer_Name==null){
             $errors++;
-            $msg=$msg."Please, fill Employer!\n";}
+            $msg=$msg."Please, fill Employer!<br/>";}
         if($pe_Position==null){
             $errors++;
-            $msg=$msg."Please, fill Job Description!\n";}
+            $msg=$msg."Please, fill Job Description!<br/>";}
         if($pe_Address1==null){
             $errors++;
-            $msg=$msg."Please, fill Street!\n";}
+            $msg=$msg."Please, fill Street!<br/>";}
         if($pe_City==null){
             $errors++;
-            $msg=$msg."Please fill City.\n";
+            $msg=$msg."Please fill City.<br/>";
         }elseif(preg_match("/[\s\w\.\-]+/",$pe_City)==0){
             $errors++;
-            $msg=$msg."City should contain ONLY Alpha-numeric sybols, and '-.' symbols!\n";}
+            $msg=$msg."City should contain ONLY Alpha-numeric sybols, and '-.' symbols!<br/>";}
         if($pe_State==null){
             $errors++;
-            $msg=$msg."Some error with State field.\n";}
+            $msg=$msg."Some error with State field.<br/>";}
         if($pe_Postal_Code==null){
             $errors++;
-            $msg=$msg."Please fill Zip!\n";
+            $msg=$msg."Please fill Zip!<br/>";
         }elseif(preg_match("/[\d\-]{5,10}/",$pe_Postal_Code)==0){
             $errors++;
-            $msg=$msg."Zip should contain ONLY digits! 5 or 10 digits.\n";}
+            $msg=$msg."Zip should contain ONLY digits! 5 or 10 digits.<br/>";}
         if($pe_Phone==null){
             $errors++;
-            $msg=$msg."Please fill Phone!\n";}
+            $msg=$msg."Please fill Phone!<br/>";}
         $pe_Phone = preg_replace("/[^0-9]+/","",$pe_Phone);
         if(preg_match("/[\d\-\s\(\)]{5,15}/",$pe_Phone)==0){
             $errors++;
-            $msg=$msg."Phone should contain ONLY digits! 9 or 10 digits.\n";}
+            $msg=$msg."Phone should contain ONLY digits! 9 or 10 digits.<br/>";}
         if($pe_Reason_for_Leaving==null){
             $errors++;
-            $msg=$msg."Please, fill Reason For Leaving!\n";}
+            $msg=$msg."Please, fill Reason For Leaving!<br/>";}
         $pe_Fax = preg_replace("/[^0-9]+/","",$pe_Fax);
         if(preg_match("/[\d\-\s\(\)]{5,15}/",$pe_Fax)==0){
             $errors++;
-            $msg=$msg."Fax should contain ONLY digits! 9 or 10 digits.\n";}
+            $msg=$msg."Fax should contain ONLY digits! 9 or 10 digits.<br/>";}
         if($pe_Employment_Start_Date==null){
             $errors++;
-            $msg=$msg."Please select From Date!\n";
+            $msg=$msg."Please select From Date!<br/>";
         }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$pe_Employment_Start_Date)==0){
             $errors++;
-            $msg=$msg."Please, select correct From Date (mm/dd/yyyy)!\n";}
+            $msg=$msg."Please, select correct From Date (mm/dd/yyyy)!<br/>";}
         if($pe_Employment_Stop_Date==null){
             $errors++;
-            $msg=$msg."Please select To Date!\n";
+            $msg=$msg."Please select To Date!<br/>";
         }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$pe_Employment_Stop_Date)==0){
             $errors++;
-            $msg=$msg."Please, select correct To Date (mm/dd/yyyy)!\n";}
+            $msg=$msg."Please, select correct To Date (mm/dd/yyyy)!<br/>";}
         if($errors>0){
             echo $msg;
         }else{
@@ -197,51 +197,51 @@ class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Acti
         $msg = "";
         if((int)$pe_Driver_ID==null){
             $errors++;
-            $msg=$msg."Driver ID losted.\n";}
+            $msg=$msg."Driver ID losted.<br/>";}
         if($pe_Employer_Name==null){
             $errors++;
-            $msg=$msg."Please, fill Employer!\n";}
+            $msg=$msg."Please, fill Employer!<br/>";}
         if($pe_Position==null){
             $errors++;
-            $msg=$msg."Please, fill Job Description!\n";}
+            $msg=$msg."Please, fill Job Description!<br/>";}
         if($pe_Address1==null){
             $errors++;
-            $msg=$msg."Please fill Street!\n";}
+            $msg=$msg."Please fill Street!<br/>";}
         if($pe_City==null){
             $errors++;
-            $msg=$msg."Please fill City.\n";
+            $msg=$msg."Please fill City.<br/>";
         }elseif(preg_match("/[\s\w\.\-]+/",$pe_City)==0){
             $errors++;
-            $msg=$msg."City should contain ONLY Alpha-numeric sybols, and '-.' symbols!\n";}
+            $msg=$msg."City should contain ONLY Alpha-numeric sybols, and '-.' symbols!<br/>";}
         if($pe_State==null){
             $errors++;
-            $msg=$msg."Some error with State field.\n";}
+            $msg=$msg."Some error with State field.<br/>";}
         if($pe_Postal_Code==null){
             $errors++;
-            $msg=$msg."Please fill Zip!\n";
+            $msg=$msg."Please fill Zip!<br/>";
         }elseif(preg_match("/[\d\-]{5,10}/",$pe_Postal_Code)==0){
             $errors++;
-            $msg=$msg."Zip should contain ONLY digits! 5 or 10 digits.\n";}
+            $msg=$msg."Zip should contain ONLY digits! 5 or 10 digits.<br/>";}
         if($pe_Phone==null){
             $errors++;
-            $msg=$msg."Please fill Phone!\n";}
+            $msg=$msg."Please fill Phone!<br/>";}
         $pe_Phone = preg_replace("/[^0-9]+/","",$pe_Phone);
         if(preg_match("/[\d\-\s\(\)]{5,15}/",$pe_Phone)==0){
             $errors++;
-            $msg=$msg."Phone should contain ONLY digits! 9 or 10 digits.\n";}
+            $msg=$msg."Phone should contain ONLY digits! 9 or 10 digits.<br/>";}
         $pe_Fax = preg_replace("/[^0-9]+/","",$pe_Fax);
         if($pe_Employment_Start_Date==null){
             $errors++;
-            $msg=$msg."Please select From Date!\n";
+            $msg=$msg."Please select From Date!<br/>";
         }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$pe_Employment_Start_Date)==0){
             $errors++;
-            $msg=$msg."Please, select correct From Date (mm/dd/yyyy)!\n";} if($pe_Reason_for_Leaving==null){
+            $msg=$msg."Please, select correct From Date (mm/dd/yyyy)!<br/>";} if($pe_Reason_for_Leaving==null){
             $errors++;
-            $msg=$msg."Please, fill Reason For Leaving!\n";}
+            $msg=$msg."Please, fill Reason For Leaving!<br/>";}
         $pe_Fax = preg_replace("/[^0-9]+/","",$pe_Fax);
         if(preg_match("/[\d\-\s\(\)]{5,15}/",$pe_Fax)==0){
             $errors++;
-            $msg=$msg."Fax should contain ONLY digits! 9 or 10 digits.\n";}
+            $msg=$msg."Fax should contain ONLY digits! 9 or 10 digits.<br/>";}
         if($errors>0){
             echo $msg;
         }else{
@@ -280,10 +280,18 @@ class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Acti
 
     public function autocompleteEmployerAction()
     {
-        $result = Driver_Model_DriverPreviousEmployment::getRecordByQuery($_GET['q'],$_GET['searchBy']);
-        foreach($result as $k => $v){
-            echo $v[$_GET['searchBy']]."\n";
+        $_GET['q'] = str_replace("'",'"',$_GET['q']);
+        $_GET['q'] = addcslashes($_GET['q'],'"');
+        $rows = Employer_Model_Employer::getRecordByQuery($_GET['q']);
+        if(sizeof($rows)>0){
+            $result = "<ul style='width: 319px;'>";
+            foreach($rows as $k => $v){
+                $result=$result."<li onclick='select_employer({$v['emp_ID']})'>".str_replace($_GET['q'],"<strong>".$_GET['q']."</strong>",$v['emp_Employer_Name']).', '.$v['emp_City'].', '.$v['s_name'].', '.$v['country_name']."</li>";
+            }
+            $result=$result."</ul>";
+            echo $result;
         }
+
     }
 
 }

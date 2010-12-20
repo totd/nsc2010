@@ -75,3 +75,18 @@ $(document).ready(function() {
         return false;
     });
 });
+// Show/hide Driver Equipment Operated edit form
+$(document).ready(function() {
+    $('#toggleDriverEquipmentOperated').click(function() {
+        if((document.getElementById("toggleDriverEquipmentOperated").innerHTML)=="EDIT"){
+            document.getElementById("toggleDriverEquipmentOperated").innerHTML="CANCEL";
+            $('#driverEquipmentOperatedList').hide();
+            $('#driverEquipmentOperatedListEdit').show(300);
+        }else{
+            document.getElementById("toggleDriverEquipmentOperated").innerHTML="EDIT";
+            $('#driverEquipmentOperatedListEdit').hide();
+            $('#driverEquipmentOperatedList').show(300);
+        }
+        return false;
+    });
+});

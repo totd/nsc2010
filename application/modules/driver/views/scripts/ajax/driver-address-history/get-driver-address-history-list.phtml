@@ -19,8 +19,11 @@ foreach($driverAddressHistoryList as $k => $v)
             }
             ?>
             #<?php echo $previousAddressCount;?>
-            [ <a onclick="editAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)">EDIT</a> ] [ <a onclick="deleteAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)">DELETE</a> ]
+            [ <a onclick="editAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)">EDIT</a> ]
+        <?php if ($this->identity['permissions']['driver_delete_driver_address_history'] === true) { ?>
+            [ <a onclick="deleteAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)">DELETE</a> ]
             <?php
+            }
                         if($previousAddressCount!=1 && $v['dah_Current_Address']=="YES"){
                 echo "<font color='#ff0000'><b>Current address should be the most recent one.</b></font>";
             }
@@ -28,7 +31,7 @@ foreach($driverAddressHistoryList as $k => $v)
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="2">
             Street:&nbsp;<span><?php echo $v['dah_Address1']; ?></span>
             City:&nbsp;<span><?php echo $v['dah_City']; ?></span>
             State:&nbsp;<span><?php echo $stateList[$v['dah_State']]['s_name']; ?></span>
@@ -37,7 +40,7 @@ foreach($driverAddressHistoryList as $k => $v)
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="2">
             At Address:&nbsp;
             From Date:&nbsp;<span>
                 <?php

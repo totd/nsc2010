@@ -25,9 +25,30 @@ START TRANSACTION;
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `driver__previous_employment`
+--
+
+DROP TABLE IF EXISTS `driver__previous_employment`;
+CREATE TABLE IF NOT EXISTS `driver__previous_employment` (
+  `pe_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `pe_Driver_ID` int(11) NOT NULL,
+  `pe_Employer_ID` int(11) NOT NULL,
+  `pe_Employment_Start_Date` date NOT NULL,
+  `pe_Employment_Stop_Date` date NOT NULL,
+  `pe_Position` varchar(24) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Salary` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Reason_for_Leaving` text COLLATE latin1_general_ci,
+  PRIMARY KEY (`pe_ID`),
+  KEY `fk_previous_employment_driver1` (`pe_Driver_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `driver__hos`
 --
 
+DROP TABLE IF EXISTS `driver__hos`;
 CREATE TABLE IF NOT EXISTS `driver__hos` (
   `dhos_ID` int(11) NOT NULL AUTO_INCREMENT,
   `dhos_Driver_ID` int(11) NOT NULL,
@@ -42,12 +63,32 @@ CREATE TABLE IF NOT EXISTS `driver__hos` (
 -- Структура таблицы `driver__lrfw`
 --
 
+DROP TABLE IF EXISTS `driver__lrfw`;
 CREATE TABLE IF NOT EXISTS `driver__lrfw` (
   `dlrfw_Driver_ID` int(11) NOT NULL,
   `dlrfw_date` date NOT NULL,
   `dlrfw_from_time` varchar(5) NOT NULL,
   UNIQUE KEY `dlrfw_Driver_ID` (`dlrfw_Driver_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `driver__equipment_operated`
+--
+
+DROP TABLE IF EXISTS `driver__equipment_operated`;
+CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
+  `deo_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `deo_Driver_ID` int(11) NOT NULL,
+  `deo_Equipment_Type_ID` int(11) NOT NULL,
+  `deo_is_operated` enum('Yes','No') NOT NULL DEFAULT 'No',
+  `deo_From_Date` date NOT NULL,
+  `deo_To_Date` date DEFAULT NULL,
+  `deo_Total_Miles` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`deo_ID`),
+  UNIQUE KEY `deo_driver_equipment_assigment` (`deo_Driver_ID`,`deo_Equipment_Type_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -103,6 +144,21 @@ CREATE TABLE IF NOT EXISTS `contacts_table` (
 
 -- --------------------------------------------------------
 
+DROP TABLE IF EXISTS `custom_document__form_name`;
+CREATE TABLE IF NOT EXISTS `custom_document__form_name` (
+  `cdfn_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `cdfn_category_id` int(11) NOT NULL,
+  `cdfn_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`cdfn_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+
+DROP TABLE IF EXISTS `custom_document__form_category`;
+CREATE TABLE IF NOT EXISTS `custom_document__form_category` (
+  `cdfc_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `cdfc_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`cdfc_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
 --
 -- Структура таблицы `custom_document`
 --
@@ -113,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `custom_document` (
   `cd_Driver_ID` int(11) DEFAULT NULL,
   `cd_Company_ID` int(11) DEFAULT NULL,
   `cd_Homebase_ID` int(11) DEFAULT NULL,
-  `cd_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `cd_Form_Name_ID` tinyint(4) not NULL,
   `cd_Description` text COLLATE latin1_general_ci,
   `cd_Logo` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `cd_Fax_Status_id` tinyint(4) NOT NULL DEFAULT '1',
@@ -124,6 +180,7 @@ CREATE TABLE IF NOT EXISTS `custom_document` (
   `cd_Archived` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
   `cd_Electronic_Signature` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `cd_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `cd_Current_Page` TINYINT( 4 ) NOT NULL DEFAULT '1',
   PRIMARY KEY (`cd_ID`),
   KEY `fk_custom_document_company1` (`cd_Company_ID`),
   KEY `fk_custom_document_driver1` (`cd_Driver_ID`),
@@ -222,6 +279,7 @@ CREATE TABLE IF NOT EXISTS `driver` (
   `d_TWIC_expiration` date DEFAULT NULL,
   `d_R_A` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
   `d_R_A_expiration` date DEFAULT NULL,
+  `d_last_update_date` DATETIME DEFAULT NULL,
   PRIMARY KEY (`d_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=17 ;
 
@@ -907,38 +965,26 @@ CREATE TABLE IF NOT EXISTS `passenger` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `previous_employment`
+-- Структура таблицы `employer`
 --
 
-DROP TABLE IF EXISTS `previous_employment`;
-CREATE TABLE IF NOT EXISTS `previous_employment` (
-  `pe_Driver_ID` int(11) NOT NULL,
-  `pe_Employer_Name` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Employment_Start_Date` date NOT NULL,
-  `pe_Employment_Stop_Date` date NOT NULL,
-  `pe_Position` varchar(24) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Salary` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Reason_for_Leaving` text COLLATE latin1_general_ci,
-  `pe_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `pe_City` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_State` tinyint(2) NOT NULL,
-  `pe_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Phone` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Fax` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_DOT_Safety_Sensitive_Function` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_FMCSR_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Intermodal` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Interstate` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Intrastate` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_ID` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`pe_ID`),
-  KEY `fk_previous_employment_driver1` (`pe_Driver_ID`)
+DROP TABLE IF EXISTS `employer`;
+CREATE TABLE IF NOT EXISTS `employer` (
+  `emp_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `emp_Employer_Name` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `emp_City` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_State_ID` tinyint(2) NOT NULL,
+  `emp_Country_ID` tinyint(2) NOT NULL,
+  `emp_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Phone` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Fax` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_DOT_Safety_Sensitive_Function` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_FMCSR` enum('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT 'NO',
+  `emp_approved` enum('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT 'NO',
+  PRIMARY KEY (`emp_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `previous_employment`
---
 
 
 -- --------------------------------------------------------
@@ -960,8 +1006,8 @@ CREATE TABLE IF NOT EXISTS `role` (
 -- `License`
 --
 
-DROP TABLE IF EXISTS `License`;
-CREATE TABLE `License` (
+DROP TABLE IF EXISTS `license`;
+CREATE TABLE `license` (
 `l_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `l_Driver_License_Number` VARCHAR( 24 ) NOT NULL ,
 `l_Driver_Issue_State_id` INT NOT NULL ,

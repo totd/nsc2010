@@ -44,11 +44,10 @@
       <tr class="table-title">
           <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_First_Name-"; if($this->orderBy[0]=="d_First_Name"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >First Name</a></td>
           <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Last_Name-"; if($this->orderBy[0]=="d_Last_Name"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Last Name</a></td>
-          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Driver_SSN-"; if($this->orderBy[0]=="d_Driver_SSN"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >SSN</a></td>
-          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Employment_Type-"; if($this->orderBy[0]=="d_Employment_Type"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Employment</a></td>
-          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Status-"; if($this->orderBy[0]=="d_Status"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Status</a></td>
+          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Date_Of_Birth-"; if($this->orderBy[0]=="d_Date_Of_Birth"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >DOB</a></td>
+          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Employment_Type-"; if($this->orderBy[0]=="d_Employment_Type"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Application</a> / <a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Date_Of_Hire-"; if($this->orderBy[0]=="d_Date_Of_Hire"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Hire Date</a></td>
           <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Entry_Date-"; if($this->orderBy[0]=="d_Entry_Date"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Entry Date</a></td>
-          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Driver_Alternate_ID-"; if($this->orderBy[0]=="d_Driver_Alternate_ID"){echo $this->orderBy[1];}else{echo "asc";} ?>"  class="whiteLink">Account</a></td>
+          <td><a href="<?php echo preg_replace("/[\?\&]order_by[=][a-zA-Z0-9_\-]+\-[ascdesc]+/","",$_SERVER['REQUEST_URI'])."&order_by=d_Status-"; if($this->orderBy[0]=="d_Status"){echo $this->orderBy[1];}else{echo "asc";} ?>" class="whiteLink" >Status</a></td>
           <td><a href=""  class="whiteLink">Action</a></td>
         </tr>
 
@@ -58,7 +57,7 @@
         $row=1;
 
 ?>
-        <?php echo $this->partial('partials/_driver-row.phtml', array('drivers'=>$this->Drivers)); ?>
+        <?php echo $this->partial('partials/_driver-row-archives.phtml', array('drivers'=>$this->Drivers,'identity'=>$this->identity)); ?>
 
     <?php
     $row++;

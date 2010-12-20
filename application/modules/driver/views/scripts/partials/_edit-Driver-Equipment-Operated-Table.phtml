@@ -1,0 +1,66 @@
+<?php
+$etList = $this->equipmentTypeList;
+$deoList = $this->deoList;
+$date = new Zend_Date();
+
+    foreach($etList as $k=>$v){
+        $match = 0;
+        for($i=0;$i<sizeof($deoList);$i++){
+            if($v['et_id']==$deoList[$i]['deo_Equipment_Type_ID']){
+                $match++;
+?>
+    <tr>
+        <td>
+            <input type="hidden" name="deo_ID" value="<?php echo $deoList[$i]['deo_ID']?>" />
+            <input type="hidden" name="deo_Driver_ID" value="<?php echo $this->driverId;?>" />
+            <input type="hidden" name="deo_Equipment_Type_ID" value="<?php echo $deoList[$i]['deo_Equipment_Type_ID']?>" />
+        <?php echo $v['et_type'];?>
+        </td>
+        <td>
+        <?php
+            $date->set($deoList[$i]['deo_From_Date'],"YYYY-MM-dd");
+            $deo_From_Date = $date->toString("MM/dd/YYYY");
+            $date->set($deoList[$i]['deo_To_Date'],"YYYY-MM-dd");
+            $deo_To_Date = $date->toString("MM/dd/YYYY");
+            ?>
+                Show:&nbsp;<select name="deo_is_operated">
+                    <option value="No" <?php if($deoList[$i]['deo_is_operated']=="No"){echo " selected='selected' ";} ?>>No</option>
+                    <option value="Yes" <?php if($deoList[$i]['deo_is_operated']=="Yes"){echo " selected='selected' ";} ?>>Yes</option>
+                </select>
+                From Date:&nbsp;<input name="deo_From_Date" class="datepicker" size="7" maxlength="10" readonly="readonly" value="<?php echo $deo_From_Date;?>" />
+                To Date:&nbsp;<input name="deo_To_Date" class="datepicker" size="7" maxlength="10" readonly="readonly" value="<?php echo $deo_To_Date;?>" />
+                Total Miles:&nbsp;<input name="deo_Total_Miles" value="<?php echo $deoList[$i]['deo_Total_Miles'];?>" />
+        </td>
+    </tr>
+
+<?php
+            }}
+            if($match==0){
+?>
+    <tr>
+        <td>
+            <input type="hidden" name="deo_ID" value="" />
+            <input type="hidden" name="deo_Driver_ID" value="<?php echo $this->driverId;?>" />
+            <input type="hidden" name="deo_Equipment_Type_ID" value="<?php echo $v['et_id']?>" />
+        <?php echo $v['et_type'];?>
+        </td>
+        <td>
+            Show:&nbsp;<select name="deo_is_operated">
+                <option value="No" selected='selected'>No</option>
+                <option value="Yes">Yes</option>
+            </select>
+            From Date:&nbsp;<input name="deo_From_Date" class="datepicker" size="7" maxlength="10" readonly="readonly" value="" />
+            To Date:&nbsp;<input name="deo_To_Date" class="datepicker" size="7" maxlength="10" readonly="readonly" value="" />
+            Total Miles:&nbsp;<input name="deo_Total_Miles" value="" />
+        </td>
+    </tr>
+<?php
+            }
+        }
+?>
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            <span class="blue-button float-left"><a id="validateDriverEquipmentOperated" onclick="validateDriverEquipmentOperated()">Save</a></span>
+        </td>
+    </tr>

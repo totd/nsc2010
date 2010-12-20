@@ -9,7 +9,9 @@
 ?>>
     <td><?php echo $Drivers[$i]['d_First_Name']; ?></td>
     <td><?php echo $Drivers[$i]['d_Last_Name']; ?></td>
-    <td><?php echo $Drivers[$i]['d_Driver_SSN']; ?></td>
+    <td><?php
+            echo  $Drivers[$i]['d_Driver_SSN'];
+         ?></td>
     <td>
     <?php
     echo  $_SESSION['driver_info']['DriverEmploymentType_list'][$Drivers[$i]['d_Employment_Type']];

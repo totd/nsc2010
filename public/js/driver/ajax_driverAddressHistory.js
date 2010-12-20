@@ -37,10 +37,22 @@ function addAddressHistoryRecord(){
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                document.getElementById("addAddressHistoryRecord").setAttribute('class', '');
+                //document.getElementById("addAddressHistoryRecord").addClass("status-ok");
+                //document.getElementById("addAddressHistoryRecord").addClass("status-warning");
+                document.getElementById("addAddressHistoryRecord").innerHTML="Add new Address";
+                return false;
             }
            });
-}
+    }
 function deleteAddressHistoryRecord(dah_ID,dah_Driver_ID) {
         $.get("/driver/ajax-Driver-Address-History/delete-Record/",
         {
@@ -59,7 +71,7 @@ function refreshAddressHistoryRecords(dah_Driver_ID) {
                 $("#currentDriverAddressHistoryList").hide(250);
                 document.getElementById("currentDriverAddressHistoryList").innerHTML=data;
                 $("#currentDriverAddressHistoryList").show(250);
-            clearNewDriverAddressForm();
+                clearNewDriverAddressForm();
                 return true;
            });
 }
@@ -77,14 +89,20 @@ function editAddressHistoryRecord(record_id,dah_Driver_ID){
                 document.getElementById("addressRecordID_"+record_id).innerHTML="";
                 document.getElementById("addressRecordID_"+record_id).innerHTML=data;
                 $('#edit_dah_Start_Date').datepicker({
-                   changeMonth: true,
-                   changeYear: true,
-                            yearRange: '1950:2020'
+                    showOn: "button",
+                    buttonImage: "/images/select-data.gif",
+                    buttonImageOnly: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1950:2020'
                   });
                 $('#edit_dah_End_Date').datepicker({
-                   changeMonth: true,
-                   changeYear: true,
-                            yearRange: '1950:2020'
+                    showOn: "button",
+                    buttonImage: "/images/select-data.gif",
+                    buttonImageOnly: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1950:2020'
                   });
 
                 $("#edit_dah_City").focus().autocomplete("/driver/ajax-driver-address-history/autocomplete-Address-History/",{
@@ -95,12 +113,21 @@ function editAddressHistoryRecord(record_id,dah_Driver_ID){
                 });
                 return true;
             }if(data==false){
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 }
 function updateAddressHistoryRecord(dah_ID){
-
+                document.getElementById("addAddressHistoryRecord").setAttribute('class', 'button-updating');
+    document.getElementById("updateAddressHistoryRecord").innerHTML='Updating...';
     dah_ID = document.getElementsByName("edit_dah_ID")[0].value;
     dah_Driver_ID = document.getElementsByName("edit_dah_Driver_ID")[0].value;
     dah_Address1 = document.getElementsByName("edit_dah_Address1")[0].value;
@@ -130,7 +157,17 @@ function updateAddressHistoryRecord(dah_ID){
                 clearNewDriverAddressForm();
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                document.getElementById("addAddressHistoryRecord").setAttribute('class', '');
+                document.getElementById("updateAddressHistoryRecord").innerHTML="Save";
+                return false;
             }
            });
     

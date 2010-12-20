@@ -56,3 +56,18 @@ line-height:29px !important;
 padding:0 30px !important;
 text-decoration:none !important;
 }
+
+
+table.inform td a span {
+	padding-right: 0px;
+}
+
+.ac_results ul{
+    padding: 5px;
+}
+.ac_results ul li{
+    line-height:14px;
+}
+.ac_results ul li:hover{
+    background:#E6E8EE;
+}

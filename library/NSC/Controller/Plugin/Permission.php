@@ -16,6 +16,11 @@ class NSC_Controller_Plugin_Permission extends  Zend_Controller_Plugin_Abstract
                     'equipment/information-worksheet', 'save-assignment');
             $this->identity->permissions->equipment_modify_permission = $permission->doesRoleHaveResource($this->identity->vau_role,
                     'equipment/information-worksheet', 'completed');
+
+            /***** DRIVERS SECTION *****/
+
+            $this->identity->permissions->driver_delete_driver_address_history = $permission->doesRoleHaveResource($this->identity->vau_role,
+                    'driver/Ajax-Driver-Address-History', 'delete-Record');
         }
     }
 }

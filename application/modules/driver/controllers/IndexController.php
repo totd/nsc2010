@@ -9,7 +9,6 @@ class Driver_IndexController extends Zend_Controller_Action
     public function init()
     {
         $this->auth = Zend_Auth::getInstance();
-
         if ($this->auth->hasIdentity()) {
             $this->view->identity = $this->auth->getIdentity();
             $this->driver = new Driver_Model_Driver();
@@ -58,8 +57,20 @@ class Driver_IndexController extends Zend_Controller_Action
             $this->view->page = $page;
 
 
+            # For menu highlighting:
+            $this->view->currentPage = "NewDriver";
+            
             # returns list of temporary driver accounts
             $Drivers = $this->driver->getDrivers($where,$orderBy,$page);
+            if($this->auth->vau_role=="NSC_LEVEL_0"){
+                for($i=0;$i<sizeof($Drivers);$i++){
+                    $Drivers[$i]['d_Driver_SSN'] = preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3",$Drivers[$i]['d_Driver_SSN']);
+                }
+            }else{
+                for($i=0;$i<sizeof($Drivers);$i++){
+                    $Drivers[$i]['d_Driver_SSN'] = preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3",$Drivers[$i]['d_Driver_SSN']);
+                }
+            }
             if (sizeof($Drivers) > 0) {
                 $this->view->Drivers = $Drivers;
                 $this->view->orderBy = $orderBy;
@@ -69,12 +80,6 @@ class Driver_IndexController extends Zend_Controller_Action
                 $this->view->orderBy = $orderBy;
             }
 
-            $auth = Zend_Auth::getInstance();
-            if ($auth->hasIdentity()) {
-                $this->view->identity = $auth->getIdentity();
-            }else{
-                return $this->_redirect('user/login');
-            }
         }
     }
 
@@ -116,9 +121,12 @@ class Driver_IndexController extends Zend_Controller_Action
             }
             $this->view->page = $page;
 
+            # For menu highlighting:
+            $this->view->currentPage = "DriverFiles";
 
             # returns list of DQF
             $Drivers = $this->driver->getDrivers($where,$orderBy,$page);
+
             if (sizeof($Drivers) > 0) {
                 $this->view->Drivers = $Drivers;
                 $this->view->orderBy = $orderBy;
@@ -176,9 +184,12 @@ class Driver_IndexController extends Zend_Controller_Action
             }
             $this->view->page = $page;
 
+            # For menu highlighting:
+            $this->view->currentPage = "DriverArchives";
 
             # returns list of DQF
             $Drivers = $this->driver->getDrivers($where,$orderBy,$page);
+
             if (sizeof($Drivers) > 0) {
                 $this->view->Drivers = $Drivers;
                 $this->view->orderBy = $orderBy;
@@ -241,6 +252,15 @@ class Driver_IndexController extends Zend_Controller_Action
 
 
             $Drivers = $this->driver->getDrivers($where,$orderBy,$page);
+            if($this->auth->vau_role=="NSC_LEVEL_0"){
+                for($i=0;$i<sizeof($Drivers);$i++){
+                    $Drivers[$i]['d_Driver_SSN'] = preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3",$Drivers[$i]['d_Driver_SSN']);
+                }
+            }else{
+                for($i=0;$i<sizeof($Drivers);$i++){
+                    $Drivers[$i]['d_Driver_SSN'] = preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3",$Drivers[$i]['d_Driver_SSN']);
+                }
+            }
             if (sizeof($Drivers) > 0) {
                 $this->view->incident_id = $incident_id;
                 $this->view->Drivers = $Drivers;
@@ -257,6 +277,13 @@ class Driver_IndexController extends Zend_Controller_Action
                 return $this->_redirect('user/login');
             }
         }
+    }
+
+    public function reportsAction()
+    {
+        # For menu highlighting:
+        $this->view->currentPage = "DriverReports";
+    
     }
 
 

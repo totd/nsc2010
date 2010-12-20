@@ -1,0 +1,39 @@
+
+<?php
+    $date = new Zend_Date();
+    $Drivers=$this->drivers;
+    for($i=0;$i<sizeof($Drivers);$i++){
+?>
+<tr <?php
+    if(gettype($i/2) == 'double'){ echo " class='color-dark' ";}
+?>>
+    <td><?php echo $Drivers[$i]['d_First_Name']; ?></td>
+    <td><?php echo $Drivers[$i]['d_Last_Name']; ?></td>
+    <td>
+    <?php
+        $date->set($Drivers[$i]['d_Date_Of_Birth'],"YYYY-MM-dd");
+        echo  $date->toString("MM/dd/YYYY");
+
+    ?></td>
+    <td>
+    <?php
+    echo  $_SESSION['driver_info']['DriverEmploymentType_list'][$Drivers[$i]['d_Employment_Type']];
+        if(isset($Drivers[$i]['d_Date_Of_Hire'])){
+    ?>&nbsp;/
+        <?php
+            $date->set($Drivers[$i]['d_Date_Of_Hire'],"YYYY-MM-dd");
+            echo  $date->toString("MM/dd/YYYY");
+        }else{echo " / N/A";}
+    ?>
+    </td>
+    <td><?php echo $_SESSION['driver_info']['DriverStatus_list'][$Drivers[$i]['d_Status']]; ?></td>
+    <td>
+    <?php
+        $date->set($Drivers[$i]['d_Entry_Date'],"YYYY-MM-dd");
+        echo  $date->toString("MM/dd/YYYY");
+
+    ?>
+    </td>
+    <td class="link-profile"><a href="/driver/driver/view-driver-Information/id/<?php echo $Drivers[$i]['d_ID'];?>" >View</a>&nbsp;|&nbsp;<a href="#">Accounts</a></td>
+</tr>
+        <?php } ?>

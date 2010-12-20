@@ -158,22 +158,21 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
     {
         $result = null;
         $where = '';
-        $select = 'SELECT d_ID, ';
+        $select = 'SELECT ';
 
-        if (is_array($fields) && !empty ($str)) {
+        if (!is_array($fields) && !empty ($str)) {
             for ($i = 0; $i < count($fields); $i++) {
-                $field = $fields[$i];
+                $field = $this->getDefaultAdapter()->quote($fields[$i]);
                 if ($i > 0) {
                     $where .= " OR ";
                     $select .= " , ";
                 } else if ($i === 0) {
                     $where .= ' WHERE ';
                 }
-                $where .= " $field LIKE '%$str%' ";
+                $where .= " $field LIKE '%{$this->getDefaultAdapter()->quote($str)}%' ";
                 $select .= " $field ";
             }
 
-            $select .= " FROM driver ";
             $select .= $where;
 
             $stmt = $this->getDefaultAdapter()->query($select);

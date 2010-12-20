@@ -6,6 +6,9 @@ class Driver_NewDriverController extends Zend_Controller_Action
     var $auth;
     public function init()
     {
+            # For menu highlighting:
+            $this->view->currentPage = "NewDriver";
+            
         $this->auth = Zend_Auth::getInstance();
 
         if ($this->auth->hasIdentity()) {
@@ -42,6 +45,7 @@ class Driver_NewDriverController extends Zend_Controller_Action
             $this->view->breadcrumbs = "<a href='/driver/index/index'>DQF</a>&nbsp;&gt;&nbsp;New Driver - Look for a New Driver";
             $this->view->pageTitle = "NEW DRIVER - LOOK FOR A DRIVER";
 
+            
             # origin - http://www.driverqualificationonline.com/ProdClient/Application/NewDriverSearch.asp
             # pre-create Driver search. If there no such Driver in DB - offer to create new one.
             $auth = Zend_Auth::getInstance();

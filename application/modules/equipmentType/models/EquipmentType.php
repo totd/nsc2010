@@ -16,4 +16,13 @@ class EquipmentType_Model_EquipmentType extends Zend_Db_Table_Abstract
                 ->order('et_id');
         return $this->fetchAll($select);
     }
+
+
+    public function getList2()
+    {
+        $table = new EquipmentType_Model_EquipmentType();
+        $row = $table->fetchAll("et_id > 0"," et_id asc ");
+        $rowsetArray = $row->toArray();
+        return $rowsetArray;
+    }
 }

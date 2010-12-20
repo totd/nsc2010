@@ -26,4 +26,3 @@ class State_Model_State  extends Zend_Db_Table_Abstract
     }
 
 }
-

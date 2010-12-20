@@ -63,7 +63,7 @@
         $row=1;
 
 ?>
-        <?php echo $this->partial('partials/_driver-row.phtml', array('drivers'=>$this->Drivers)); ?>
+        <?php echo $this->partial('partials/_driver-row.phtml', array('drivers'=>$this->Drivers,'identity'=>$this->identity)); ?>
 
     <?php
     $row++;
@@ -76,7 +76,9 @@
         }elseif($this->page>1)
         {
             echo (20*($this->page-1));
-        }
+        }else{
+                $this->page=1;
+          }
     ?> to <?php
         if((20*($this->page))<sizeof($this->allDrivers)){
             echo (20*($this->page));

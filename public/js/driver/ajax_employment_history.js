@@ -68,7 +68,17 @@ function addEmploymentHistoryRecord(){
                 document.getElementById("toggleEmploymentHistoryAdd").innerHTML="Show";
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                document.getElementById("addEmploymentHistoryRecord").setAttribute('class', '');
+                document.getElementById("addEmploymentHistoryRecord").innerHTML='Add new Employer';
+                return false;
             }
            });
 }
@@ -106,8 +116,22 @@ function editEmploymentHistoryRecord(record_id,pe_Driver_ID){
                 document.getElementById("driver_pe_id_"+record_id).innerHTML="";
                 document.getElementById("driver_pe_id_"+record_id).innerHTML=data;
 
-                $(function(){$('#edit_pe_Employment_Start_Date').datepicker();});
-                $(function(){$('#edit_pe_Employment_Stop_Date').datepicker();});
+                $('#edit_pe_Employment_Start_Date').datepicker({
+                    showOn: "button",
+                    buttonImage: "/images/select-data.gif",
+                    buttonImageOnly: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1950:2020'
+                  });
+                $('#edit_pe_Employment_Stop_Date').datepicker({
+                    showOn: "button",
+                    buttonImage: "/images/select-data.gif",
+                    buttonImageOnly: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1950:2020'
+                  });
 
                 $("#edit_pe_Employer_Name").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
                     extraParams:{"searchBy":'pe_Employer_Name'}
@@ -132,12 +156,21 @@ function editEmploymentHistoryRecord(record_id,pe_Driver_ID){
                 });
                 return true;
             }if(data==false){
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 }
 function updateEmploymentHistoryRecord(dah_ID){
-
+    document.getElementById("updateEmploymentHistoryRecord").setAttribute('class', 'button-updating');
+    document.getElementById("updateEmploymentHistoryRecord").innerHTML='Updating...';
     pe_ID = document.getElementsByName("edit_pe_ID")[0].value;
     pe_Driver_ID = document.getElementsByName("edit_pe_Driver_ID")[0].value;
     pe_Employer_Name = document.getElementsByName("edit_pe_Employer_Name")[0].value;
@@ -183,7 +216,17 @@ function updateEmploymentHistoryRecord(dah_ID){
                 clearNewEmploymentHistoryForm();
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                document.getElementById("updateEmploymentHistoryRecord").setAttribute('class', '');
+                document.getElementById("updateEmploymentHistoryRecord").innerHTML='Save';
+                return false;
             }
            });
 

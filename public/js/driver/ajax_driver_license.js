@@ -9,6 +9,7 @@ function clearNewLicenseForm(){
         document.getElementsByName("l_License_Endorsements")[i].checked=false;
     }
     document.getElementsByName("l_Points_Score")[0].value="";
+    $("#add_driver_License_Table").hide();
 }
 function addLicenseRecord(){
     l_Driver_ID = document.getElementsByName("l_Driver_ID")[0].value;
@@ -26,7 +27,7 @@ function addLicenseRecord(){
     }
     l_Points_Score = document.getElementsByName("l_Points_Score")[0].value;
 
-    $.get("/Driver/ajax-Driver-License/add-Record/",
+    $.get("/driver/ajax-Driver-License/add-Record/",
         {
             l_Driver_ID: l_Driver_ID,
             l_Driver_License_Number: ""+l_Driver_License_Number+"",
@@ -41,9 +42,20 @@ function addLicenseRecord(){
             if(data==1){
                 refreshLicenseRecords(l_Driver_ID);
                 clearNewLicenseForm();
+                document.getElementById("toggleDriverLicenseAdd").innerHTML='SHOW';
                 return true;
             }else{
-                alert(""+data+"");
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                document.getElementById("addLicenseRecord").setAttribute('class', '');
+                document.getElementById("addLicenseRecord").innerHTML='Add new License';
+                return false;
             }
            });
 }
@@ -81,6 +93,9 @@ function editLicenseRecord(l_ID,l_Driver_ID){
                 document.getElementById("driver_license_"+l_ID).innerHTML="";
                 document.getElementById("driver_license_"+l_ID).innerHTML=data;
                 $('#edit_l_Expiration_Date').datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
                    changeMonth: true,
                    changeYear: true,
                             yearRange: '1950:2020'
@@ -88,11 +103,21 @@ function editLicenseRecord(l_ID,l_Driver_ID){
                // refreshLicenseRecords(l_Driver_ID);
                 return true;
             }if(data==false){
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
             }
            });
 }
 function updateLicenseRecord(l_ID){
+    document.getElementById("updateLicenseRecord").setAttribute('class', 'button-updating');
+    document.getElementById("updateLicenseRecord").innerHTML='Updating...';
     l_ID = document.getElementsByName("edit_l_ID")[0].value;
     l_Driver_ID = document.getElementsByName("edit_l_Driver_ID")[0].value;
     l_Driver_License_Number = document.getElementsByName("edit_l_Driver_License_Number")[0].value;
@@ -127,7 +152,17 @@ function updateLicenseRecord(l_ID){
                 clearNewLicenseForm();
                 return true;
             }else{
-                alert(data);
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                document.getElementById("updateLicenseRecord").setAttribute('class', '');
+                document.getElementById("updateLicenseRecord").innerHTML="Save";
+                return false;
             }
            });
 

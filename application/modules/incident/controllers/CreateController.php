@@ -109,9 +109,9 @@ class Incident_CreateController extends Zend_Controller_Action
         }
 
         if ($this->_request->isPost()) {
-            $travelDirection = $this->_request->getPost('i_Highway_Street_Travel_Direction', '');
+            $travelDirection = $this->_request->getPost('i_Travel_Direction_ID', '');
             if (!empty ($travelDirection)) {
-                $incidentDataArray['i_Highway_Street_Travel_Direction'] = $travelDirection;
+                $incidentDataArray['i_Travel_Direction_ID'] = $travelDirection;
             }
 
             $street = $this->_request->getPost('i_Collision_Highway_Street', '');
@@ -181,7 +181,7 @@ class Incident_CreateController extends Zend_Controller_Action
 
         $selectTravelDirectionArray = array('' => array('text' => '-'));
         foreach ($travelDirections as $travelDirection) {
-            $selectTravelDirectionArray[$travelDirection->ihstd_id] = array('text' => $travelDirection->ihstd_type);
+            $selectTravelDirectionArray[$travelDirection->td_id] = array('text' => $travelDirection->td_type);
         }
         $selectTravelDirectionArray['']['selected'] = true;
         $this->view->travelDirections = $selectTravelDirectionArray;

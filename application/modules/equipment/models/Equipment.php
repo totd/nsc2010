@@ -3,7 +3,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 {
     protected $_name = 'equipment';
 
-    protected $_requiredCopleteFields = array (
+    protected $_requiredCopmleteFields = array (
         'e_Unit_Number' => 'unit',
         'e_License_Expiration_Date' => 'license expiration date',
         'e_License_Number' => 'license plate number',
@@ -105,7 +105,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         if (isset($filterOptions['Status'])) {
             if ($filterOptions['Status'] != 'All') {
                 $where .= " AND eas_type = {$this->getDefaultAdapter()->quote($filterOptions['Status'])}";
-            } else {
+            } else if (!is_null($excludeStatus)) {
                 $where .= " AND eas_type <> {$this->getDefaultAdapter()->quote($excludeStatus)}";
             }
         }
@@ -172,8 +172,8 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         $row = $this->getRow($id);
 
         foreach ($row as $field => $value) {
-            if ((empty($value) || is_null($field)) && key_exists($field, $this->_requiredCopleteFields))  {
-                $result[$field] = $this->_requiredCopleteFields[$field];
+            if ((empty($value) || is_null($field)) && key_exists($field, $this->_requiredCopmleteFields))  {
+                $result[$field] = $this->_requiredCopmleteFields[$field];
             }
         }
 

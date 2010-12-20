@@ -671,32 +671,63 @@ CREATE TABLE IF NOT EXISTS `incident` (
   `i_State_ID` tinyint(2) DEFAULT NULL,
   `i_Postal_Code` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Highway_Street` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `i_Highway_Street_Travel_Direction` tinyint(4) DEFAULT NULL,
+  `i_Travel_Direction_ID` tinyint(4) DEFAULT NULL,
   `i_At_Intersection` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `i_Collision_Highway_Street` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Collision_Movement` set('Stopped','ProceedingStraight','RunOffRoadway','MakingLeftTurn','MakingRightTurn','MakingUTurn','Backing','Slowing','Stopping','Passing','ChangingLanes','Parking','EnteringTraffic','UnsafeTurning','Parked','Merging','WrongWay') COLLATE latin1_general_ci DEFAULT NULL,
   `i_Collision_Movement_Other` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Mile_Marker` int(11) DEFAULT NULL,
   `i_Speed_Limit` tinyint(3) DEFAULT NULL,
   `i_Actual_Speed` tinyint(3) DEFAULT NULL,
-  `i_Construction_Zone` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
-  `i_Alcohol_Test` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
-  `i_Drug_Test` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
-  `i_Cell_Phone_Usage` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Construction_Zone` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Alcohol_Test` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Drug_Test` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Cell_Phone_Usage` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
   `i_Photo_Taken_By` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `i_Injured` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Injured` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
   `i_Injury_Description` text COLLATE latin1_general_ci,
   `i_Injured_Persons_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `i_Deceased` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
-  `i_Incident_Diagram_Taken` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
-  `i_Reported` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Deceased` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Incident_Diagram_Taken` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Reported` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
   `i_Police_Department` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Officer_Name` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Police_Report_Number` varchar(24) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Narrative` text COLLATE latin1_general_ci,
-  `i_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
-  PRIMARY KEY (`i_ID`),
-  KEY `fk_driver_id` (`i_Driver_ID`)
+  `i_DOT_Regulated` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Incident_Cause_ID` int(11) DEFAULT NULL,
+  `i_Preventable` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Equipment_ID` int(11) NOT NULL,
+  PRIMARY KEY (`i_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `incidents_passengers`
+--
+
+DROP TABLE IF EXISTS `incidents_passengers`;
+CREATE TABLE IF NOT EXISTS `incidents_passengers` (
+  `ip_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip_incident_id` int(11) NOT NULL,
+  `ip_person_id` int(11) NOT NULL,
+  PRIMARY KEY (`ip_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `incidents_witnesses`
+--
+
+DROP TABLE IF EXISTS `incidents_witnesses`;
+CREATE TABLE IF NOT EXISTS `incidents_witnesses` (
+  `iw_id` int(11) NOT NULL AUTO_INCREMENT,
+  `iw_incident_id` int(11) NOT NULL,
+  `iw_person_id` int(11) NOT NULL,
+  PRIMARY KEY (`iw_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -706,55 +737,19 @@ CREATE TABLE IF NOT EXISTS `incident` (
 
 DROP TABLE IF EXISTS `incident_cause`;
 CREATE TABLE IF NOT EXISTS `incident_cause` (
-  `ic_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `ic_Incident_ID` int(11) NOT NULL,
-  `ic_Incident_Cause` int(4) DEFAULT NULL,
-  `ic_Preventable` enum('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `ic_Incident_Witness` enum('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `ic_Witness_ID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ic_ID`),
-  KEY `ic_Incident_ID` (`ic_Incident_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `incident_cause`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `incident__highway_street_travel_direction`
---
-
-DROP TABLE IF EXISTS `incident__highway_street_travel_direction`;
-CREATE TABLE IF NOT EXISTS `incident__highway_street_travel_direction` (
-  `ihstd_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ihstd_type` varchar(10) NOT NULL,
-  PRIMARY KEY (`ihstd_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `incident__incident_cause`
---
-
-DROP TABLE IF EXISTS `incident__incident_cause`;
-CREATE TABLE IF NOT EXISTS `incident__incident_cause` (
-  `iic_id` int(11) NOT NULL AUTO_INCREMENT,
-  `iic_type` varchar(50) NOT NULL,
-  PRIMARY KEY (`iic_id`)
+  `ic_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ic_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`ic_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `incident__investigator`
+-- Структура таблицы `incident_investigator`
 --
 
-DROP TABLE IF EXISTS `incident__investigator`;
-CREATE TABLE IF NOT EXISTS `incident__investigator` (
+DROP TABLE IF EXISTS `incident_investigator`;
+CREATE TABLE IF NOT EXISTS `incident_investigator` (
   `ii_ID` int(11) NOT NULL AUTO_INCREMENT,
   `ii_Investigator_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `ii_Driver_ID` int(11) DEFAULT NULL,
@@ -770,35 +765,9 @@ CREATE TABLE IF NOT EXISTS `incident__investigator` (
   `ii_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
   `ii_Country_Code` varchar(5) COLLATE latin1_general_ci DEFAULT NULL,
   PRIMARY KEY (`ii_ID`),
-  KEY `fk_incident__investigator_company1` (`ii_Company_ID`),
-  KEY `fk_incident__investigator_driver1` (`ii_Driver_ID`)
+  KEY `fk_incident_investigator_company1` (`ii_Company_ID`),
+  KEY `fk_incident_investigator_driver1` (`ii_Driver_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `incident__investigator`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `incident__passenger`
---
-
-DROP TABLE IF EXISTS `incident__passenger`;
-CREATE TABLE IF NOT EXISTS `incident__passenger` (
-  `ip_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `ip_Equipment_Number` int(11) NOT NULL,
-  `ip_Passenger _Number` int(11) NOT NULL,
-  PRIMARY KEY (`ip_ID`),
-  KEY `fk_incident__passenger_equipment1` (`ip_Equipment_Number`),
-  KEY `fk_incident__passenger_passenger1` (`ip_Passenger _Number`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `incident__passenger`
---
-
 
 -- --------------------------------------------------------
 
@@ -852,7 +821,27 @@ CREATE TABLE IF NOT EXISTS `inspection_types` (
 --
 -- Дамп данных таблицы `inspection_types`
 --
+--
+-- Структура таблицы `person`
+--
 
+DROP TABLE IF EXISTS `person`;
+CREATE TABLE IF NOT EXISTS `person` (
+  `per_id` int(11) NOT NULL AUTO_INCREMENT,
+  `per_first_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `per_last_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `per_telephone_number` varchar(14) COLLATE latin1_general_ci NOT NULL,
+  `per_address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `per_address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `per_city` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `per_state_id` tinyint(2) NOT NULL,
+  `per_postal_code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`per_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+
+
+
+-- --------------------------------------------------------
 
 -- --------------------------------------------------------
 
@@ -940,26 +929,23 @@ CREATE TABLE IF NOT EXISTS `parent_company` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `passenger`
+-- Структура таблицы `person`
 --
 
-DROP TABLE IF EXISTS `passenger`;
-CREATE TABLE IF NOT EXISTS `passenger` (
-  `p_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `p_Passenger_First_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `p_Passenger_Last_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `p_Passenger_Telephone_Number` varchar(14) COLLATE latin1_general_ci NOT NULL,
-  `p_Passenger_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `p_Passenger_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `p_Passenger_City` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `p_Passenger_State` tinyint(2) NOT NULL,
-  `p_Passenger_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`p_ID`)
+DROP TABLE IF EXISTS `person`;
+CREATE TABLE IF NOT EXISTS `person` (
+  `per_id` int(11) NOT NULL AUTO_INCREMENT,
+  `per_first_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `per_last_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `per_telephone_number` varchar(14) COLLATE latin1_general_ci NOT NULL,
+  `per_address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `per_address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `per_city` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `per_state_id` tinyint(2) NOT NULL,
+  `per_postal_code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`per_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
---
--- Дамп данных таблицы `passenger`
---
 
 
 -- --------------------------------------------------------
@@ -1167,6 +1153,18 @@ CREATE TABLE IF NOT EXISTS `state` (
 
 -- --------------------------------------------------------
 --
+-- Структура таблицы `travel_direction`
+--
+
+DROP TABLE IF EXISTS `travel_direction`;
+CREATE TABLE IF NOT EXISTS `travel_direction` (
+  `td_id` int(11) NOT NULL AUTO_INCREMENT,
+  `td_type` varchar(10) NOT NULL,
+  PRIMARY KEY (`td_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+-- --------------------------------------------------------
+--
 -- Структура таблицы `Violation`
 --
 
@@ -1262,31 +1260,6 @@ CREATE TABLE IF NOT EXISTS `user__status` (
   `us_type` varchar(50) NOT NULL,
   PRIMARY KEY (`us_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `witness`
---
-
-DROP TABLE IF EXISTS `witness`;
-CREATE TABLE IF NOT EXISTS `witness` (
-  `w_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `w_Witness_First_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `w_Witness_Last_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `w_Telephone_Number` varchar(14) COLLATE latin1_general_ci NOT NULL,
-  `w_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `w_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `w_City` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `w_State` tinyint(2) NOT NULL,
-  `w_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`w_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `witness`
---
-
 
 -- --------------------------------------------------------
 

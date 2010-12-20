@@ -1,10 +1,8 @@
 incidentId = new Object();
-incidentCauseID = new Object();
 incidentStatus = new Object();
 
 $(function(){
     incidentId = $("#i_ID");
-    incidentCauseID = $("#ic_ID");
     incidentStatus = $("#view_i_Status");
 
     refreshIncidentDescription(incidentId.val());
@@ -96,7 +94,7 @@ function refreshIncidentAdditionalDriverInformation(id) {
 }
 
 function fillAdditionalDriverInformationView(data) {
-    $("#view_i_Highway_Street_Travel_Direction").html(data.i_Highway_Street_Travel_Direction);
+    $("#view_i_Travel_Direction_ID").html(data.i_Travel_Direction_ID);
     $("#view_i_Collision_Highway_Street").html(data.i_Collision_Highway_Street);
     $("#view_i_Actual_Speed").html(data.i_Actual_Speed);
     $("#view_i_Speed_Limit").html(data.i_Speed_Limit);
@@ -109,7 +107,7 @@ function fillAdditionalDriverInformationView(data) {
 }
 
 function fillAdditionalDriverInformationUpdate(data) {
-    $("#i_Highway_Street_Travel_Direction").val(data.i_Highway_Street_Travel_Direction);
+    $("#i_Travel_Direction_ID").val(data.i_Travel_Direction_ID);
     $("#i_Collision_Highway_Street").val(data.i_Collision_Highway_Street);
     $("#i_Actual_Speed").val(data.i_Actual_Speed);
     $("#i_Speed_Limit").val(data.i_Speed_Limit);
@@ -191,9 +189,8 @@ function fillDescriptionUpdate(data) {
     $("#i_Officer_Name").val(data.i_Officer_Name);
     $("#i_Police_Report_Number").val(data.i_Police_Report_Number);
     $("#i_Narrative").val(data.i_Narrative);
-    $("#ic_ID").val(data.ic_ID);
-    $(".ic_Preventable_Class").each(function(){
-        if ($(this).val() == data.ic_Preventable) {
+    $(".i_Preventable_Class").each(function(){
+        if ($(this).val() == data.i_Preventable) {
             $(this).attr('checked', 'checked');
         }
     });
@@ -203,7 +200,7 @@ function saveDriverInformation(id) {
     $.get("/incident/index/save-driver-information",
             {
                 i_ID : id,
-                i_Highway_Street_Travel_Direction : $("#i_Highway_Street_Travel_Direction").val(),
+                i_Travel_Direction_ID : $("#i_Travel_Direction_ID").val(),
                 i_Collision_Highway_Street : $("#i_Collision_Highway_Street").val(),
                 i_Actual_Speed : $("#i_Actual_Speed").val(),
                 i_Speed_Limit : $("#i_Speed_Limit").val(),
@@ -246,8 +243,7 @@ function saveDescription(id) {
                 i_Officer_Name : $("#i_Officer_Name").val(),
                 i_Police_Report_Number : $("#i_Police_Report_Number").val(),
                 i_Narrative : $("#i_Narrative").val(),
-                ic_ID : incidentCauseID.val(),
-                ic_Preventable : $(".ic_Preventable_Class:checked").val()
+                i_Preventable : $(".i_Preventable_Class:checked").val()
             }, function(data) {
                 if (data == 1) {
                     refreshIncidentDescription(incidentId.val());
@@ -277,7 +273,7 @@ function fillDescriptionView(data) {
     $("#view_i_Officer_Name").html(data.i_Officer_Name);
     $("#view_i_Police_Report_Number").html(data.i_Police_Report_Number);
     $("#view_i_Narrative").html(data.i_Narrative);
-    $("#view_ic_Preventable").html(data.ic_Preventable);
+    $("#view_i_Preventable").html(data.i_Preventable);
 }
 
 function storePrimaryDescriptionValues() {

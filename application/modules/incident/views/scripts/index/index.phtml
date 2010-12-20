@@ -32,7 +32,6 @@
 
 <div class="driver-information" id="main">
     <input type="hidden" id="i_ID" value="<?= $this->i_ID; ?>"
-    <input type="hidden" id="ic_ID" value="<?= $this->ic_ID; ?>"
     <input type="hidden" id="i_Driver_ID" value="<?= $this->driverId; ?>"
         
     <div id="viewDescriptionDiv" class="DescriptionDiv">
@@ -54,6 +53,15 @@
                 ));
         ?>
     </div>
+
+    <div class="post-top"><div class="post-bottom"><div class="post-middle">
+        <table cellspacing="0" class="inform">
+            <tbody><tr><th colspan="2">Equipment Information - involved in Incident</th></tr>
+                <tr><td colspan="2"><span class="blue-button"><span><a href="/equipment/truck-files/add-involved/incidentId/<?= $this->i_ID ?>">Add Equipment Information </a></span></span></td></tr>
+                <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+            </tbody>
+        </table>
+    </div></div></div>
 
     <div class="post-top"><div class="post-bottom"><div class="post-middle">
                 <table cellspacing="0" class="inform">

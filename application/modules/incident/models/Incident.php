@@ -8,7 +8,6 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
         $select = "SELECT *
                     FROM incident
                     LEFT JOIN state ON i_State_ID = s_id
-                    LEFT JOIN incident_cause ON i_ID = ic_Incident_ID
                     WHERE i_ID = {$this->getDefaultAdapter()->quote($id)}
                     ";
         $stmt = $this->getDefaultAdapter()->query($select);

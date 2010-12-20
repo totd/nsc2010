@@ -43,7 +43,7 @@ class Incident_IndexController extends Zend_Controller_Action
 
         $selectTravelDirectionArray = array('' => array('text' => '-'));
         foreach ($travelDirections as $travelDirection) {
-            $selectTravelDirectionArray[$travelDirection->ihstd_id] = array('text' => $travelDirection->ihstd_type);
+            $selectTravelDirectionArray[$travelDirection->td_id] = array('text' => $travelDirection->td_type);
         }
         $selectTravelDirectionArray['']['selected'] = true;
         $this->view->travelDirections = $selectTravelDirectionArray;
@@ -145,27 +145,7 @@ class Incident_IndexController extends Zend_Controller_Action
                 }
             }
 
-            if (isset($data['ic_Preventable']) && isset($data['ic_ID'])) {
-                $dataCause = array();
-                if (!empty($data['ic_ID'])) {
-                    $dataCause['ic_ID'] = $data['ic_ID'];
-                } else {
-                    // Set value for the foreign key to avoid DB error.
-                    $dataCause['ic_Incident_ID'] = $data['i_ID'];
-                }
-
-                $dataCause['ic_Preventable'] = $data['ic_Preventable'];
-                
-
-                $modelIncidentCause = new Incident_Model_IncidentCause();
-                $modelIncidentCause->saveIncidentCause($dataCause);
-            }
-            unset($data['ic_ID']);
-            unset($data['ic_Preventable']);
-
-
             $where = $incidentModel->getAdapter()->quoteInto('i_ID = ?', $this->_request->getParam('i_ID'));
-            
 
             $incidentModel->update($data, $where);
 
@@ -254,6 +234,27 @@ class Incident_IndexController extends Zend_Controller_Action
         $incidentModel->update($data, $where);
 
         $this->_redirect("/incident/index/index/id/{$this->_request->getParam('i_ID')}");
+    }
+
+    public function addInvolvedEquipmentAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        
+        $incidentId = $this->_request->getParam('incidentId');
+        $equipmentId = $this->_request->getParam('equipmentId');
+
+        if (!empty($incidentId) && !empty($equipmentId)) {
+            $incidentModel = new Incident_Model_Incident();
+            $data = array(
+                'i_ID' => $incidentId,
+                'i_Equipment_ID' => $equipmentId
+                );
+            $incidentModel->saveIncident($data);
+            $this->_redirect("/incident/index/index/id/$incidentId");
+        } else {
+            $this->_redirect("/incident/list");
+        }
     }
 }
 

@@ -51,7 +51,7 @@ class EquipmentAssignment_Model_EquipmentAssignment extends Zend_Db_Table_Abstra
             LEFT JOIN service_provider ON spea_Service_Provider_ID = sp_ID
             LEFT JOIN inspection ON e_id = i_Equipment_ID
             LEFT JOIN equipment_maintenance ON e_id = em_Equipment_ID
-            LEFT JOIN incident__passenger ON e_id = ip_Equipment_Number
+            LEFT JOIN incidents ON e_id = i_Equipment_ID
             where ea_equipment_id = {$this->getDefaultAdapter()->quote($equipmentId)}
         ";
 

@@ -1,4 +1,26 @@
-
+function autocomplete_custom(){
+    document.getElementById("emp_Employer_Name_ul").innerHTML="Select employer:";
+    $("#emp_Employer_Name_indicator").css("display","inline");
+    $("#emp_Employer_Name_ul").css("display","block");
+    query = document.getElementById("emp_Employer_Name").value;
+    $.get("/driver/ajax-driver-previous-employment/autocomplete-Employer/",
+        {
+            q: query
+        }, function(data){
+            if(data!=""){
+                $("#emp_Employer_Name_ul").append(data);
+                $("#emp_Employer_Name_indicator").css("display","none");
+                return true;
+            }else{
+                $("#emp_Employer_Name_ul").css("display","none");
+                $("#emp_Employer_Name_indicator").css("display","none");
+                return true;
+            }
+           });
+}
+function select_employer(emp_id){
+    //alert(emp_id);
+}
 $().ready(function() {
 
 	function log(event, data, formatted) {
@@ -6,33 +28,13 @@ $().ready(function() {
 	}
 
 	function formatItem(row) {
-		return row[0] + " (<strong>id: " + row[1] + "</strong>)";
+		//return row[0] + " (<strong>id: " + row[1] + "</strong>)";
+		return row[0] + " (id: " + row[1] + ")";
 	}
 	function formatResult(row) {
 		return row[0].replace(/(<.+?>)/gi, '');
 	}
 
-	$("#pe_Employer_Name").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
-        extraParams:{"searchBy":'pe_Employer_Name'}
-    });
-	$("#pe_Address1").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
-        extraParams:{"searchBy":'pe_Address1'}
-    });
-	$("#pe_City").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
-        extraParams:{"searchBy":'pe_City'}
-    });
-	$("#pe_Postal_Code").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
-        extraParams:{"searchBy":'pe_Postal_Code'}
-    });
-	$("#pe_Phone").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
-        extraParams:{"searchBy":'pe_Phone'}
-    });
-	$("#pe_Fax").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
-        extraParams:{"searchBy":'pe_Fax'}
-    });
-	$("#pe_Position").focus().autocomplete("/driver/ajax-driver-previous-employment/autocomplete-Employer/",{
-        extraParams:{"searchBy":'pe_Position'}
-    });
 
 	$("#dah_City").focus().autocomplete("/driver/ajax-driver-address-history/autocomplete-Address-History/",{
         extraParams:{"searchBy":'dah_City'}

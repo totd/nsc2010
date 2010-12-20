@@ -101,12 +101,6 @@ ALTER TABLE `inspection`
   ADD CONSTRAINT `fk_inspection_inspection_types1` FOREIGN KEY (`i_Type_ID`) REFERENCES `inspection_types` (`it_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `previous_employment`
---
-ALTER TABLE `previous_employment`
-  ADD CONSTRAINT `fk_previous_employment_driver1` FOREIGN KEY (`pe_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Ограничения внешнего ключа таблицы `service_provider__company_assignment`
 --
 ALTER TABLE `service_provider__company_assignment`

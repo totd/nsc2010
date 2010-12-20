@@ -25,9 +25,30 @@ START TRANSACTION;
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `driver__previous_employment`
+--
+
+DROP TABLE IF EXISTS `driver__previous_employment`;
+CREATE TABLE IF NOT EXISTS `driver__previous_employment` (
+  `pe_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `pe_Driver_ID` int(11) NOT NULL,
+  `pe_Employer_ID` int(11) NOT NULL,
+  `pe_Employment_Start_Date` date NOT NULL,
+  `pe_Employment_Stop_Date` date NOT NULL,
+  `pe_Position` varchar(24) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Salary` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `pe_Reason_for_Leaving` text COLLATE latin1_general_ci,
+  PRIMARY KEY (`pe_ID`),
+  KEY `fk_previous_employment_driver1` (`pe_Driver_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `driver__hos`
 --
 
+DROP TABLE IF EXISTS `driver__hos`;
 CREATE TABLE IF NOT EXISTS `driver__hos` (
   `dhos_ID` int(11) NOT NULL AUTO_INCREMENT,
   `dhos_Driver_ID` int(11) NOT NULL,
@@ -42,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `driver__hos` (
 -- Структура таблицы `driver__lrfw`
 --
 
+DROP TABLE IF EXISTS `driver__lrfw`;
 CREATE TABLE IF NOT EXISTS `driver__lrfw` (
   `dlrfw_Driver_ID` int(11) NOT NULL,
   `dlrfw_date` date NOT NULL,
@@ -55,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `driver__lrfw` (
 -- Структура таблицы `driver__equipment_operated`
 --
 
+DROP TABLE IF EXISTS `driver__equipment_operated`;
 CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
   `deo_ID` int(11) NOT NULL AUTO_INCREMENT,
   `deo_Driver_ID` int(11) NOT NULL,
@@ -942,38 +965,26 @@ CREATE TABLE IF NOT EXISTS `passenger` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `previous_employment`
+-- Структура таблицы `employer`
 --
 
-DROP TABLE IF EXISTS `previous_employment`;
-CREATE TABLE IF NOT EXISTS `previous_employment` (
-  `pe_Driver_ID` int(11) NOT NULL,
-  `pe_Employer_Name` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Employment_Start_Date` date NOT NULL,
-  `pe_Employment_Stop_Date` date NOT NULL,
-  `pe_Position` varchar(24) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Salary` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Reason_for_Leaving` text COLLATE latin1_general_ci,
-  `pe_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `pe_City` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_State` tinyint(2) NOT NULL,
-  `pe_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Phone` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Fax` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_DOT_Safety_Sensitive_Function` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_FMCSR_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Intermodal` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Interstate` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_Intrastate` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `pe_ID` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`pe_ID`),
-  KEY `fk_previous_employment_driver1` (`pe_Driver_ID`)
+DROP TABLE IF EXISTS `employer`;
+CREATE TABLE IF NOT EXISTS `employer` (
+  `emp_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `emp_Employer_Name` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `emp_City` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_State_ID` tinyint(2) NOT NULL,
+  `emp_Country_ID` tinyint(2) NOT NULL,
+  `emp_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Phone` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Fax` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_DOT_Safety_Sensitive_Function` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_FMCSR` enum('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT 'NO',
+  `emp_approved` enum('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT 'NO',
+  PRIMARY KEY (`emp_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `previous_employment`
---
 
 
 -- --------------------------------------------------------

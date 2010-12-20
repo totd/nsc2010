@@ -280,10 +280,18 @@ class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Acti
 
     public function autocompleteEmployerAction()
     {
-        $result = Driver_Model_DriverPreviousEmployment::getRecordByQuery($_GET['q'],$_GET['searchBy']);
-        foreach($result as $k => $v){
-            echo $v[$_GET['searchBy']]."\n";
+        $_GET['q'] = str_replace("'",'"',$_GET['q']);
+        $_GET['q'] = addcslashes($_GET['q'],'"');
+        $rows = Employer_Model_Employer::getRecordByQuery($_GET['q']);
+        if(sizeof($rows)>0){
+            $result = "<ul style='width: 319px;'>";
+            foreach($rows as $k => $v){
+                $result=$result."<li onclick='select_employer({$v['emp_ID']})'>".str_replace($_GET['q'],"<strong>".$_GET['q']."</strong>",$v['emp_Employer_Name']).', '.$v['emp_City'].', '.$v['s_name'].', '.$v['country_name']."</li>";
+            }
+            $result=$result."</ul>";
+            echo $result;
         }
+
     }
 
 }

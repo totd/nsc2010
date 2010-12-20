@@ -295,6 +295,8 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
                 $rowEquipment->$key = $value;
             }
 
+            $rowEquipment->e_Entry_Date = new Zend_Db_Expr("NOW()");
+
             $rowEquipment->save();
 
             return $this->findEquipmentByVIN($rowEquipment->e_Number);
@@ -358,7 +360,4 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 
         return $result;
     }
-
-
-
 }

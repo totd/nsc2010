@@ -354,10 +354,12 @@ function refreshVIW(EIN) {
             url: "/equipment/information-worksheet/get-viw/",
             data: "EIN=" + EIN,
             success: function(data){
-                $("#viewVIWdiv").html(data);
+                $("#viewVIWdiv").html(data.layout);
+                $("#e_last_modified_datetime").html(data.e_last_modified_datetime);
                 atachPreview();
                 storePrimaryViwValues();
-        }
+            },
+            dataType: "json"
     });
 }
 

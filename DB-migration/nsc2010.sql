@@ -448,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_Unit_Number` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `e_Alternate_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `e_RFID_No` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
-  `e_Entry_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `e_Entry_Date` datetime NOT NULL,
   `e_License_Number` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
   `e_License_Expiration_Date` date NOT NULL DEFAULT '0000-00-00',
   `e_Start_Mileage` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
@@ -474,6 +474,7 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_activation_comment` tinytext COLLATE latin1_general_ci,
   `e_change_active_status_date` date DEFAULT NULL,
   `e_change_active_status_comment` tinytext COLLATE latin1_general_ci,
+  `e_last_modified_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`e_id`),
   UNIQUE KEY `e_Number` (`e_Number`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;

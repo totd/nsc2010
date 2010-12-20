@@ -50,6 +50,27 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $equipmentSession->VIW['e_id'] = $equipmentRow['e_id'];
         $equipmentSession->VIW['e_Number'] = $equipmentRow['e_Number'];
 
+        if (!empty($equipmentRow['e_Entry_Date']) && $equipmentRow['e_Entry_Date'] != '0000-00-00 00:00:00') {
+            try {
+                $myDate = new Zend_Date($equipmentRow['e_Entry_Date'], "YYYY-MM-dd HH:mm:ss");
+                $equipmentRow['e_Entry_Date'] = $myDate->toString("MM/dd/YYYY HH:mm");
+            } catch (Zend_Date_Exception $e) {
+                $equipmentRow['e_Entry_Date'] = '';
+            }
+        } else {
+            $equipmentRow['e_Entry_Date'] = '';
+        }
+
+        if (!empty($equipmentRow['e_last_modified_datetime']) && $equipmentRow['e_last_modified_datetime'] != '0000-00-00 00:00:00') {
+            try {
+                $myDate = new Zend_Date($equipmentRow['e_last_modified_datetime'], "YYYY-MM-dd HH:mm:ss");
+                $equipmentRow['e_last_modified_datetime'] = $myDate->toString("MM/dd/YYYY HH:mm");
+            } catch (Zend_Date_Exception $e) {
+                $equipmentRow['e_last_modified_datetime'] = '';
+            }
+        } else {
+            $equipmentRow['e_last_modified_datetime'] = '';
+        }
 
 
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
@@ -247,7 +268,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
 
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
-            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date']);
+            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
             $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
         } else {
             $equipmentRow['e_License_Expiration_Date'] = '';
@@ -506,6 +527,28 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $equipmentModel = new Equipment_Model_Equipment();
                 $equipmentRow = $equipmentModel->findEquipmentByVIN($EIN);
 
+                if (!empty($equipmentRow['e_Entry_Date']) && $equipmentRow['e_Entry_Date'] != '0000-00-00 00:00:00') {
+                    try {
+                        $myDate = new Zend_Date($equipmentRow['e_Entry_Date'], "YYYY-MM-dd HH:mm:ss");
+                        $equipmentRow['e_Entry_Date'] = $myDate->toString("MM/dd/YYYY HH:mm");
+                    } catch (Zend_Date_Exception $e) {
+                        $equipmentRow['e_Entry_Date'] = '';
+                    }
+                } else {
+                    $equipmentRow['e_Entry_Date'] = '';
+                }
+
+                if (!empty($equipmentRow['e_last_modified_datetime']) && $equipmentRow['e_last_modified_datetime'] != '0000-00-00 00:00:00') {
+                    try {
+                        $myDate = new Zend_Date($equipmentRow['e_last_modified_datetime'], "YYYY-MM-dd HH:mm:ss");
+                        $equipmentRow['e_last_modified_datetime'] = $myDate->toString("MM/dd/YYYY HH:mm");
+                    } catch (Zend_Date_Exception $e) {
+                        $equipmentRow['e_last_modified_datetime'] = '';
+                    }
+                } else {
+                    $equipmentRow['e_last_modified_datetime'] = '';
+                }
+
                 if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
                     $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
                     $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
@@ -532,7 +575,10 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender(true);
 
-                echo $layout->render();
+                $result['layout'] = $layout->render();
+                $result['e_last_modified_datetime'] = $equipmentRow['e_last_modified_datetime'];
+                print json_encode($result);
+                //echo $layout->render();
             }
         }
     }

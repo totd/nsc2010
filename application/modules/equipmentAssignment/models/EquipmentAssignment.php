@@ -3,6 +3,10 @@ class EquipmentAssignment_Model_EquipmentAssignment extends Zend_Db_Table_Abstra
 {
     protected $_name = 'equipment_assignment';
 
+    private $_requiredFields = array (
+        'ea_homebase_id', 'ea_DOT_regulated', 'ea_owner_id ', 'ea_start_date', 'ea_end_date'
+    );
+
     public function findRow($field, $value)
     {
         $result = false;
@@ -72,5 +76,32 @@ class EquipmentAssignment_Model_EquipmentAssignment extends Zend_Db_Table_Abstra
         $select = $this->select();
         return $this->fetchAll($select);
     }
+
+    public function getRow($id)
+    {
+        $row = $this->fetchRow("ea_id = $id");
+
+        return $row;
+    }
+
+    public function checkRequiredFields($equipmentId)
+    {
+        if (!empty($equipmentId)) {
+            $row = $this->fetchRow("ea_equipment_id = $equipmentId");
+
+            if ($row) {
+                foreach ($row as $field => $value) {
+                    if ((empty($value) || is_null($field)) && in_array($field, $this->_requiredFields))  {
+                        $result[$field] = $this->_requiredFields[$field];
+                    }
+                }
+            } else {
+                $result = $this->_requiredFields;
+            }
+        }
+
+        return (isset($result)) ? $result : null;
+    }
+
 }
 

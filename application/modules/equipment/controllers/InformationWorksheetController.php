@@ -569,6 +569,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     $layout->equipmentStatus = (isset($equipmentRow['enes_type'])) ? $equipmentRow['enes_type'] : '';
                 }
 
+                $layout->allRequiredViwFieldFilled = $this->allRequiredViwFieldFilled($equipmentRow['e_id']);
                 $layout->equipmentRow = $equipmentRow;
                 $layout->uploadPath = self::uploadPath;
 
@@ -677,6 +678,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender(true);
+
+                $layout->allRequiredAssignmentFieldFilled = $this->allRequiredAssignmentFieldFilled($equipmentAssigmentRow['e_id']);
 
                 echo $layout->render();
             }
@@ -957,5 +960,33 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             print json_encode($result2);
 
         }
+    }
+
+    private function allRequiredViwFieldFilled($equipmentId)
+    {
+        $result = false;
+        if (!empty($equipmentId)) {
+            $equipmentModel = new Equipment_Model_Equipment();
+            $nonFillingRequiredFielads = $equipmentModel->checkCompletedFields($equipmentId);
+            if (is_null($nonFillingRequiredFielads)) {
+                $result = true;
+            }
+        }
+
+        return $result;
+    }
+
+    private function allRequiredAssignmentFieldFilled($equipmentId)
+    {
+        $result = false;
+        if (!empty($equipmentId)) {
+            $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
+            $nonFillingRequiredFielads = $equipmentAssignmentModel->checkRequiredFields($equipmentId);
+            if (is_null($nonFillingRequiredFielads)) {
+                $result = true;
+            }
+        }
+
+        return $result;
     }
 }

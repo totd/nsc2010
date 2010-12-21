@@ -5,6 +5,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 
     protected $_requiredCopmleteFields = array (
         'e_Unit_Number' => 'unit',
+        'e_Picture' => 'picture',
         'e_License_Expiration_Date' => 'license expiration date',
         'e_License_Number' => 'license plate number',
         'e_Start_Mileage' => 'start mileage',

@@ -39,7 +39,6 @@ function storePrimaryAssignmentValues() {
     Assignment.driver_autocomplete = $("#driver_autocomplete").val();
 }
 
-
 function changeType() {
     var text = $('#e_type_id :selected').text();
     $(".second *").show();
@@ -78,7 +77,7 @@ $(function() {
     refreshVIW($("#e_Number").val());
 
     refreshEquipmentAssigment($("#ea_equipment_id").val());
-    
+
     // Show/hide VIW edit form
     $(".VIWActionLink").each(function() {
        $(this).click(function() {
@@ -110,30 +109,30 @@ $(function() {
     changeType();
 
     $("#EquipmentAssignmentSaveLink").click(function() {
-         saveAssignment();
          $("#EquipmentAssignmentSaveLink").html('Updating...');
-         $("#EquipmentAssignmentSaveLink").toogleClass('button-updating');
+         $("#EquipmentAssignmentSaveLink").addClass('button-updating');
+         saveAssignment();
     });
 
     $("#VIWSaveLink").click(function() {
         saveViw();
         $("#VIWSaveLink").html('Updating...');
-        $("#VIWSaveLink").toogleClass('button-updating');
+        $("#VIWSaveLink").addClass('button-updating');
     });
 
     $("#commonSaveButton").click(function() {
         if ($("#updateVIWdiv").css('display') != 'none') {
             $("#commonSaveButton").html('Updating...');
-            $("#commonSaveButton").toogleClass('button-updating');
+            $("#commonSaveButton").addClass('button-updating');
             saveViw();
-            
+
         }
 
         if ($("#addAssignmentDiv").css('display') != 'none') {
             $("#commonSaveButton").html('Updating...');
-            $("#commonSaveButton").toogleClass('button-updating');
+            $("#commonSaveButton").addClass('button-updating');
             saveAssignment();
-            
+
         }
     });
 
@@ -154,7 +153,7 @@ $(function() {
             resizable: false,
 			title: 'Confirm Discard'
 		}
-        
+
     );
     var $dialogNoChanges = $('<div></div>')
 		.html("You didn't make any changes yet")
@@ -206,6 +205,8 @@ $(function() {
 
         $("#ea_depot_id").val(Assignment['ea_depot_id']);
     });
+
+
 
 });
 
@@ -419,4 +420,6 @@ function refreshEquipmentAssigment(equipmentId) {
             }
         });
  }
+
+
 

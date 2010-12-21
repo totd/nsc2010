@@ -112,22 +112,26 @@ $(function() {
     $("#EquipmentAssignmentSaveLink").click(function() {
          saveAssignment();
          $("#EquipmentAssignmentSaveLink").html('Updating...');
+         $("#EquipmentAssignmentSaveLink").toogleClass('button-updating');
     });
 
     $("#VIWSaveLink").click(function() {
         saveViw();
         $("#VIWSaveLink").html('Updating...');
+        $("#VIWSaveLink").toogleClass('button-updating');
     });
 
     $("#commonSaveButton").click(function() {
         if ($("#updateVIWdiv").css('display') != 'none') {
             $("#commonSaveButton").html('Updating...');
+            $("#commonSaveButton").toogleClass('button-updating');
             saveViw();
             
         }
 
         if ($("#addAssignmentDiv").css('display') != 'none') {
             $("#commonSaveButton").html('Updating...');
+            $("#commonSaveButton").toogleClass('button-updating');
             saveAssignment();
             
         }
@@ -174,7 +178,7 @@ $(function() {
 	});
 
     var $dialogExit = $('<div></div>')
-		.html("Are you sure you want to leave without saving all changes?")
+		.html("Leaving without saving will discard all changes!")
 		.dialog({
 			autoOpen: false,
             modal: true,

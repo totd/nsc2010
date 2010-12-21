@@ -2,12 +2,18 @@ $(function() {
     $("#ea_start_date").datepicker({
 			changeMonth: true,
 			changeYear: true,
-            yearRange: '-10:+10'
+            yearRange: '-10:+10',
+            showOn: 'both',
+            buttonImage: "/images/select-data.gif",
+            buttonImageOnly: true
 		});
     $("#ea_end_date").datepicker({
 			changeMonth: true,
 			changeYear: true,
-            yearRange: '-10:+10'
+            yearRange: '-10:+10',
+            showOn: 'both',
+            buttonImage: "/images/select-data.gif",
+            buttonImageOnly: true
 		});
 
     $("#updateAsignment").validate({

@@ -97,7 +97,10 @@ $(function() {
     $("#e_License_Expiration_Date").datepicker({
         changeMonth: true,
         changeYear: true,
-        yearRange: '-20:+20'
+        yearRange: '-20:+20',
+        showOn: 'both',
+        buttonImage: "/images/select-data.gif",
+        buttonImageOnly: true
     });
 
     $("#e_type_id").change(function() {

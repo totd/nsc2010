@@ -2,7 +2,10 @@ $(function() {
     $("#e_activation_date").datepicker({
 			changeMonth: true,
 			changeYear: true,
-            yearRange: '-10:+10'
+            yearRange: '-10:+10',
+            showOn: 'both',
+            buttonImage: "/images/select-data.gif",
+            buttonImageOnly: true
 		});
 
     $("#completeForm").validate({

@@ -361,4 +361,37 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 
         return $result;
     }
+
+    public function getLastModifiedDate($id)
+    {
+        $result = null;
+
+        if (!empty($id)) {
+            $db = $this->getAdapter();
+
+
+            $select = "SELECT e_last_modified_datetime,
+                                ea_last_modified_datetime,
+                                (e_last_modified_datetime - ea_last_modified_datetime) as compare
+                        FROM equipment
+                        LEFT JOIN equipment_assignment ON e_ID = ea_equipment_id
+                        WHERE e_id = {$this->getDefaultAdapter()->quote($id)}";
+
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $stmt = $db->query($select);
+
+            $resultArray = $stmt->fetchAll();
+            $row = (count($resultArray) > 0) ? $resultArray[0] : null;
+            if (!is_null($row)) {
+                if ($row['compare'] < 0) {
+                    $result = $row['ea_last_modified_datetime'];
+                } else {
+                    $result = $row['e_last_modified_datetime'];
+                }
+            }
+        }
+
+        return $result;
+    }
+
 }

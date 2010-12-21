@@ -553,6 +553,7 @@ CREATE TABLE IF NOT EXISTS `equipment_assignment` (
   `ea_end_date` date NOT NULL,
   `ea_mileage` int(11) DEFAULT NULL,
   `ea_DOT_regulated` enum('Yes','No') NOT NULL,
+  `ea_last_modified_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`ea_id`),
   KEY `fk_owner_id` (`ea_owner_id`),
   KEY `fk_homebase_id` (`ea_homebase_id`),
@@ -740,6 +741,7 @@ CREATE TABLE IF NOT EXISTS `incident` (
   `i_Incident_Cause_ID` int(11) DEFAULT NULL,
   `i_Preventable` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
   `i_Equipment_ID` int(11) NOT NULL,
+  `i_last_modified_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`i_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 

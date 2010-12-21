@@ -149,6 +149,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $selectEquipmentTypeArray['']['selected'] = true;
         }
         $this->view->equipmentTypes = $selectEquipmentTypeArray;
+        $this->view->allRequiredViwFieldFilled = $this->allRequiredViwFieldFilled($equipmentRow['e_id']);
+        $this->view->allRequiredAssignmentFieldFilled = $this->allRequiredAssignmentFieldFilled($equipmentRow['e_id']);
 
         $this->addAssignment($equipmentRow['e_id'], $equipmentRow['e_Number']);
     }
@@ -538,17 +540,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     $equipmentRow['e_Entry_Date'] = '';
                 }
 
-                if (!empty($equipmentRow['e_last_modified_datetime']) && $equipmentRow['e_last_modified_datetime'] != '0000-00-00 00:00:00') {
-                    try {
-                        $myDate = new Zend_Date($equipmentRow['e_last_modified_datetime'], "YYYY-MM-dd HH:mm:ss");
-                        $equipmentRow['e_last_modified_datetime'] = $myDate->toString("MM/dd/YYYY HH:mm");
-                    } catch (Zend_Date_Exception $e) {
-                        $equipmentRow['e_last_modified_datetime'] = '';
-                    }
-                } else {
-                    $equipmentRow['e_last_modified_datetime'] = '';
-                }
-
                 if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
                     $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
                     $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
@@ -560,6 +551,17 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentRow['e_id']);
 
                 if (!is_null($equipmentAssigmentRow) && !empty($equipmentAssigmentRow)) {
+                    if (!empty($equipmentAssigmentRow['ea_last_modified_datetime']) && $equipmentAssigmentRow['ea_last_modified_datetime'] != '0000-00-00 00:00:00') {
+                        try {
+                            $assignmentLastModifyDate = new Zend_Date($equipmentAssigmentRow['ea_last_modified_datetime'], "YYYY-MM-dd HH:mm:ss");
+                            $equipmentAssigmentRow['ea_last_modified_datetime'] = $assignmentLastModifyDate->toString("MM/dd/YYYY HH:mm");
+                        } catch (Zend_Date_Exception $e) {
+                            $equipmentAssigmentRow['ea_last_modified_datetime'] = '';
+                        }
+                    } else {
+                        $equipmentAssigmentRow['ea_last_modified_datetime'] = '';
+                    }
+
                     $layout->equipmentAssignmentRow = $equipmentAssigmentRow;
                 }
 
@@ -569,6 +571,19 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     $layout->equipmentStatus = (isset($equipmentRow['enes_type'])) ? $equipmentRow['enes_type'] : '';
                 }
 
+                if (!empty($equipmentRow['e_last_modified_datetime']) && $equipmentRow['e_last_modified_datetime'] != '0000-00-00 00:00:00') {
+                    try {
+                        $equipmentLastModifyDate = new Zend_Date($equipmentRow['e_last_modified_datetime'], "YYYY-MM-dd HH:mm:ss");
+                        $equipmentRow['e_last_modified_datetime'] = $equipmentLastModifyDate->toString("MM/dd/YYYY HH:mm");
+                    } catch (Zend_Date_Exception $e) {
+                        $equipmentRow['e_last_modified_datetime'] = '';
+                    }
+                } else {
+                    $equipmentRow['e_last_modified_datetime'] = '';
+                }
+
+                
+
                 $layout->allRequiredViwFieldFilled = $this->allRequiredViwFieldFilled($equipmentRow['e_id']);
                 $layout->equipmentRow = $equipmentRow;
                 $layout->uploadPath = self::uploadPath;
@@ -577,9 +592,18 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $this->_helper->viewRenderer->setNoRender(true);
 
                 $result['layout'] = $layout->render();
-                $result['e_last_modified_datetime'] = $equipmentRow['e_last_modified_datetime'];
+
+                if (isset($assignmentLastModifyDate) && isset($equipmentLastModifyDate)) {
+                    if ($assignmentLastModifyDate->compare($equipmentLastModifyDate) == 1) {
+                        $result['last_modified_datetime'] = $equipmentAssigmentRow['ea_last_modified_datetime'];
+                    } else {
+                        $result['last_modified_datetime'] = $equipmentRow['e_last_modified_datetime'];
+                    }
+                } else {
+                    $result['last_modified_datetime'] = $equipmentRow['e_last_modified_datetime'];
+                }
+
                 print json_encode($result);
-                //echo $layout->render();
             }
         }
     }
@@ -787,12 +811,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                             (isset($equipmentAssigmentRow['ea_owner_id']) ? $equipmentAssigmentRow['ea_owner_id'] : null)
             );
 
-            // Drivers
-//            $this->view->drivers = $this->getSelectList('driver', 'd_ID', array('d_Driver_SSN', 'd_Last_Name'),
-//                            (isset($equipmentAssigmentRow['ea_driver_id']) ? $equipmentAssigmentRow['ea_driver_id'] : null)
-//            );
-
-                
             // Service providers
             $this->view->serviceProviders = $this->getSelectList('serviceProvider', 'sp_ID', 'sp_Name',
                             (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
@@ -988,5 +1006,31 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
 
         return $result;
+    }
+
+    public function getLastModifiedDateAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        $equipmentId = $this->_request->getParam('equipmentId');
+
+        $lastModifiedDate = '';
+        if (!empty($equipmentId)) {
+            $equipmentModel = new Equipment_Model_Equipment();
+            $lastModifiedDate = $equipmentModel->getLastModifiedDate($equipmentId);
+
+            if (!empty($lastModifiedDate) &&  $lastModifiedDate != '0000-00-00 00:00:00') {
+                try {
+                    $date = new Zend_Date($lastModifiedDate, "YYYY-MM-dd HH:mm:ss");
+                    $lastModifiedDate = $date->toString("MM/dd/YYYY HH:mm");
+                } catch (Zend_Date_Exception $e) {
+                    $lastModifiedDate = '';
+                }
+            }
+        }
+
+        $result['last_modified_date'] = $lastModifiedDate;
+        print json_encode($result);
     }
 }

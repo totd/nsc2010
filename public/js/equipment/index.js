@@ -75,8 +75,8 @@ $(function() {
     Assignment = new Object();
 
     refreshVIW($("#e_Number").val());
-
     refreshEquipmentAssigment($("#ea_equipment_id").val());
+    refreshLastModifiedDate($("#e_id").val());
 
     // Show/hide VIW edit form
     $(".VIWActionLink").each(function() {
@@ -97,7 +97,7 @@ $(function() {
         changeMonth: true,
         changeYear: true,
         yearRange: '-20:+20',
-        showOn: 'both',
+        showOn: 'button',
         buttonImage: "/images/select-data.gif",
         buttonImageOnly: true
     });
@@ -270,6 +270,7 @@ function saveAssignment() {
                         if (data == 1) {
                             $("#viewAssignmentDiv").html("");
                             refreshEquipmentAssigment($("#ea_equipment_id").val());
+                            refreshLastModifiedDate($("#e_id").val());
                             $(".AssignmentDiv").toggle("slow");
                             $(".saveButton").html("Save");
                             return true;
@@ -312,6 +313,7 @@ function saveViw() {
                 if (data == 1) {
                     $("#viewVIWdiv").html("");
                     refreshVIW($("#e_Number").val());
+                    refreshLastModifiedDate($("#e_id").val());
                     $(".VIWDiv").toggle("slow");
                     $(".saveButton").html("Save");
                     return true;
@@ -363,9 +365,20 @@ function refreshVIW(EIN) {
             data: "EIN=" + EIN,
             success: function(data){
                 $("#viewVIWdiv").html(data.layout);
-                $("#e_last_modified_datetime").html(data.e_last_modified_datetime);
                 atachPreview();
                 storePrimaryViwValues();
+            },
+            dataType: "json"
+    });
+}
+
+function refreshLastModifiedDate(equipmentId) {
+    $.ajax({
+            type: "GET",
+            url: "/equipment/information-worksheet/get-last-modified-date/",
+            data: "equipmentId=" + equipmentId,
+            success: function(data){
+                $("#last_modified_datetime").html(data.last_modified_date);
             },
             dataType: "json"
     });

@@ -5,7 +5,9 @@
                 <tbody>
                     <tr>
                         <th colspan="2">
-                            Equipment Assignment
+                           <h2 id="equipmentAssignmentHeader" <?= ($this->allRequiredAssignmentFieldFilled === true) ? 'class="status-ok"' : ''; ?>">
+                                Equipment Assignment
+                           </h2>
                             <input type="hidden" value="<?= (isset($this->equipmentAssignmentRow['ea_equipment_id'])) ? $this->equipmentAssignmentRow['ea_equipment_id'] : '' ; ?>" id="ea_equipment_id" name="ea_equipment_id" />
                             <input type="hidden" value="<?= (isset($this->equipmentAssignmentRow['ea_id'])) ? $this->equipmentAssignmentRow['ea_id'] : '' ; ?>" id="ea_id" name="ea_id" />
                         </th>

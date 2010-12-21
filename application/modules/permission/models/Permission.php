@@ -146,7 +146,7 @@ class Permission_Model_Permission
                                                                 )
                     ),
             ),
-            //'permissions' => array('seeNonCryptSsn')
+            'permissions' => array('seeNonCryptSsn')
         ),
         'NSC_LEVEL_2' => array(
             'resources' => array(

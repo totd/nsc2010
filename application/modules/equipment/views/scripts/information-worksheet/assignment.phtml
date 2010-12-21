@@ -3,7 +3,7 @@
         <tbody>
             <tr>
                 <th colspan="2">
-                    <h2 id="equipmentAssignmentHeader" class="<?= ($this->layout()->allRequiredAssignmentFieldFilled === true) ? 'status-ok' : 'status-warning'; ?>">
+                    <h2 id="equipmentAssignmentHeader" <?= ($this->layout()->allRequiredAssignmentFieldFilled === true) ? 'class="status-ok"' : ''; ?>">
                         Equipment Assignment
                     </h2>
                 </th>

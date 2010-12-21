@@ -66,4 +66,12 @@ class Employer_Model_Employer extends Zend_Db_Table_Abstract
             return null;
         }
     }
+    public function getRecordBySearchQuery($sQuery)
+    {
+        $t = new Employer_Model_Employer();
+        $select=$t->select();
+        $select->from("employer")->where("emp_Employer_Name = '".$sQuery['emp_Employer_Name']."' AND "."emp_Address1 = '".$sQuery['emp_Address1']."' AND "."emp_City = '".$sQuery['emp_City']."' AND "."emp_Phone = '".$sQuery['emp_Phone']."'");
+        $rows=$t->fetchRow($select);
+        return $rows->toArray();
+    }
 }

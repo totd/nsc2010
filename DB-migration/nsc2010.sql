@@ -141,12 +141,24 @@ CREATE TABLE IF NOT EXISTS `contacts_table` (
   PRIMARY KEY (`ct_ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
-CREATE TABLE `nsc2010`.`country` (
-    `country_ID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-    `country_name` VARCHAR( 100 ) NOT NULL
-) ENGINE = InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=5;
+--
+-- Структура таблицы `country`
+--
+
+DROP TABLE IF EXISTS `country`;
+CREATE TABLE IF NOT EXISTS `country` (
+  `country_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `country_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`country_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+-- --------------------------------------------------------
+
 
 -- --------------------------------------------------------
+
+--
+-- Структура таблицы `custom_document__form_name`
+--
 
 DROP TABLE IF EXISTS `custom_document__form_name`;
 CREATE TABLE IF NOT EXISTS `custom_document__form_name` (
@@ -161,7 +173,8 @@ CREATE TABLE IF NOT EXISTS `custom_document__form_category` (
   `cdfc_ID` int(11) NOT NULL AUTO_INCREMENT,
   `cdfc_name` varchar(100) NOT NULL,
   PRIMARY KEY (`cdfc_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
 
 --
 -- Структура таблицы `custom_document`
@@ -432,7 +445,31 @@ CREATE TABLE IF NOT EXISTS `driver__status` (
   `ds_id` int(11) NOT NULL AUTO_INCREMENT,
   `ds_type` varchar(100) NOT NULL,
   PRIMARY KEY (`ds_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `employer`
+--
+
+DROP TABLE IF EXISTS `employer`;
+CREATE TABLE IF NOT EXISTS `employer` (
+  `emp_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `emp_Employer_Name` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `emp_City` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_State_ID` tinyint(2) NOT NULL,
+  `emp_Country_ID` tinyint(2) NOT NULL,
+  `emp_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Phone` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_Fax` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_DOT_Safety_Sensitive_Function` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_FMCSR` enum('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT 'NO',
+  `emp_approved` enum('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT 'NO',
+  PRIMARY KEY (`emp_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 

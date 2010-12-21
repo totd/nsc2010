@@ -2,6 +2,7 @@
 class Permission_Model_Permission
 {
     private $_permissions = array (
+
         'NSC_LEVEL_1' => array(
             'resources' => array(
                 'index' => array('resource' => 'index'),
@@ -144,7 +145,8 @@ class Permission_Model_Permission
                                                                     'driver-Search'
                                                                 )
                     ),
-            )
+            ),
+            //'permissions' => array('seeNonCryptSsn')
         ),
         'NSC_LEVEL_2' => array(
             'resources' => array(
@@ -1242,6 +1244,14 @@ class Permission_Model_Permission
             }
         }
 
+        return $result;
+    }
+
+    public function doesRoleHavePermission($role, $permissionName) {
+        $result = false;
+        if (isset($this->_permissions[$role]['permissions'])) {
+            $result = in_array($permissionName, $this->_permissions[$role]['permissions']);
+        }
         return $result;
     }
 

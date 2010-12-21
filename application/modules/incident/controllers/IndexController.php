@@ -58,7 +58,7 @@ class Incident_IndexController extends Zend_Controller_Action
         $this->view->headLink()->appendStylesheet('/css/multiselect/common.css');
         $this->view->headLink()->appendStylesheet('/css/multiselect/ui.multiselect.css');
         //$this->view->headScript()->appendFile('/js/jquery-ui.min.js', 'text/javascript');
-        $this->view->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js', 'text/javascript');
+        $this->view->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/multiselect/plugins/tmpl/jquery.tmpl.1.1.1.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/multiselect/ui.multiselect.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/incident/index/index.js', 'text/javascript');

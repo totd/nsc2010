@@ -160,6 +160,12 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
         $where = '';
         $select = 'SELECT d_ID';
 
+        if (in_array('d_Driver_SSN', $fields)) {
+            $select .= ' , d_Driver_SSN';
+            $key = array_keys($fields, 'd_Driver_SSN');
+            unset($fields[$key[0]]);
+        }
+
         if (is_array($fields) && !empty ($str)) {
             for ($i = 0; $i < count($fields); $i++) {
                 $field = $fields[$i];
@@ -172,11 +178,57 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
                 $where .= " $field LIKE '%$str%' ";
                 $select .= " $field ";
             }
-            $select .= ' FROM driver ';
-            $select .= $where;
+        }
+        
+        $select .= ' FROM driver ';
+        $select .= $where;
 
-            $stmt = $this->getDefaultAdapter()->query($select);
-            $result = $stmt->fetchAll();
+        $stmt = $this->getDefaultAdapter()->query($select);
+        $result = $stmt->fetchAll();
+
+        foreach ($result as &$row) {
+            $row['d_Driver_SSN'] = $this->formatSSN($row['d_Driver_SSN']);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @author Andryi Ilnytskyi 21.12.2010
+     *
+     * Return field value according to driverId.
+     *
+     * @param int $driverId
+     *
+     * @return string
+     */
+    public function getDriverFieldValue($driverId, $fieldName)
+    {
+        $result = '';
+        if (!empty($driverId) ) {
+            $row = $this->fetchRow("d_ID = {$this->getDefaultAdapter()->quote($driverId)}");
+
+            if ($fieldName == 'd_Driver_SSN') {
+                $result = $this->formatSSN($row->$fieldName);
+            } else {
+                $result = $row->$fieldName;
+            }
+        }
+
+        return $result;
+    }
+
+    private function formatSSN($SSN) {
+        $auth = Zend_Auth::getInstance();
+
+        if ($auth->hasIdentity()) {
+            $identity = $auth->getIdentity();
+        }
+
+        if (isset($identity) && $identity->permissions->see_non_crypt_ssn_permission) {
+            $result = preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3", $SSN);
+        } else {
+            $result = preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3", $SSN);
         }
 
         return $result;

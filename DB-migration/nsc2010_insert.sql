@@ -95,7 +95,7 @@ INSERT INTO `depot` (`dp_id`, `dp_HomeBase_Account_Number`, `dp_Name`, `dp_Conta
 INSERT INTO `driver` (`d_ID`, `d_homebase_ID`, `d_depot_ID`, `d_Driver_Alternate_ID`, `d_Driver_SSN`, `d_Entry_Date`, `d_Employment_Type`, `d_Suffix`, `d_Account`, `d_First_Name`, `d_Middle_Name`, `d_Last_Name`, `d_Gender`, `d_Hair_Color`, `d_Eye_Color`, `d_Height_Feet`, `d_Height_Inches`, `d_Date_Of_Birth`, `d_Date_Of_Hire`, `d_Description`, `d_Telephone_Number1`, `d_Telephone_Number2`, `d_Telephone_Number3`, `d_Fax`, `d_Status`, `d_Total Miles Driven`, `d_Physical_Exam_Date`, `d_Doctor_Name`, `d_Medical_Card_Issue_Date`, `d_Medical_Card_Expiration_Date`, `d_DOT_Regulated`, `d_TWIC`, `d_TWIC_expiration`, `d_R_A`, `d_R_A_expiration`, `d_last_update_date`) VALUES
 (1, 1, 1, '123', '123223123', '2010-11-04 00:00:00', 2, '', NULL, 'test1', 'rr', 'esdfsdf', 1, 1, 2, 1, 1, '2010-11-01', '2010-11-03', 'test', '123123123', '', '', NULL, 1, 1122, '2010-11-03', 'doctor 1', '2010-11-03', '2010-11-30', 'Yes', '', NULL, '', NULL, '2010-12-20 13:47:17'),
 (2, 1, NULL, NULL, '222333444', '2010-11-01 00:00:00', 4, NULL, NULL, 'driver nave 2', 'Driver-mid-name2', 'Driver-last-name2', 2, 1, 4, 3, 1, '1995-11-23', '2010-11-01', 'asdas dasd asd as', '123123123', NULL, NULL, NULL, 1, NULL, '2010-11-06', 'doctor name 2', '2010-11-01', '2010-11-30', 'No', NULL, NULL, NULL, NULL, NULL),
-(3, 1, NULL, NULL, '123456789', '2010-11-05 00:11:33', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 1, 1, NULL, '123456789', '2010-11-05 00:11:33', 4, '', NULL, 'asd', '', 'asd', 1, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, '123123123', '', '', NULL, 2, NULL, NULL, '', NULL, NULL, NULL, '', NULL, '', NULL, '2010-12-22 22:07:57'),
 (4, 1, NULL, NULL, '123426789', '2010-11-05 00:12:25', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (5, 1, NULL, NULL, '121212131', '2010-11-05 00:21:47', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1999-01-01', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (6, 1, NULL, NULL, '123123111', '2010-11-15 22:27:09', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-11-10', NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -109,20 +109,6 @@ INSERT INTO `driver` (`d_ID`, `d_homebase_ID`, `d_depot_ID`, `d_Driver_Alternate
 (14, 1, 2, NULL, '000000005', '2010-11-24 18:51:20', 4, NULL, NULL, 'sdf sdf', 'dsf fd sd', 'sdf df ', 2, 3, 3, 8, 6, '2010-11-01', NULL, NULL, '3242342332', '', '234234234', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (15, NULL, NULL, NULL, '122212312', '2010-12-20 11:59:44', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-12-01', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
---
--- Дамп данных таблицы `driver_address_history`
---
-
-INSERT INTO `driver_address_history` (`dah_ID`, `dah_Driver_ID`, `dah_Start_Date`, `dah_End_Date`, `dah_Current_Address`, `dah_Address1`, `dah_Address2`, `dah_City`, `dah_State`, `dah_Postal_Code`, `dah_Country_Code`, `dah_Phone`, `dah_row_created`) VALUES
-(1, 7, '2010-11-11', '2010-11-10', 'YES', 'erewr wer wrw#%$', NULL, 'w2', 3, '33433', NULL, '652323231', '2010-11-16 12:23:22'),
-(2, 7, '2010-11-11', '2010-12-11', 'NO', 'erewr we23', NULL, 'wsad', 3, '33433', NULL, '652323231', '2010-11-17 11:11:11'),
-(5, 1, '2010-04-01', '2011-05-27', 'NO', 'asdasdasd asd aasdsd a', NULL, 'asdasdasdsad', 14, '123433', NULL, '21332442', '2010-11-23 12:43:16'),
-(6, 1, '2010-01-11', '2010-11-30', 'NO', 'sdf', NULL, '4352dfsf', 9, '555544', NULL, '32444323423', '2010-11-23 15:40:39'),
-(8, 1, '2009-01-12', '2010-11-30', 'YES', 'dosmot?', NULL, 'wut', 6, '123098', NULL, '123098456', '2010-11-23 21:49:36'),
-(9, 14, '2010-01-11', '2010-11-24', 'YES', 'wsdf', NULL, ' sdf sd', 5, '234234', NULL, '234234324', '2010-11-24 18:52:10'),
-(10, 12, '2010-01-06', '2010-11-30', 'NO', 'ryrty', NULL, 'rty', 5, '4545654', NULL, '4564564565', '2010-11-27 16:28:24'),
-(11, 12, '2010-01-11', '2010-09-11', 'YES', '5345', NULL, '345', 6, '345345', NULL, '345345345', '2010-11-27 22:40:57'),
-(12, 6, '2010-01-12', '2010-12-22', 'NO', 'asd', NULL, 'sad', 8, '123123', NULL, '123123123', '2010-12-17 21:00:30');
 
 --
 -- Дамп данных таблицы `driver_service_hours`
@@ -151,7 +137,9 @@ INSERT INTO `driver__equipment_operated` (`deo_ID`, `deo_Driver_ID`, `deo_Equipm
 (9, 2, 1, 'Yes', '2010-12-01', '2010-12-01', 1.00),
 (12, 2, 11, 'Yes', '2010-12-01', '2010-12-31', 23.00),
 (13, 5, 1, 'Yes', '1998-01-01', '2010-12-28', 2323.00),
-(15, 5, 8, 'Yes', '2010-12-01', '2010-12-31', 54645.00);
+(15, 5, 8, 'Yes', '2010-12-01', '2010-12-31', 54645.00),
+(16, 3, 1, 'Yes', '2010-12-01', '2010-12-31', 12.00),
+(18, 3, 4, 'Yes', '1998-12-18', '2010-12-31', 23.00);
 
 --
 -- Дамп данных таблицы `driver__eye_color`
@@ -188,16 +176,32 @@ INSERT INTO `driver__hair_color` (`dhc_id`, `dhc_type`) VALUES
 -- Дамп данных таблицы `driver__hos`
 --
 
+INSERT INTO `driver__hos` (`dhos_ID`, `dhos_Driver_ID`, `dhos_date`, `dhos_hours`) VALUES
+(1, 1, '2010-12-15', 2),
+(2, 1, '2010-12-16', 2),
+(3, 1, '2010-12-17', 3),
+(4, 1, '2010-12-18', 4),
+(5, 1, '2010-12-19', 5),
+(6, 1, '2010-12-20', 6),
+(7, 1, '2010-12-21', 7);
 
 --
 -- Дамп данных таблицы `driver__lrfw`
 --
 
+INSERT INTO `driver__lrfw` (`dlrfw_Driver_ID`, `dlrfw_date`, `dlrfw_from_time`) VALUES
+(1, '2010-12-14', '11:11');
 
 --
 -- Дамп данных таблицы `driver__previous_employment`
 --
 
+INSERT INTO `driver__previous_employment` (`dpe_ID`, `dpe_Driver_ID`, `dpe_Employer_ID`, `dpe_Employment_Start_Date`, `dpe_Employment_Stop_Date`, `dpe_Position`, `dpe_Salary`, `dpe_Reason_for_Leaving`) VALUES
+(8, 1, 18, '2010-12-21', '2010-12-14', 'Driver', '24000', 'Too romantic for this job'),
+(10, 1, 19, '2010-12-21', '2010-12-22', 'Super driver', '42342', 'Too lazy for this job'),
+(11, 3, 20, '2010-12-01', '2010-12-31', 'bending unit', '9000', 'to old to wrk'),
+(16, 3, 39, '2010-12-01', '2010-12-31', 'Capitan of the spaceship', '100500', 'wut?'),
+(18, 3, 20, '2010-12-01', '2010-12-31', 'asd', '123', 'asd');
 
 --
 -- Дамп данных таблицы `driver__status`
@@ -215,8 +219,11 @@ INSERT INTO `driver__status` (`ds_id`, `ds_type`) VALUES
 --
 
 INSERT INTO `employer` (`emp_ID`, `emp_Employer_Name`, `emp_Address1`, `emp_Address2`, `emp_City`, `emp_State_ID`, `emp_Country_ID`, `emp_Postal_Code`, `emp_Phone`, `emp_Fax`, `emp_DOT_Safety_Sensitive_Function`, `emp_FMCSR`, `emp_approved`) VALUES
-(1, 'Asd', 'asd asd asda,23', NULL, 'Qweq', 1, 1, '123123', '123123123', '123123123', 'No', 'NO', 'YES'),
-(2, 'adsaaasdad', 'asd asdasd', NULL, 'asdasd', 3, 1, '333222', '111222333', '333444555', 'Yes', 'NO', 'YES');
+(18, 'The Big Simpsons Company', 'Evergreen Terrace, 24', NULL, 'Springfield', 5, 1, '23432', '834932847', '4958395830', 'NO', 'NO', 'YES'),
+(19, 'Olde Bender Co. Ltd.', 'Times sq', NULL, 'New York', 35, 1, '12345', '3289742938', '324324234', 'NO', 'NO', 'YES'),
+(20, 'Some Company', 'Anywhere 8/64', NULL, 'Bobryjsk', 11, 1, '123332', '123473998', '198384998', 'NO', 'NO', 'YES'),
+(32, 'Planet Express', 'Don&acute;t remember', NULL, 'New New-York', 48, 1, '123321', '199232546', '199232546', 'NO', 'NO', 'YES'),
+(39, 'Awesome "SupraFirm"', 'Beneding Rodriguez str, 77', NULL, 'Futurama', 18, 1, '123098', '1192342234', '1192342235', 'NO', 'NO', 'YES');
 
 --
 -- Дамп данных таблицы `equipment`

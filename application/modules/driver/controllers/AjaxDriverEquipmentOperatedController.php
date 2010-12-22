@@ -164,22 +164,13 @@ class Driver_AjaxDriverEquipmentOperatedController extends Zend_Controller_Actio
             elseif(preg_match("/^[0-9]+\.[0-9]+$/",$deo[$i][7])==0){
                 $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> Total Miles can contain only digits and dot.</div>";}
             $deo[$i][7] = preg_replace("/\.([0-9][0-9])(.)+$/",".$1",$deo[$i][7]);
-
-             
-
-
-
             if($create_new==1){
                 Driver_Model_DriverEquipmentOperated::createRecord($deo[$i]);
             }else{
                 Driver_Model_DriverEquipmentOperated::updateRecord($deo[$i]);
             }
-
-
-
         }
-
-       
+        
         if($msg!=""){
             echo $msg;
             return null;

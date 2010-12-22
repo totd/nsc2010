@@ -311,14 +311,14 @@
 <div><?php
     if(isset($this->driverInfo['d_last_update_date'])){
         $date->set($this->driverInfo['d_last_update_date'],"YYYY-MM-dd HH:mm:ss");
-        echo "<h3 style='padding-top: 15px; padding-left: 28px;'>Last saved: ".$date->toString("MM/dd/YYYY hh:mm")."</h3>";
+        echo "<h3 id='last_saved' style='padding-top: 15px; padding-left: 28px;'>Last saved: ".$date->toString("MM/dd/YYYY hh:mm")."</h3>";
     }
 
 ?></div>
 <div class="blue-nav">
     <ul>
         <li><span><a href="/driver/driver/dqf/driver_id/<?php echo $this->driverId;?>">Go to DQF</a></span></li>
-        <li><span><a href="/driver/index/dqf?status=All">Exit</a></span></li>
+        <li><span><a onclick="exit('/driver/index/dqf?status=All')">Exit</a></span></li>
     </ul>
 </div>
 

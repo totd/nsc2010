@@ -35,7 +35,8 @@
                             'equipmentRow' => $this->equipmentRow,
                             'equipmentTypes' => $this->equipmentTypes,
                             'states' => $this->states,
-                            'equipmentStatus' => $this->equipmentStatus
+                            'equipmentStatus' => $this->equipmentStatus,
+                            'allRequiredViwFieldFilled' => $this->allRequiredViwFieldFilled
                         ));
                 ?>
             </div>
@@ -56,7 +57,8 @@
                                 'owners' => $this->owners,
                                 'drivers' => $this->drivers,
                                 'serviceProviders' => $this->serviceProviders,
-                                'incidents' => $this->incidents
+                                'incidents' => $this->incidents,
+                                'allRequiredAssignmentFieldFilled' => $this->allRequiredAssignmentFieldFilled
                             ));
                     ?>
                 </div>
@@ -68,13 +70,13 @@
         
      </div>
 
-    <div><?php
-        if(isset($this->equipmentRow['e_last_modified_datetime'])){
-
-            echo '<h3 style="padding-top: 15px; padding-left: 28px;" id="e_last_modified_datetime">Last saved: ' . $this->equipmentRow['e_last_modified_datetime'] . '</h3>';
-        }
-
-    ?></div>
+    <div>
+        <h3 style="padding-top: 15px; padding-left: 28px;" >
+            Last saved: <span id="last_modified_datetime">
+                    
+            </span>
+        </h3>
+   </div>
 
     <div class="blue-nav" style="width:600px;">
         <ul>

@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
+
 // Show/hide Driver Addresses adding form
 $(document).ready(function() {
     $('#toggleAddressAdd').click(function() {

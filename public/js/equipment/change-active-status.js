@@ -3,7 +3,7 @@ $(function() {
 			changeMonth: true,
 			changeYear: true,
             yearRange: '-10:+10',
-            showOn: 'both',
+            showOn: 'button',
             buttonImage: "/images/select-data.gif",
             buttonImageOnly: true
 		});

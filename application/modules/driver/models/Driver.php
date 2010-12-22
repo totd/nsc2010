@@ -233,6 +233,13 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
 
         return $result;
     }
+    public function driverLastSaved($driverID,$mData)
+    {
+
+        $db = new Driver_Model_Driver();
+        $w = "d_ID = ".(int)$driverID;
+        return $db->update(array("d_last_update_date"=>$mData['d_last_update_date']),$w);
+    }
 
 }
 

@@ -21,10 +21,11 @@ class Employer_AjaxEmployerController extends Zend_Controller_Action
         $emp_City = $_REQUEST['emp_City'];
         $emp_State_ID = $_REQUEST['emp_State_ID'];
         $emp_Postal_Code = $_REQUEST['emp_Postal_Code'];
-        $emp_Phone = preg_replace("/[^0-9]+/","",$_REQUEST['emp_Phone']);
-        $emp_Fax = preg_replace("/[^0-9]+/","",$_REQUEST['emp_Fax']);
+        $emp_Phone = $_REQUEST['emp_Phone'];
+        $emp_Fax = $_REQUEST['emp_Fax'];
         $emp_DOT_Safety_Sensitive_Function = $_REQUEST['emp_DOT_Safety_Sensitive_Function'];
         $emp_FMCSR_Regulated = $_REQUEST['emp_FMCSR_Regulated'];
+        
         $errors=0;
         $msg = "";
         if($emp_Employer_Name==null){
@@ -53,7 +54,7 @@ class Employer_AjaxEmployerController extends Zend_Controller_Action
             $msg=$msg."Phone must be from 8 to 10 digits!<br/>";}
         if($emp_Fax==""){
             $errors++;
-            $msg=$msg."Please, fill Fax!<br/>";}
+            $msg=$msg."Please, fill Phone!<br/>";}
         elseif(preg_match("/[\d]{8,10}/",$emp_Fax)==0){
             $errors++;
             $msg=$msg."Fax must be from 8 to 10 digits!<br/>";}
@@ -72,22 +73,11 @@ class Employer_AjaxEmployerController extends Zend_Controller_Action
             $data['emp_DOT_Safety_Sensitive_Function']=$emp_DOT_Safety_Sensitive_Function;
             $data['emp_FMCSR']=$emp_FMCSR_Regulated;
 
-            foreach($data as $k => $v){
-                $data[$k]  = str_replace('"',"&quot;",$v);
-                $data[$k]  = str_replace("'","&acute;",$v);
-            }
-
+            Employer_Model_Employer::createRecord($data);
             $row = Employer_Model_Employer::getRecordBySearchQuery($data);
-           // Employer_Model_Employer::createRecord($data);
             if(sizeof($row)>0){
                 echo $row['emp_ID'];
-            }else{
-                Employer_Model_Employer::createRecord($data);
-                $row = Employer_Model_Employer::getRecordBySearchQuery($data);
-                if(sizeof($row)>0){
-                    echo $row['emp_ID'];
-                }
-            }
+            }else{ echo "Can't find employer!";}
         }
     }
 

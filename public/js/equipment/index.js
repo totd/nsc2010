@@ -39,7 +39,6 @@ function storePrimaryAssignmentValues() {
     Assignment.driver_autocomplete = $("#driver_autocomplete").val();
 }
 
-
 function changeType() {
     var text = $('#e_type_id :selected').text();
     $(".second *").show();
@@ -78,7 +77,7 @@ $(function() {
     refreshVIW($("#e_Number").val());
 
     refreshEquipmentAssigment($("#ea_equipment_id").val());
-    
+
     // Show/hide VIW edit form
     $(".VIWActionLink").each(function() {
        $(this).click(function() {
@@ -97,7 +96,10 @@ $(function() {
     $("#e_License_Expiration_Date").datepicker({
         changeMonth: true,
         changeYear: true,
-        yearRange: '-20:+20'
+        yearRange: '-20:+20',
+        showOn: 'both',
+        buttonImage: "/images/select-data.gif",
+        buttonImageOnly: true
     });
 
     $("#e_type_id").change(function() {
@@ -107,24 +109,30 @@ $(function() {
     changeType();
 
     $("#EquipmentAssignmentSaveLink").click(function() {
-         saveAssignment();
          $("#EquipmentAssignmentSaveLink").html('Updating...');
+         $("#EquipmentAssignmentSaveLink").addClass('button-updating');
+         saveAssignment();
     });
 
     $("#VIWSaveLink").click(function() {
         saveViw();
         $("#VIWSaveLink").html('Updating...');
+        $("#VIWSaveLink").addClass('button-updating');
     });
 
     $("#commonSaveButton").click(function() {
         if ($("#updateVIWdiv").css('display') != 'none') {
-            saveViw();
             $("#commonSaveButton").html('Updating...');
+            $("#commonSaveButton").addClass('button-updating');
+            saveViw();
+
         }
 
         if ($("#addAssignmentDiv").css('display') != 'none') {
-            saveAssignment();
             $("#commonSaveButton").html('Updating...');
+            $("#commonSaveButton").addClass('button-updating');
+            saveAssignment();
+
         }
     });
 
@@ -145,7 +153,7 @@ $(function() {
             resizable: false,
 			title: 'Confirm Discard'
 		}
-        
+
     );
     var $dialogNoChanges = $('<div></div>')
 		.html("You didn't make any changes yet")
@@ -169,7 +177,7 @@ $(function() {
 	});
 
     var $dialogExit = $('<div></div>')
-		.html("Are you sure you want to leave without saving all changes?")
+		.html("Leaving without saving will discard all changes!")
 		.dialog({
 			autoOpen: false,
             modal: true,
@@ -197,6 +205,8 @@ $(function() {
 
         $("#ea_depot_id").val(Assignment['ea_depot_id']);
     });
+
+
 
 });
 
@@ -261,6 +271,7 @@ function saveAssignment() {
                             $("#viewAssignmentDiv").html("");
                             refreshEquipmentAssigment($("#ea_equipment_id").val());
                             $(".AssignmentDiv").toggle("slow");
+                            $(".saveButton").html("Save");
                             return true;
                         } else {
                             alert(data);
@@ -351,10 +362,12 @@ function refreshVIW(EIN) {
             url: "/equipment/information-worksheet/get-viw/",
             data: "EIN=" + EIN,
             success: function(data){
-                $("#viewVIWdiv").html(data);
+                $("#viewVIWdiv").html(data.layout);
+                $("#e_last_modified_datetime").html(data.e_last_modified_datetime);
                 atachPreview();
                 storePrimaryViwValues();
-        }
+            },
+            dataType: "json"
     });
 }
 
@@ -407,4 +420,6 @@ function refreshEquipmentAssigment(equipmentId) {
             }
         });
  }
+
+
 

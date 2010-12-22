@@ -3,6 +3,10 @@ class EquipmentAssignment_Model_EquipmentAssignment extends Zend_Db_Table_Abstra
 {
     protected $_name = 'equipment_assignment';
 
+    private $_requiredFields = array (
+        'ea_homebase_id', 'ea_DOT_regulated', 'ea_owner_id ', 'ea_start_date', 'ea_end_date'
+    );
+
     public function findRow($field, $value)
     {
         $result = false;
@@ -49,9 +53,9 @@ class EquipmentAssignment_Model_EquipmentAssignment extends Zend_Db_Table_Abstra
             LEFT JOIN depot ON ea_depot_id = dp_id
             LEFT JOIN service_provider__equipment_assignment ON e_id = spea_Equipment_id
             LEFT JOIN service_provider ON spea_Service_Provider_ID = sp_ID
-            LEFT JOIN inspection ON e_id = i_Equipment_ID
+            LEFT JOIN inspection ON e_id = ins_Equipment_ID
             LEFT JOIN equipment_maintenance ON e_id = em_Equipment_ID
-            LEFT JOIN incident__passenger ON e_id = ip_Equipment_Number
+            LEFT JOIN incident ON e_id = i_Equipment_ID
             where ea_equipment_id = {$this->getDefaultAdapter()->quote($equipmentId)}
         ";
 
@@ -72,5 +76,32 @@ class EquipmentAssignment_Model_EquipmentAssignment extends Zend_Db_Table_Abstra
         $select = $this->select();
         return $this->fetchAll($select);
     }
+
+    public function getRow($id)
+    {
+        $row = $this->fetchRow("ea_id = $id");
+
+        return $row;
+    }
+
+    public function checkRequiredFields($equipmentId)
+    {
+        if (!empty($equipmentId)) {
+            $row = $this->fetchRow("ea_equipment_id = $equipmentId");
+
+            if ($row) {
+                foreach ($row as $field => $value) {
+                    if ((empty($value) || is_null($field)) && in_array($field, $this->_requiredFields))  {
+                        $result[$field] = $this->_requiredFields[$field];
+                    }
+                }
+            } else {
+                $result = $this->_requiredFields;
+            }
+        }
+
+        return (isset($result)) ? $result : null;
+    }
+
 }
 

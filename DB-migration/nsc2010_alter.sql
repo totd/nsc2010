@@ -68,44 +68,25 @@ ALTER TABLE `homebase`
   ADD CONSTRAINT `homebase_ibfk_1` FOREIGN KEY (`h_Company_Account_Number`) REFERENCES `company` (`c_id`) ON UPDATE CASCADE;
 
 --
--- Ограничения внешнего ключа таблицы `incident_cause`
+-- Ограничения внешнего ключа таблицы `incident_investigator`
 --
-ALTER TABLE `incident_cause`
-  ADD CONSTRAINT `fk_incident_cause_incident1` FOREIGN KEY (`ic_Incident_ID`) REFERENCES `incident` (`i_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `incident`
---
-ALTER TABLE `incident`
-  ADD CONSTRAINT `fk_driver_id` FOREIGN KEY (`i_Driver_ID`) REFERENCES `driver` (`d_ID`) ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `incident__investigator`
---
-ALTER TABLE `incident__investigator`
-  ADD CONSTRAINT `fk_incident__investigator_company1` FOREIGN KEY (`ii_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_incident__investigator_driver1` FOREIGN KEY (`ii_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `incident__passenger`
---
-ALTER TABLE `incident__passenger`
-  ADD CONSTRAINT `fk_incident__passenger_equipment1` FOREIGN KEY (`ip_Equipment_Number`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_incident__passenger_passenger1` FOREIGN KEY (`ip_Passenger _Number`) REFERENCES `passenger` (`p_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `incident_investigator`
+  ADD CONSTRAINT `fk_incident_investigator_company1` FOREIGN KEY (`ii_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_incident_investigator_driver1` FOREIGN KEY (`ii_Driver_ID`) REFERENCES `driver` (`d_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `inspection`
 --
 ALTER TABLE `inspection`
-  ADD CONSTRAINT `fk_inspection_equipment1` FOREIGN KEY (`i_Equipment_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_inspection_inspection_types1` FOREIGN KEY (`i_Type_ID`) REFERENCES `inspection_types` (`it_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_inspection_equipment1` FOREIGN KEY (`ins_Equipment_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_inspection_inspection_types1` FOREIGN KEY (`ins_Type_ID`) REFERENCES `inspection_types` (`it_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `service_provider__company_assignment`
 --
 ALTER TABLE `service_provider__company_assignment`
-  ADD CONSTRAINT `fk_service_provider__company_assignment_company1` FOREIGN KEY (`spсa_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_service_provider__company_assignment_service_provider1` FOREIGN KEY (`spсa_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_service_provider__company_assignment_company1` FOREIGN KEY (`spca_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_service_provider__company_assignment_service_provider1` FOREIGN KEY (`spca_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `service_provider__insurance`

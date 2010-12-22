@@ -79,7 +79,7 @@
                         if(isset($this->driverInfo['d_Medical_Card_Expiration_Date'])){
                         $date->set($this->driverInfo['d_Medical_Card_Expiration_Date'],"YYYY-MM-dd");
                         echo  $date->toString("MM/dd/YYYY");}
-                    ?>" readonly="readonly" />&nbsp;&nbsp;&nbsp;
+                    ?>" />&nbsp;&nbsp;&nbsp;
                     Medical Examiner's Name:&nbsp;<input type="text" id="d_Doctor_Name" name="d_Doctor_Name" value="<?php echo $this->driverInfo['d_Doctor_Name']; ?>" />
                 </td></tr>
                 <tr>
@@ -157,7 +157,7 @@
               </tr>
               <tr>
                 <td>TWIC expiration date:</td>
-                <td><input type="text" size="7" readonly="readonly" id="d_TWIC_expiration" name="d_TWIC_expiration" value="<?php
+                <td><input type="text" size="7" id="d_TWIC_expiration" name="d_TWIC_expiration" value="<?php
                         if(isset($this->driverInfo['d_TWIC_expiration'])){
                         $date->set($this->driverInfo['d_TWIC_expiration'],"YYYY-MM-dd");
                         echo  $date->toString("MM/dd/YYYY");}
@@ -169,7 +169,7 @@
               </tr>
               <tr>
                 <td>R/A card expiration date:</td>
-                <td><input type="text" size="7" readonly="readonly" id="d_R_A_expiration" name="d_R_A_expiration" value="<?php
+                <td><input type="text" size="7" id="d_R_A_expiration" name="d_R_A_expiration" value="<?php
                         if(isset($this->driverInfo['d_R_A_expiration'])){
                         $date->set($this->driverInfo['d_R_A_expiration'],"YYYY-MM-dd");
                         echo  $date->toString("MM/dd/YYYY");}

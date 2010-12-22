@@ -11,7 +11,8 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
          $stmt = $db->query('
                       SELECT
                        *
-                      FROM driver__previous_employment
+                        FROM driver__previous_employment
+                        LEFT JOIN employer ON employer.emp_ID = driver__previous_employment.dpe_Employer_ID
                       WHERE dpe_Driver_ID='.$iDriver.'
         ');
          return $stmt->fetchAll();
@@ -28,6 +29,7 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
                       SELECT
                        *
                       FROM driver__previous_employment
+                        LEFT JOIN employer ON employer.emp_ID = driver__previous_employment.dpe_Employer_ID
                       WHERE dpe_ID='.$iID.'
         ');
          return $stmt->fetch();

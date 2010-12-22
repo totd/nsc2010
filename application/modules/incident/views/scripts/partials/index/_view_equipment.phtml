@@ -1,0 +1,75 @@
+<div id="IncidentEquipmentDiv" class="IncidentEquipment" style="display: none;">
+<div class="post-top"><div class="post-bottom"><div class="post-middle">
+        <table cellspacing="0" class="inform">
+            <tbody>
+                <tr>
+                    <th colspan="2">Equipment Information - involved in Incident</th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        EQUIPMENT INFORMATION [<a id="editEquipmentLink">VIEW</a>]
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        Unit Number:&nbsp;<span id="e_Unit_Number"></span>
+                        VIN:&nbsp;<span id="e_Number"></span>
+                        State:&nbsp;<span id="s_name"></span>
+                        Veh. Type:&nbsp;<span id="et_type"></span>
+                    </td>
+                </tr>
+                <tr class="color-dark">
+                    <td colspan="2">
+                        Make:&nbsp;<span id="e_Make"></span>
+                        Model:&nbsp;<span id="e_Model"></span>
+                        Year:&nbsp;<span id="s_Year"></span>
+                    </td>
+                </tr>
+
+<!-- TODO Implement after insurance implamentation-->
+                <tr>
+                    <th colspan="2">
+                        INSURANCE INFORMATION
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        Insurance Carier:&nbsp;<span></span>
+                        Policy #:&nbsp;<span></span>
+                        Exp. date:&nbsp;<span></span>
+                        Vehicle Value:&nbsp;<span></span>
+                    </td>
+                </tr>
+                <tr class="color-dark">
+                    <td colspan="2">
+                        Towed:&nbsp;<span></span>
+                        DOT:&nbsp;<span></span>
+                        Damage Estimate:&nbsp;<span></span>
+                    </td>
+                </tr>
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span class="blue-button">
+                            <span>
+                                <a href="/equipment/truck-files/add-involved/incidentId/<?= $this->i_ID ?>">
+                                    Change Equipment
+                                </a>
+                            </span>
+                            <span>
+                                <a id="deleteEquipmentButton">
+                                    Delete Equipment
+                                </a>
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+            </tbody>
+        </table>
+</div></div></div>
+</div>

@@ -68,7 +68,15 @@
         
      </div>
 
-    <div class="blue-nav" style="width:530px;">
+    <div><?php
+        if(isset($this->equipmentRow['e_last_modified_datetime'])){
+
+            echo '<h3 style="padding-top: 15px; padding-left: 28px;" id="e_last_modified_datetime">Last saved: ' . $this->equipmentRow['e_last_modified_datetime'] . '</h3>';
+        }
+
+    ?></div>
+
+    <div class="blue-nav" style="width:600px;">
         <ul>
             <li>
                 <span>

@@ -8,8 +8,8 @@
     <title>National Safety Compliance, INC</title>
 
 <?php
-    $this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js', 'text/javascript');
-    $this->headLink()->appendStylesheet('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/smoothness/jquery-ui.css');
+    $this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js', 'text/javascript');
+    $this->headLink()->appendStylesheet('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/smoothness/jquery-ui.css');
 ?>
 
 <?= $this->headScript(); ?>
@@ -45,7 +45,7 @@
       <div class="header-bottom">
 
           <ul class="top-menu">
-            <li><span class="left"><span class="right"><a href="/driver/index/index?status=Pending"><span class="left"><span class="right">Drivers</span></span></a></span></span>
+            <li><span class="left"><span class="right"><a href="/driver/index/index?status=Pending"><span class="left"><span class="right">New Driver</span></span></a></span></span>
                 <div class="top-pod-menu">
                     <ul>
                         <li>
@@ -58,7 +58,7 @@
                     </ul>
                 </div>
             </li>
-            <li><span class="left"><span class="right"><a href="/driver/index/dqf?status=All"><span class="left"><span class="right">DQ Files</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="/driver/index/dqf?status=All"><span class="left"><span class="right">Driver Files</span></span></a></span></span></li>
             <li><span class="left"><span class="right"><a href="/driver/index/archives?status=All""><span class="left"><span class="right">Archives</span></span></a></span></span></li>
             <li><span class="left"><span class="right"><a href="reports"><span class="left"><span class="right">Reports</span></span></a></span></span>
               <div class="top-pod-menu"><ul>
@@ -79,8 +79,7 @@
                 <li><a href="#">Equipment Report</a></li></ul></li>
               </ul></div>
             </li>
-            <li style="background:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-              <li>
+            <li>
                   <span class="left">
                       <span class="right">
                           <a href="/equipment/index/index/status/Pending">
@@ -176,7 +175,7 @@
                     </ul>
                 </div>
             </li>
-            <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Service Provider Management</span></span></a></span></span></li>
+            <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Service Provider</span></span></a></span></span></li>
           </ul>
 
           <?php if(isset($this->pageTitle)){ ?><h1 class="page-title"><?php echo $this->pageTitle; ?></h1><?php } ?>

@@ -36,7 +36,7 @@ foreach($driverAddressHistoryList as $k => $v)
             City:&nbsp;<span><?php echo $v['dah_City']; ?></span>
             State:&nbsp;<span><?php echo $stateList[$v['dah_State']]['s_name']; ?></span>
             Zip:&nbsp;<span><?php echo $v['dah_Postal_Code']; ?></span>
-            Phone:&nbsp;<span><?php echo $v['dah_Phone']; ?></span>
+            Phone:&nbsp;<span><?php echo Custom_View_Helper_Transformation::convertNumber($v['dah_Phone']); ?></span>
         </td>
     </tr>
     <tr>

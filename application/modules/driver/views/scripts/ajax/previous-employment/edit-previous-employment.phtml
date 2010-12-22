@@ -6,7 +6,17 @@
         <td><label class="required" for="pe_Employer_Name"><span>*</span>Employer:</label></td>
         <td>
             <div id="error_custom_add_Employment_Table" class="error_custom2"></div>
-            <Input type="text" id="pe_Employer_Name" name="pe_Employer_Name" size="50" maxlength="250" /></td>
+            <Input type="text" id="pe_Employer_Name" name="pe_Employer_Name" size="50" maxlength="250"  onkeyup="autocomplete_custom('emp_Employer_Name')" /><img src="/images/indicator.gif" id="emp_Employer_Name_indicator_edit" style="display:none;" alt="" />
+            <div class="ac_results" id="emp_Employer_Name_ul_edit" style="display:none; position: absolute; border: 1px solid rgb(170, 170, 170); width: 324px; background: none repeat scroll 0% 0% rgb(255, 255, 255);" ></div>
+            <script type="text/javascript">
+                $().ready(function() {
+
+                    $("#emp_Employer_Name_ul_edit").keyup(function() {
+                        autocomplete_custom('emp_Employer_Name_ul_edit');
+                    });
+                });
+            </script>
+        </td>
     </tr>
     <tr class="color-dark">
         <td><label class="required" for="pe_Address1"><span>*</span>Street:</label></td>
@@ -46,9 +56,9 @@
         <td></td>
         <td>
             <label class="required" for="pe_Employment_Start_Date"><span>*</span>From: </label>
-            <Input type="text" readonly="readonly" id="pe_Employment_Start_Date" name="pe_Employment_Start_Date" size=10 maxlength=10   />&nbsp;&nbsp;&nbsp;&nbsp;
+            <Input type="text" id="pe_Employment_Start_Date" name="pe_Employment_Start_Date" size=10 maxlength=10   />&nbsp;&nbsp;&nbsp;&nbsp;
             <label class="required" for="pe_Employment_Stop_Date">To: </label>
-            <Input type="text" readonly="readonly" id="pe_Employment_Stop_Date" name="pe_Employment_Stop_Date" size=10 maxlength=10 />
+            <Input type="text" id="pe_Employment_Stop_Date" name="pe_Employment_Stop_Date" size=10 maxlength=10 />
         </td>
     </tr>
     <tr class="color-dark">

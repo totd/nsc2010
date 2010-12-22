@@ -312,24 +312,10 @@ INSERT INTO `homebase` (`h_id`, `h_Company_Account_Number`, `h_Carrier_Number`, 
 
 
 --
--- Дамп данных таблицы `incident__highway_street_travel_direction`
---
-
-INSERT INTO `incident__highway_street_travel_direction` (`ihstd_id`, `ihstd_type`) VALUES
-(1, 'North'),
-(2, 'South'),
-(3, 'East'),
-(4, 'West'),
-(5, 'North East'),
-(6, 'North West'),
-(7, 'South East'),
-(8, 'South West');
-
---
 -- Дамп данных таблицы `incident__incident_cause`
 --
 
-INSERT INTO `incident__incident_cause` (`iic_id`, `iic_type`) VALUES
+INSERT INTO `incident_cause` (`ic_id`, `ic_type`) VALUES
 (1, 'Weather'),
 (2, 'Alcohol'),
 (3, 'Drugs'),
@@ -496,9 +482,16 @@ INSERT INTO `state` (`s_id`, `s_name`) VALUES
 (50, 'WV'),
 (51, 'WY');
 
---
--- Дамп данных таблицы `user`
---
+INSERT INTO `travel_direction` (`td_id`, `td_type`) VALUES
+(1, 'North'),
+(2, 'South'),
+(3, 'East'),
+(4, 'West'),
+(5, 'North East'),
+(6, 'North West'),
+(7, 'South East'),
+(8, 'South West');
+
 
 INSERT INTO `user` (`u_ID`, `u_User_ID`, `u_Parent_Company_ID`, `u_Company_ID`, `u_Homebase_ID`, `u_Depot_ID`, `u_Role_ID`, `u_User_Name`, `u_Password`, `u_Status`, `u_Title`, `u_Date_Created`, `u_Allowed_Access_To_DQF`, `u_Allowed_Access_To_VIM`, `u_Allowed_Access_To_Accident`, `u_First_Name`, `u_Last_Name`, `u_Email`, `u_Telephone_Number`, `u_Fax`, `u_Address1`, `u_Address2`, `u_City`, `u_State`, `u_Postal_Code`) VALUES
 (1, NULL, 1, 1, 1, 1, 1, 'root', 'root', 1, NULL, '2010-10-28 14:15:10', '', '', '', 'Admin', 'Super', '', '', NULL, '', NULL, '', 1, ''),

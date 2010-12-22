@@ -109,14 +109,14 @@ class Incident_CreateController extends Zend_Controller_Action
         }
 
         if ($this->_request->isPost()) {
-            $travelDirection = $this->_request->getPost('i_Highway_Street_Travel_Direction', '');
+            $travelDirection = $this->_request->getPost('i_Travel_Direction_ID', '');
             if (!empty ($travelDirection)) {
-                $incidentDataArray['i_Highway_Street_Travel_Direction'] = $travelDirection;
+                $incidentDataArray['i_Travel_Direction_ID'] = $travelDirection;
             }
 
-            $street = $this->_request->getPost('i_Highway_Street', '');
+            $street = $this->_request->getPost('i_Collision_Highway_Street', '');
             if (!empty ($street)) {
-                $incidentDataArray['i_Highway_Street'] = $street;
+                $incidentDataArray['i_Collision_Highway_Street'] = $street;
             }
 
             $actualSpeed = $this->_request->getPost('i_Actual_Speed', '');
@@ -162,6 +162,7 @@ class Incident_CreateController extends Zend_Controller_Action
             $incidentSession->newIncidentDataArray = $incidentDataArray;
 
             $this->saveAction($incidentDataArray);
+            //$incidentSession->__unset('newIncidentDataArray');
         }
         
 
@@ -180,7 +181,7 @@ class Incident_CreateController extends Zend_Controller_Action
 
         $selectTravelDirectionArray = array('' => array('text' => '-'));
         foreach ($travelDirections as $travelDirection) {
-            $selectTravelDirectionArray[$travelDirection->ihstd_id] = array('text' => $travelDirection->ihstd_type);
+            $selectTravelDirectionArray[$travelDirection->td_id] = array('text' => $travelDirection->td_type);
         }
         $selectTravelDirectionArray['']['selected'] = true;
         $this->view->travelDirections = $selectTravelDirectionArray;
@@ -218,30 +219,33 @@ class Incident_CreateController extends Zend_Controller_Action
 
 
 
-    public function addDriverAction($driver_id = null)
+    public function addDriverAction()
     {
-        $incidentSession = new Zend_Session_Namespace('newIncident');
-        if ($incidentSession->__isset('newIncidentDataArray')) {
-            $incidentDataArray = $incidentSession->newIncidentDataArray;
-            if (!isset($incidentDataArray['i_Date']) || !isset($incidentDataArray['i_DOT_Regulated'])) {
+        $driver_id = $this->_request->getParam('driver_id');
+        $incident_id = $this->_request->getParam('incident_id');
+
+        if ($incident_id == 'new') {
+            $incidentSession = new Zend_Session_Namespace('newIncident');
+            if ($incidentSession->__isset('newIncidentDataArray')) {
+                $incidentDataArray = $incidentSession->newIncidentDataArray;
+                if (!isset($incidentDataArray['i_Date']) || !isset($incidentDataArray['i_DOT_Regulated'])) {
+                    // User reaches this page without meeting step1
+                    $this->exitAction();
+                }
+            } else {
                 // User reaches this page without meeting step1
                 $this->exitAction();
             }
-        } else {
-            // User reaches this page without meeting step1
-            $this->exitAction();
-        }
 
-        if (is_null($driver_id)) {
-            $driver_id = $this->_request->getParam('driver_id');
-        }
-
-        if (is_null($driver_id)) {
-            $this->_redirect('/incident/create/step3');
+            if (is_null($driver_id)) {
+                $this->_redirect('/incident/create/step3');
+            } else {
+                $incidentDataArray['i_Driver_ID'] = $driver_id;
+                $incidentSession->newIncidentDataArray = $incidentDataArray;
+                $this->_redirect('/incident/create/step3');
+            }
         } else {
-            $incidentDataArray['i_Driver_ID'] = $driver_id;
-            $incidentSession->newIncidentDataArray = $incidentDataArray;
-            $this->_redirect('/incident/create/step3');
+            $this->_redirect("/incident/index/change-driver/i_ID/$incident_id/i_Driver_ID/$driver_id");
         }
     }
 

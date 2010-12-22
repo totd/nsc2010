@@ -79,18 +79,18 @@
                 Medical Examiner's Name:&nbsp;<span><?php echo $this->driverInfo['d_Doctor_Name']; ?></span></td></tr>
         <tr>
             <td>Phone Information</td>
-            <td>#1 phone number:&nbsp;<span><?php echo $this->driverInfo['d_Telephone_Number1']; ?></span><br/>
+            <td>#1 phone number:&nbsp;<span><?php echo Custom_View_Helper_Transformation::convertNumber($this->driverInfo['d_Telephone_Number1']); ?></span><br/>
             <?php
                                   if($this->driverInfo['d_Telephone_Number2']!=""){
                 ?>
-                    #2 phone number:&nbsp;<span><?php echo $this->driverInfo['d_Telephone_Number2']; ?></span><br/>
+                    #2 phone number:&nbsp;<span><?php echo Custom_View_Helper_Transformation::convertNumber($this->driverInfo['d_Telephone_Number2']); ?></span><br/>
                 <?
             }
             ?>
             <?php
                                   if($this->driverInfo['d_Telephone_Number3']!=""){
                 ?>
-                    #3 phone number:&nbsp;<span><?php echo $this->driverInfo['d_Telephone_Number3']; ?></span><br/>
+                    #3 phone number:&nbsp;<span><?php echo Custom_View_Helper_Transformation::convertNumber($this->driverInfo['d_Telephone_Number3']); ?></span><br/>
                 <?
             }
             ?>
@@ -99,7 +99,7 @@
                               if($this->driverInfo['d_Fax']!=""){
             ?>
             <tr class="color-dark"><td>Fax </td>
-                <td><span><?php echo $this->driverInfo['d_Fax']; ?></span></td></tr>
+                <td><span><?php echo Custom_View_Helper_Transformation::convertNumber($this->driverInfo['d_Fax']); ?></span></td></tr>
             <?
         }
         ?>
@@ -390,7 +390,7 @@
    changeYear: true,
             yearRange: '1950:2020'
   });
-        $("#pe_Employment_Start_Date").datepicker({
+        $("#dpe_Employment_Start_Date").datepicker({
             showOn: "button",
 			buttonImage: "/images/select-data.gif",
 			buttonImageOnly: true,
@@ -398,7 +398,7 @@
    changeYear: true,
             yearRange: '1950:2020'
   });
-        $("#pe_Employment_Stop_Date").datepicker({
+        $("#dpe_Employment_Stop_Date").datepicker({
             showOn: "button",
 			buttonImage: "/images/select-data.gif",
 			buttonImageOnly: true,

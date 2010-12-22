@@ -50,6 +50,27 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $equipmentSession->VIW['e_id'] = $equipmentRow['e_id'];
         $equipmentSession->VIW['e_Number'] = $equipmentRow['e_Number'];
 
+        if (!empty($equipmentRow['e_Entry_Date']) && $equipmentRow['e_Entry_Date'] != '0000-00-00 00:00:00') {
+            try {
+                $myDate = new Zend_Date($equipmentRow['e_Entry_Date'], "YYYY-MM-dd HH:mm:ss");
+                $equipmentRow['e_Entry_Date'] = $myDate->toString("MM/dd/YYYY HH:mm");
+            } catch (Zend_Date_Exception $e) {
+                $equipmentRow['e_Entry_Date'] = '';
+            }
+        } else {
+            $equipmentRow['e_Entry_Date'] = '';
+        }
+
+        if (!empty($equipmentRow['e_last_modified_datetime']) && $equipmentRow['e_last_modified_datetime'] != '0000-00-00 00:00:00') {
+            try {
+                $myDate = new Zend_Date($equipmentRow['e_last_modified_datetime'], "YYYY-MM-dd HH:mm:ss");
+                $equipmentRow['e_last_modified_datetime'] = $myDate->toString("MM/dd/YYYY HH:mm");
+            } catch (Zend_Date_Exception $e) {
+                $equipmentRow['e_last_modified_datetime'] = '';
+            }
+        } else {
+            $equipmentRow['e_last_modified_datetime'] = '';
+        }
 
 
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
@@ -247,7 +268,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
 
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
-            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date']);
+            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
             $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
         } else {
             $equipmentRow['e_License_Expiration_Date'] = '';
@@ -506,6 +527,28 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $equipmentModel = new Equipment_Model_Equipment();
                 $equipmentRow = $equipmentModel->findEquipmentByVIN($EIN);
 
+                if (!empty($equipmentRow['e_Entry_Date']) && $equipmentRow['e_Entry_Date'] != '0000-00-00 00:00:00') {
+                    try {
+                        $myDate = new Zend_Date($equipmentRow['e_Entry_Date'], "YYYY-MM-dd HH:mm:ss");
+                        $equipmentRow['e_Entry_Date'] = $myDate->toString("MM/dd/YYYY HH:mm");
+                    } catch (Zend_Date_Exception $e) {
+                        $equipmentRow['e_Entry_Date'] = '';
+                    }
+                } else {
+                    $equipmentRow['e_Entry_Date'] = '';
+                }
+
+                if (!empty($equipmentRow['e_last_modified_datetime']) && $equipmentRow['e_last_modified_datetime'] != '0000-00-00 00:00:00') {
+                    try {
+                        $myDate = new Zend_Date($equipmentRow['e_last_modified_datetime'], "YYYY-MM-dd HH:mm:ss");
+                        $equipmentRow['e_last_modified_datetime'] = $myDate->toString("MM/dd/YYYY HH:mm");
+                    } catch (Zend_Date_Exception $e) {
+                        $equipmentRow['e_last_modified_datetime'] = '';
+                    }
+                } else {
+                    $equipmentRow['e_last_modified_datetime'] = '';
+                }
+
                 if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
                     $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
                     $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
@@ -526,13 +569,17 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     $layout->equipmentStatus = (isset($equipmentRow['enes_type'])) ? $equipmentRow['enes_type'] : '';
                 }
 
+                $layout->allRequiredViwFieldFilled = $this->allRequiredViwFieldFilled($equipmentRow['e_id']);
                 $layout->equipmentRow = $equipmentRow;
                 $layout->uploadPath = self::uploadPath;
 
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender(true);
 
-                echo $layout->render();
+                $result['layout'] = $layout->render();
+                $result['e_last_modified_datetime'] = $equipmentRow['e_last_modified_datetime'];
+                print json_encode($result);
+                //echo $layout->render();
             }
         }
     }
@@ -631,6 +678,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender(true);
+
+                $layout->allRequiredAssignmentFieldFilled = $this->allRequiredAssignmentFieldFilled($equipmentAssigmentRow['e_id']);
 
                 echo $layout->render();
             }
@@ -902,7 +951,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $result2[] = $arrayPart;
             }
             
-            // TODO limit users which hasn't permission to create driver
+            // TODO Hide next strings for users which hasn't permission to create driver
             $arrayPart = array();
             $arrayPart['label'] = 'CREATE NEW DRIVER';
             $arrayPart['id'] = 'new';
@@ -913,4 +962,31 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         }
     }
 
+    private function allRequiredViwFieldFilled($equipmentId)
+    {
+        $result = false;
+        if (!empty($equipmentId)) {
+            $equipmentModel = new Equipment_Model_Equipment();
+            $nonFillingRequiredFielads = $equipmentModel->checkCompletedFields($equipmentId);
+            if (is_null($nonFillingRequiredFielads)) {
+                $result = true;
+            }
+        }
+
+        return $result;
+    }
+
+    private function allRequiredAssignmentFieldFilled($equipmentId)
+    {
+        $result = false;
+        if (!empty($equipmentId)) {
+            $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
+            $nonFillingRequiredFielads = $equipmentAssignmentModel->checkRequiredFields($equipmentId);
+            if (is_null($nonFillingRequiredFielads)) {
+                $result = true;
+            }
+        }
+
+        return $result;
+    }
 }

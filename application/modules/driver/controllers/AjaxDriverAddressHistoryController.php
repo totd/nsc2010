@@ -84,6 +84,16 @@ class Driver_AjaxDriverAddressHistoryController extends Zend_Controller_Action
             $errors++;
             $msg=$msg."Some error with Current Address field.<br/>";
         }
+        if($dah_Start_Date!="" && $dah_End_Date!=""){
+        $arr1 = explode("/",$dah_Start_Date);
+        $arr2 = explode("/",$dah_End_Date);
+        $time1 = mktime(0,0,0,$arr1[0],$arr1[1],$arr1[2]);
+        $time2 = mktime(0,0,0,$arr2[0],$arr2[1],$arr2[2]);
+        if($time1>=$time2){
+            $errors++;
+            $msg=$msg."Date From shoould be less than date To at least for one day!<br/>";
+        }
+        }
         if($errors>0){
             echo $msg;
         }else{

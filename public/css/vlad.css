@@ -71,3 +71,7 @@ table.inform td a span {
 .ac_results ul li:hover{
     background:#E6E8EE;
 }
+
+#emp_Employer_Name_ul ul li:hover{
+    cursor:pointer;
+}

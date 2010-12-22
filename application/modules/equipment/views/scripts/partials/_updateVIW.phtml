@@ -51,6 +51,7 @@
                                    id="uploadPicture" name="uploadPicture" onChange="ajaxFileUpload();"/>
                             <input type="hidden" value="<?= $this->equipmentRow['e_Picture']; ?>"
                                    id="e_Picture" name="e_Picture" />
+                            <br />
                             <label>Size limit is 2mb (jpeg or tiff only)</label>
                         </td>
                     </tr>
@@ -71,14 +72,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label class="required"><span>*</span>Mileage</label></td>
+                        <td><label class="required"><span>*</span>Start Mileage</label></td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_Start_Mileage']; ?>"
                                    id="e_Start_Mileage" name="e_Start_Mileage" />
                         </td>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required"><span>*</span>Reg. State</label></td>
+                        <td><label class="required"><span>*</span>Registration State</label></td>
                         <td>
                             <select  class="rc10" name="e_Registration_State" id="e_Registration_State">
                             <?php
@@ -110,14 +111,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label class="required" title="Number of Axles"><span>*</span>Axles #</label></td>
+                        <td><label class="required" title="Number of Axles"><span>*</span>Number Of Axles</label></td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_Axles']; ?>"
                                    id="e_Axles" name="e_Axles" />
                         </td>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required" title="DOR Regulated"><span>*</span>DOT Regul.</label></td>
+                        <td><label class="required" title="DOR Regulated"><span>*</span>DOT Regulated</label></td>
                         <td>
                             <span class="radio-button">
                                 <?php if ($this->equipmentRow['e_DOT_Regulated'] == 'Yes') : ?>
@@ -179,14 +180,14 @@
                         </th>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required" title="License Plate Number"><span>*</span>Lic. #</label></td>
+                        <td><label class="required" title="License Plate Number"><span>*</span>License Plate Number</label></td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_License_Number']; ?>"
                                    id="e_License_Number" name="e_License_Number" />
                         </td>
                     </tr>
                     <tr>
-                        <td><label class="required" title="License Expiration Date"><span>*</span>Lic. Date</label></td>
+                        <td><label class="required" title="License Expiration Date"><span>*</span>License Expiration Date</label></td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_License_Expiration_Date']; ?>" id="e_License_Expiration_Date" name="e_License_Expiration_Date" />
                             <br />
@@ -223,7 +224,7 @@
                         </td>
                     </tr>
                     <tr class="color-dark">
-                        <td><label class="required"><span>*</span>Gross Reg. Weight</label></td>
+                        <td><label class="required"><span>*</span>Gross Registered Weight</label></td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_Gross_Equipment_Registered_Weight']; ?>"
                                    id="e_Gross_Equipment_Registered_Weight" name="e_Gross_Equipment_Registered_Weight" />
@@ -251,7 +252,7 @@
                         </td>
                     </tr>
                     <tr class="color-dark">
-                        <td>Radio Frequency</td>
+                        <td>Radio Frequency Identify</td>
                         <td>
                             <input type="text" value="<?= $this->equipmentRow['e_RFID_No']; ?>"
                                    id="e_RFID_No" name="e_RFID_No" />

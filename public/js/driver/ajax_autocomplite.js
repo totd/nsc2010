@@ -1,12 +1,14 @@
-function autocomplete_custom(){
-    document.getElementById("emp_Employer_Name_ul").innerHTML="";
-    $("#emp_Employer_Name_indicator").css("display","inline");
+
+
+function autocomplete_custom(field){
     query = document.getElementById("emp_Employer_Name").value;
     $.get("/driver/ajax-driver-previous-employment/autocomplete-Employer/",
         {
             q: query
         }, function(data){
             if(data!=""){
+                document.getElementById("emp_Employer_Name_ul").innerHTML="";
+                $("#emp_Employer_Name_indicator").css("display","inline");
                 clear_autocomplete();
                 $("#emp_Employer_Name_ul").css("display","block");
                 $("#emp_Employer_Name_ul").append(data);
@@ -21,7 +23,8 @@ function autocomplete_custom(){
            });
 }
 function select_employer(emp_id){
-    
+
+    $("#emp_Employer_Name_indicator").css("display","inline");
     $("#emp_Employer_Name_ul").css("display","none");
     $.get("/driver/ajax-driver-previous-employment/get-json-record/",
         {
@@ -75,47 +78,22 @@ function select_employer(emp_id){
                         opts3[i].selected = false;
                     }
                 }
+                $("#emp_Employer_Name_indicator").css("display","none");
                 return true;
             }else{
+                $("#emp_Employer_Name_indicator").css("display","none");
                 return true;
             }
         }
     );
 }
 function clear_autocomplete(){
-    document.getElementById("emp_ID").value="";
-    document.getElementById("emp_Address1").value="";
     document.getElementById("emp_Address1").readOnly="";
-    document.getElementById("emp_City").value="";
     document.getElementById("emp_City").readOnly="";
-    var emp_state = document.getElementById("emp_State_ID");
-    var opts = emp_state.getElementsByTagName('option');
-    for (var i=0; i<opts.length; i++)
-    {
-        opts[i].selected = false;
-    }
-    opts[0].selected = true;
-    document.getElementById("emp_Postal_Code").value="";
     document.getElementById("emp_Postal_Code").readOnly="";
-    document.getElementById("emp_Phone").value="";
     document.getElementById("emp_Phone").readOnly="";
-    document.getElementById("emp_Fax").value="";
     document.getElementById("emp_Fax").readOnly="";
-    var emp_DOT_Safety_Sensitive_Function = document.getElementById("emp_DOT_Safety_Sensitive_Function");
-    var opts2 = emp_DOT_Safety_Sensitive_Function.getElementsByTagName('option');
-    for (var i=0; i<opts2.length; i++)
-    {
-        opts2[i].selected = false;
-    }
-    opts2[0].selected = true;
-    var emp_FMCSR_Regulated = document.getElementById("emp_FMCSR_Regulated");
-    var opts3 = emp_FMCSR_Regulated.getElementsByTagName('option');
-    for (var i=0; i<opts3.length; i++)
-    {
-        opts3[i].selected = false;
-    }
-    opts3[0].selected = true;
-}
+  }
 $().ready(function() {
     $("body").click(function() {
   document.getElementById("emp_Employer_Name_ul").innerHTML="";

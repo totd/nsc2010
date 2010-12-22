@@ -3,12 +3,20 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
 {
     protected $_name = 'incident';
 
+    public function deleteInvolvedEquipment($incidentId)
+    {
+        $rowTable = $this->fetchRow("i_ID = {$this->getDefaultAdapter()->quote($incidentId)}");
+        if ($rowTable) {
+            $rowTable->i_Equipment_ID = null;
+            $rowTable->save();
+        }
+    }
+
     public function getIcidentDescription($id)
     {
         $select = "SELECT *
                     FROM incident
                     LEFT JOIN state ON i_State_ID = s_id
-                    LEFT JOIN incident_cause ON i_ID = ic_Incident_ID
                     WHERE i_ID = {$this->getDefaultAdapter()->quote($id)}
                     ";
         $stmt = $this->getDefaultAdapter()->query($select);
@@ -127,5 +135,20 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
         $rowTable->save();
 
         return $rowTable;
+    }
+
+    public function getIcidentFieldValueById($id, $field)
+    {
+        $result = null;
+
+        if (!empty($id) && !empty($field)) {
+            $rowTable = $this->fetchRow("i_ID = {$this->getDefaultAdapter()->quote($id)}");
+
+            if (!is_null($rowTable)) {
+                $result = $rowTable->$field;
+            }
+        }
+
+        return $result;
     }
 }

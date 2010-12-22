@@ -3,7 +3,9 @@
         <tbody>
             <tr>
                 <th colspan="2">
-                    Equipment Assignment
+                    <h2 id="equipmentAssignmentHeader" class="<?= ($this->layout()->allRequiredAssignmentFieldFilled === true) ? 'status-ok' : 'status-warning'; ?>">
+                        Equipment Assignment
+                    </h2>
                 </th>
             </tr>
             <?php  if(is_array($this->layout()->equipmentAssignmentRow) && count($this->layout()->equipmentAssignmentRow) > 2) : ?>

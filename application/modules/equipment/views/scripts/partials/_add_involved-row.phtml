@@ -1,0 +1,25 @@
+<!--
+@author Andryi Ilnytskyi 04.11.2010
+Set content for the row in the users list.
+-->
+<tr class="<?php print ($this->partialCounter % 2 == 0) ? 'color-dark' : ''; ?>">
+    <td><?= $this->e_Unit_Number;?></td>
+    <td><?= $this->et_type; ?></td>
+    <td><?= $this->e_Number; ?></td>
+    <td>
+        <?php
+            if (!is_null($this->e_License_Number) || !is_null($this->s_name)) {
+                echo $this->e_License_Number . ' / ' . $this->s_name; // Lic. Plate #/State
+            } else {
+                echo '&nbsp;';
+            }
+        ?>
+    </td>
+
+    <td><?= $this->e_Gross_Equipment_Weight_Rating; //  GVW ?></td>
+    <td><?= $this->e_Axles; // #Axles ?></td>
+    <td><?= $this->eas_type; // Status ?></td>
+    <td>
+        <a href="<?= $this->partialLoop()->view->redirectUrl . '/equipmentId/' . $this->e_id; ?>">Add</a>
+    </td>
+</tr>

@@ -1,0 +1,174 @@
+<div class="post-top">
+    <div class="post-bottom">
+        <div class="post-middle">
+            <br>
+            <br>
+            <table class="inform">
+                <tbody>
+                    <tr>
+                        <td colspan="2"><h2>Accident Status:&nbsp;<span class="data">Pending</span></h2></td>
+                    </tr>
+                </tbody></table>
+            <div class="clear"></div>
+            <div class="second">
+                <table  cellspacing="0" class="inform">
+                    <tbody>
+                        <tr>
+                            <th colspan="2">
+                                Company Driver Information - involved in Incident
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                PERSONAL INFORMATION [<a id="update_editDriverLink">VIEW</a>]
+                            </th></tr>
+                        <tr>
+                            <td>Driver Name</td>
+                            <td>First:&nbsp;<span id="view_update_d_First_Name"></span>
+                                Last:&nbsp;<span id="view_update_d_Last_Name"></span>
+                                Middle:&nbsp;<span id="view_update_d_Middle_Name"></span>
+                            </td>
+                        </tr>
+                        <tr class="color-dark">
+                            <td>Date Of Birth</td>
+                            <td><span id="view_update_d_Date_Of_Birth"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Social Security #</td>
+                            <td><span id="view_update_d_Driver_SSN"></span></td>
+                        </tr>
+                        <tr class="color-dark">
+                            <td>Medical Card</td>
+                            <td>Expires:&nbsp;<span id="view_update_d_Medical_Card_Expiration_Date"></span>
+                                Medical Examiner's Name:&nbsp;<span id="view_update_d_Doctor_Name"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Phone Information</td>
+                            <td>#1 phone number:&nbsp;<span id="view_update_d_Telephone_Number1"></span><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                COLLISION TRAVEL DIRECTION
+                            </th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                &nbsp;Travel Direction:&nbsp;&nbsp;
+                                <select name="i_Travel_Direction_ID" id="i_Travel_Direction_ID">
+                                    <?php
+                                    foreach ($this->travelDirections as $key => $value) {
+                                        if (isset($value['selected']) && $value['selected']) {
+                                            echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                                        } else {
+                                            echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                                &nbsp;on Street/Highway:&nbsp;&nbsp;
+                                <input type="text" maxlength="30" value="" size="20" name="i_Collision_Highway_Street" id="i_Collision_Highway_Street">
+
+                                &nbsp;Actual Speed:&nbsp;&nbsp;
+                                <input type="text" maxlength="5" value="" size="5" name="i_Actual_Speed" id="i_Actual_Speed">
+
+                                &nbsp;Speed Limit:&nbsp;&nbsp;
+                                <input type="text" maxlength="5" value="" size="5" name="i_Speed_Limit" id="i_Speed_Limit">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                COLLISION MOVEMENT
+                            </th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding-right: 0px;">
+                                <select id="colMovements" class="multiselect" multiple="multiple" name="colMovements[]">
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="20%" bgcolor="#ffffff" colspan="4" class="MainText">
+
+                                &nbsp;&nbsp;Other :&nbsp;&nbsp;
+                                <input type="text" maxlength="80" value="" size="80" name="i_Collision_Movement_Other" id="i_Collision_Movement_Other" >
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                ACCIDENT IMPLICATION
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                Injured
+                            </td>
+                            <td>
+                                <input type="radio" class="i_Injured_Class" name="i_Injured" id="i_Injured_Yes" value="Yes">&nbsp;Yes
+                                <input type="radio" class="i_Injured_Class" name="i_Injured" id="i_Injured_No" value="No">&nbsp;No
+                            </td>
+                        </tr>
+                        <tr class="color-dark">
+                            <td>
+                                Deceased
+                            </td>
+                            <td>
+                                <input type="radio" class="i_Deceased_Class" name="i_Deceased" id="i_Deceased_Yes" value="Yes">&nbsp;Yes
+                                <input type="radio" class="i_Deceased_Class" name="i_Deceased" id="i_Deceased_No" value="No">&nbsp;No
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                POST ACCIDENT TEST
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>Alcohol test was conducted within:</td>
+                            <td>
+                                <input type="radio" class="i_Alcohol_Test_Class" name="i_Alcohol_Test" id="i_Alcohol_Test_Yes" value="Yes">&nbsp;Yes
+                                <input type="radio" class="i_Alcohol_Test_Class" name="i_Alcohol_Test" id="i_Alcohol_Test_No"  value="No">&nbsp;No
+                            </td>
+                        </tr>
+                        <tr class="color-dark">
+                            <td>
+                                Drug test was conducted within:
+                            </td>
+                            <td>
+                                <input type="radio" class="i_Drug_Test_Class" name="i_Drug_Test" value="Yes">&nbsp;Yes
+                                <input type="radio" class="i_Drug_Test_Class" name="i_Drug_Test" value="No">&nbsp;No
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="blue-button">
+                                    <span>
+                                        <a id="saveIncidentDriverInformation">
+                                             Save
+                                        </a>
+                                    </span>
+                                </span>
+                                <span class="blue-button">
+                                    <span>
+                                        <a id="cancelIncidentDescription"  class="DriverInformationActionLink">
+                                             Cancel
+                                        </a>
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</div>

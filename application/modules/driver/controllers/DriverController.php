@@ -119,6 +119,7 @@ class Driver_DriverController extends Zend_Controller_Action
                 $driverInfo['d_Driver_SSN'] = preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3",$driverInfo['d_Driver_SSN']);
             }
 
+
             $homebaseList = Homebase_Model_Homebase::getHomebaseList(null,1);
             $depotList = Depot_Model_Depot::getDepotList($driverInfo['d_homebase_ID'],1);
             $homebase = Homebase_Model_Homebase::getHomebase($driverInfo['d_homebase_ID']);

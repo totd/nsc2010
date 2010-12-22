@@ -1,14 +1,23 @@
 
-<input type="hidden" value="<?php echo $this->driverId?>" name="pe_Driver_ID" />
+    <input type="hidden" value="<?php echo $this->driverId?>" name="dpe_Driver_ID" />
 <table cellspacing="0" class="inform" id="add_Employment_Table">
     <tbody>
     <tr>
         <td><label class="required" for="emp_Employer_Name"><span>*</span>Employer:</label></td>
         <td>
             <Input type="hidden" id="emp_ID" name="emp_ID" size="50" maxlength="250" />
-            <Input type="text" id="emp_Employer_Name" name="emp_Employer_Name" size="50" maxlength="250" onkeyup="autocomplete_custom()" /> <img src="/images/indicator.gif" id="emp_Employer_Name_indicator" style="display:none;" alt="">
+            <Input type="text" id="emp_Employer_Name" name="emp_Employer_Name" size="50" maxlength="250"  onkeyup="" /> <img src="/images/indicator.gif" id="emp_Employer_Name_indicator" style="display:none;" alt="" />
             <div class="ac_results" id="emp_Employer_Name_ul" style="display:none; position: absolute; border: 1px solid rgb(170, 170, 170); width: 324px; background: none repeat scroll 0% 0% rgb(255, 255, 255);" >
             </div>
+            <script type="text/javascript">
+                $().ready(function() {
+
+                    $("#emp_Employer_Name").keyup(function() {
+                        autocomplete_custom('emp_Employer_Name');
+                    });
+                });
+            </script>
+            
         </td>
     </tr>
     <tr class="color-dark">
@@ -39,24 +48,28 @@
         </td>
     </tr>
     <tr class="color-dark">
-        <td><label class="required" for="pe_Position"><span>*</span>Job Description:</label></td>
+        <td><label class="required" for="dpe_Position"><span>*</span>Job Description:</label></td>
         <td>
-            <Input type="text" id="pe_Position" name="pe_Position" size="50" maxlength="250" />
+            <Input type="text" id="dpe_Position" name="dpe_Position" size="50" maxlength="250" />
         </td>
     </tr>
     <tr>
         <td></td>
         <td>
-            <label class="required" for="pe_Employment_Start_Date"><span>*</span>From: </label>
-            <Input type="text" readonly="readonly" id="pe_Employment_Start_Date" name="pe_Employment_Start_Date" size=10 maxlength=10   />&nbsp;&nbsp;&nbsp;&nbsp;
-            <label class="required" for="pe_Employment_Stop_Date">To: </label>
-            <Input type="text" readonly="readonly" id="pe_Employment_Stop_Date" name="pe_Employment_Stop_Date" size=10 maxlength=10 />
+            <label class="required" for="dpe_Employment_Start_Date"><span>*</span>From: </label>
+            <Input type="text" readonly="readonly" id="dpe_Employment_Start_Date" name="dpe_Employment_Start_Date" size=10 maxlength=10   />&nbsp;&nbsp;&nbsp;&nbsp;
+            <label class="required" for="dpe_Employment_Stop_Date">To: </label>
+            <Input type="text" readonly="readonly" id="dpe_Employment_Stop_Date" name="dpe_Employment_Stop_Date" size=10 maxlength=10 />
         </td>
     </tr>
     <tr class="color-dark">
-        <td><label class="required" for="pe_Reason_for_Leaving"><span>*</span>Reason For Leaving:</label></td>
-        <td><input type="text" id="pe_Reason_for_Leaving" name="pe_Reason_for_Leaving"  maxlength="250" size="50" /></td></tr>
+        <td><label class="required" for="dpe_Salary"><span>*</span>Salary:</label></td>
+        <td><input type="text" id="dpe_Salary" name="dpe_Salary"  maxlength="10" /></td></tr>
     <tr>
+    <tr>
+        <td><label class="required" for="dpe_Reason_for_Leaving"><span>*</span>Reason For Leaving:</label></td>
+        <td><input type="text" id="dpe_Reason_for_Leaving" name="dpe_Reason_for_Leaving"  maxlength="250" size="50" /></td></tr>
+    <tr class="color-dark">
         <td class=""></td>
         <td class="">
             DOT Safety Sensitive:&nbsp;&nbsp;
@@ -71,7 +84,6 @@
             </select>
         </td>
     </tr>
-    <tr class="color-dark"><td colspan="2">&nbsp;</td></tr>
     <tr>
         <td></td>
         <td><span class="blue-button float-left"><a id="addEmploymentHistoryRecord" onclick="this.setAttribute('class', 'button-updating');this.innerHTML='Updating...'; addEmploymentHistoryRecord();">Add new Employer</a></span></td>

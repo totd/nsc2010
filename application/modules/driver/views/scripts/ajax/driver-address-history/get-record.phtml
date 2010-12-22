@@ -37,18 +37,18 @@
         </tr>
         <tr height=30 valign=middle>
             <td class=""><label class="required" for="edit_dah_Phone"><span>*</span>Phone:</label></td>
-            <td class=""><Input type="text" id="edit_dah_Phone" name="edit_dah_Phone" size=30  value="<?php echo $this->layout()->driverAddressHistoryRecord['dah_Phone'];?>" /></td>
+            <td class=""><Input type="text" id="edit_dah_Phone" name="edit_dah_Phone" size=30  value="<?php echo Custom_View_Helper_Transformation::convertNumber($this->layout()->driverAddressHistoryRecord['dah_Phone']);?>" /></td>
         </tr>
         <tr height=30 valign=middle>
             <td class="">At Address:</td>
             <td class="">
             <label class="required" for="edit_dah_Start_Date"><span>*</span>From Date: </label>
-                <Input type="text" readonly="readonly" id="edit_dah_Start_Date" name="edit_dah_Start_Date" size=10 maxlength=10  value="<?php
+                <Input type="text" id="edit_dah_Start_Date" name="edit_dah_Start_Date" size=10 maxlength=10  value="<?php
                     $date = new Zend_Date($this->layout()->driverAddressHistoryRecord['dah_Start_Date'],"YYYY-MM-dd");
                     echo $date->toString("MM/dd/YYYY");
                 ?>"  />&nbsp;&nbsp;&nbsp;&nbsp;
             <label class="required" for="edit_dah_End_Date"><span>*</span>To Date: </label>
-                <Input type="text" readonly="readonly" id="edit_dah_End_Date" name="edit_dah_End_Date" size=10 maxlength=10  value="<?php
+                <Input type="text"  id="edit_dah_End_Date" name="edit_dah_End_Date" size=10 maxlength=10  value="<?php
                     $date = new Zend_Date($this->layout()->driverAddressHistoryRecord['dah_End_Date'],"YYYY-MM-dd");
                     echo $date->toString("MM/dd/YYYY");
                 ?>"  />&nbsp;&nbsp;&nbsp;&nbsp;

@@ -3,8 +3,9 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 {
     protected $_name = 'equipment';
 
-    protected $_requiredCopleteFields = array (
+    protected $_requiredCopmleteFields = array (
         'e_Unit_Number' => 'unit',
+        'e_Picture' => 'picture',
         'e_License_Expiration_Date' => 'license expiration date',
         'e_License_Number' => 'license plate number',
         'e_Start_Mileage' => 'start mileage',
@@ -105,7 +106,7 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         if (isset($filterOptions['Status'])) {
             if ($filterOptions['Status'] != 'All') {
                 $where .= " AND eas_type = {$this->getDefaultAdapter()->quote($filterOptions['Status'])}";
-            } else {
+            } else if (!is_null($excludeStatus)) {
                 $where .= " AND eas_type <> {$this->getDefaultAdapter()->quote($excludeStatus)}";
             }
         }
@@ -172,8 +173,8 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         $row = $this->getRow($id);
 
         foreach ($row as $field => $value) {
-            if ((empty($value) || is_null($field)) && key_exists($field, $this->_requiredCopleteFields))  {
-                $result[$field] = $this->_requiredCopleteFields[$field];
+            if ((empty($value) || is_null($field)) && key_exists($field, $this->_requiredCopmleteFields))  {
+                $result[$field] = $this->_requiredCopmleteFields[$field];
             }
         }
 
@@ -295,6 +296,8 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
                 $rowEquipment->$key = $value;
             }
 
+            $rowEquipment->e_Entry_Date = new Zend_Db_Expr("NOW()");
+
             $rowEquipment->save();
 
             return $this->findEquipmentByVIN($rowEquipment->e_Number);
@@ -333,6 +336,29 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         return $result[0];
     }
 
+    public function getEquipmentInformation($id)
+    {
+        $result = null;
+        
+        if (!empty($id)) {
+            $db = $this->getAdapter();
 
 
+            $select = "SELECT *
+                        FROM equipment
+                        LEFT JOIN equipment__active_status ON e_Active_Status = eas_id
+                        JOIN equipment__new_equipment_status ON e_New_Equipment_Status = enes_id
+                        LEFT JOIN equipment_types ON et_id = e_type_id
+                        LEFT JOIN state ON e_Registration_State = s_id
+                        WHERE e_id = '$id'";
+
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $stmt = $db->query($select);
+
+            $resultArray = $stmt->fetchAll();
+            $result = (count($resultArray) > 0) ? $resultArray[0] : null;
+        }
+
+        return $result;
+    }
 }

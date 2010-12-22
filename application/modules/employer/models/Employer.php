@@ -59,11 +59,25 @@ class Employer_Model_Employer extends Zend_Db_Table_Abstract
                       FROM employer
                         LEFT JOIN state on state.s_id = employer.emp_State_ID
                         LEFT JOIN country on country.country_id = employer.emp_Country_ID
-                      WHERE emp_Employer_Name like "%'.$sQuery.'%"
+                      WHERE emp_Employer_Name like "%'.$sQuery.'%" AND emp_approved = "YES"
+                      GROUP BY emp_Employer_Name
         ');
          return $stmt->fetchAll();
         }else{
             return null;
         }
+    }
+    public function getRecordBySearchQuery($sQuery)
+    {
+        $t = new Employer_Model_Employer();
+        $select=$t->select();
+        $select->from("employer")->where("emp_Employer_Name = '".$sQuery['emp_Employer_Name']."' AND "."emp_Address1 = '".$sQuery['emp_Address1']."' AND "."emp_City = '".$sQuery['emp_City']."' AND "."emp_Phone = '".$sQuery['emp_Phone']."'");
+        $rows=$t->fetchRow($select);
+        if(sizeof($rows)>0){
+            return $rows->toArray();
+        }else{
+            return $rows;
+        }
+        
     }
 }

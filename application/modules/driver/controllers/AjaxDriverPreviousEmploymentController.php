@@ -16,138 +16,84 @@ class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Acti
 
     public function getPreviousEmploymentListAction()
     {
-        $pe_Driver_ID = $_REQUEST['pe_Driver_ID'];
+        $dpe_Driver_ID = $_REQUEST['dpe_Driver_ID'];
         $arr = new Driver_Model_DriverPreviousEmployment();
         $stateList = State_Model_State::getList();
 
         $layout = new Zend_Layout();
         $layout->setLayoutPath(APPLICATION_PATH.'/modules/driver/views/scripts/ajax/previous-employment/');
         $layout->setLayout('get-previous-employment-list');
-        $layout->driverEmploymentHistoryList = $arr->getList($pe_Driver_ID);
+        $layout->driverEmploymentHistoryList = $arr->getList($dpe_Driver_ID);
         $layout->stateList = $stateList;
         echo $layout->render();
     }
 
     public function addRecordAction()
     {
-        $pe_Driver_ID = $_REQUEST['pe_Driver_ID'];
-        $pe_Employer_Name = $_REQUEST['pe_Employer_Name'];
-        $pe_Address1 = $_REQUEST['pe_Address1'];
-        $pe_City = $_REQUEST['pe_City'];
-        $pe_State = $_REQUEST['pe_State'];
-        $pe_Postal_Code = $_REQUEST['pe_Postal_Code'];
-        $pe_Phone = $_REQUEST['pe_Phone'];
-        $pe_Fax = $_REQUEST['pe_Fax'];
-        $pe_Position = $_REQUEST['pe_Position'];
-        $pe_Employment_Start_Date = $_REQUEST['pe_Employment_Start_Date'];
-        $pe_Employment_Stop_Date = $_REQUEST['pe_Employment_Stop_Date'];
-        $pe_Reason_for_Leaving = $_REQUEST['pe_Reason_for_Leaving'];
-        $pe_DOT_Safety_Sensitive_Function = $_REQUEST['pe_DOT_Safety_Sensitive_Function'];
-        $pe_FMCSR_Regulated = $_REQUEST['pe_FMCSR_Regulated'];/*
-        $pe_Interstate = $_REQUEST['pe_Interstate'];
-        $pe_Intrastate = $_REQUEST['pe_Intrastate'];
-        $pe_Intermodal = $_REQUEST['pe_Intermodal'];*/
+        $dpe_Driver_ID = $_REQUEST['dpe_Driver_ID'];
+        $dpe_Employer_ID = $_REQUEST['dpe_Employer_ID'];
+        $dpe_Position = $_REQUEST['dpe_Position'];
+        $dpe_Salary = $_REQUEST['dpe_Salary'];
+        $dpe_Employment_Start_Date = $_REQUEST['dpe_Employment_Start_Date'];
+        $dpe_Employment_Stop_Date = $_REQUEST['dpe_Employment_Stop_Date'];
+        $dpe_Reason_for_Leaving = $_REQUEST['dpe_Reason_for_Leaving'];
+
 
         $errors=0;
         $msg = "";
-        if((int)$pe_Driver_ID==null){
+        if((int)$dpe_Driver_ID==null){
             $errors++;
             $msg=$msg."Driver ID losted.<br/>";}
-        if($pe_Employer_Name==null){
+        if($dpe_Employer_ID==null){
             $errors++;
             $msg=$msg."Please, fill Employer!<br/>";}
-        if($pe_Position==null){
+        if($dpe_Position==null){
             $errors++;
             $msg=$msg."Please, fill Job Description!<br/>";}
-        if($pe_Address1==null){
+        if($dpe_Salary==null){
             $errors++;
-            $msg=$msg."Please, fill Street!<br/>";}
-        if($pe_City==null){
+            $msg=$msg."Please, fill Salary!<br/>";}
+        if($dpe_Reason_for_Leaving==null){
             $errors++;
-            $msg=$msg."Please fill City.<br/>";
-        }elseif(preg_match("/[\s\w\.\-]+/",$pe_City)==0){
-            $errors++;
-            $msg=$msg."City should contain ONLY Alpha-numeric sybols, and '-.' symbols!<br/>";}
-        if($pe_State==null){
-            $errors++;
-            $msg=$msg."Some error with State field.<br/>";}
-        if($pe_Postal_Code==null){
-            $errors++;
-            $msg=$msg."Please fill Zip!<br/>";
-        }elseif(preg_match("/[\d\-]{5,10}/",$pe_Postal_Code)==0){
-            $errors++;
-            $msg=$msg."Zip should contain ONLY digits! 5 or 10 digits.<br/>";}
-        if($pe_Phone==null){
-            $errors++;
-            $msg=$msg."Please fill Phone!<br/>";}
-        $pe_Phone = preg_replace("/[^0-9]+/","",$pe_Phone);
-        if(preg_match("/[\d\-\s\(\)]{5,15}/",$pe_Phone)==0){
-            $errors++;
-            $msg=$msg."Phone should contain ONLY digits! 9 or 10 digits.<br/>";}
-        if($pe_Reason_for_Leaving==null){
-            $errors++;
-            $msg=$msg."Please, fill Reason For Leaving!<br/>";}
-        $pe_Fax = preg_replace("/[^0-9]+/","",$pe_Fax);
-        if(preg_match("/[\d\-\s\(\)]{5,15}/",$pe_Fax)==0){
-            $errors++;
-            $msg=$msg."Fax should contain ONLY digits! 9 or 10 digits.<br/>";}
-        if($pe_Employment_Start_Date==null){
+            $msg=$msg."Please, fill Reason fro leaving!<br/>";}
+        if($dpe_Employment_Start_Date==null){
             $errors++;
             $msg=$msg."Please select From Date!<br/>";
-        }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$pe_Employment_Start_Date)==0){
+        }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$dpe_Employment_Start_Date)==0){
             $errors++;
             $msg=$msg."Please, select correct From Date (mm/dd/yyyy)!<br/>";}
-        if($pe_Employment_Stop_Date==null){
+        if($dpe_Employment_Stop_Date==null){
             $errors++;
             $msg=$msg."Please select To Date!<br/>";
-        }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$pe_Employment_Stop_Date)==0){
+        }elseif(preg_match("/[\d]{2}\/[\d]{2}\/[\d]{4}/",$dpe_Employment_Stop_Date)==0){
             $errors++;
             $msg=$msg."Please, select correct To Date (mm/dd/yyyy)!<br/>";}
+        $arr1 = explode("/",$dpe_Employment_Start_Date);
+        $arr2 = explode("/",$dpe_Employment_Stop_Date);
+        $time1 = mktime(0,0,0,$arr1[0],$arr1[1],$arr1[2]);
+        $time2 = mktime(0,0,0,$arr2[0],$arr2[1],$arr2[2]);
+        if($time1>=$time2){
+            $errors++;
+            $msg=$msg."Date From shoould be less than date To at least for one day!<br/>";
+        }
         if($errors>0){
             echo $msg;
         }else{
             $data=array();
-            $pe_Driver_ID = $_REQUEST['pe_Driver_ID'];
-            $pe_Employer_Name = $_REQUEST['pe_Employer_Name'];
-            $pe_Address1 = $_REQUEST['pe_Address1'];
-            $pe_City = $_REQUEST['pe_City'];
-            $pe_State = $_REQUEST['pe_State'];
-            $pe_Postal_Code = $_REQUEST['pe_Postal_Code'];
-            $pe_Phone = $_REQUEST['pe_Phone'];
-            $pe_Fax = $_REQUEST['pe_Fax'];
-            $pe_Position = $_REQUEST['pe_Position'];
-            $pe_Employment_Start_Date = $_REQUEST['pe_Employment_Start_Date'];
-            $pe_Employment_Stop_Date = $_REQUEST['pe_Employment_Stop_Date'];
-            $pe_Reason_for_Leaving = $_REQUEST['pe_Reason_for_Leaving'];
-            $pe_DOT_Safety_Sensitive_Function = $_REQUEST['pe_DOT_Safety_Sensitive_Function'];
-            $pe_FMCSR_Regulated = $_REQUEST['pe_FMCSR_Regulated'];/*
-            $pe_Interstate = $_REQUEST['pe_Interstate'];
-            $pe_Intrastate = $_REQUEST['pe_Intrastate'];
-            $pe_Intermodal = $_REQUEST['pe_Intermodal'];*/
-            $data['pe_Driver_ID']=$pe_Driver_ID;
-            $data['pe_Employer_Name']=$pe_Employer_Name;
-            $data['pe_Address1']=$pe_Address1;
-            $data['pe_City']=$pe_City;
-            $data['pe_State']=$pe_State;
-            $data['pe_Postal_Code']=$pe_Postal_Code;
-            $data['pe_Phone']=$pe_Phone;
-            $data['pe_Fax']=$pe_Fax;
-            $data['pe_Position']=$pe_Position;
+            $data['dpe_Driver_ID']=$dpe_Driver_ID;
+            $data['dpe_Employer_ID']=$dpe_Employer_ID;
+            $data['dpe_Position']=$dpe_Position;
+            $data['dpe_Salary']=$dpe_Salary;
+            $data['dpe_Reason_for_Leaving']=$dpe_Reason_for_Leaving;
 
-            $date = new Zend_Date($pe_Employment_Start_Date,"MM/dd/YYYY");
-            $data['pe_Employment_Start_Date'] =  $date->toString("YYYY-MM-dd");
-            if($pe_Employment_Stop_Date!=""){
-                $date = new Zend_Date($pe_Employment_Stop_Date,"MM/dd/YYYY");
-                $data['pe_Employment_Stop_Date'] =  $date->toString("YYYY-MM-dd");
+            $date = new Zend_Date($dpe_Employment_Start_Date,"MM/dd/YYYY");
+            $data['dpe_Employment_Start_Date'] =  $date->toString("YYYY-MM-dd");
+            if($dpe_Employment_Stop_Date!=""){
+                $date = new Zend_Date($dpe_Employment_Stop_Date,"MM/dd/YYYY");
+                $data['dpe_Employment_Stop_Date'] =  $date->toString("YYYY-MM-dd");
             }else{
-                $data['pe_Employment_Stop_Date']= null;
+                $data['dpe_Employment_Stop_Date']= null;
             }
-            $data['pe_Reason_for_Leaving']=$pe_Reason_for_Leaving;
-            $data['pe_DOT_Safety_Sensitive_Function']=$pe_DOT_Safety_Sensitive_Function;
-            $data['pe_FMCSR_Regulated']=$pe_FMCSR_Regulated;/*
-            $data['pe_Interstate']=$pe_Interstate;
-            $data['pe_Intrastate']=$pe_Intrastate;
-            $data['pe_Intermodal']=$pe_Intermodal;*/
 
             Driver_Model_DriverPreviousEmployment::createRecord($data);
             echo 1;
@@ -156,19 +102,19 @@ class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Acti
     public function deleteRecordAction()
 
     {
-        $pe_ID = $_REQUEST['pe_ID'];
-        Driver_Model_DriverPreviousEmployment::deleteRecord($pe_ID);
+        $dpe_ID = $_REQUEST['dpe_ID'];
+        Driver_Model_DriverPreviousEmployment::deleteRecord($dpe_ID);
     }
 
     public function getRecordAction()
     {
-        $pe_ID = $_REQUEST['pe_ID'];
+        $dpe_ID = $_REQUEST['dpe_ID'];
         $arr = new Driver_Model_DriverPreviousEmployment();
         $stateList = State_Model_State::getList();
         $layout = new Zend_Layout();
         $layout->setLayoutPath(APPLICATION_PATH.'/modules/driver/views/scripts/ajax/previous-employment/');
         $layout->setLayout('get-record');
-        $layout->driverEmploymentHistoryRecord = $arr->getRecord($pe_ID);
+        $layout->driverEmploymentHistoryRecord = $arr->getRecord($dpe_ID);
         $layout->stateList = $stateList;
         echo $layout->render();
     }

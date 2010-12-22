@@ -71,7 +71,7 @@
                                 <tr>
                                     <td colspan="2">
                                         &nbsp;Travel Direction:&nbsp;&nbsp;
-                                        <select name="i_Highway_Street_Travel_Direction">
+                                        <select name="i_Travel_Direction_ID">
                                             <?php
                                             foreach ($this->travelDirections as $key => $value) {
                                                 if (isset($value['selected']) && $value['selected']) {
@@ -83,7 +83,7 @@
                                             ?>
                                         </select>
                                         &nbsp;on Street/Highway:&nbsp;&nbsp;
-                                        <input type="text" maxlength="30" value="" size="20" name="i_Highway_Street">
+                                        <input type="text" maxlength="30" value="" size="20" name="i_Collision_Highway_Street">
 
                                         &nbsp;Actual Speed:&nbsp;&nbsp;
                                         <input type="text" maxlength="5" value="" size="5" name="i_Actual_Speed">

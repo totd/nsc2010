@@ -58,6 +58,7 @@ function addLicenseRecord(){
                 return false;
             }
            });
+    driver_last_saved(l_Driver_ID);
 }
 function deleteLicenseRecord(l_ID,l_Driver_ID) {
         $.get("/driver/ajax-Driver-License/delete-Record/",
@@ -67,6 +68,7 @@ function deleteLicenseRecord(l_ID,l_Driver_ID) {
                 refreshLicenseRecords(l_Driver_ID);
                 return true;
            });
+    driver_last_saved(l_Driver_ID);
 }
 function refreshLicenseRecords(l_Driver_ID) {
         $.get("/driver/ajax-Driver-License/get-Driver-Licenses-List/",
@@ -165,5 +167,6 @@ function updateLicenseRecord(l_ID){
                 return false;
             }
            });
+    driver_last_saved(l_Driver_ID);
 
 }

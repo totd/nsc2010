@@ -385,6 +385,10 @@ ul.blue-nav {
 	color:#fff;
 	text-decoration:none;}
 	
+.blue-nav li:hover, span.blue-button:hover {
+	opacity:0.8;
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80);	}
+
 .blue-nav li:hover a, span.blue-button:hover a {text-decoration:none;}			
 
 .breadcrumbs-left {

@@ -6,9 +6,18 @@
         <td><label class="required" for="emp_Employer_Name"><span>*</span>Employer:</label></td>
         <td>
             <Input type="hidden" id="emp_ID" name="emp_ID" size="50" maxlength="250" />
-            <Input type="text" id="emp_Employer_Name" name="emp_Employer_Name" size="50" maxlength="250" onkeyup="autocomplete_custom('emp_Employer_Name')" /> <img src="/images/indicator.gif" id="emp_Employer_Name_indicator" style="display:none;" alt="">
+            <Input type="text" id="emp_Employer_Name" name="emp_Employer_Name" size="50" maxlength="250"  onkeyup="" /> <img src="/images/indicator.gif" id="emp_Employer_Name_indicator" style="display:none;" alt="" />
             <div class="ac_results" id="emp_Employer_Name_ul" style="display:none; position: absolute; border: 1px solid rgb(170, 170, 170); width: 324px; background: none repeat scroll 0% 0% rgb(255, 255, 255);" >
             </div>
+            <script type="text/javascript">
+                $().ready(function() {
+
+                    $("#emp_Employer_Name").keyup(function() {
+                        autocomplete_custom('emp_Employer_Name','emp_Employer_Name_ul');
+                    });
+                });
+            </script>
+            
         </td>
     </tr>
     <tr class="color-dark">

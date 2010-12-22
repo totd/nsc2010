@@ -138,6 +138,15 @@ class Driver_AjaxDriverEquipmentOperatedController extends Zend_Controller_Actio
                 $fatal_errors++;}
             if((strtolower($deo[$i][4])!="no") && (strtolower($deo[$i][4])!="yes")){
                 $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> select \"YES\" or \"NO\".</div>";}
+            if($deo[$i][5]!="" && $deo[$i][6]!=""){
+                $arr1 = explode("/",$deo[$i][5]);
+                $arr2 = explode("/",$deo[$i][6]);
+                $time1 = mktime(0,0,0,$arr1[0],$arr1[1],$arr1[2]);
+                $time2 = mktime(0,0,0,$arr2[0],$arr2[1],$arr2[2]);
+                if($time1>=$time2){
+                    $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> Date From shoould be less than date To at least for one day!</div>";
+                }
+            }
             if(preg_match("/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",$deo[$i][5])==0){
                 $msg=$msg."<div><span style='color:red;'>ERROR at row #{$deo[$i][0]}:</span> From Date cant't be empty and should be correct (mm/dd/yyyy).</div>";}
             else{

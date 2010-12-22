@@ -89,6 +89,7 @@ class Driver_DriverController extends Zend_Controller_Action
     {
         if ($this->auth->hasIdentity()) {
             $driverID = (int)$this->_request->getParam('id');
+            $this->view->headScript()->appendFile('/js/driver/index.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_validate_driver.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_driverAddressHistory.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/ajax_driver_equipment_operated.js', 'text/javascript');
@@ -118,6 +119,7 @@ class Driver_DriverController extends Zend_Controller_Action
             }else{
                 $driverInfo['d_Driver_SSN'] = preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3",$driverInfo['d_Driver_SSN']);
             }
+
 
             $homebaseList = Homebase_Model_Homebase::getHomebaseList(null,1);
             $depotList = Depot_Model_Depot::getDepotList($driverInfo['d_homebase_ID'],1);
@@ -207,6 +209,26 @@ class Driver_DriverController extends Zend_Controller_Action
             }
             elseif(Driver_Model_Driver::saveDriverInfo($data)==0){
                 $this->_redirect("/driver/driver/view-driver-Information/id/".$driverID);
+            }
+        }
+      }
+    public function ajaxDriverLastSavedAction()
+      {
+
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+        if ($this->auth->hasIdentity()) {
+            $driverID = (int)$this->_request->getParam('d_ID');
+            $data['d_ID']=$driverID;
+            $data['d_last_update_date']=date("Y-m-d H:i:s");
+
+            $date = new Zend_Date();
+            $date->set(date("Y-m-d H:i:s"),"YYYY-MM-dd HH:mm:ss");
+            if(Driver_Model_Driver::driverLastSaved($driverID,$data)==true){
+                echo $date->toString("MM/dd/YYYY hh:mm");
+            }
+            else{
+                echo $date->toString("MM/dd/YYYY hh:mm");
             }
         }
       }

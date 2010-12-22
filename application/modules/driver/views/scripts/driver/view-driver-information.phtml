@@ -79,18 +79,18 @@
                 Medical Examiner's Name:&nbsp;<span><?php echo $this->driverInfo['d_Doctor_Name']; ?></span></td></tr>
         <tr>
             <td>Phone Information</td>
-            <td>#1 phone number:&nbsp;<span><?php echo $this->driverInfo['d_Telephone_Number1']; ?></span><br/>
+            <td>#1 phone number:&nbsp;<span><?php echo Custom_View_Helper_Transformation::convertNumber($this->driverInfo['d_Telephone_Number1']); ?></span><br/>
             <?php
                                   if($this->driverInfo['d_Telephone_Number2']!=""){
                 ?>
-                    #2 phone number:&nbsp;<span><?php echo $this->driverInfo['d_Telephone_Number2']; ?></span><br/>
+                    #2 phone number:&nbsp;<span><?php echo Custom_View_Helper_Transformation::convertNumber($this->driverInfo['d_Telephone_Number2']); ?></span><br/>
                 <?
             }
             ?>
             <?php
                                   if($this->driverInfo['d_Telephone_Number3']!=""){
                 ?>
-                    #3 phone number:&nbsp;<span><?php echo $this->driverInfo['d_Telephone_Number3']; ?></span><br/>
+                    #3 phone number:&nbsp;<span><?php echo Custom_View_Helper_Transformation::convertNumber($this->driverInfo['d_Telephone_Number3']); ?></span><br/>
                 <?
             }
             ?>
@@ -99,7 +99,7 @@
                               if($this->driverInfo['d_Fax']!=""){
             ?>
             <tr class="color-dark"><td>Fax </td>
-                <td><span><?php echo $this->driverInfo['d_Fax']; ?></span></td></tr>
+                <td><span><?php echo Custom_View_Helper_Transformation::convertNumber($this->driverInfo['d_Fax']); ?></span></td></tr>
             <?
         }
         ?>
@@ -311,14 +311,14 @@
 <div><?php
     if(isset($this->driverInfo['d_last_update_date'])){
         $date->set($this->driverInfo['d_last_update_date'],"YYYY-MM-dd HH:mm:ss");
-        echo "<h3 style='padding-top: 15px; padding-left: 28px;'>Last saved: ".$date->toString("MM/dd/YYYY hh:mm")."</h3>";
+        echo "<h3 id='last_saved' style='padding-top: 15px; padding-left: 28px;'>Last saved: ".$date->toString("MM/dd/YYYY hh:mm")."</h3>";
     }
 
 ?></div>
 <div class="blue-nav">
     <ul>
         <li><span><a href="/driver/driver/dqf/driver_id/<?php echo $this->driverId;?>">Go to DQF</a></span></li>
-        <li><span><a href="/driver/index/dqf?status=All">Exit</a></span></li>
+        <li><span><a onclick="exit('/driver/index/dqf?status=All')">Exit</a></span></li>
     </ul>
 </div>
 

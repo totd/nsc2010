@@ -48,7 +48,7 @@ function addEmploymentHistoryRecord(){
                 emp_FMCSR_Regulated: ""+emp_FMCSR_Regulated+""
 
             }, function(data){
-                reg=/\d+/;
+                reg=/^\d+$/;
                 if(reg.test(data)==true){
                     $.get("/driver/ajax-Driver-Previous-Employment/add-Record/",
                     {
@@ -62,6 +62,10 @@ function addEmploymentHistoryRecord(){
 
                     }, function(data2){
                         if(data2==1){
+                            refreshEmploymentHistoryRecords(dpe_Driver_ID);
+                            clearNewEmploymentHistoryForm();
+                            $("#add_Employment_Table").hide();
+                            document.getElementById("toggleEmploymentHistoryAdd").innerHTML="SHOW";
                             return true;
                         }else{
                             var $dialog = $('<div></div>')
@@ -77,10 +81,10 @@ function addEmploymentHistoryRecord(){
                             return false;
                         }
                        });
-                    refreshEmploymentHistoryRecords(dpe_Driver_ID);
-                    clearNewEmploymentHistoryForm();
-                    $("#add_Employment_Table").hide();
-                    document.getElementById("toggleEmploymentHistoryAdd").innerHTML="SHOW";
+                    //refreshEmploymentHistoryRecords(dpe_Driver_ID);
+                    //clearNewEmploymentHistoryForm();
+                    //$("#add_Employment_Table").hide();
+                    //document.getElementById("toggleEmploymentHistoryAdd").innerHTML="SHOW";
                     return true;
                 }else{
                     var $dialog = $('<div></div>')
@@ -114,6 +118,8 @@ function addEmploymentHistoryRecord(){
                     clearNewEmploymentHistoryForm();
                     $("#add_Employment_Table").hide();
                     document.getElementById("toggleEmploymentHistoryAdd").innerHTML="Show";
+                            document.getElementById("addEmploymentHistoryRecord").setAttribute('class', '');
+                            document.getElementById("addEmploymentHistoryRecord").innerHTML='Add new Employer';
                     return true;
                 }else{
                     var $dialog = $('<div></div>')
@@ -130,6 +136,7 @@ function addEmploymentHistoryRecord(){
                 }
                });
     }
+    driver_last_saved(dpe_Driver_ID);
 }
 function deleteEmploymentHistoryRecord(dpe_ID,dpe_Driver_ID) {
         $.get("/driver/ajax-Driver-Previous-Employment/delete-Record/",
@@ -140,6 +147,7 @@ function deleteEmploymentHistoryRecord(dpe_ID,dpe_Driver_ID) {
                 refreshEmploymentHistoryRecords(dpe_Driver_ID);
                 return true;
            });
+    driver_last_saved(dpe_Driver_ID);
 }
 function refreshEmploymentHistoryRecords(dpe_Driver_ID) {
         $.get("/driver/ajax-Driver-Previous-Employment/get-Previous-Employment-List/",
@@ -159,7 +167,7 @@ function editEmploymentHistoryRecord(record_id,dpe_Driver_ID){
     document.getElementById("driver_pe_id_"+record_id).innerHTML=""
     $.get("/driver/ajax-Driver-Previous-Employment/get-record/",
         {
-            pe_ID: record_id
+            dpe_ID: record_id
         }, function(data){
             if(data!=false){
                 document.getElementById("driver_pe_id_"+record_id).innerHTML="";
@@ -218,65 +226,116 @@ function editEmploymentHistoryRecord(record_id,dpe_Driver_ID){
            });
 }
 function updateEmploymentHistoryRecord(dah_ID){
-    document.getElementById("updateEmploymentHistoryRecord").setAttribute('class', 'button-updating');
-    document.getElementById("updateEmploymentHistoryRecord").innerHTML='Updating...';
-    pe_ID = document.getElementsByName("edit_pe_ID")[0].value;
-    pe_Driver_ID = document.getElementsByName("edit_pe_Driver_ID")[0].value;
-    pe_Employer_Name = document.getElementsByName("edit_pe_Employer_Name")[0].value;
-    pe_Address1 = document.getElementsByName("edit_pe_Address1")[0].value;
-    pe_City = document.getElementsByName("edit_pe_City")[0].value;
-    pe_State = document.getElementsByName("edit_pe_State")[0].value;
-    pe_Postal_Code = document.getElementsByName("edit_pe_Postal_Code")[0].value;
-    pe_Phone = document.getElementsByName("edit_pe_Phone")[0].value;
-    pe_Fax = document.getElementsByName("edit_pe_Fax")[0].value;
-    pe_Position = document.getElementsByName("edit_pe_Position")[0].value;
-    pe_Employment_Start_Date = document.getElementsByName("edit_pe_Employment_Start_Date")[0].value;
-    pe_Employment_Stop_Date = document.getElementsByName("edit_pe_Employment_Stop_Date")[0].value;
-    pe_Reason_for_Leaving = document.getElementsByName("edit_pe_Reason_for_Leaving")[0].value;
-    pe_DOT_Safety_Sensitive_Function = document.getElementsByName("edit_pe_DOT_Safety_Sensitive_Function")[0].value;
-    pe_FMCSR_Regulated = document.getElementsByName("edit_pe_FMCSR_Regulated")[0].value;/*
-    pe_Interstate = document.getElementsByName("edit_pe_Interstate")[0].value;
-    pe_Intrastate = document.getElementsByName("edit_pe_Intrastate")[0].value;
-    pe_Intermodal = document.getElementsByName("edit_pe_Intermodal")[0].value;*/
+    dpe_ID = document.getElementById("edit_dpe_ID").value;
+    dpe_Driver_ID = document.getElementsByName("edit_dpe_Driver_ID")[0].value;
+    emp_ID = document.getElementsByName("edit_emp_ID")[0].value;
+    emp_Employer_Name = document.getElementsByName("edit_emp_Employer_Name")[0].value;
+    emp_Address1 = document.getElementsByName("edit_emp_Address1")[0].value;
+    emp_City = document.getElementsByName("edit_emp_City")[0].value;
+    emp_State_ID = document.getElementsByName("edit_emp_State_ID")[0].value;
+    emp_Postal_Code = document.getElementsByName("edit_emp_Postal_Code")[0].value;
+    emp_Phone = document.getElementsByName("edit_emp_Phone")[0].value;
+    emp_Fax = document.getElementsByName("edit_emp_Fax")[0].value;
+    dpe_Position = document.getElementsByName("edit_dpe_Position")[0].value;
+    dpe_Employment_Start_Date = document.getElementsByName("edit_dpe_Employment_Start_Date")[0].value;
+    dpe_Employment_Stop_Date = document.getElementsByName("edit_dpe_Employment_Stop_Date")[0].value;
+    dpe_Reason_for_Leaving = document.getElementsByName("edit_dpe_Reason_for_Leaving")[0].value;
+    dpe_Salary = document.getElementsByName("edit_dpe_Salary")[0].value;
+    emp_DOT_Safety_Sensitive_Function = document.getElementsByName("edit_emp_DOT_Safety_Sensitive_Function")[0].value;
+    emp_FMCSR_Regulated = document.getElementsByName("edit_emp_FMCSR")[0].value;
+    if(emp_ID==""){
+        $.get("/employer/ajax-Employer/add-Record/",{
+                emp_Employer_Name: emp_Employer_Name,
+                emp_Address1: emp_Address1,
+                emp_City: ""+emp_City+"",
+                emp_State_ID: emp_State_ID,
+                emp_Postal_Code: ""+emp_Postal_Code+"",
+                emp_Phone: ""+emp_Phone+"",
+                emp_Fax: ""+emp_Fax+"",
+                emp_DOT_Safety_Sensitive_Function: ""+emp_DOT_Safety_Sensitive_Function+"",
+                emp_FMCSR_Regulated: ""+emp_FMCSR_Regulated+""
 
-    $.get("/driver/ajax-Driver-Previous-Employment/update-Record/",
-        {
-            pe_ID: pe_ID,
-            pe_Driver_ID: pe_Driver_ID,
-            pe_Employer_Name: ""+pe_Employer_Name+"",
-            pe_Address1: ""+pe_Address1+"",
-            pe_City: ""+pe_City+"",
-            pe_State: pe_State,
-            pe_Postal_Code: ""+pe_Postal_Code+"",
-            pe_Phone: ""+pe_Phone+"",
-            pe_Fax: ""+pe_Fax+"",
-            pe_Position: ""+pe_Position+"",
-            pe_Employment_Start_Date: ""+pe_Employment_Start_Date+"",
-            pe_Employment_Stop_Date: ""+pe_Employment_Stop_Date+"",
-            pe_Reason_for_Leaving: ""+pe_Reason_for_Leaving+"",
-            pe_DOT_Safety_Sensitive_Function: ""+pe_DOT_Safety_Sensitive_Function+"",
-            pe_FMCSR_Regulated: ""+pe_FMCSR_Regulated+""/*,
-            pe_Interstate: ""+pe_Interstate+"",
-            pe_Intrastate: ""+pe_Intrastate+"",
-            pe_Intermodal: ""+pe_Intermodal+""*/
-        }, function(data){
-            if(data==1){
-                refreshEmploymentHistoryRecords(pe_Driver_ID);
-                clearNewEmploymentHistoryForm();
-                return true;
-            }else{
-                var $dialog = $('<div></div>')
-                .html(data)
-                .dialog({
-                    autoOpen: false,
-                    title: 'Form validation error!',
-                    minHeight: 13
-                });
-                $dialog.dialog('open');
-                document.getElementById("updateEmploymentHistoryRecord").setAttribute('class', '');
-                document.getElementById("updateEmploymentHistoryRecord").innerHTML='Save';
-                return false;
-            }
-           });
+            }, function(data){
+                reg=/^\d+$/;
+                if(reg.test(data)==true){
+                    $.get("/driver/ajax-Driver-Previous-Employment/update-Record/",
+                    {
+                        dpe_ID: dpe_ID,
+                        dpe_Driver_ID: dpe_Driver_ID,
+                        dpe_Employer_ID: data,
+                        dpe_Employment_Start_Date: ""+dpe_Employment_Start_Date+"",
+                        dpe_Employment_Stop_Date: ""+dpe_Employment_Stop_Date+"",
+                        dpe_Position: ""+dpe_Position+"",
+                        dpe_Salary: dpe_Salary,
+                        dpe_Reason_for_Leaving: ""+dpe_Reason_for_Leaving+""
+
+                    }, function(data2){
+                        if(data2==1){
+                            refreshEmploymentHistoryRecords(dpe_Driver_ID);
+                            clearNewEmploymentHistoryForm();
+                            return true;
+                        }else{
+                            var $dialog = $('<div></div>')
+                            .html(data2)
+                            .dialog({
+                                autoOpen: false,
+                                title: 'Form validation error!',
+                                minHeight: 13
+                            });
+                            $dialog.dialog('open');
+                            document.getElementById("addEmploymentHistoryRecord").setAttribute('class', '');
+                            document.getElementById("addEmploymentHistoryRecord").innerHTML='Add new Employer';
+                            return false;
+                        }
+                       });
+                    return true;
+                }else{
+                    var $dialog = $('<div></div>')
+                    .html(data)
+                    .dialog({
+                        autoOpen: false,
+                        title: 'Form validation error!',
+                        minHeight: 13
+                    });
+                    $dialog.dialog('open');
+                    document.getElementById("updateEmploymentHistoryRecord").setAttribute('class', '');
+                    document.getElementById("updateEmploymentHistoryRecord").innerHTML='Save';
+                    return false;
+                }
+        });
+       /**/
+    }else{
+        $.get("/driver/ajax-Driver-Previous-Employment/update-Record/",
+            {
+                dpe_ID: dpe_ID,
+                dpe_Driver_ID: dpe_Driver_ID,
+                dpe_Employer_ID: emp_ID,
+                dpe_Employment_Start_Date: ""+dpe_Employment_Start_Date+"",
+                dpe_Employment_Stop_Date: ""+dpe_Employment_Stop_Date+"",
+                dpe_Position: ""+dpe_Position+"",
+                dpe_Salary: dpe_Salary,
+                dpe_Reason_for_Leaving: ""+dpe_Reason_for_Leaving+""
+
+            }, function(data){
+                if(data==1){
+                    refreshEmploymentHistoryRecords(dpe_Driver_ID);
+                    clearNewEmploymentHistoryForm();
+                    return true;
+                }else{
+                    var $dialog = $('<div></div>')
+                    .html(data)
+                    .dialog({
+                        autoOpen: false,
+                        title: 'Form validation error!',
+                        minHeight: 13
+                    });
+                    $dialog.dialog('open');
+                    document.getElementById("updateEmploymentHistoryRecord").setAttribute('class', '');
+                    document.getElementById("updateEmploymentHistoryRecord").innerHTML='Save';
+                    return false;
+                }
+               });
+    }
+    driver_last_saved(dpe_Driver_ID);
 
 }

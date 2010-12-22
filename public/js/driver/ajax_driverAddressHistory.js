@@ -52,6 +52,7 @@ function addAddressHistoryRecord(){
                 return false;
             }
            });
+    driver_last_saved(dah_Driver_ID);
     }
 function deleteAddressHistoryRecord(dah_ID,dah_Driver_ID) {
         $.get("/driver/ajax-Driver-Address-History/delete-Record/",
@@ -62,6 +63,7 @@ function deleteAddressHistoryRecord(dah_ID,dah_Driver_ID) {
                 refreshAddressHistoryRecords(dah_Driver_ID);
                 return true;
            });
+    driver_last_saved(dah_Driver_ID);
 }
 function refreshAddressHistoryRecords(dah_Driver_ID) {
         $.get("/driver/ajax-Driver-Address-History/get-Driver-Address-History-List/",
@@ -170,5 +172,6 @@ function updateAddressHistoryRecord(dah_ID){
                 return false;
             }
            });
+    driver_last_saved(dah_Driver_ID);
     
 }

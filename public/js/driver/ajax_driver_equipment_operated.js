@@ -60,52 +60,9 @@ function validateDriverEquipmentOperated(){
                 return false;
             }
            });
+    driver_last_saved(deo_Driver_ID);
 
 }
-function updateEquipmentOperatedRecord(l_ID){/*
-    l_ID = document.getElementsByName("edit_l_ID")[0].value;
-    l_Driver_ID = document.getElementsByName("edit_l_Driver_ID")[0].value;
-    l_Driver_License_Number = document.getElementsByName("edit_l_Driver_License_Number")[0].value;
-    l_Driver_Issue_State_id = document.getElementsByName("edit_l_Driver_Issue_State_id")[0].value;
-    l_Class = document.getElementsByName("edit_l_Class")[0].value;
-    l_Expiration_Date = document.getElementsByName("edit_l_Expiration_Date")[0].value;
-    l_DOT_Regulated = document.getElementsByName("edit_l_DOT_Regulated")[0].value;
-    l_License_Restrictions = document.getElementsByName("edit_l_License_Restrictions")[0].value;
-    l_License_Endorsements = "";
-    for (i = 0; i < document.getElementsByName("edit_l_License_Endorsements").length; i++){
-        if(document.getElementsByName("edit_l_License_Endorsements")[i].checked==true){
-            l_License_Endorsements = l_License_Endorsements + document.getElementsByName("edit_l_License_Endorsements")[i].value+" ";
-        }
-    }
-    l_Points_Score = document.getElementsByName("edit_l_Points_Score")[0].value;
-
-    $.get("/driver/ajax-Driver-License/update-Record/",
-        {
-            l_ID: l_ID,
-            l_Driver_ID: l_Driver_ID,
-            l_Driver_License_Number: ""+l_Driver_License_Number+"",
-            l_Driver_Issue_State_id: l_Driver_Issue_State_id,
-            l_Class: ""+l_Class+"",
-            l_Expiration_Date: ""+l_Expiration_Date+"",
-            l_DOT_Regulated: ""+l_DOT_Regulated+"",
-            l_License_Restrictions: ""+l_License_Restrictions+"",
-            l_License_Endorsements: ""+l_License_Endorsements+"",
-            l_Points_Score: ""+l_Points_Score+""
-        }, function(data){
-            if(data==1){
-                refreshEquipmentOperatedRecords(l_Driver_ID);
-                return true;
-            }else{
-                var $dialog = $('<div></div>')
-                .html(data)
-                .dialog({
-                    autoOpen: false,
-                    title: 'Form validation error!',
-                    minHeight: 13
-                });
-                $dialog.dialog('open');
-                return false;
-            }
-           });*/
+function updateEquipmentOperatedRecord(l_ID){
 
 }

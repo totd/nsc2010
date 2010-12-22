@@ -27,8 +27,8 @@ $date = new Zend_Date();
                     <option value="No" <?php if($deoList[$i]['deo_is_operated']=="No"){echo " selected='selected' ";} ?>>No</option>
                     <option value="Yes" <?php if($deoList[$i]['deo_is_operated']=="Yes"){echo " selected='selected' ";} ?>>Yes</option>
                 </select>
-                From Date:&nbsp;<input name="deo_From_Date" class="datepicker" size="7" maxlength="10" readonly="readonly" value="<?php echo $deo_From_Date;?>" />
-                To Date:&nbsp;<input name="deo_To_Date" class="datepicker" size="7" maxlength="10" readonly="readonly" value="<?php echo $deo_To_Date;?>" />
+                From Date:&nbsp;<input name="deo_From_Date" class="datepicker" size="7" maxlength="10" value="<?php echo $deo_From_Date;?>" />
+                To Date:&nbsp;<input name="deo_To_Date" class="datepicker" size="7" maxlength="10" value="<?php echo $deo_To_Date;?>" />
                 Total Miles:&nbsp;<input name="deo_Total_Miles" value="<?php echo $deoList[$i]['deo_Total_Miles'];?>" />
         </td>
     </tr>
@@ -49,8 +49,8 @@ $date = new Zend_Date();
                 <option value="No" selected='selected'>No</option>
                 <option value="Yes">Yes</option>
             </select>
-            From Date:&nbsp;<input name="deo_From_Date" class="datepicker" size="7" maxlength="10" readonly="readonly" value="" />
-            To Date:&nbsp;<input name="deo_To_Date" class="datepicker" size="7" maxlength="10" readonly="readonly" value="" />
+            From Date:&nbsp;<input name="deo_From_Date" class="datepicker" size="7" maxlength="10" value="" />
+            To Date:&nbsp;<input name="deo_To_Date" class="datepicker" size="7" maxlength="10" value="" />
             Total Miles:&nbsp;<input name="deo_Total_Miles" value="" />
         </td>
     </tr>

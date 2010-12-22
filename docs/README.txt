@@ -13,7 +13,7 @@ $_SESSION['logined_user_info'] # contains list of driver status
 
 
 
-
+Custom_View_Helper_Transformation::convertNumber($this->driverInfo['d_Fax']);
 
 
 

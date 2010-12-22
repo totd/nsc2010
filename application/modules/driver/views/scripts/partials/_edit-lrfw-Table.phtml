@@ -4,7 +4,7 @@
     <tbody id="edit_lrfw_list">
         <tr>
             <td colspan="7">Last relieved from work:&nbsp;<span></span>Date:&nbsp;
-                <input type="text" name="edit_dlrfw_date"  maxlength="10" size="8" readonly="readonly" id="edit_lrfw_date" value="<?php
+                <input type="text" name="edit_dlrfw_date"  maxlength="10" size="8" id="edit_lrfw_date" value="<?php
                 if(isset($this->currentDriverLrfwRecord[0]['dlrfw_date'])){
                     $date->set($this->currentDriverLrfwRecord[0]['dlrfw_date'],"YYYY-MM-dd");
                     echo $date->toString("MM/dd/YYYY");

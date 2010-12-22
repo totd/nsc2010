@@ -36,6 +36,7 @@ function updateHosAndLrfwRecord(){
                 return false;
             }
            });
+    driver_last_saved(Driver_ID);
 
 }
 

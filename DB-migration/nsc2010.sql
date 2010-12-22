@@ -1229,7 +1229,7 @@ CREATE TABLE `Violation` (
 --
 
 DROP TABLE IF EXISTS `Violation_Type`;
-CREATE TABLE `nsc2010`.`Violation_Type` (
+CREATE TABLE `Violation_Type` (
 `vt_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `vt_Item` VARCHAR( 100 ) NOT NULL DEFAULT "'turn signal', 'brakes', 'steering', 'left front turn signal', 'rear turn signal trailer', 'etc'",
 `vt_Item_Specific` VARCHAR( 100 ) NOT NULL DEFAULT "'Right', 'left', 'Right Front', 'Left Rear', 'etc.'"

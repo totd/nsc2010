@@ -2,7 +2,9 @@
 $driverAddressHistoryList = $this->layout()->driverAddressHistoryList;
 $stateList = $this->layout()->stateList;
 $previousAddressCount=0;
-$date = new Zend_Date();
+$date = new Zend_Date();/*
+$auth = Zend_Auth::getInstance();
+$identity = $auth->getIdentity();*/
 foreach($driverAddressHistoryList as $k => $v)
 {
     $previousAddressCount++;
@@ -20,7 +22,7 @@ foreach($driverAddressHistoryList as $k => $v)
             ?>
             #<?php echo $previousAddressCount;?>
             [ <a onclick="editAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)">EDIT</a> ]
-        <?php if ($this->identity['permissions']['driver_delete_driver_address_history'] === true) { ?>
+        <?php if ($this->identity->permissions->driver_delete_driver_address_history == 1) { ?>
             [ <a onclick="deleteAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)">DELETE</a> ]
             <?php
             }

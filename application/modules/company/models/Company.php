@@ -1,6 +1,6 @@
 <?php
 
-class company_Model_Company extends Zend_Db_Table 
+class Company_Model_Company extends Zend_Db_Table 
 {
     protected $_name = 'company';
 
@@ -28,8 +28,18 @@ class company_Model_Company extends Zend_Db_Table
         ");
         $row = $stmt->fetchAll();
         return $row;
-        #return $modelCompany->fetchAll($select);
+    }
 
+    public static function getRecord($c_ID)
+    {
+         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $stmt = $db->query(" SELECT *
+                                FROM company
+                               LEFT JOIN contacts_table on contacts_table.ct_ID=company.c_Contact_Table_ID
+                               WHERE c_id = ".$c_ID."
+                                ");
+        $row = $stmt->fetchAll();
+        return $row;
     }
 }
 

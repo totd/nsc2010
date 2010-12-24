@@ -56,11 +56,12 @@ class User_Model_User extends Zend_Db_Table_Abstract
      * @param int $id
      * @return mixed
      */
-    public static function getUser($id)
+    public static function getUser($where)
     {
         $userModel = new self();
         $select = $userModel->select();
-        return $userModel->fetchAll($select);
+        $row = $userModel->fetchAll("u_User_Name = '".$where."'");
+        return $row->toArray();
     }
 
 }

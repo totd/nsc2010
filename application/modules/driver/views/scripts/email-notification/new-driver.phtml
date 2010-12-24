@@ -1,0 +1,35 @@
+<div class="bottom-nav">
+</div>
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="driver-information" id="main">
+    <?php if(isset($this->error)){?>
+    <h2>Error Occur:</h2>
+    <?php echo $this->error;?>
+<?php }else{?>
+    <h2>Driver Created</h2>
+    New driver created. Notification has been sent to <strong><?php echo $this->companyInfo[0]['ct_Contact_Email'];?></strong>.
+    <br/>
+    <br/>
+    Some times, e-mails are determined as spam, and can be putted into your mailbox spam folder. If you not recieve email in 20 minutes, please, check your spam folder. <br/>
+    <br/>
+    <br/>
+    Regards, administration.
+<?php } ?>
+
+<div class="blue-nav">
+    <ul>
+        <li><span><a href="/driver/new-driver/new-driver-search">New Driver</a></span></li>
+        <li><span><a href='/driver/index/index?status=Pending'>Exit</a></span></li>
+    </ul>
+</div>
+</div>

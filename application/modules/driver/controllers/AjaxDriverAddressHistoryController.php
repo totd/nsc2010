@@ -9,6 +9,12 @@ class Driver_AjaxDriverAddressHistoryController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender();
         // turn of templites
         $this->_helper->layout()->disableLayout();
+
+        $this->auth = Zend_Auth::getInstance();
+
+        if ($this->auth->hasIdentity()) {
+            $this->view->identity = $this->auth->getIdentity();
+        }
     }
 
     public function indexAction()

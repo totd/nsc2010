@@ -2,7 +2,10 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-
+    public function init()
+    {
+        define('LOCALHOST', "127.0.0.1");
+    }
     protected function _initAutoload()
     {
         Zend_Controller_Action_HelperBroker::addPrefix("Custom_Action_Helper");

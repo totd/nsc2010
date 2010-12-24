@@ -36,7 +36,6 @@ class Driver_NewDriverController extends Zend_Controller_Action
      */
     public function newDriverSearchAction()
     {
-
         if ($this->auth->hasIdentity()) {
             $this->view->headScript()->appendFile('/js/equipment/update.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/driver/jQuery_validate_driver_search.js', 'text/javascript');
@@ -48,8 +47,6 @@ class Driver_NewDriverController extends Zend_Controller_Action
             
             # origin - http://www.driverqualificationonline.com/ProdClient/Application/NewDriverSearch.asp
             # pre-create Driver search. If there no such Driver in DB - offer to create new one.
-            $auth = Zend_Auth::getInstance();
-
 
             $this->view->systemMessage = "";
             if (sizeof($_POST)>0) {
@@ -64,8 +61,13 @@ class Driver_NewDriverController extends Zend_Controller_Action
                         $this->view->systemMessage = "Driver with SSN # <b>" . $_POST['d_Driver_SSN'] . "</b> already exist! ";
                     }else{
                         # process creating of new Driver
-                        $driver = Driver_Model_Driver::createPendingDriver($_POST);
-                        return $this->_redirect('/driver/Driver/view-driver-Information/id/'.$driver);
+                        if($_POST['Driver']=="By Driver"){
+                            $driver = Driver_Model_Driver::createPendingDriver($_POST);
+                            return $this->_redirect('/driver/email-notification/new-driver/id/'.$driver);
+                        }else{
+                            $driver = Driver_Model_Driver::createPendingDriver($_POST);
+                            return $this->_redirect('/driver/Driver/view-driver-Information/id/'.$driver);
+                        }
                     }
                 }else{
                     if($d_et==0){

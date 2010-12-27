@@ -99,6 +99,7 @@ class Driver_DriverController extends Zend_Controller_Action
             $this->view->headScript()->appendFile('/js/driver/ajax_driver_hos.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/jQueryScripts/driver_misc.js', 'text/javascript');
 
+            $this->view->headScript()->appendFile('/js/jquery.simpletip-1.3.1.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.ajaxQueue.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.autocomplete.js', 'text/javascript');
             $this->view->headScript()->appendFile('/js/jQ-autocomplite/jquery.bgiframe.min.js', 'text/javascript');
@@ -229,6 +230,129 @@ class Driver_DriverController extends Zend_Controller_Action
             }
             else{
                 echo $date->toString("MM/dd/YYYY hh:mm");
+            }
+        }
+      }
+
+
+##################################################################
+# Validation section
+##################################################################
+
+    # Application Information & Driver Information Validation
+    public function ajaxDriverInformationValidationAction()
+      {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+        if ($this->auth->hasIdentity()) {
+            $driverID = (int)$this->_request->getParam('Driver_ID');
+            $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
+            $errors = "";
+            if($driverInfo['d_homebase_ID']==""){
+                $errors = $errors."<strong>Homebase</strong> can't be empty!<br/>";
+            }
+            if($driverInfo['d_First_Name']==""){
+                $errors = $errors."<strong>First Name</strong> is requierd!<br/>";
+            }
+            if($driverInfo['d_Last_Name']==""){
+                $errors = $errors."<strong>Last Name</strong> is requierd!<br/>";
+            }
+            if($driverInfo['d_Telephone_Number1']==""){
+                $errors = $errors."<strong>Telephone #1</strong> is requierd!<br/>";
+            }
+            if($errors!=""){
+                echo $errors;
+            }else{
+                echo 1;
+            }
+
+        }
+      }
+
+    # Employment History Validation
+    # Need at least 3 years to pass validation
+    public function ajaxDriverEmploymentHistoryValidationAction()
+      {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+        if ($this->auth->hasIdentity()) {
+            $driverID = (int)$this->_request->getParam('Driver_ID');
+            $employmentTime = Driver_Model_DriverPreviousEmployment::getTotalEmpoymentTime($driverID);
+
+            if($employmentTime[0]["total_working_time"]>=3){
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }
+      }
+
+    # Driver Address History Validation
+    # Need at least 3 years to pass validation
+    public function ajaxDriverAddressHistoryValidationAction()
+      {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+        if ($this->auth->hasIdentity()) {
+            $driverID = (int)$this->_request->getParam('Driver_ID');
+            $employmentTime = Driver_Model_DriverAddressHistory::getTotalAddressHistoryTime($driverID);
+
+            if($employmentTime[0]["total_living_time"]>=3){
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }
+      }
+
+    # Driver's Commercial Licenses Validation
+    # Need at least 3 years held of licences (return 1, if at least one CDL exist)
+    public function ajaxDriverCdlValidationAction()
+      {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+        if ($this->auth->hasIdentity()) {
+            $driverID = (int)$this->_request->getParam('Driver_ID');
+            $drivingTime = Driver_Model_License::getList($driverID);
+            if(sizeof($drivingTime)>0){
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }
+      }
+    
+    # Driver's Equipment Operated Validation
+    # Optional block.
+    # Return 1, if at least one CDL exist, else return -1;
+    public function ajaxDriverEquipmentOperatedValidationAction()
+      {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+        if ($this->auth->hasIdentity()) {
+            $driverID = (int)$this->_request->getParam('Driver_ID');
+            $drivingTime = Driver_Model_DriverEquipmentOperated::getList($driverID);
+            if(sizeof($drivingTime)>0){
+                echo 1;
+            }else{
+                echo -1;
+            }
+        }
+      }
+    # Driver's Equipment Operated Validation
+    # Optional block.
+    # Return 1, if at least one CDL exist, else return -1;
+    public function ajaxDriverHosValidationAction()
+      {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+        if ($this->auth->hasIdentity()) {
+            $driverID = (int)$this->_request->getParam('Driver_ID');
+            $currentDriverHosList = Driver_Model_DriverHos::getList($driverID,1);
+            if(sizeof($currentDriverHosList)>0){
+                echo 1;
+            }else{
+                echo -1;
             }
         }
       }

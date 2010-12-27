@@ -25,7 +25,7 @@
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
     <table cellspacing="0" class="inform">
         <tbody>
-        <tr><th colspan="2"><h2 class="status-ok">Application Information [ <a id="toggleDriverInfoEdit">EDIT</a> ]</h2></th></tr>
+        <tr><th colspan="2"><h2>Application Information [ <a id="toggleDriverInfoEdit">EDIT</a> ]</h2><h2 id="status_application_information"></h2></th></tr>
         </tbody>
     </table>
     <table cellspacing="0" class="inform" id="idDriverInfoView">
@@ -132,7 +132,7 @@
     <table cellspacing="0" class="inform">
         <tbody>
         <tr>
-            <th colspan="2"><h2 class="status-warning">Driver Addresses</h2><br><span class="red">Please fill in Addresses for the last 3 years.</span></th>
+            <th colspan="2"><h2>Driver Addresses</h2><h2 id="status_address_history"></h2><br/><span class="red">Please fill in Addresses for the last 3 years.</span></th>
         </tr>
         </tbody>
     </table>
@@ -162,7 +162,7 @@
     <table cellspacing="0" class="inform">
         <tbody>
             <tr>
-                <th colspan="2"><h2 class="status-warning">Commercial Driver's Licenses</h2><br>
+                <th colspan="2"><h2>Commercial Driver's Licenses</h2><h2 id="status_cdl_history"></h2><br/>
                 <span class="red">Please list all Commercial Driver's Licenses held in last 3 years.</span><br>
                 <span class="discr">Endorsements:&nbsp;<span class="bold">P</span>-Passenger,&nbsp;<span class="bold">T</span>-Doubles &amp; Triples,&nbsp;<span class="bold">H</span>-Hazardous Materials,&nbsp;<span class="bold">N</span>-Tankers,&nbsp;<span class="bold">X</span>-Hazardous &amp; Tankers.</span>
                 </th>
@@ -191,7 +191,7 @@
     <table cellspacing="0" class="inform">
         <tbody>
             <tr>
-                <th colspan="2"><h2 class="status-ok">Equipment Operated</h2><br>
+                <th colspan="2"><h2>Equipment Operated</h2><h2 id="status_equipment_operated_history"></h2><br/>
                 <span class="red">Please list all driver's experience.</span><br>
                 <span class="discr"></span>
                 </th>
@@ -218,7 +218,7 @@
     <table cellspacing="0" class="inform">
         <tbody>
         <tr>
-            <th colspan="2"><h2 class="status-warning">Employment History</h2><br>
+            <th colspan="2"><h2>Employment History</h2><h2 id="status_employment_history"></h2><br/>
                 <span class="red">Please list all employers in the last 3 years starting from the most recent.<br>If applicant has worked as a driver, list all employers in last 10 years.</span></th>
         </tr>
         </tbody>
@@ -260,7 +260,7 @@
 -->
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
     <table cellspacing="0" class="inform adress">
-        <tr><th colspan="7"><h2 class="status-ok">Hours Of Service In Previous 7 Days [ <a id="toggleHoS" onclick="">EDIT</a> ]</h2></th></tr>
+        <tr><th colspan="7"><h2>Hours Of Service In Previous 7 Days [ <a id="toggleHoS" onclick="">EDIT</a> ]</h2><h2 id="status_hos"></h2></th></tr>
         <tbody id="hos_list">
         <tr align="center">
             <td><?php echo $this->currentDriverHoSList[6]['dhos_date'];?></td>
@@ -415,5 +415,5 @@
             yearRange: '1950:2020'
   });
     });
-
+validate_driver_profile(<?php echo $this->driverId;?>);
 </script>

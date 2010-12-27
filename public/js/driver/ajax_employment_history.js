@@ -137,6 +137,7 @@ function addEmploymentHistoryRecord(){
                });
     }
     driver_last_saved(dpe_Driver_ID);
+    validate_employment_history(dpe_Driver_ID);
 }
 function deleteEmploymentHistoryRecord(dpe_ID,dpe_Driver_ID) {
         $.get("/driver/ajax-Driver-Previous-Employment/delete-Record/",
@@ -148,6 +149,7 @@ function deleteEmploymentHistoryRecord(dpe_ID,dpe_Driver_ID) {
                 return true;
            });
     driver_last_saved(dpe_Driver_ID);
+    validate_employment_history(dpe_Driver_ID);
 }
 function refreshEmploymentHistoryRecords(dpe_Driver_ID) {
         $.get("/driver/ajax-Driver-Previous-Employment/get-Previous-Employment-List/",
@@ -337,5 +339,6 @@ function updateEmploymentHistoryRecord(dah_ID){
                });
     }
     driver_last_saved(dpe_Driver_ID);
+    validate_employment_history(dpe_Driver_ID);
 
 }

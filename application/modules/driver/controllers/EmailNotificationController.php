@@ -6,6 +6,9 @@ class Driver_EmailNotificationController extends Zend_Controller_Action
 
     public function init()
     {
+        // TODO: make this more usful
+        $this->host = "77.52.3.148";
+                
         # For menu highlighting:
         $this->view->currentPage = "NewDriver";
 
@@ -44,9 +47,9 @@ class Driver_EmailNotificationController extends Zend_Controller_Action
                 $body = $body."Thank you!";
                 $transport = new Zend_Mail_Transport_Smtp();
 
-                $protocol = new Zend_Mail_Protocol_Smtp("77.52.3.148");
+                $protocol = new Zend_Mail_Protocol_Smtp($this->host);
                 $protocol->connect();
-                $protocol->helo("77.52.3.148");
+                $protocol->helo($this->host);
                 $transport->setConnection($protocol);
                 $mail = new Zend_Mail('UTF-8');
                 $mail->addTo($company[0]['ct_Contact_Email']);

@@ -59,4 +59,25 @@ class Driver_Model_DriverAddressHistory extends Zend_Db_Table_Abstract
             return null;
         }
     }
+     /**
+     * @author Vlad Skachkov 25.12.2010
+     *
+     * count total living time for current driver.
+     * @int $dah_Driver_ID
+     * @return integer
+     */
+    public static function getTotalAddressHistoryTime($dah_Driver_ID)
+    {
+        if(isset($dah_Driver_ID)){
+         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+         $stmt = $db->query('
+                SELECT sum( unix_timestamp( `dah_End_Date` ) - unix_timestamp( `dah_Start_Date` ) ) /60 /60 /24 /365 AS `total_living_time`
+                FROM `driver_address_history`
+                WHERE dah_Driver_ID = '.$dah_Driver_ID.'
+        ');
+         return $stmt->fetchAll();
+        }else{
+            return 0;
+        }
+    }
 }

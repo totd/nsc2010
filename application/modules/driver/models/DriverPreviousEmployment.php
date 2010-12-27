@@ -72,4 +72,26 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
             return null;
         }
     }
+
+     /**
+     * @author Vlad Skachkov 25.12.2010
+     *
+     * count total employment time for current driver.
+     * @int $dpe_Driver_ID
+     * @return integer
+     */
+    public static function getTotalEmpoymentTime($dpe_Driver_ID)
+    {
+        if(isset($dpe_Driver_ID)){
+         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+         $stmt = $db->query('
+                SELECT sum( unix_timestamp( `dpe_Employment_Stop_Date` ) - unix_timestamp( `dpe_Employment_Start_Date` ) ) /60 /60 /24 /365 AS `total_working_time`
+                FROM `driver__previous_employment`
+                WHERE dpe_Driver_ID = '.$dpe_Driver_ID.'
+        ');
+         return $stmt->fetchAll();
+        }else{
+            return 0;
+        }
+    }
 }

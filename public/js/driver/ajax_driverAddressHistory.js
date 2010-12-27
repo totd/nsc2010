@@ -53,6 +53,7 @@ function addAddressHistoryRecord(){
             }
            });
     driver_last_saved(dah_Driver_ID);
+    validate_address_history(dah_Driver_ID);
     }
 function deleteAddressHistoryRecord(dah_ID,dah_Driver_ID) {
         $.get("/driver/ajax-Driver-Address-History/delete-Record/",
@@ -64,6 +65,7 @@ function deleteAddressHistoryRecord(dah_ID,dah_Driver_ID) {
                 return true;
            });
     driver_last_saved(dah_Driver_ID);
+    validate_address_history(dah_Driver_ID);
 }
 function refreshAddressHistoryRecords(dah_Driver_ID) {
         $.get("/driver/ajax-Driver-Address-History/get-Driver-Address-History-List/",
@@ -173,5 +175,6 @@ function updateAddressHistoryRecord(dah_ID){
             }
            });
     driver_last_saved(dah_Driver_ID);
+    validate_address_history(dah_Driver_ID);
     
 }

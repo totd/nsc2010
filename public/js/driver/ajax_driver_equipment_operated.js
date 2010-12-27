@@ -61,6 +61,7 @@ function validateDriverEquipmentOperated(){
             }
            });
     driver_last_saved(deo_Driver_ID);
+    validate_equipment_operated(deo_Driver_ID);
 
 }
 function updateEquipmentOperatedRecord(l_ID){

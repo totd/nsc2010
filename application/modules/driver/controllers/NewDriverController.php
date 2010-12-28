@@ -63,7 +63,7 @@ class Driver_NewDriverController extends Zend_Controller_Action
                         # process creating of new Driver
                         if($_POST['Driver']=="By Driver"){
                             $driver = Driver_Model_Driver::createPendingDriver($_POST);
-                            return $this->_redirect('/driver/email-notification/new-driver/id/'.$driver);
+                            return $this->_redirect('/mailing/email-notification/new-driver/id/'.$driver);
                         }else{
                             $driver = Driver_Model_Driver::createPendingDriver($_POST);
                             return $this->_redirect('/driver/Driver/view-driver-Information/id/'.$driver);

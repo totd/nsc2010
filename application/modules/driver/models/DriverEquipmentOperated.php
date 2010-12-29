@@ -16,63 +16,47 @@ class Driver_Model_DriverEquipmentOperated extends Zend_Db_Table_Abstract
         return $rowsetArray;
     }
 
-    public function getRecord($dah_ID)
+    public function getRecord($deo_ID)
     {
-        $row = $this->fetchRow($this->select()->where('dah_id = ?',$dah_ID));
-        if($row==null){return false;}
+        $row = $this->fetchRow($this->select()->where('deo_ID = ?',$deo_ID));
+        if($row==null){return null;}
         return $row->toArray();
     }
 
-    public function createRecord($mData)
+    public static function createRecord($mData)
     {
         if(isset($mData)){
-            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
             try
             {
-            $db->query('
-                      insert into driver__equipment_operated (deo_Driver_ID,deo_Equipment_Type_ID,deo_is_operated,deo_From_Date,deo_To_Date,deo_Total_Miles)
-                        values('.$mData[2].','.$mData[3].',"'.$mData[4].'","'.$mData[5].'","'.$mData[6].'","'.$mData[7].'")
-                ');
+                $table = new Driver_Model_DriverEquipmentOperated();
+                $table->insert($mData);
             }catch(Exception $e)
             {
-                return null;
+                return $e->getMessage();
             }
             return true;
         }else{
-            return null;
+            return false;
         }
     }
 
-    public function deleteRecord($iRecord)
+    public static function deleteRecord($iRecord)
     {
         $table = new Driver_Model_DriverEquipmentOperated();
-        return $table->delete("dah_ID =".$iRecord);
+        return $table->delete("deo_ID =".$iRecord);
     }
-
     public function updateRecord($mData)
     {
-        if(isset($mData)){
-            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
-            try
+        try
             {
-            $db->query('
-                      update driver__equipment_operated
-                        set deo_Driver_ID = '.$mData[2].',
-                            deo_Equipment_Type_ID = '.$mData[3].',
-                            deo_is_operated = "'.$mData[4].'",
-                            deo_From_Date = "'.$mData[5].'",
-                            deo_To_Date = "'.$mData[6].'",
-                            deo_Total_Miles = "'.$mData[7].'"
-                        where deo_ID = '.$mData[1].'
-                ');
+                $db = new Driver_Model_DriverEquipmentOperated();
+                $w = 'deo_ID = '.$mData['deo_ID'];
+                $db->update($mData,$w);
             }catch(Exception $e)
             {
-                return null;
+                return $e->getMessage();
             }
             return true;
-        }else{
-            return null;
-        }
     }
 
     public static function getRecordByQuery($sQuery,$sField)

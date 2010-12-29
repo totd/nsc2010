@@ -35,6 +35,7 @@ function addAddressHistoryRecord(){
             if(data==1){
                 refreshAddressHistoryRecords(dah_Driver_ID);
                 clearNewDriverAddressForm();
+                $('#add_Address_Table').hide();
                 return true;
             }else{
                 var $dialog = $('<div></div>')
@@ -82,8 +83,8 @@ function refreshAddressHistoryRecords(dah_Driver_ID) {
 function editAddressHistoryRecord(record_id,dah_Driver_ID){
 
     clearNewDriverAddressForm();
-    $('#add_Address_Table').hide(0);
-    document.getElementById("toggleAddressAdd").innerHTML="Show";
+    $('#add_Address_Table').hide();
+    document.getElementById("toggleAddressAdd").innerHTML="SHOW";
 
     $.get("/driver/ajax-driver-address-history/get-record/",
         {

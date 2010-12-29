@@ -43,6 +43,18 @@ $(document).ready(function() {
         return false;
     });
 });
+// Show/hide Driver Equipment Operated adding form
+$(document).ready(function() {
+    $('#toggleDriverEquipmentOperatedAdd').click(function() {
+        $('#add_driver_Equipment_Operated_Table').toggle(400);
+        if((document.getElementById("toggleDriverEquipmentOperatedAdd").innerHTML)=="SHOW"){
+            document.getElementById("toggleDriverEquipmentOperatedAdd").innerHTML="HIDE";
+        }else{
+            document.getElementById("toggleDriverEquipmentOperatedAdd").innerHTML="SHOW";
+        }
+        return false;
+    });
+});
 // Show/hide Driver information edit form
 $(document).ready(function() {
     $('#toggleDriverInfoEdit').click(function() {

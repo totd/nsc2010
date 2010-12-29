@@ -2,7 +2,7 @@
 function clearNewEmploymentHistoryForm(){
     emp_ID = document.getElementsByName("emp_ID")[0].value="";
     emp_Employer_Name = document.getElementsByName("emp_Employer_Name")[0].value="";
-    emp_Address1 = document.getElementsByName("emp_Address1")[0].value="";
+    //emp_Address1 = document.getElementsByName("emp_Address1")[0].value="";
     emp_City = document.getElementsByName("emp_City")[0].value="";
     emp_State_ID = document.getElementsByName("emp_State_ID")[0].value="";
     emp_Postal_Code = document.getElementsByName("emp_Postal_Code")[0].value="";

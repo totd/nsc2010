@@ -8,8 +8,10 @@ if(sizeof($driverEquipmentOperatedList)<1){?>
 <?php }else{
     foreach($driverEquipmentOperatedList as $k => $v){
         ?>
-    <tr <?php  if(gettype($k/2) == 'double'){ echo " class='color-dark' ";} ?>>
+    <tr <?php  if(gettype($k/2) != 'double'){ echo " class='color-dark' ";} ?> id="equipmentOperatedID_<?php echo $v['deo_ID']; ?>">
         <td>
+            <a onclick="editEquipmentOperatedRecord(<?php echo $v['deo_ID'].",".$v['deo_Driver_ID'];?>)"><img src="/images/icon-edit.png" alt="edit record" width="15px" height="15px" /></a>&nbsp;&nbsp;&nbsp;
+            <a onclick="deleteEquipmentOperatedRecord(<?php echo $v['deo_ID'].",".$v['deo_Driver_ID'];?>)"><img src="/images/icon-delete.png" alt="delete record" width="15px" height="15px" /></a>
         <?php
             for($i=0;$i<sizeof($equipmentTypeList);$i++){
                 if($equipmentTypeList[$i]['et_id']==$v['deo_Equipment_Type_ID']){
@@ -19,7 +21,6 @@ if(sizeof($driverEquipmentOperatedList)<1){?>
         ?>
         </td>
         <td>
-            <span><?php echo $v['deo_is_operated'];?></span>
             From Date:&nbsp;
             <span>
                 <?php
@@ -41,7 +42,6 @@ if(sizeof($driverEquipmentOperatedList)<1){?>
     }
 
     ?>
-    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 
     <?php
     }

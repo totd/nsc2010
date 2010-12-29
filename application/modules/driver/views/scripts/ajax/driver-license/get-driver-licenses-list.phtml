@@ -8,7 +8,7 @@
         $licensesCount++;
 ?>
 <tbody id="driver_license_<?php echo $v['l_id'];?>">
-<tr class="title-dark"><td colspan="2">CDL #<?php echo $licensesCount;?> [ <a onclick="editLicenseRecord(<?php echo $v['l_id'].",".$v['l_Driver_ID'];?>)">EDIT</a> ] [ <a onclick="deleteLicenseRecord(<?php echo $v['l_id'].",".$v['l_Driver_ID'];?>)">DELETE</a> ]</td></tr>
+<tr class="title-dark"><td colspan="2">CDL #<?php echo $licensesCount;?> <a onclick="editLicenseRecord(<?php echo $v['l_id'].",".$v['l_Driver_ID'];?>)"><img src="/images/icon-edit.png" alt="edit record" width="15px" height="15px" /></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteLicenseRecord(<?php echo $v['l_id'].",".$v['l_Driver_ID'];?>)"><img src="/images/icon-delete.png" alt="delete record" width="15px" height="15px" /></a></td></tr>
 <tr>
     <td colspan="2">
         CDL#:&nbsp;<span><?php echo $v['l_Driver_License_Number']?></span>&nbsp;&nbsp;&nbsp;

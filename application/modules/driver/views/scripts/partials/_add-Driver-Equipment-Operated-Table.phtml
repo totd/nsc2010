@@ -1,0 +1,29 @@
+<?php
+$etList = $this->equipmentTypeList;
+$date = new Zend_Date();
+?>
+    <tr>
+        <td colspan="2">
+            <input type="hidden" name="deo_Driver_ID" id="deo_Driver_ID" value="<?php echo $this->driverId;?>" />
+                Equipment type:&nbsp;
+            <select name="deo_Equipment_Type_ID">
+                    <option value="-" selected="selected" >- Select -</option>
+            <?php
+                for($i=0;$i<sizeof($etList);$i++){?>
+                    <option value="<?php echo $etList[$i]['et_id']; ?>"><?php echo $etList[$i]['et_type']; ?></option>
+            <?php
+        }
+            ?>
+                </select>
+                From Date:&nbsp;<input name="deo_From_Date" class="datepicker" size="7" maxlength="10" />
+                To Date:&nbsp;<input name="deo_To_Date" class="datepicker" size="7" maxlength="10" />
+                Total Miles:&nbsp;<input name="deo_Total_Miles"/>
+        </td>
+    </tr>
+
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            <span class="blue-button float-left"><a id="addDriverEquipmentOperated" onclick="addEquipmentOperatedRecord()">Add</a></span>
+        </td>
+    </tr>

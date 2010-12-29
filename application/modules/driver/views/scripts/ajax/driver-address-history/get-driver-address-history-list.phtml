@@ -21,9 +21,9 @@ foreach($driverAddressHistoryList as $k => $v)
             }
             ?>
             #<?php echo $previousAddressCount;?>
-            [ <a onclick="editAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)">EDIT</a> ]
+            <a onclick="editAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)"><img src="/images/icon-edit.png" alt="edit record" width="15px" height="15px" /></a>
         <?php if ($this->identity->permissions->driver_delete_driver_address_history == 1) { ?>
-            [ <a onclick="deleteAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)">DELETE</a> ]
+            &nbsp;&nbsp;<a onclick="deleteAddressHistoryRecord(<?php echo $v['dah_ID'].",".$v['dah_Driver_ID'];?>)"><img src="/images/icon-delete.png" alt="delete record" width="15px" height="15px" /></a>
             <?php
             }
                         if($previousAddressCount!=1 && $v['dah_Current_Address']=="YES"){

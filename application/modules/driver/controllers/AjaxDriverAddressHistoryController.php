@@ -188,7 +188,6 @@ class Driver_AjaxDriverAddressHistoryController extends Zend_Controller_Action
             $errors++;
             $msg=$msg."Please fill Phone!<br/>";
         }
-        $dah_Phone = preg_replace("/[^0-9]+/","",$_REQUEST['dah_Phone']);
         if(preg_match("/[\d\-\s\(\)]{5,15}/",$_REQUEST['dah_Phone'])==0){
             $errors++;
             $msg=$msg."Phone should contain ONLY digits! 9 or 10 digits.<br/>";

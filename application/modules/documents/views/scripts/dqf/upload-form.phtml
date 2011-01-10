@@ -10,9 +10,35 @@
   </div>
   </div>
   </div>
+    <div id="main" class="driver-information">
 
-  <div id="main" class="qualification-file">
-		<div id="upload"><a href="#"><h2>Upload File</h2></a></div>
-        <span id="status" ></span>
-		<ul id="files" ></ul>
-  </div>
+      <div class="post-top"><div class="post-bottom"><div class="post-middle">
+		<form class="select-parametr2">
+			<div style="padding:20px;">
+                <input id="driver_id" type="hidden" value="<?php echo $this->driver_id;?>" />
+                <input id="document_form_name_id" type="hidden" value="<?php echo $this->document_form_name_id;?>" /><br/>
+                <input id="current_page" type="hidden" value="0" /><br/>
+                <input id="upload" type="button" value="Upload New Image" /><br/>
+                <span id="status" ></span>
+				<br />
+		        <ul id="files" >
+                <?php
+                for($i=0;$i<sizeof($this->scans);$i++){
+              ?>
+                  <div class="dqf-uploaded-images">
+                      <img width="180" class="dqf-uploaded-image" height="" alt="<?php echo $this->scans[$i]['cdfn_name'];?>" src="/documents/dqf/driver_<?php echo $this->scans[$i]['cd_Driver_ID'];?>/document_form_<?php echo $this->scans[$i]['cd_Form_Name_ID'];?>/<?php echo $this->scans[$i]['cd_Scan'];?>"/>
+                    <!--  <br /><a onclick="deleteImageDocument(<?php echo $this->scans[$i]['cd_Driver_ID'];?>,<?php echo $this->scans[$i]['cd_Sccd_Form_Name_IDan'];?>,'<?php echo $this->scans[$i]['cd_Scan'];?>')">[delete]</a> -->
+                  </div>
+              <?php
+                }
+              ?>
+                </ul>
+				<br /><br />
+                
+				<div class="clear"></div>
+				<input type="button" value="Exit" onclick="exit_simple('/driver/driver/dqf/driver_id/<?php echo $this->driver_id;?>');" />
+			</div>
+		</form>
+		<br /><br />
+        </div>
+      </div></div></div>

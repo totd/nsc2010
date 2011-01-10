@@ -1,21 +1,7 @@
           <div class="bottom-nav">
             <span class="name-driver">Driver:&nbsp;<span>Rene Del Rio</span></span>
-            <form class="status" action="#">
-              <fieldset>
-                <label>Status:</label>
-
-                <select>
-                  <option selected="selected">All</option>
-                  <option>Applicant</option>
-                  <option>Hired</option>
-                  <option>Active</option>
-                  <option>Inactive</option></select>
-
-                  <input type="submit" value=""/>
-              </fieldset>
-            </form>
           </div>
-
+ 
 <div class="breadcrumbs-left">
     <div class="breadcrumbs-right">
         <div class="breadcrumbs-middle">
@@ -24,11 +10,26 @@
                     echo $this->breadcrumbs;
                 ?>
             </span>
+            <a class="show-legend" href="#" onClick="$('#legend').slideToggle();">Show legend</a>
         </div>
     </div>
 </div>
-          <?php
-          ?>
+          <div id="legend">
+             <table>
+             <tr>
+                 <td><img src="/images/ico-6.gif" alt="Form is Completed" align="absmiddle" /> Form is Completed</td>
+                 <td><img src="/images/ico-7.gif" alt="Form is NOT Completed" align="absmiddle" /> Form is NOT Completed</td>
+                 <td><img src="/images/ico-8.gif" alt="Scan / Upload Documents" align="absmiddle" /> Scan / Upload Documents</td>
+                 <td><img src="/images/ico-3.gif" alt="View PDF Document" align="absmiddle" /> View PDF Document</td>
+             </tr>
+             <tr>
+                 <td><img src="/images/ico-4.gif" alt="View Signed Document" align="absmiddle" /> View Signed Document</td>
+                 <td><img src="/images/ico-2.gif" alt="Delete Form / Document" align="absmiddle" /> Delete Form / Document</td>
+                 <td><img src="/images/ico-1.gif" alt="Checked by NSC Compliant" align="absmiddle" /> Checked by NSC Compliant</td>
+                 <td><img src="/images/ico-9.gif" alt="Checked by NSC Not Compliant" align="absmiddle" /> Checked by NSC Not Compliant</td>
+             </tr>
+             </table>
+           </div>
     <div id="main" class="qualification-file">
 
       <table class="application-forms" cellspacing="0">

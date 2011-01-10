@@ -45,12 +45,12 @@
             <label class="required" for="edit_dah_Start_Date"><span>*</span>From Date: </label>
                 <Input type="text" id="edit_dah_Start_Date" name="edit_dah_Start_Date" size=10 maxlength=10  value="<?php
                     $date = new Zend_Date($this->layout()->driverAddressHistoryRecord['dah_Start_Date'],"YYYY-MM-dd");
-                    echo $date->toString("MM/dd/YYYY");
+                    echo $date->toString("MM/dd/yyyy");
                 ?>"  />&nbsp;&nbsp;&nbsp;&nbsp;
             <label class="required" for="edit_dah_End_Date"><span>*</span>To Date: </label>
                 <Input type="text"  id="edit_dah_End_Date" name="edit_dah_End_Date" size=10 maxlength=10  value="<?php
                     $date = new Zend_Date($this->layout()->driverAddressHistoryRecord['dah_End_Date'],"YYYY-MM-dd");
-                    echo $date->toString("MM/dd/YYYY");
+                    echo $date->toString("MM/dd/yyyy");
                 ?>"  />&nbsp;&nbsp;&nbsp;&nbsp;
             </td>
         </tr>

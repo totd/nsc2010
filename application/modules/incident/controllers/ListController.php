@@ -73,7 +73,7 @@ class Incident_ListController extends Zend_Controller_Action
                         $searctDate = $this->_request->getPost('SearchText');
                         if (!empty($searctDate)) {
                             $date = new Zend_Date($searctDate, "MM-dd-YYYY");
-                            $options['SearchText'] = $date->toString("YYYY-MM-dd");
+                            $options['SearchText'] = $date->toString("yyyy-MM-dd");
                         }
                     } catch (Exception $e) {
                         $options['SearchBy'] = '-';
@@ -119,7 +119,7 @@ class Incident_ListController extends Zend_Controller_Action
         if (sizeof($incidents) > 0) {
             foreach ($incidents['limitIncidents'] as $key => &$value) {
                 if (isset($value['i_Date']) && !is_null($value['i_Date']) && $value['i_Date'] != '0000-00-00') {
-                    $date = new Zend_Date($value['i_Date'], 'YYYY-MM-dd');
+                    $date = new Zend_Date($value['i_Date'], 'yyyy-MM-dd');
                     $value['i_Date'] = $date->toString("MM-dd-YYYY");
                 } else {
                     $value['i_Date'] = '';

@@ -38,10 +38,16 @@ class User_LoginController extends Zend_Controller_Action
 
             // Added additional login criteria.
             $select = $authAdapter->getDbSelect();
-            $select->where("vau_homebase_code = '{$data['homebase_code']}'");
-            $select->where("vau_company_code = '{$data['company_code']}'");
 
             // Check nonrequired parameters.
+            if(!empty($data['homebase_code'])) {
+                $select->where("vau_homebase_code = '{$data['homebase_code']}'");
+            }
+
+            if(!empty($data['company_code'])) {
+                $select->where("vau_company_code = '{$data['company_code']}'");
+            }
+
             if (!empty($data['parent_company_code'])) {
                 $select->where("vau_parent_company_code = '{$data['parent_company_code']}'");
             }

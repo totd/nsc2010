@@ -20,8 +20,8 @@
     <td><?php echo $_SESSION['driver_info']['DriverStatus_list'][$Drivers[$i]['d_Status']]; ?></td>
     <td>
     <?php
-        $date->set($Drivers[$i]['d_Entry_Date'],"YYYY-MM-dd");
-        echo  $date->toString("MM/dd/YYYY");
+        $date->set($Drivers[$i]['d_Entry_Date'],"yyyy-MM-dd");
+        echo  $date->toString("MM/dd/yyyy");
 
     ?>
     </td>

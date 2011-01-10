@@ -52,8 +52,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
         if (!empty($equipmentRow['e_Entry_Date']) && $equipmentRow['e_Entry_Date'] != '0000-00-00 00:00:00') {
             try {
-                $myDate = new Zend_Date($equipmentRow['e_Entry_Date'], "YYYY-MM-dd HH:mm:ss");
-                $equipmentRow['e_Entry_Date'] = $myDate->toString("MM/dd/YYYY HH:mm");
+                $myDate = new Zend_Date($equipmentRow['e_Entry_Date'], "yyyy-MM-dd HH:mm:ss");
+                $equipmentRow['e_Entry_Date'] = $myDate->toString("MM/dd/yyyy HH:mm");
             } catch (Zend_Date_Exception $e) {
                 $equipmentRow['e_Entry_Date'] = '';
             }
@@ -63,8 +63,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
         if (!empty($equipmentRow['e_last_modified_datetime']) && $equipmentRow['e_last_modified_datetime'] != '0000-00-00 00:00:00') {
             try {
-                $myDate = new Zend_Date($equipmentRow['e_last_modified_datetime'], "YYYY-MM-dd HH:mm:ss");
-                $equipmentRow['e_last_modified_datetime'] = $myDate->toString("MM/dd/YYYY HH:mm");
+                $myDate = new Zend_Date($equipmentRow['e_last_modified_datetime'], "yyyy-MM-dd HH:mm:ss");
+                $equipmentRow['e_last_modified_datetime'] = $myDate->toString("MM/dd/yyyy HH:mm");
             } catch (Zend_Date_Exception $e) {
                 $equipmentRow['e_last_modified_datetime'] = '';
             }
@@ -74,8 +74,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
 
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
-            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
-            $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
+            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "yyyy-MM-dd");
+            $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/yyyy");
         } else {
             $equipmentRow['e_License_Expiration_Date'] = '';
         }
@@ -98,9 +98,12 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->action = '/equipment/update-status/';
         $this->view->pageTitle = 'EQUIPMENT INFORMATION WORKSHEET';
         $this->view->headLink()->appendStylesheet('/css/main.css');
+        $this->view->headLink()->appendStylesheet('/css/calculator/jquery.calculator.css');
         $this->view->headScript()->appendFile('/js/imgpreview.min.0.22.jquery.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/equipment/index.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/equipment/maintenance.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/ajaxfileupload/ajaxfileupload.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/calculator/jquery.calculator.min.js', 'text/javascript');
 
 
         // update VIW data
@@ -149,6 +152,22 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $selectEquipmentTypeArray['']['selected'] = true;
         }
         $this->view->equipmentTypes = $selectEquipmentTypeArray;
+
+        // create service provider select.
+        $spModel = new ServiceProvider_Model_ServiceProvider();
+        $spList = $spModel->getList();
+
+        $selectSpArray = array('' => '-');
+        foreach ($spList as $sp) {
+            if (is_object($sp)) {
+                $selectSpArray[$sp->sp_id] = $sp->sp_name;
+            } else if (is_array ($sp)){
+                $selectSpArray[$sp['sp_id']] = $sp['sp_name'];
+            }
+        }
+        $this->view->spList = $selectSpArray;
+
+
         $this->view->allRequiredViwFieldFilled = $this->allRequiredViwFieldFilled($equipmentRow['e_id']);
         $this->view->allRequiredAssignmentFieldFilled = $this->allRequiredAssignmentFieldFilled($equipmentRow['e_id']);
 
@@ -270,8 +289,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
 
         if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
-            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
-            $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
+            $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "yyyy-MM-dd");
+            $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/yyyy");
         } else {
             $equipmentRow['e_License_Expiration_Date'] = '';
         }
@@ -371,13 +390,16 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $equipmentModel = new Equipment_Model_Equipment();
 
             $data = array();
-            // TODO implement filling manual all table fields with validating.
+            $result = array();
+            $result['errorMessage'] = '';
+            $result['result'] = 0;
+            
             $data = $this->_request->getQuery();
             foreach ($data as $key => &$value) {
-                if ($key == 'e_License_Expiration_Date'/* || $key == 'e_Entry_Date'*/) {
+                if ($key == 'e_License_Expiration_Date') {
                     try {
-                        $myDate = new Zend_Date($value, "MM/dd/YYYY");
-                        $data[$key] = $myDate->toString("YYYY-MM-dd");
+                        $myDate = new Zend_Date($value, "MM/dd/yyyy");
+                        $data[$key] = $myDate->toString("yyyy-MM-dd");
                     } catch (Exception $e) {
 
                     }
@@ -386,14 +408,51 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 }
             }
 
-            $where = $equipmentModel->getAdapter()->quoteInto('e_id = ?', $this->_request->getParam('e_id'));
+            $saveResult = $equipmentModel->saveEquipment($data);
+            if (isset($saveResult['row'])) {
+                $result['result'] = 1;
+                $result['row'] = $saveResult['row'];
+            } else if (isset($saveResult['validationError'])) {
+                $result['errorMessage'] = $this->buildValidateErrorMessage($saveResult['validationError']);
+            }
 
-            $equipmentModel->update($data, $where);
-
-            //return $this->_redirect('equipment/list');
-            //return $this->_redirect($_SERVER['HTTP_REFERER']);
-            echo 1;
+            print json_encode($result);
         }
+    }
+
+    private function buildValidateErrorMessage($validationErrorArray)
+    {
+        $result = '';
+
+        if (isset($validationErrorArray['notExistFields'])) {
+            $result = "The following fields don't exist: " .
+                                    implode(", ", $validationErrorArray['notExistFields']) .
+                                    "<br /><br />";
+        }
+
+        if (isset($validationErrorArray['requiredFields'])) {
+            $result .= "The following fields are required: " .
+                                    implode(", ", $validationErrorArray['requiredFields']) .
+                                    "<br /><br />";
+        }
+
+        if (isset($validationErrorArray['notValidFields'])) {
+            foreach ($validationErrorArray['notValidFields'] as $value) {
+                $result .= $value['message'] . "<br /><br />";
+            }
+        }
+
+        if (isset($validationErrorArray['other'])) {
+            foreach ($validationErrorArray['other'] as $value) {
+                $result .= $value . "<br /><br />";
+            }
+        }
+
+        if (empty($result)) {
+            $result = 'Unknown validation error';
+        }
+
+        return $result;
     }
 
     public function uploadPictureAction()
@@ -471,27 +530,27 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
     public function saveAssignmentAction()
     {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
         if ($this->_request->isXmlHttpRequest()) {
             $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
             $cols = $equipmentAssignmentModel->info(Zend_Db_Table_Abstract::COLS);
 
             $data = array();
-            // TODO implement filling manual all table fields with validating.
+            $result = array();
+            $result['errorMessage'] = '';
+            $result['result'] = 0;
+            
             foreach ($this->_request->getQuery() as $key => $value) {
                 if (in_array($key, $cols)) {
 
-                    if ($key == 'ea_driver_id' || $key == 'ea_depot_id') {
-                        $data[$key] = null;
-                    }
-
-                    if (empty($value) || is_null($value)) {
-                        continue;
-                    } elseif ($key == 'ea_start_date' || $key == 'ea_end_date') {
+                    if ($key == 'ea_start_date' || $key == 'ea_end_date') {
                         try {
-                            $myDate = new Zend_Date($value, "MM/dd/YYYY");
-                            $data[$key] = $myDate->toString("YYYY-MM-dd");
+                            $myDate = new Zend_Date($value, "MM/dd/yyyy");
+                            $data[$key] = $myDate->toString("yyyy-MM-dd");
                         } catch (Exception $e) {
-
+                            $data[$key] = '';
                         }
                     } else {
                         $data[$key] = $value;
@@ -507,12 +566,15 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $data['ea_driver_id'] = null;
             }
 
-            $equipmentAssignmentModel->saveAssignment($data);
+            $saveResult = $equipmentAssignmentModel->saveAssignment($data);
+            if (isset($saveResult['row'])) {
+                $result['result'] = 1;
+                $result['row'] = $saveResult['row'];
+            } else if (isset($saveResult['validationError'])) {
+                $result['errorMessage'] = $this->buildValidateErrorMessage($saveResult['validationError']);
+            }
 
-            $this->_helper->layout->disableLayout();
-            $this->_helper->viewRenderer->setNoRender(true);
-
-            echo 1;
+            print json_encode($result);
         }
     }
 
@@ -531,8 +593,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
                 if (!empty($equipmentRow['e_Entry_Date']) && $equipmentRow['e_Entry_Date'] != '0000-00-00 00:00:00') {
                     try {
-                        $myDate = new Zend_Date($equipmentRow['e_Entry_Date'], "YYYY-MM-dd HH:mm:ss");
-                        $equipmentRow['e_Entry_Date'] = $myDate->toString("MM/dd/YYYY HH:mm");
+                        $myDate = new Zend_Date($equipmentRow['e_Entry_Date'], "yyyy-MM-dd HH:mm:ss");
+                        $equipmentRow['e_Entry_Date'] = $myDate->toString("MM/dd/yyyy HH:mm");
                     } catch (Zend_Date_Exception $e) {
                         $equipmentRow['e_Entry_Date'] = '';
                     }
@@ -541,8 +603,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 }
 
                 if (!empty($equipmentRow['e_License_Expiration_Date']) && $equipmentRow['e_License_Expiration_Date'] != '0000-00-00') {
-                    $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "YYYY-MM-dd");
-                    $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/YYYY");
+                    $myDate = new Zend_Date($equipmentRow['e_License_Expiration_Date'], "yyyy-MM-dd");
+                    $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/yyyy");
                 } else {
                     $equipmentRow['e_License_Expiration_Date'] = '';
                 }
@@ -553,8 +615,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 if (!is_null($equipmentAssigmentRow) && !empty($equipmentAssigmentRow)) {
                     if (!empty($equipmentAssigmentRow['ea_last_modified_datetime']) && $equipmentAssigmentRow['ea_last_modified_datetime'] != '0000-00-00 00:00:00') {
                         try {
-                            $assignmentLastModifyDate = new Zend_Date($equipmentAssigmentRow['ea_last_modified_datetime'], "YYYY-MM-dd HH:mm:ss");
-                            $equipmentAssigmentRow['ea_last_modified_datetime'] = $assignmentLastModifyDate->toString("MM/dd/YYYY HH:mm");
+                            $assignmentLastModifyDate = new Zend_Date($equipmentAssigmentRow['ea_last_modified_datetime'], "yyyy-MM-dd HH:mm:ss");
+                            $equipmentAssigmentRow['ea_last_modified_datetime'] = $assignmentLastModifyDate->toString("MM/dd/yyyy HH:mm");
                         } catch (Zend_Date_Exception $e) {
                             $equipmentAssigmentRow['ea_last_modified_datetime'] = '';
                         }
@@ -573,8 +635,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
                 if (!empty($equipmentRow['e_last_modified_datetime']) && $equipmentRow['e_last_modified_datetime'] != '0000-00-00 00:00:00') {
                     try {
-                        $equipmentLastModifyDate = new Zend_Date($equipmentRow['e_last_modified_datetime'], "YYYY-MM-dd HH:mm:ss");
-                        $equipmentRow['e_last_modified_datetime'] = $equipmentLastModifyDate->toString("MM/dd/YYYY HH:mm");
+                        $equipmentLastModifyDate = new Zend_Date($equipmentRow['e_last_modified_datetime'], "yyyy-MM-dd HH:mm:ss");
+                        $equipmentRow['e_last_modified_datetime'] = $equipmentLastModifyDate->toString("MM/dd/yyyy HH:mm");
                     } catch (Zend_Date_Exception $e) {
                         $equipmentRow['e_last_modified_datetime'] = '';
                     }
@@ -632,15 +694,15 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     $layout->equipmentAssignmentRow = $equipmentAssigmentRow;
                 } elseif (is_array($equipmentAssigmentRow) && count($equipmentAssigmentRow)) {
                     if (!empty($equipmentAssigmentRow['ea_start_date']) && $equipmentAssigmentRow['ea_start_date'] != '0000-00-00') {
-                        $dateObj = new Zend_Date($equipmentAssigmentRow['ea_start_date'], "YYYY-MM-dd");
-                        $equipmentAssigmentRow['ea_start_date'] = $dateObj->toString("MM/dd/YYYY");
+                        $dateObj = new Zend_Date($equipmentAssigmentRow['ea_start_date'], "yyyy-MM-dd");
+                        $equipmentAssigmentRow['ea_start_date'] = $dateObj->toString("MM/dd/yyyy");
                     } else {
                         $equipmentAssigmentRow['ea_start_date'] = '';
                     }
 
                     if (!empty($equipmentAssigmentRow['ea_end_date']) && $equipmentAssigmentRow['ea_end_date'] != '0000-00-00') {
                         $dateObj = new Zend_Date($equipmentAssigmentRow['ea_end_date']);
-                        $equipmentAssigmentRow['ea_end_date'] = $dateObj->toString("MM/dd/YYYY", "YYYY-MM-dd");
+                        $equipmentAssigmentRow['ea_end_date'] = $dateObj->toString("MM/dd/yyyy", "yyyy-MM-dd");
                     } else {
                         $equipmentAssigmentRow['ea_end_date'] = '';
                     }
@@ -691,7 +753,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 );
 
                 // Service providers
-                $layout->serviceProviders = $this->getSelectList('serviceProvider', 'sp_ID', 'sp_Name',
+                $layout->serviceProviders = $this->getSelectList('serviceProvider', 'sp_id', 'sp_name',
                                 (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
                 );
 
@@ -758,15 +820,15 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $this->view->equipmentAssignmentRow = $equipmentAssigmentRow;
             } elseif (is_array($equipmentAssigmentRow) && count($equipmentAssigmentRow)) {
                 if (!empty($equipmentAssigmentRow['ea_start_date']) && $equipmentAssigmentRow['ea_start_date'] != '0000-00-00') {
-                    $dateObj = new Zend_Date($equipmentAssigmentRow['ea_start_date'], "YYYY-MM-dd");
-                    $equipmentAssigmentRow['ea_start_date'] = $dateObj->toString("MM/dd/YYYY");
+                    $dateObj = new Zend_Date($equipmentAssigmentRow['ea_start_date'], "yyyy-MM-dd");
+                    $equipmentAssigmentRow['ea_start_date'] = $dateObj->toString("MM/dd/yyyy");
                 } else {
                     $equipmentAssigmentRow['ea_start_date'] = '';
                 }
 
                 if (!empty($equipmentAssigmentRow['ea_end_date']) && $equipmentAssigmentRow['ea_end_date'] != '0000-00-00') {
                     $dateObj = new Zend_Date($equipmentAssigmentRow['ea_end_date']);
-                    $equipmentAssigmentRow['ea_end_date'] = $dateObj->toString("MM/dd/YYYY", "YYYY-MM-dd");
+                    $equipmentAssigmentRow['ea_end_date'] = $dateObj->toString("MM/dd/yyyy", "yyyy-MM-dd");
                 } else {
                     $equipmentAssigmentRow['ea_end_date'] = '';
                 }
@@ -812,7 +874,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             );
 
             // Service providers
-            $this->view->serviceProviders = $this->getSelectList('serviceProvider', 'sp_ID', 'sp_Name',
+            $this->view->serviceProviders = $this->getSelectList('serviceProvider', 'sp_id', 'sp_name',
                             (isset($equipmentAssigmentRow['spea_Service_Provider_ID']) ? $equipmentAssigmentRow['spea_Service_Provider_ID'] : null)
             );
 
@@ -910,7 +972,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             }
 
             $date = new Zend_Date();
-            $this->view->currentDate = $date->toString("MM/dd/YYYY");
+            $this->view->currentDate = $date->toString("MM/dd/yyyy");
             $this->view->equipmentRow = $equipmentRow;
             $this->view->pageTitle = 'COMPLETE EQUIPMENT APPLICATION';
             $this->view->headScript()->appendFile('/js/equipment/show-complete-form.js', 'text/javascript');
@@ -930,8 +992,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
             if (isset($data['e_activation_date'])) {
                 try {
-                    $myDate = new Zend_Date($data['e_activation_date'], "MM/dd/YYYY");
-                    $row['e_activation_date'] = $myDate->toString("YYYY-MM-dd");
+                    $myDate = new Zend_Date($data['e_activation_date'], "MM/dd/yyyy");
+                    $row['e_activation_date'] = $myDate->toString("yyyy-MM-dd");
                 } catch (Exception $e) {
 
                 }
@@ -1022,8 +1084,8 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
             if (!empty($lastModifiedDate) &&  $lastModifiedDate != '0000-00-00 00:00:00') {
                 try {
-                    $date = new Zend_Date($lastModifiedDate, "YYYY-MM-dd HH:mm:ss");
-                    $lastModifiedDate = $date->toString("MM/dd/YYYY HH:mm");
+                    $date = new Zend_Date($lastModifiedDate, "yyyy-MM-dd HH:mm:ss");
+                    $lastModifiedDate = $date->toString("MM/dd/yyyy HH:mm");
                 } catch (Zend_Date_Exception $e) {
                     $lastModifiedDate = '';
                 }

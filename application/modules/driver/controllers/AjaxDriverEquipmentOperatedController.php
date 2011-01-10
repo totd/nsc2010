@@ -113,14 +113,14 @@ class Driver_AjaxDriverEquipmentOperatedController extends Zend_Controller_Actio
             if(preg_match("/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",$_GET['deo_From_Date'])==0){
                 $msg=$msg."<div><span style='color:red;'>ERROR:</span> From Date can't be empty and should be correct (mm/dd/yyyy).</div>";}
             else{
-                $date->set($_GET['deo_From_Date'],"MM/dd/YYYY");
-                $_GET['deo_From_Date']=$date->toString("YYYY-MM-dd");
+                $date->set($_GET['deo_From_Date'],"MM/dd/yyyy");
+                $_GET['deo_From_Date']=$date->toString("yyyy-MM-dd");
             }
             if(preg_match("/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",$_GET['deo_To_Date'])==0){
                 $msg=$msg."<div><span style='color:red;'>ERROR:</span> To Date can't be empty and should be correct (mm/dd/yyyy).</div>";}
             else{
-                $date->set($_GET['deo_To_Date'],"MM/dd/YYYY");
-                $_GET['deo_To_Date']=$date->toString("YYYY-MM-dd");
+                $date->set($_GET['deo_To_Date'],"MM/dd/yyyy");
+                $_GET['deo_To_Date']=$date->toString("yyyy-MM-dd");
             }
             if(preg_match("/^[0-9]+$/",$_GET['deo_Total_Miles'])==1){
                 $_GET['deo_Total_Miles']=$_GET['deo_Total_Miles'].".00";}

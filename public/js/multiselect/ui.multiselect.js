@@ -161,7 +161,7 @@ $.widget("ui.multiselect", {
 		this.container.remove();
 		this.element.show();
 
-		$.widget.prototype.destroy.apply(this, arguments);
+		$.Widget.prototype.destroy.apply(this, arguments);
 	},
 	isBusy: function() {
 		return !!this.busy;

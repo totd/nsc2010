@@ -11,8 +11,8 @@
     <td><?php echo $Drivers[$i]['d_Last_Name']; ?></td>
     <td>
     <?php
-        $date->set($Drivers[$i]['d_Date_Of_Birth'],"YYYY-MM-dd");
-        echo  $date->toString("MM/dd/YYYY");
+        $date->set($Drivers[$i]['d_Date_Of_Birth'],"yyyy-MM-dd");
+        echo  $date->toString("MM/dd/yyyy");
     ?>
     </td>
     <td><?php echo $_SESSION['driver_info']['DriverStatus_list'][$Drivers[$i]['d_Status']]; ?></td>
@@ -20,8 +20,8 @@
     <?php
         if($Drivers[$i]['d_Date_Of_Hire']!=null)
         {
-            $date->set($Drivers[$i]['d_Date_Of_Hire'],"YYYY-MM-dd");
-            echo  $date->toString("MM/dd/YYYY");
+            $date->set($Drivers[$i]['d_Date_Of_Hire'],"yyyy-MM-dd");
+            echo  $date->toString("MM/dd/yyyy");
         }else
         {
             echo "N/A";

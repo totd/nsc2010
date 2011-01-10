@@ -61,13 +61,13 @@
         <td>
             <label for="edit_dpe_Employment_Start_Date" class="required"><span>*</span>From: </label>
             <input id="edit_dpe_Employment_Start_Date" type="text" value="<?php
-                    $date = new Zend_Date($driverEmploymentHistoryRecord['dpe_Employment_Start_Date'],"YYYY-MM-dd");
-                    echo $date->toString("MM/dd/YYYY");
+                    $date = new Zend_Date($driverEmploymentHistoryRecord['dpe_Employment_Start_Date'],"yyyy-MM-dd");
+                    echo $date->toString("MM/dd/yyyy");
                 ?>" maxlength="10" size="10" name="edit_dpe_Employment_Start_Date" class="datepicker" />&nbsp;&nbsp;&nbsp;&nbsp;
             <label for="edit_dpe_Employment_Stop_Date" class="required">To: </label>
             <input id="edit_dpe_Employment_Stop_Date"  type="text" value="<?php
-                    $date = new Zend_Date($driverEmploymentHistoryRecord['dpe_Employment_Stop_Date'],"YYYY-MM-dd");
-                    echo $date->toString("MM/dd/YYYY");
+                    $date = new Zend_Date($driverEmploymentHistoryRecord['dpe_Employment_Stop_Date'],"yyyy-MM-dd");
+                    echo $date->toString("MM/dd/yyyy");
                 ?>" maxlength="10" size="10" name="edit_dpe_Employment_Stop_Date" class="datepicker"  />
         </td>
     </tr>

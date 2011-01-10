@@ -123,6 +123,9 @@
                         <li>
                             <ul>
                                 <li><a href="/incident/list/index/status/Pending">Incident List</a></li>
+                                <?php if ($this->identity->permissions->incident_create_permission === true) : ?>
+                                    <li><a href="/incident/create/step1">Add New Incident</a></li>
+                                <?php endif; ?>
                             </ul>
                         </li>
                     </ul>
@@ -163,13 +166,24 @@
                     </ul>
                 </div>
             </li>
-              <li><span class="left"><span class="right"><a href="/driver/index/index?status=1"><span class="left"><span class="right">Violation</span></span></a></span></span>
+              <li>
+                  <span class="left">
+                      <span class="right">
+                          <a href="/violation/list/index">
+                              <span class="left">
+                                  <span class="right">Violation</span>
+                              </span>
+                          </a>
+                      </span>
+                  </span>
                 <div class="top-pod-menu">
                     <ul>
                         <li>
                             <ul>
-                                <li><a href="/driver/index/index?status=1">Violation List</a></li>
-                                <li><a href="/driver/new-driver/new-driver-search">Create New Violation</a></li>
+                                <li><a href="/violation/list/index">Violation List</a></li>
+                                <?php if ($this->identity->permissions->violation_create_permission === true) :  ?>
+                                    <li><a href="/violation/index/create">Create New Violation</a></li>
+                                <?php endif; ?>
                             </ul>
                         </li>
                     </ul>

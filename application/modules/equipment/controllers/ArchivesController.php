@@ -165,8 +165,8 @@ class Equipment_ArchivesController extends Zend_Controller_Action
 
             if (isset($data['e_change_active_status_date'])) {
                 try {
-                    $myDate = new Zend_Date($data['e_change_active_status_date'], "MM/dd/YYYY");
-                    $row['e_change_active_status_date'] = $myDate->toString("YYYY-MM-dd");
+                    $myDate = new Zend_Date($data['e_change_active_status_date'], "MM/dd/yyyy");
+                    $row['e_change_active_status_date'] = $myDate->toString("yyyy-MM-dd");
                 } catch (Exception $e) {
 
                 }
@@ -223,7 +223,7 @@ class Equipment_ArchivesController extends Zend_Controller_Action
             }
 
             $date = new Zend_Date();
-            $this->view->currentDate = $date->toString("MM/dd/YYYY");
+            $this->view->currentDate = $date->toString("MM/dd/yyyy");
 
             $this->view->pageTitle = 'Change Equipment Status';
             $this->view->headScript()->appendFile('/js/equipment/terminate.js', 'text/javascript');

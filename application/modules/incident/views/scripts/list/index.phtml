@@ -5,11 +5,11 @@ Users list form.
 -->
 
 <div class="bottom-nav">
-    <?php ////if ($this->identity->permissions->incident_create_permission === true) :  ?>
+    <?php if ($this->identity->permissions->incident_create_permission === true) :  ?>
         <ul class="blue-nav">
             <li><span><a href="/incident/create/step1">Add New Incident</a></span></li>
         </ul>
-    <?php ////endif;    ?>
+    <?php endif;    ?>
     <form class="search" method="post" action="/incident/list/index" id="searchParameters">
         <fieldset>
             <label>Status:</label>

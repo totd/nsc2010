@@ -73,8 +73,8 @@ class Driver_AjaxDriverLicenseController extends Zend_Controller_Action
             $data['l_Driver_License_Number']=$l_Driver_License_Number ;
             $data['l_Driver_Issue_State_id']=$l_Driver_Issue_State_id ;
             $data['l_Class']=$l_Class;
-            $date = new Zend_Date($l_Expiration_Date,"MM/dd/YYYY");
-            $data['l_Expiration_Date'] =  $date->toString("YYYY-MM-dd");
+            $date = new Zend_Date($l_Expiration_Date,"MM/dd/yyyy");
+            $data['l_Expiration_Date'] =  $date->toString("yyyy-MM-dd");
             $data['l_DOT_Regulated']=$l_DOT_Regulated ;
             $data['l_License_Restrictions']=$l_License_Restrictions;
             $data['l_License_Endorsements']=$l_License_Endorsements;
@@ -179,8 +179,8 @@ class Driver_AjaxDriverLicenseController extends Zend_Controller_Action
             $data['l_Driver_License_Number']=$l_Driver_License_Number ;
             $data['l_Driver_Issue_State_id']=$l_Driver_Issue_State_id ;
             $data['l_Class']=$l_Class;
-            $date = new Zend_Date($l_Expiration_Date,"MM/dd/YYYY");
-            $data['l_Expiration_Date'] =  $date->toString("YYYY-MM-dd");
+            $date = new Zend_Date($l_Expiration_Date,"MM/dd/yyyy");
+            $data['l_Expiration_Date'] =  $date->toString("yyyy-MM-dd");
             $data['l_DOT_Regulated']=$l_DOT_Regulated ;
             $data['l_License_Restrictions']=$l_License_Restrictions;
             $data['l_License_Endorsements']=$l_License_Endorsements;

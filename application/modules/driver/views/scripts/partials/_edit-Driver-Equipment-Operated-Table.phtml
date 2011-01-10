@@ -18,10 +18,10 @@ $date = new Zend_Date();
         </td>
         <td>
         <?php
-            $date->set($deoList[$i]['deo_From_Date'],"YYYY-MM-dd");
-            $deo_From_Date = $date->toString("MM/dd/YYYY");
-            $date->set($deoList[$i]['deo_To_Date'],"YYYY-MM-dd");
-            $deo_To_Date = $date->toString("MM/dd/YYYY");
+            $date->set($deoList[$i]['deo_From_Date'],"yyyy-MM-dd");
+            $deo_From_Date = $date->toString("MM/dd/yyyy");
+            $date->set($deoList[$i]['deo_To_Date'],"yyyy-MM-dd");
+            $deo_To_Date = $date->toString("MM/dd/yyyy");
             ?>
                 Show:&nbsp;<select name="deo_is_operated">
                     <option value="No" <?php if($deoList[$i]['deo_is_operated']=="No"){echo " selected='selected' ";} ?>>No</option>

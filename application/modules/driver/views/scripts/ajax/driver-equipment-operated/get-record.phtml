@@ -22,11 +22,11 @@ $date = new Zend_Date();
         <td>
             From Date:&nbsp;
             <input name="edit_deo_From_Date"  id="edit_deo_From_Date" class="datepicker" size="7" maxlength="10" value="<?php
-                    $date->set($driverEquipmentOperatedList['deo_From_Date'],"YYYY-MM-dd"); echo $date->toString("MM/dd/YYYY");
+                    $date->set($driverEquipmentOperatedList['deo_From_Date'],"yyyy-MM-dd"); echo $date->toString("MM/dd/yyyy");
                 ?>" />
 &nbsp;To Date:&nbsp;<input id="edit_deo_To_Date" name="edit_deo_To_Date" class="datepicker" size="7" maxlength="10" value="<?php
                     if(isset($driverEquipmentOperatedList['deo_To_Date'])){
-                        $date->set($driverEquipmentOperatedList['deo_To_Date'],"YYYY-MM-dd"); echo $date->toString("MM/dd/YYYY");
+                        $date->set($driverEquipmentOperatedList['deo_To_Date'],"yyyy-MM-dd"); echo $date->toString("MM/dd/yyyy");
                     }
                 ?>" />
 &nbsp;&nbsp;Total Miles:&nbsp;<input name="edit_deo_Total_Miles" value="<?php echo $driverEquipmentOperatedList['deo_Total_Miles'];?>" maxlength="20" />

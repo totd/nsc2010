@@ -112,9 +112,9 @@ class Driver_AjaxDriverAddressHistoryController extends Zend_Controller_Action
             $data['dah_Phone']=$dah_Phone ;
 
             $date = new Zend_Date($dah_Start_Date);
-            $data['dah_Start_Date'] =  $date->toString("YYYY-MM-dd");
+            $data['dah_Start_Date'] =  $date->toString("yyyy-MM-dd");
             $date = new Zend_Date($dah_End_Date);
-            $data['dah_End_Date'] =  $date->toString("YYYY-MM-dd");
+            $data['dah_End_Date'] =  $date->toString("yyyy-MM-dd");
             $data['dah_Current_Address']=$dah_Current_Address;
 
             Driver_Model_DriverAddressHistory::createRecord($data);
@@ -223,9 +223,9 @@ class Driver_AjaxDriverAddressHistoryController extends Zend_Controller_Action
             $data['dah_Phone']=$_REQUEST['dah_Phone'];
 
             $date = new Zend_Date($_REQUEST['dah_Start_Date']);
-            $data['dah_Start_Date'] =  $date->toString("YYYY-MM-dd");
+            $data['dah_Start_Date'] =  $date->toString("yyyy-MM-dd");
             $date = new Zend_Date($_REQUEST['dah_End_Date']);
-            $data['dah_End_Date'] =  $date->toString("YYYY-MM-dd");
+            $data['dah_End_Date'] =  $date->toString("yyyy-MM-dd");
             $data['dah_Current_Address']=$_REQUEST['dah_Current_Address'];
 
             Driver_Model_DriverAddressHistory::updateRecord($data);

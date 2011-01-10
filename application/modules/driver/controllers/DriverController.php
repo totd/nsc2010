@@ -3,6 +3,7 @@
 class Driver_DriverController extends Zend_Controller_Action
 {
     var $auth;
+    var $identity;
     public function init()
     {
 
@@ -12,6 +13,7 @@ class Driver_DriverController extends Zend_Controller_Action
         $this->auth = Zend_Auth::getInstance();
 
         if ($this->auth->hasIdentity()) {
+            $this->identity = $this->auth->getIdentity();
             $this->view->identity = $this->auth->getIdentity();
         }
     }
@@ -114,8 +116,7 @@ class Driver_DriverController extends Zend_Controller_Action
             $this->view->pageTitle = "DRIVER INFORMATION WORKSHEET- Driver Information";
             $this->view->breadcrumbs = "<a href='/driver/index/index?status=All' >DQF</a>&nbsp;&gt;&nbsp;Driver Profile";
             $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
-
-            if($this->auth->vau_role=="NSC_LEVEL_0"){
+            if (isset($this->identity->permissions->see_non_crypt_ssn_permission)){
                 $driverInfo['d_Driver_SSN'] = preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3",$driverInfo['d_Driver_SSN']);
             }else{
                 $driverInfo['d_Driver_SSN'] = preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3",$driverInfo['d_Driver_SSN']);
@@ -140,7 +141,7 @@ class Driver_DriverController extends Zend_Controller_Action
                 $date = date("Y-m-d",mktime(0, 0, 0, $arr[1], $arr[2]-$i, $arr[0]));
                 $dt = explode("-",$date);
                 $week[$i]['dhos_date']=$dt[1]."/".$dt[2]."/".$dt[0];
-                $week[$i]['dhos_hours']="-";
+                $week[$i]['dhos_hours']="";
                 $week[$i]['dhos_ID']="";
                 foreach($currentDriverHosList as $k => $v){
                     if (in_array($date, $v)) {
@@ -224,12 +225,12 @@ class Driver_DriverController extends Zend_Controller_Action
             $data['d_last_update_date']=date("Y-m-d H:i:s");
 
             $date = new Zend_Date();
-            $date->set(date("Y-m-d H:i:s"),"YYYY-MM-dd HH:mm:ss");
+            $date->set(date("Y-m-d H:i:s"),"yyyy-MM-dd HH:mm:ss");
             if(Driver_Model_Driver::driverLastSaved($driverID,$data)==true){
-                echo $date->toString("MM/dd/YYYY hh:mm");
+                echo $date->toString("MM/dd/yyyy hh:mm");
             }
             else{
-                echo $date->toString("MM/dd/YYYY hh:mm");
+                echo $date->toString("MM/dd/yyyy hh:mm");
             }
         }
       }

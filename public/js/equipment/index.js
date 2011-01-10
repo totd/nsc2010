@@ -109,15 +109,19 @@ $(function() {
     changeType();
 
     $("#EquipmentAssignmentSaveLink").click(function() {
-         $("#EquipmentAssignmentSaveLink").html('Updating...');
-         $("#EquipmentAssignmentSaveLink").addClass('button-updating');
-         saveAssignment();
+        $("#EquipmentAssignmentSaveLink").html('Updating...');
+        $("#EquipmentAssignmentSaveLink").addClass('button-updating');
+        saveAssignment();
+        $("#EquipmentAssignmentSaveLink").html('Save');
+        $("#EquipmentAssignmentSaveLink").removeClass('button-updating');
     });
 
     $("#VIWSaveLink").click(function() {
-        saveViw();
         $("#VIWSaveLink").html('Updating...');
         $("#VIWSaveLink").addClass('button-updating');
+        saveViw();
+        $("#VIWSaveLink").html('Save');
+        $("#VIWSaveLink").removeClass('button-updating');
     });
 
     $("#commonSaveButton").click(function() {
@@ -125,14 +129,16 @@ $(function() {
             $("#commonSaveButton").html('Updating...');
             $("#commonSaveButton").addClass('button-updating');
             saveViw();
-
+            $("#commonSaveButton").html('Save');
+            $("#commonSaveButton").removeClass('button-updating');
         }
 
         if ($("#addAssignmentDiv").css('display') != 'none') {
             $("#commonSaveButton").html('Updating...');
             $("#commonSaveButton").addClass('button-updating');
             saveAssignment();
-
+            $("#commonSaveButton").html('Save');
+            $("#commonSaveButton").removeClass('button-updating');
         }
     });
 
@@ -254,7 +260,7 @@ function saveAssignment() {
         $("#ea_driver_id").val("");
     }
 
-    $.get("/equipment/information-worksheet/save-assignment",
+    $.getJSON("/equipment/information-worksheet/save-assignment",
                 {
                     ea_homebase_id: $("#ea_homebase_id").val(),
                     ea_DOT_regulated : $("#ea_DOT_regulated").val(),
@@ -267,7 +273,7 @@ function saveAssignment() {
                     ea_equipment_id : $("#ea_equipment_id").val(),
                     ea_id : $("#ea_id").val()
                 }, function(data) {
-                        if (data == 1) {
+                        if (data.result == 1) {
                             $("#viewAssignmentDiv").html("");
                             refreshEquipmentAssigment($("#ea_equipment_id").val());
                             refreshLastModifiedDate($("#e_id").val());
@@ -275,7 +281,7 @@ function saveAssignment() {
                             $(".saveButton").html("Save");
                             return true;
                         } else {
-                            alert(data);
+                            __displayEquipmentSaveError(data);
                             return false;
                         }
                });
@@ -283,7 +289,7 @@ function saveAssignment() {
 
 
 function saveViw() {
-    $.get("/equipment/information-worksheet/save-vim/",
+    $.getJSON("/equipment/information-worksheet/save-vim/",
             {
                 e_id : $("#e_id").val(),
                 e_Picture : $("#e_Picture").val(),
@@ -310,7 +316,7 @@ function saveViw() {
                 e_Fee : $("#e_Fee").val(),
                 e_RFID_No : $("#e_RFID_No").val()
             }, function(data) {
-                if (data == 1) {
+                if (data.result == 1) {
                     $("#viewVIWdiv").html("");
                     refreshVIW($("#e_Number").val());
                     refreshLastModifiedDate($("#e_id").val());
@@ -318,10 +324,22 @@ function saveViw() {
                     $(".saveButton").html("Save");
                     return true;
                 } else {
-                    alert(data);
+                    __displayEquipmentSaveError(data);
                     return false;
                 }
             });
+}
+
+function __displayEquipmentSaveError(data) {
+    var $dialog = $('<div></div>')
+        .html(data.errorMessage)
+        .dialog({
+            autoOpen: false,
+            title: 'Equipment save error!',
+            minHeight: 13,
+            modal: true
+        });
+        $dialog.dialog('open');
 }
 
 

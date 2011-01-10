@@ -1,0 +1,17 @@
+<tr class="<?php print ($this->partialCounter % 2 == 0) ? 'color-dark' : ''; ?>">
+    <td><?= $this->v_code;?></td>
+    <td><?= $this->v_type;?></td>
+    <td style="text-align: left;"><?= $this->v_item ?></td>
+    <td><?= $this->v_item_specific; ?></td>
+    <td>
+        <?php
+        $auth = Zend_Auth::getInstance();
+
+        if ($auth->hasIdentity()) {
+            $identity = $auth->getIdentity();
+            if ($identity->permissions->violation_modify_permission === true) :  ?>
+                <a href="/violation/index/index/id/<?= $this->v_id; ?>">Edit</a>
+            <?php endif;
+        } ?>
+    </td>
+</tr>

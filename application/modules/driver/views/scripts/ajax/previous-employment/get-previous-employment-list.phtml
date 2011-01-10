@@ -24,12 +24,12 @@
 <tr><td></td>
     <td>
         From:&nbsp;<span><?php
-        $date->set($v['dpe_Employment_Start_Date'],"YYYY-MM-dd");    
-        echo $date->toString("MM/dd/YYYY");?></span>
+        $date->set($v['dpe_Employment_Start_Date'],"yyyy-MM-dd");
+        echo $date->toString("MM/dd/yyyy");?></span>
         <?php if(isset($v['dpe_Employment_Stop_Date'])){?>
         To:&nbsp;<span><?php
-        $date->set($v['dpe_Employment_Stop_Date'],"YYYY-MM-dd");    
-        echo $date->toString("MM/dd/YYYY");?></span>
+        $date->set($v['dpe_Employment_Stop_Date'],"yyyy-MM-dd");
+        echo $date->toString("MM/dd/yyyy");?></span>
         <?php }else{ ?>
             <span>Current moment.</span>
         <?php } ?>

@@ -12,18 +12,25 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
         }
     }
 
-    public function getIcidentDescription($id)
+    public function getIncidentDescription($id)
     {
         $select = "SELECT *
                     FROM incident
                     LEFT JOIN state ON i_State_ID = s_id
+                    LEFT JOIN travel_direction ON i_Travel_Direction_ID = td_id
                     WHERE i_ID = {$this->getDefaultAdapter()->quote($id)}
                     ";
         $stmt = $this->getDefaultAdapter()->query($select);
 
         $row = $stmt->fetchAll();
 
-        return $row[0];
+        $result = null;
+
+        if (is_array($row) && count($row)) {
+            $result = $row[0];
+        }
+
+        return $result;
 
     }
 
@@ -146,6 +153,78 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
 
             if (!is_null($rowTable)) {
                 $result = $rowTable->$field;
+            }
+        }
+
+        return $result;
+    }
+
+    public function incidentIsExists($id)
+    {
+        $result = false;
+
+        if (!empty($id)) {
+            $rowTable = $this->fetchRow("i_ID = {$this->getDefaultAdapter()->quote($id)}");
+
+            if (!is_null($rowTable)) {
+                $result = true;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get the biggest last modified time according to all tables which are linked with incident
+     * 
+     * @param int $id
+     * @return string Contains datetime value
+     */
+    public function getLastModifiedDate($id)
+    {
+        $result = null;
+
+        if (!empty($id)) {
+            $db = $this->getAdapter();
+
+            // TODO decide a nessecity to compare with driver and equipment last_modified_time
+            $select = "SELECT i_last_modified_datetime,
+                                MAX(iwp.per_last_modified_datetime) as max_iwp_date_time,
+                                MAX(ipp.per_last_modified_datetime) as max_ipp_date_time,
+                                (i_last_modified_datetime - MAX(iwp.per_last_modified_datetime)) as iw_compare,
+                                (i_last_modified_datetime - MAX(ipp.per_last_modified_datetime)) as ip_compare,
+                                (MAX(iwp.per_last_modified_datetime) - MAX(ipp.per_last_modified_datetime)) as wp_compare
+                        FROM incident
+                        LEFT JOIN incidents_passengers ON i_ID = ip_incident_id
+                        LEFT JOIN person ipp ON ip_person_id = ipp.per_id
+                        LEFT JOIN incidents_witnesses ON i_ID = iw_incident_id
+                        LEFT JOIN person iwp ON iw_person_id = iwp.per_id
+                        WHERE i_ID = {$this->getDefaultAdapter()->quote($id)}
+                        GROUP BY ip_incident_id, iw_incident_id";
+
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $stmt = $db->query($select);
+
+            $resultArray = $stmt->fetchAll();
+            $row = (count($resultArray) > 0) ? $resultArray[0] : null;
+            if (!is_null($row)) {
+                if (!isset($row['max_iwp_date_time']) && !isset($row['max_ipp_date_time'])) {
+                    $result = $row['i_last_modified_datetime'];
+                } else if (
+                            (isset($row['iw_compare']) && $row['iw_compare'] > 0 && isset($row['ip_compare']) && $row['ip_compare'] > 0) ||
+                            (!isset($row['iw_compare']) && isset($row['ip_compare']) && $row['ip_compare'] > 0) ||
+                            (isset($row['iw_compare']) && $row['iw_compare'] > 0 && !isset($row['ip_compare']))
+                        ) {
+                    $result = $row['i_last_modified_datetime'];
+                } else if (isset($row['wp_compare']) && $row['wp_compare'] > 0) {
+                    $result = $row['max_iwp_date_time'];
+                } else {
+                    $result = $row['max_ipp_date_time'];
+                }
+
+                if (is_null($result)) {
+                    $result = $row['i_last_modified_datetime'];
+                }
             }
         }
 

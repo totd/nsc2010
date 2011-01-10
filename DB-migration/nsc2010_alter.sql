@@ -55,13 +55,6 @@ ALTER TABLE `equipment_identifier`
   ADD CONSTRAINT `fk_equipment_identifier_equipment1` FOREIGN KEY (`ei_Equipment_Number_ID`) REFERENCES `equipment` (`e_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ограничения внешнего ключа таблицы `equipment_maintenance`
---
-ALTER TABLE `equipment_maintenance`
-  ADD CONSTRAINT `fk_equipment_maintenance_equipment1` FOREIGN KEY (`em_Equipment_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_equipment_maintenance_service_provider1` FOREIGN KEY (`em_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Ограничения внешнего ключа таблицы `homebase`
 --
 ALTER TABLE `homebase`
@@ -86,14 +79,7 @@ ALTER TABLE `inspection`
 --
 ALTER TABLE `service_provider__company_assignment`
   ADD CONSTRAINT `fk_service_provider__company_assignment_company1` FOREIGN KEY (`spca_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_service_provider__company_assignment_service_provider1` FOREIGN KEY (`spca_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `service_provider__insurance`
---
-ALTER TABLE `service_provider__insurance`
-  ADD CONSTRAINT `fk_service_provider__insurance_insurance1` FOREIGN KEY (`spi_Insurance_Company_ID`) REFERENCES `insurance` (`i_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_service_provider__insurance_service_provider1` FOREIGN KEY (`spi_Service_Provider_ID`) REFERENCES `service_provider` (`sp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_service_provider__company_assignment_service_provider1` FOREIGN KEY (`spca_Service_Provider_ID`) REFERENCES `service_provider` (`sp_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `user`

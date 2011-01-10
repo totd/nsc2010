@@ -48,7 +48,6 @@ class User_Form_Login extends Zend_Form
                         'maxlength' => 30,
                         'size' => 20,
                         'label' => 'Company Code: ',
-                        'required' => 'true',
                         'decorators' => $this->elementDecorators,
                         'filters' => array('StripTags')
                     ));
@@ -59,7 +58,6 @@ class User_Form_Login extends Zend_Form
                         'maxlength' => 30,
                         'size' => 20,
                         'label' => 'Home Base Code: ',
-                        'required' => 'true',
                         'decorators' => $this->elementDecorators,
                         'filters' => array('StripTags')
                     ));

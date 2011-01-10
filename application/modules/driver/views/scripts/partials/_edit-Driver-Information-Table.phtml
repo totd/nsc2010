@@ -23,8 +23,8 @@
               <tr class="color-dark"><td>Entry Date</td>
                   <td><span>
                       <?php
-                        $date->set($this->driverInfo['d_Entry_Date'],"YYYY-mm-dd");
-                        echo  $date->toString("MM/dd/YYYY");
+                        $date->set($this->driverInfo['d_Entry_Date'],"yyyy-mm-dd");
+                        echo  $date->toString("MM/dd/yyyy");
                       ?>
                   </span></td></tr>
               <tr><td>Status</td><td><?php echo $_SESSION['driver_info']['DriverStatus_list'][$this->driverInfo['d_Status']];?></td></tr>
@@ -69,27 +69,24 @@
           <tr class="color-dark">
               <td>Date Of Birth:</td>
               <td><span><?php
-                        $date->set($this->driverInfo['d_Date_Of_Birth'],"YYYY-MM-dd");
-                        echo  $date->toString("MM/dd/YYYY");
+                        $date->set($this->driverInfo['d_Date_Of_Birth'],"yyyy-MM-dd");
+                        echo  $date->toString("MM/dd/yyyy");
                     ?></span></td>
           </tr>
               <tr>
                 <td>Medical Card</td>
                 <td>Expires:&nbsp;<input type="text" size="7" id="d_Medical_Card_Expiration_Date" name="d_Medical_Card_Expiration_Date" value="<?php
                         if(isset($this->driverInfo['d_Medical_Card_Expiration_Date'])){
-                        $date->set($this->driverInfo['d_Medical_Card_Expiration_Date'],"YYYY-MM-dd");
-                        echo  $date->toString("MM/dd/YYYY");}
+                        $date->set($this->driverInfo['d_Medical_Card_Expiration_Date'],"yyyy-MM-dd");
+                        echo  $date->toString("MM/dd/yyyy");}
                     ?>" />&nbsp;&nbsp;&nbsp;
                     Medical Examiner's Name:&nbsp;<input type="text" id="d_Doctor_Name" name="d_Doctor_Name" value="<?php echo $this->driverInfo['d_Doctor_Name']; ?>" />
                 </td></tr>
                 <tr>
               <tr class="color-dark"><td>Social Security #</td><td><span>
         <?php
-            if($this->identity->vau_role=="NSC_LEVEL_0"){
-            echo  preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3",$this->driverInfo['d_Driver_SSN']);
-        }else{
-            echo  preg_replace("/^([0-9]{4})([0-9]{1})([0-9]{4})/","XXX-X$2-$3",$this->driverInfo['d_Driver_SSN']);
-        }
+            echo  $this->driverInfo['d_Driver_SSN'];
+
         ?></span></td></tr>
               <tr>
                     <td><label class="required" for="d_Telephone_Number1"><span>*</span>Telephone #1:</label></td>
@@ -159,8 +156,8 @@
                 <td>TWIC expiration date:</td>
                 <td><input type="text" size="7" id="d_TWIC_expiration" name="d_TWIC_expiration" value="<?php
                         if(isset($this->driverInfo['d_TWIC_expiration'])){
-                        $date->set($this->driverInfo['d_TWIC_expiration'],"YYYY-MM-dd");
-                        echo  $date->toString("MM/dd/YYYY");}
+                        $date->set($this->driverInfo['d_TWIC_expiration'],"yyyy-MM-dd");
+                        echo  $date->toString("MM/dd/yyyy");}
                     ?>"/>&nbsp;&nbsp;&nbsp;</td>
               </tr>
               <tr>
@@ -171,8 +168,8 @@
                 <td>R/A card expiration date:</td>
                 <td><input type="text" size="7" id="d_R_A_expiration" name="d_R_A_expiration" value="<?php
                         if(isset($this->driverInfo['d_R_A_expiration'])){
-                        $date->set($this->driverInfo['d_R_A_expiration'],"YYYY-MM-dd");
-                        echo  $date->toString("MM/dd/YYYY");}
+                        $date->set($this->driverInfo['d_R_A_expiration'],"yyyy-MM-dd");
+                        echo  $date->toString("MM/dd/yyyy");}
                     ?>"/>&nbsp;&nbsp;&nbsp;</td>
               </tr>
               <tr>

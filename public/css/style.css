@@ -385,10 +385,6 @@ ul.blue-nav {
 	color:#fff;
 	text-decoration:none;}
 	
-.blue-nav li:hover, span.blue-button:hover {
-	opacity:0.8;
-	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80);	}
-
 .blue-nav li:hover a, span.blue-button:hover a {text-decoration:none;}			
 
 .breadcrumbs-left {
@@ -1081,9 +1077,6 @@ h2.status-warning{
 	padding-right: 30px;
 }
 
-.button-updating {
-	opacity:0.8;
-	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80);	}
 
 /*
 added by Vlad on 25-12-2010
@@ -1101,4 +1094,36 @@ added by Vlad on 25-12-2010
     text-transform:capitalize;
     font-weight:normal;
     z-index: 2;
+}
+
+.dqf-uploaded-images {
+       float: left;
+       padding:0 20px 20px 0;
+       text-align:center;
+    min-height: 290px;
+}
+.dqf-document-scan-edit-icon{
+    float:right;
+}
+#legend{
+
+       display:none;
+       padding:30px 20px 20px 20px;
+
+}
+
+#legend td{
+
+       padding:0 20px 10px 0px;
+       vertical-align:top;
+
+}
+
+ul .dqf-sub-menu, ul .dqf-sub-menu li a, ul .dqf-sub-menu ul li  {
+       padding: 0px !important;
+       width:150px !important;
+}
+
+ul .dqf-sub-menu ul {
+       width:0px !important;
 }

@@ -1,5 +1,12 @@
 
 --
+-- Дамп данных таблицы `parent_company`
+--
+
+INSERT INTO `parent_company` (`pc_id`, `pc_Account_Number`, `pc_EIN`, `pc_Name`, `pc_Telephone_Number`, `pc_Contact_Table_ID`, `pc_DOT_Regulated`) VALUES
+(1, 'pc1', '', 'pc1', '', 0, '');
+
+--
 -- Дамп данных таблицы `company`
 --
 
@@ -23,6 +30,12 @@ INSERT INTO `country` (`country_ID`, `country_name`) VALUES
 (2, 'Canada'),
 (3, 'Mexico'),
 (4, 'Ukraine');
+
+INSERT INTO `homebase` (`h_id`, `h_Company_Account_Number`, `h_Carrier_Number`, `h_Name`, `h_Contact_Table_ID`, `h_Annual_Support`, `h_Road_Test_Record_Required`, `h_DOT_Regulated`) VALUES
+(1, 1, 'hb1', 'hb1', 1, '', '', ''),
+(2, 1, NULL, 'Homebase1', 2, 'No', 'Yes', 'Yes'),
+(4, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes'),
+(5, 1, NULL, 'Homebase3', 2, 'No', 'Yes', 'Yes');
 
 --
 -- Дамп данных таблицы `custom_document`
@@ -302,12 +315,6 @@ INSERT INTO `equipment__new_equipment_status` (`enes_id`, `enes_type`) VALUES
 -- Дамп данных таблицы `homebase`
 --
 
-INSERT INTO `homebase` (`h_id`, `h_Company_Account_Number`, `h_Carrier_Number`, `h_Name`, `h_Contact_Table_ID`, `h_Annual_Support`, `h_Road_Test_Record_Required`, `h_DOT_Regulated`) VALUES
-(1, 1, 'hb1', 'hb1', 1, '', '', ''),
-(2, 1, NULL, 'Homebase1', 2, 'No', 'Yes', 'Yes'),
-(4, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes'),
-(5, 1, NULL, 'Homebase3', 2, 'No', 'Yes', 'Yes');
-
 --
 -- Дамп данных таблицы `incident`
 --
@@ -381,12 +388,6 @@ INSERT INTO `inspection__result` (`ir_id`, `ir_type`) VALUES
 --
 
 
---
--- Дамп данных таблицы `parent_company`
---
-
-INSERT INTO `parent_company` (`pc_id`, `pc_Account_Number`, `pc_EIN`, `pc_Name`, `pc_Telephone_Number`, `pc_Contact_Table_ID`, `pc_DOT_Regulated`) VALUES
-(1, 'pc1', '', 'pc1', '', 0, '');
 
 --
 -- Дамп данных таблицы `passenger`
@@ -406,6 +407,10 @@ INSERT INTO `parent_company` (`pc_id`, `pc_Account_Number`, `pc_EIN`, `pc_Name`,
 --
 -- Дамп данных таблицы `service_provider`
 --
+
+INSERT INTO `service_provider` (`sp_id`, `sp_name`, `sp_contact`, `sp_type`, `sp_telephone_number`, `sp_fax`, `sp_address1`, `sp_address2`, `sp_city`, `sp_state`, `sp_postal_code`, `sp_description`, `sp_insurance_last_valuation_date`, `sp_insurance_company_name`, `sp_insurance_policy_number`, `sp_insurance_limit`, `sp_insurance_deductible`, `sp_dot_regulated`) VALUES
+(3, 'test sp', '', 1, '', NULL, '', NULL, 'tt', 3, 'ttt', NULL, NULL, '', NULL, NULL, NULL, 'No'),
+(4, 'Service Company', '', 1, '', NULL, '', NULL, 'tt', 3, 'ttt', NULL, NULL, '', NULL, NULL, NULL, 'No');
 
 
 --
@@ -500,11 +505,6 @@ INSERT INTO `travel_direction` (`td_id`, `td_type`) VALUES
 (8, 'South West');
 
 
-INSERT INTO `user` (`u_ID`, `u_User_ID`, `u_Parent_Company_ID`, `u_Company_ID`, `u_Homebase_ID`, `u_Depot_ID`, `u_Role_ID`, `u_User_Name`, `u_Password`, `u_Status`, `u_Title`, `u_Date_Created`, `u_Allowed_Access_To_DQF`, `u_Allowed_Access_To_VIM`, `u_Allowed_Access_To_Accident`, `u_First_Name`, `u_Last_Name`, `u_Email`, `u_Telephone_Number`, `u_Fax`, `u_Address1`, `u_Address2`, `u_City`, `u_State`, `u_Postal_Code`) VALUES
-(1, NULL, 1, 1, 1, 1, 1, 'root', 'root', 1, NULL, '2010-10-28 14:15:10', '', '', '', 'Admin', 'Super', '', '', NULL, '', NULL, '', 1, ''),
-(2, NULL, 1, 1, 1, 1, 9, 'user', 'user', 1, NULL, '2010-10-28 15:17:59', '', '', '', 'User', 'Simple', '', '', NULL, '', NULL, '', 2, ''),
-(3, NULL, 1, 1, 1, 1, 9, 'test', 'test', 1, '', '2010-10-26 10:10:10', '', '', '', 'test', 'test', '', '', '', '', '', '', 3, '');
-
 --
 -- Дамп данных таблицы `user_role`
 --
@@ -533,13 +533,143 @@ INSERT INTO `user__status` (`us_id`, `us_type`) VALUES
 -- Дамп данных таблицы `violation`
 --
 
+INSERT INTO `violation` (`v_id`, `v_code`, `v_type`, `v_item`, `v_item_specific`) VALUES
+(1, '01', 'Driver', 'SPEEDING', NULL),
+(2, '02', 'Driver', 'SPEED CONTEST', NULL),
+(3, '03', 'Driver', 'TOO SLOW', NULL),
+(4, '04', 'Driver', 'PASSING', NULL),
+(5, '05', 'Driver', 'FOLLOWING TOO CLOSELY', NULL),
+(6, '06', 'Driver', 'RIGHT OF WAY', NULL),
+(7, '07', 'Driver', 'USE OR CHANGE OF LANES', NULL),
+(8, '08', 'Driver', 'IMPROPER TURNS', NULL),
+(9, '09', 'Driver', 'IMPROPER OR NO SIGNAL', NULL),
+(10, '10', 'Driver', 'FAILURE TO OBEY TRAFFIC CONTROL DEVICE', NULL),
+(11, '11', 'Driver', 'OVER DOUBLE LINES OR DIVIDERS', NULL),
+(12, '12', 'Driver', 'WRONG WAY-ONE WAY STREET', NULL),
+(13, '13', 'Driver', 'BRAKES', NULL),
+(14, '14', 'Driver', 'LIGHTS', NULL),
+(15, '15', 'Driver', 'RECKLESS DRIVING', NULL),
+(16, '16', 'Driver', 'RECKLESS DRIVING- INJURY', NULL),
+(17, '17', 'Driver', 'DRUNK DRIVING', NULL),
+(18, '18', 'Driver', 'DRUNK DRIVING. INJURY', NULL),
+(19, '19', 'Driver', 'HIT AND RUN', NULL),
+(20, '20', 'Driver', 'DRIVING WHILE SUSPENDED OR REVOKED', NULL),
+(21, '21', 'Driver', 'NON-INSURANCE RESTRICTION', NULL),
+(22, '22', 'Driver', 'INSURANCE RESTRICTION', NULL),
+(23, '23', 'Driver', 'UNLAWFUL USE OF LICENSE', NULL),
+(24, '24', 'Driver', 'PROPER LICENSE NOT IN POSSESSION', NULL),
+(25, '25', 'Driver', 'PERMITTING UNLICENSED DRIVER', NULL),
+(26, '26', 'Driver', 'NEGLIGENT OR CARELESS DRIVING', NULL),
+(27, '27', 'Driver', 'STARTING OR BACKING', NULL),
+(28, '28', 'Driver', 'PROHIBITED DRIVING', NULL),
+(29, '30', 'Driver', 'DISOBEDIENCE OF LAWFUL ORDER', NULL),
+(30, '31', 'Driver', 'TOWING', NULL),
+(31, '32', 'Driver', 'OBSTRUCTING DRIVER', NULL),
+(32, '33', 'Driver', 'UNLAWFUL RIDING', NULL),
+(33, '34', 'Driver', 'ILLEGAL ENTRY OR EXIT', NULL),
+(34, '37', 'Driver', 'DRIVING. NARCOTICS', NULL),
+(35, '38', 'Driver', 'DRIVING. DRUGS', NULL),
+(36, '39', 'Driver', 'LITTERING HIGHWAY', NULL),
+(37, '40', 'Driver', 'MODIFIED VEHICLE', NULL),
+(38, '42', 'Driver', 'WEIGHT, LENGTH OR LOADING', NULL),
+(39, '43', 'Driver', 'FAILURE TO APPEAR', NULL),
+(40, '44', 'Driver', 'FAILURE TO PAY FINE', NULL),
+(41, '45', 'Driver', 'EXPLOSIVES', NULL),
+(42, '46', 'Driver', 'MANSLAUGHTER, NO NEGLIGENCE', NULL),
+(43, '47', 'Driver', 'MANSLAUGHTER, GROSS NEGLIGENCE', NULL),
+(44, '48', 'Driver', 'GRAND THEFT OF VEHICLE', NULL),
+(45, '49', 'Driver', 'JOY RIDING', NULL),
+(46, '50', 'Driver', 'FAILURE TO REPORT NEW ADDRESS', NULL),
+(47, '51', 'Driver', 'EQUIPMENT', NULL),
+(48, '52', 'Driver', 'REGISTRATION', NULL),
+(49, '53', 'Driver', 'COASTING', NULL),
+(50, '54', 'Driver', 'USE OR POSSESSION OF NARCOTICS OR DANGEROUS DRUGS', NULL),
+(51, '55', 'Driver', 'FALSIFYING INFO. TO OBTAIN LICENSE', NULL),
+(52, '56', 'Driver', 'TAMPERING WITH MTR. VEH/MALICIOUS MISCHIEF', NULL),
+(53, '57', 'Driver', 'FAILURE TO FULFIL LEGAL OBLIGATION-ACCIDENT', NULL),
+(54, '58', 'Driver', 'DRIVING WHILE IMPAIRED', NULL),
+(55, '59', 'Driver', 'VIOLATION OF SAFETY BELT REQUIREMENT (DRIVER)', NULL),
+(56, '60', 'Driver', 'VIOLATION OF SAFETY BELT REQUIREMENT (PASSENGER)', NULL),
+(57, '61', 'Driver', 'VIOLATION OF CHILD PASSENGER SEAT RESTRAINT (4 YEARS AND UNDER)', NULL),
+(58, '62', 'Driver', 'NO EVIDENCE OF REQUIRED FINANCIAL RESPONSIBILITY', NULL),
+(59, '63', 'Driver', 'FALSE EVIDENCE OF FINANCIAL RESPONSIBILITY', NULL),
+(60, '64', 'Driver', 'REFUSAL TO SUBMIT TO CHEMICAL TEST', NULL),
+(61, '65', 'Driver', 'LEAVING UNATTENDED VEHICLE WITH ENGINE RUNNING', NULL),
+(62, '66', 'Driver', 'CREATING UNLAWFUL NOISE WITH VEHICLE OR ACCESSORY', NULL),
+(63, '67', 'Driver', 'DEFECTIVE HEADLIGHTS', NULL),
+(64, '68', 'Driver', 'USING A MOTOR VEHICLE IN CONNECTION WITH ILLEGAL ACTIVITY OTHER THAN A FELONY', NULL),
+(65, '69', 'Driver', 'FOLLOWING EMERGENCY VEHICLE UNLAWFULLY', NULL),
+(66, '70', 'Driver', 'USING A MOTOR VEHICLE IN CONNECTION WITH A FELONY OR TO AID AND ABET A FELON', NULL),
+(67, '71', 'Driver', 'SEX OFFENCE IN A MOTOR VEHICLE', NULL),
+(68, '72', 'Driver', 'OPERATING AT ERRATIC OR SUDDENLY CHANGING SPEEDS', NULL),
+(69, '73', 'Driver', 'EVADING ARREST BY FLEEING THE SCENE OF CITATION OR ROADBLOCK OR BY EXTINGUISHING LIGHTS (WHEN LIGHT REQUIRED)', NULL),
+(70, '74', 'Driver', 'UNSAFE OPERATION OF VEHICLE', NULL),
+(71, '75', 'Driver', 'RAN OFF ROAD OR DRIVING ON ROAD SHOULDER, IN DITCH, OR ON SIDE WALK', NULL),
+(72, '76', 'Driver', 'CROSSING FIRE HOSE WITH VEHICLE', NULL),
+(73, '77', 'Driver', 'OPERATING WITHOUT REQUIRED EQUIPMENT OR THE USE OF PROHIBITED EQUIPMENT', NULL),
+(74, '78', 'Driver', 'REQUIRED REPORTS, APPEARANCES, OR DOCUMENTS', NULL),
+(75, '79', 'Driver', 'ADMIN PER SE', NULL),
+(76, '80', 'Driver', 'IGNITION INTERLOCK', NULL),
+(77, '81', 'Driver', 'DRIVING A COMMERCIAL VEHICLE WITH BAC OF .04 OR GREATER', NULL),
+(78, '82', 'Driver', 'DU: IN COMMERCIAL VEHICLE', NULL),
+(79, '84', 'Driver', 'DRIVING COMMERCIAL VEHICLE WHILE UNDER THE INFLUENCE OF A CONTROLLED SUBSTANCE', ''),
+(80, '85', 'Driver', 'LEAVING THE SCENE OF AN ACCIDENT INVOLVING A COMMERCIAL MOTOR VEHICLE', NULL),
+(81, '86', 'Driver', 'FELONY INVOLVING THE USE OF A COMMERCIAL MOTOR VEHICLE', NULL),
+(82, '87', 'Driver', 'USE OF A COMMERCIAL VEHICLE IN THE COMMISSION OF A FELONY INVOLVING A CONTROLLED SUBSTANCE', ''),
+(83, '88', 'Driver', 'SPEEDING IN A COMMERCIAL VEHICLE 15 MPH OR MORE OVER POSTED LIMIT', NULL),
+(84, '89', 'Driver', 'DRIVING COMMERCIAL VEHICLE IN WILFUL OR WANTON DISREGARD FOR SAFETY OF PERSONS OR PROPERTY', NULL),
+(85, '90', 'Driver', 'RECKLESS DRIVING IN A COMMERCIAL VEHICLE', NULL),
+(86, '91', 'Driver', 'IMPROPER OR ERRATIC LANE CHANGES IN COMMERCIAL VEHICLE ', NULL),
+(87, '92', 'Driver', 'FOLLOWING THE VEHICLE AHEAD TOO CLOSELY WHEN DRIVING A COMMERCIAL VEHICLE', ''),
+(88, '93', 'Driver', 'A VIOLATION, ARISING IN CONNECTION WITH A FATAL ACCIDENT, WHEN DRIVING A COMMERCIAL VEHICLE', NULL),
+(89, '94', 'Driver', 'MUTILATED DOCUMENT', NULL),
+(90, '95', 'Driver', 'FALSE REPORT', NULL),
+(91, '96', 'Driver', 'STOPPING, STANDING AND PARKING', NULL),
+(92, '98', 'Driver', 'OTHER VIOLATIONS', NULL),
+(93, '99', 'Driver', 'UNABLE TO INTERPRET', NULL),
+(94, 'A1', 'Driver', 'DRIVING UNDER THE INFLUENCE OF ALCOHOL OR DRUGS', NULL),
+(95, 'A2', 'Driver', 'DRIVING UNDER THE INFLUENCE OF ALCOHOL AND DRUGS', NULL),
+(96, 'AA', 'Driver', 'ILLEGAL POSSESSION OF WEAPON INCLUDING FIREARM', NULL),
+(97, 'AB', 'Driver', 'TRANSPORTING LIQUOR TO A MINOR', NULL),
+(98, 'AC', 'Driver', 'FAILURE OF DUTIES UPON DAMAGING UNATTENDED VEHICLE OR INJURING ANIMAL', NULL),
+(99, 'AD', 'Driver', 'DRIVING AFTER WITHDRAWAL', NULL),
+(100, 'AE', 'Driver', 'DRIVING WHILE OUT OF SERVICE ORDER IN EFFECT', NULL),
+(101, 'AF', 'Driver', 'MUTILATED REGISTRATION CARD OR TITLE', NULL),
+(102, 'AG', 'Driver', 'FAILED TO SHOW DOCUMENT AS REQUIRED', NULL),
+(103, 'AH', 'Driver', 'MISREPRESENTATION OF IDENTITY OR OTHER FACTS', NULL),
+(104, 'AI', 'Driver', 'MISREPRESENTATION OF IDENTITY OR OTHER FACTS TO AVOID ARRESTOR PROSECUTION', NULL),
+(105, 'AJ', 'Driver', 'MISREPRESENTATION OF IDENTITY OR OTHER FACTS TO OBTAIN ALCOHOL', NULL),
+(106, 'AK', 'Driver', 'MANUFACTURE OR MAKE FALSE DRIVER LICENSE (INCLUDES DL, CDL, AND INSTRUCTION PERMIT)', NULL),
+(107, 'AL', 'Driver', 'SHOW OR USE IMPROPERLY-DOCUMENT OR ITEM NOT SPECIFIED', NULL),
+(108, 'AM', 'Driver', 'SHOW OR USE IMPROPERLY-OPERATOR''S (DRIVER''S) LOG', NULL),
+(109, 'AN', 'Driver', 'FAILURE TO PAY FOR DAMAGES OR MAKE INSTALMENT PAYMENT', NULL),
+(110, 'AP', 'Driver', 'FAILURE TO POST SECURITY OR OBTAIN RELEASE FROM LIABILITY', NULL),
+(111, 'AO', 'Driver', 'UNSATISFIED JUDGEMENT', NULL),
+(112, 'AR', 'Driver', 'FAILURE TO MAKE REQUIRED PAYMENT OF CHILD SUPPORT', NULL),
+(113, 'AS', 'Driver', 'FAILURE TO PAY', NULL),
+(114, 'AT', 'Driver', 'LITTERING HARMFUL SUBSTANCE', NULL),
+(115, 'AU', 'Driver', 'MISCELLANEOUS DUTY FAILURE', NULL),
+(116, 'AV', 'Driver', 'FAILURE TO CORRECT DEFECTS AFTER INSPECTION FAILURE OR NOTICE', NULL),
+(117, 'AW', 'Driver', 'FAILURE TO WEIGH VEHICLE OR STOP AT WEIGH STATION', NULL),
+(118, 'AX', 'Driver', 'ABANDONED VEHICLE', NULL),
+(119, 'AY', 'Driver', 'FAILURE TO OBEY', NULL),
+(120, 'AZ', 'Driver', 'IMPROPER LANE OR LOCATION', NULL),
+(121, 'B1', 'Driver', 'VEHICULAR MANSLAUGHTER', NULL),
+(122, 'B2', 'Driver', 'THEFT AND DAMAGE', NULL),
+(123, 'B3', 'Driver', 'VIOLATION RESULTING IN ACCIDENT', NULL),
+(124, 'B4', 'Driver', 'VIOLATION RESULTING IN FATAL ACCIDENT', NULL),
+(125, 'B5', 'Driver', 'VIOLATION RESULTING IN PERSONAL INJURY ACCIDENT', NULL),
+(126, 'B6', 'Driver', 'VIOLATION RESULTING IN PROPERTY DAMAGE', NULL),
+(127, 'B7', 'Driver', 'SPEEDING IN A SCHOOL ZONE', NULL);
 
---
--- Дамп данных таблицы `violation_type`
---
 
 
---
--- Дамп данных таблицы `witness`
---
+
+
+
+
+INSERT INTO `user` (`u_ID`, `u_User_ID`, `u_Parent_Company_ID`, `u_Company_ID`, `u_Homebase_ID`, `u_Depot_ID`, `u_Role_ID`, `u_User_Name`, `u_Password`, `u_Status`, `u_Title`, `u_Date_Created`, `u_Allowed_Access_To_DQF`, `u_Allowed_Access_To_VIM`, `u_Allowed_Access_To_Accident`, `u_First_Name`, `u_Last_Name`, `u_Email`, `u_Telephone_Number`, `u_Fax`, `u_Address1`, `u_Address2`, `u_City`, `u_State`, `u_Postal_Code`) VALUES
+(1, NULL, 1, 1, 1, 1, 1, 'root', 'root', 1, NULL, '2010-10-28 14:15:10', '', '', '', 'Admin', 'Super', '', '', NULL, '', NULL, '', 1, ''),
+(2, NULL, 1, 1, 1, 1, 9, 'user', 'user', 1, NULL, '2010-10-28 15:17:59', '', '', '', 'User', 'Simple', '', '', NULL, '', NULL, '', 2, ''),
+(3, NULL, 1, 1, 1, 1, 9, 'test', 'test', 1, '', '2010-10-26 10:10:10', '', '', '', 'test', 'test', '', '', '', '', '', '', 3, '');
 

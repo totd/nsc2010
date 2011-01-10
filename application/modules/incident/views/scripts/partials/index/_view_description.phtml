@@ -5,7 +5,9 @@
                 <tbody>
                     <tr>
                         <th colspan="2">
-                            Incident Description
+                            <h2 class="status-ok">
+                                Incident Description
+                            </h2>
                         </th>
                     </tr>
                     <tr>
@@ -81,6 +83,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
+                            <?php if ($this->identity->permissions->incident_modify_permission === true) :  ?>
                             <span class="blue-button">
                                 <span>
                                     <a id="updateIncidentDescription" class="DescriptionActionLink">
@@ -88,6 +91,7 @@
                                     </a>
                                 </span>
                             </span>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <tr>

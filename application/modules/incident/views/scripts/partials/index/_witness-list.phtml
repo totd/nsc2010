@@ -1,0 +1,128 @@
+<table cellspacing="0" class="inform">
+    <tbody>
+    <tr>
+        <th colspan="2">
+            <h2 class="status-ok"><?= $this->layout()->header; ?></h2>
+<!--            Witness Information - involved in Incident-->
+        </th>
+    </tr>
+    </tbody>
+</table>
+<table cellspacing="0" class="inform">
+
+<?php
+$witnessList = $this->layout()->witnessList;
+$witnessCount = 0;
+foreach($witnessList as $key => $value) 
+{
+    $witnessCount++;
+    ?>
+    <tbody id="viewWitnessRecordID_<?= $value['per_id']; ?>" class="classWitnessRecordID_<?= $value['per_id']; ?>">
+        <tr class="title-dark">
+            <td colspan="2">
+                Witness #<?= $witnessCount;?>
+            <?php if ($this->identity->permissions->incident_witness_modify_permission === true) : ?>
+                [ <a onclick="$('.classWitnessRecordID_<?= $value['per_id']; ?>').toggle();">EDIT</a> ]
+            <?php endif; ?>
+            <?php if ($this->identity->permissions->incident_witness_delete_permission === true) : ?>
+                [ <a onclick="deleteWitnessClickHandler(<?= "{$value['per_id']}, {$this->layout()->i_ID}";?>)">DELETE</a> ]
+            <?php endif; ?>
+            </td>
+        </tr>
+        <tr  class="color-dark">
+            <td colspan="2">
+                First Name:&nbsp;&nbsp;<span id="view_first_name_witness_<?= $value['per_id']; ?>"><?= $value['per_first_name']?></span>
+                Last Name:&nbsp;&nbsp;<span id="view_last_name_witness_<?= $value['per_id']; ?>"><?= $value['per_last_name']?></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Address 1:&nbsp;&nbsp;<span id="view_address1_witness_<?= $value['per_id']; ?>"><?= $value['per_address1']?></span>
+                Address 2:&nbsp;&nbsp;<span id="view_address2_witness_<?= $value['per_id']; ?>"><?= $value['per_address2']?></span>
+            </td>
+        </tr>
+        <tr class="color-dark">
+            <td colspan="2">
+                City:&nbsp;&nbsp;<span id="view_city_witness_<?= $value['per_id']; ?>"><?= $value['per_city']?></span>
+                State:&nbsp;&nbsp;<span id="view_s_name_witness_<?= $value['per_id']; ?>"><?= $value['s_name']?></span>
+                Zip: &nbsp;&nbsp;<span id="view_postal_code_witness_<?= $value['per_id']; ?>"><?= $value['per_postal_code']?></span>
+                Phone:&nbsp;&nbsp;<span id="view_telephone_number_witness_<?= $value['per_id']; ?>"><?= $value['per_telephone_number']?></span>
+            </td>
+        </tr>
+    </tbody>
+
+    <tbody id="editWitnessRecordID_<?php echo $value['per_id']; ?>" class="classWitnessRecordID_<?= $value['per_id']; ?>" style="display: none;">
+        <tr class="title-dark">
+            <td colspan="2">
+                EDIT WITNESS [ <a class="WitnessAddLinkClass" onclick="$('.classWitnessRecordID_<?= $value['per_id']; ?>').toggle();">HIDE</a> ]
+            </td>
+        </tr>
+        <tr>
+            <td class="" width="150">
+                <div id="errorCustomAddWitnessTable" class="error_custom2">
+                </div>
+            </td>
+        </tr>
+        <tr  class="color-dark">
+            <td class="" width="150"><label class="required" for="per_first_name"><span>*</span>First Name:</label></td>
+            <td class="">
+                <input type="text" class="personFirstName" id="per_first_name_witness_<?= $value['per_id']; ?>" size=18 maxlength="50" value="<?= $value['per_first_name']; ?>"/>&nbsp;&nbsp;&nbsp;
+                <label class="required" for="per_last_name"><span>*</span>Last Name:</label>
+                <input type="text" class="personLastName" id="per_last_name_witness_<?= $value['per_id']; ?>" size=18 maxlength="50" value="<?= $value['per_last_name']; ?>"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="" width="150"><label class="required" for="per_address1"><span>*</span>Address 1:</label></td>
+            <td class="">
+                <input type="text" class="personAddress1" id="per_address1_witness_<?= $value['per_id']; ?>" size="50" maxlength="200" value="<?= $value['per_address1']; ?>"/>
+            </td>
+        </tr>
+        <tr  class="color-dark">
+            <td class="" width="150"><label for="per_address2">Address 2:</label></td>
+            <td class="">
+                <input type="text" class="personAddress2" id="per_address2_witness_<?= $value['per_id']; ?>" size="50" maxlength="200" value="<?= $value['per_address2']; ?>"/>
+            </td>
+        </tr>
+        <tr>
+            <td class=""><label class="required" for="per_city"><span>*</span>City:</label></td>
+            <td class="">
+                <input type="text" class="personCity"  id="per_city_witness_<?= $value['per_id']; ?>" name="per_city" size=15 maxlength="50" value="<?= $value['per_city']; ?>"/>&nbsp;&nbsp;&nbsp;
+                <label class="required" for="per_state_id"><span>*</span>State:</label>
+                <select id="per_state_id_witness_<?= $value['per_id']; ?>" >
+                    <?php
+                        foreach ($this->layout()->states as $state_ind => $state_name) {
+                            $selected = '';
+                            if ($state_ind == $value['per_state_id']) {
+                                $selected = 'selected="selected"';
+                            }
+                          echo '<option value="' . $state_ind . '" ' . $selected . '>' . $state_name . '</option>';
+                        }
+                    ?>
+                </select>&nbsp;&nbsp;&nbsp;
+                <label class="required" for="per_postal_code"><span>*</span>Zip: </label>
+                <input type="text" class="personZip" id="per_postal_code_witness_<?= $value['per_id']; ?>" size=10 maxlength="20" value="<?= $value['per_postal_code']; ?>" />
+            </td>
+        </tr>
+        <tr  class="color-dark">
+            <td class=""><label class="required" for="per_telephone_number"><span>*</span>Phone:</label></td>
+            <td class="">
+                <input type="text" class="personTelephone" id="per_telephone_number_witness_<?= $value['per_id']; ?>" size=30 value="<?= $value['per_telephone_number']; ?>" />
+            </td>
+        </tr>
+        <tr height=40 valign=middle>
+            <td class="" align=center>&nbsp;</td>
+            <td class="" align=left>
+                <span class="blue-button float-left">
+                    <a id="saveWitness"  class="saveBlockButtonClass" onclick="saveWitness(<?= $value['per_id'];?>);">
+                        Save
+                    </a>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+
+    <?php
+        }
+?>
+
+</table>

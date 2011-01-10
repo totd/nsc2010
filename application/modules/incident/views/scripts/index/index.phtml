@@ -5,14 +5,14 @@
     <ul class="blue-nav">
         <li>
             <span>
-                <a href="/incident/file/create/id/<?= $this->i_ID ?>">
+                <a class="createIncidentFile">
                     Create File
                 </a>
             </span>
         </li>
         <li>
             <span>
-                <a href="/incident/index/exit/id/<?= $this->i_ID ?>">
+                <a class="exitIncidentProfile">
                     Exit
                 </a>
             </span>
@@ -35,18 +35,21 @@
     <input type="hidden" id="i_Driver_ID" value="<?= $this->driverId; ?>"
         
     <div id="viewDescriptionDiv" class="DescriptionDiv">
-        <?= $this->partial('partials/index/_view_description.phtml'); ?>
+        <?= $this->partial('partials/index/_view_description.phtml', array('identity' => $this->identity)); ?>
     </div>
-    <div id="updateDescriptionDiv" class="DescriptionDiv" style="display: none;">
+    <div id="updateDescriptionDiv" class="DescriptionDiv updateValuesClass" style="display: none;">
         <?= $this->partial('partials/index/_update_description.phtml', array('states' => $this->states)); ?>
     </div>
 
     <div id="viewDriverInformation" class="DriverInformationDiv">
-        <?= $this->partial('partials/index/_view_driver_information.phtml', array('driverId' => $this->driverId)); ?>
+        <?= $this->partial('partials/index/_view_driver_information.phtml', array(
+            'driverId' => $this->driverId,
+            'identity' => $this->identity
+                )); ?>
     </div>
 
-<!--    This block should be hidden. But for correct building of the multiselect element its element hided in the js-->
-    <div id="updateDriverInformation" class="DriverInformationDiv">
+<!--    This block should be hidden. But for correct building of the multiselect element its element hidden in the js-->
+    <div id="updateDriverInformation" class="DriverInformationDiv updateValuesClass">
         <?= $this->partial('partials/index/_update_driver_information.phtml', array(
             'driverId' => $this->driverId,
             'travelDirections' => $this->travelDirections
@@ -59,7 +62,19 @@
         <div class="post-top"><div class="post-bottom"><div class="post-middle">
                 <table cellspacing="0" class="inform">
                     <tbody><tr><th colspan="2">Equipment Information - involved in Incident</th></tr>
-                        <tr><td colspan="2"><span class="blue-button"><span><a href="/equipment/truck-files/add-involved/incidentId/<?= $this->i_ID ?>">Add Equipment Information </a></span></span></td></tr>
+                        <?php if ($this->identity->permissions->incident_involved_equipment_create_permission === true) : ?>
+                        <tr>
+                            <td colspan="2">
+                                <span class="blue-button">
+                                    <span>
+                                        <a href="/equipment/truck-files/add-involved/incidentId/<?= $this->i_ID ?>">
+                                            Add Equipment Information
+                                        </a>
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
                         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
                     </tbody>
                 </table>
@@ -67,59 +82,79 @@
     </div>
     <?= $this->partial('partials/index/_view_equipment.phtml', array(
             'i_ID' => $this->i_ID,
+            'identity' => $this->identity
                 ));
         ?>
 
     <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                <table cellspacing="0" class="inform">
-                    <tbody><tr><th colspan="2">Witness/Passenger Information - involved in Incident</th></tr>
-                        <tr><td colspan="2"><span class="blue-button"><span><a href="#">Add Witness/Passenger Information </a></span></span></td></tr>
-                        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    </tbody></table>
-            </div></div></div>
+                <div id="currentIncidentWitnessesList">
+                    
+                </div>
+                <table cellspacing="0" class="inform addWitnessTableClass">
+                    <tbody>
+                        <tr class="title-dark">
+                            <?php if ($this->identity->permissions->incident_witness_create_permission === true) : ?>
+                                <td colspan="2">
+                                    ADD WITNESS [ <a class="WitnessAddLinkClass">VIEW</a> ]
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                    </tbody>
+                </table>
+                <?php echo $this->partial('partials/index/_add-witness.phtml',array('states'=>$this->states)); ?>
+    </div></div></div>
 
     <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                <table cellspacing="0" class="inform">
-                    <tbody><tr><th colspan="2">Type of Collision<br>
-                            </th></tr><tr><td>Collision Type</td><td>&nbsp;</td></tr>
-                        <tr class="color-dark"><td>Vehicle involved in collision with</td><td>&nbsp;</td></tr>
-                        <tr><td colspan="2"><span class="blue-button"><span><a href="#">Update type Of Collision </a></span></span></td></tr>
-                        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    </tbody></table>
-            </div></div></div>
+                <div id="currentIncidentPassengersList">
 
+                </div>
+                <table cellspacing="0" class="inform addPassengerTableClass">
+                    <tbody>
+                    <tr class="title-dark">
+                        <?php if ($this->identity->permissions->incident_passenger_create_permission === true) : ?>
+                            <td colspan="2">
+                                ADD PASSENGER [ <a class="PassengerAddLinkClass">VIEW</a> ]
+                            </td>
+                        <?php endif; ?>
+                    </tr>
+                    </tbody>
+                </table>
+                <?php echo $this->partial('partials/index/_add-passenger.phtml',array('states'=>$this->states)); ?>
+    </div></div></div>
+    
     <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                <table cellspacing="0" class="inform adress">
-                    <tbody><tr><th colspan="7">Road conditions at the time of Incident</th></tr>
-                        <tr><td>Road Conditions</td><td>&nbsp;</td></tr>
-                        <tr class="color-dark"><td>Weather Conditions</td><td>&nbsp;</td></tr>
-                        <tr><td>Roadway</td><td>&nbsp;</td></tr>
-                        <tr class="color-dark"><td>Traffic Condition</td><td>&nbsp;</td></tr>
-                        <tr><td>Road Surface Condition</td><td>&nbsp;</td></tr>
-                        <tr class="color-dark"><td>Traffic Control Devices</td><td>&nbsp;</td></tr>
-                        <tr><td>Lightning Conditions</td><td>&nbsp;</td></tr>
-                        <tr><td colspan="2"><span class="blue-button"><span><a href="#">Update Road Condition Information</a></span></span></td></tr>
-                        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    </tbody></table>
-            </div></div></div>
+        <div id="dotIncidentDiv">
+        </div>
+        
+    </div></div></div>
 
-    <div class="post-top"><div class="post-bottom"><div class="post-middle">
-                <table cellspacing="0" class="inform adress">
-                    <tbody><tr><th>DOT Incident criteria (Applies to commercial vehicles only)</th></tr>
-                        <tr><td>Incident resulted in human fatality  <br>
-			Incident did not result in injuries treated immediately/away from the scene   <br>
-			The vehicles have been towed away from the scene   <br>
-			Driver did not receive a traffic citation.   <br>
-			Incident is DOT reportable.   </td></tr>
-                        <tr><td colspan="2"><span class="blue-button"><span><a href="#">Update DOT Incident Criteria</a></span></span></td></tr>
-                        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    </tbody></table>
-            </div></div></div>
+    <div>
+        <h3 style="padding-top: 15px; padding-left: 28px;" >
+            Last saved: <span id="last_modified_datetime">
+            </span>
+        </h3>
+   </div>
 
-    <div class="blue-nav">
+    <div class="blue-nav" style="width: 500px;" align="center" >
         <ul>
-            <li><span><a href="/DQF">Create File</a></span></li>
-            <li><span><a href="/exit">Exit</a></span></li>
+            <?php if ($this->identity->permissions->incident_modify_permission === true) :  ?>
+            <li>
+                <span>
+                    <a id="commonSaveButton" class="saveButton">
+                        Save
+                    </a>
+                </span>
+            </li>
+            <li>
+                <span>
+                    <a id="discardButton">
+                        Discard
+                    </a>
+                </span>
+            </li>
+            <?php endif; ?>
+            <li><span><a class="createIncidentFile">Create File</a></span></li>
+            <li><span><a class="exitIncidentProfile">Exit</a></span></li>
         </ul>
     </div>
 

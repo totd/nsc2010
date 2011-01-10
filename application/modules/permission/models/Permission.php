@@ -33,7 +33,8 @@ class Permission_Model_Permission
                                                                     'get-assignment',
                                                                     'get-assignment-driver',
                                                                     'completed',
-                                                                    'show-complete-form'
+                                                                    'show-complete-form',
+                                                                    'get-last-modified-date'
                                                                 )
                     ),
                 'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
@@ -50,9 +51,91 @@ class Permission_Model_Permission
                                                                     'terminate'
                                                                 )
                     ),
-                'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
-                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'equipment/truck-files' => array('resource' => 'equipment:truck-files', 'module' => 'equipment'),
+                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
+                                                                'module' => 'equipment',
+                                                                'actions' => array(
+                                                                    'add-maintenance',
+                                                                    'delete-maintenance',
+                                                                    'get-maintenances',
+                                                                    'save-maintenance'
+                                                                )
+                    ),
+                'incident' => array('resource' => 'incident'),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-involved-equipment',
+                                                                'change-driver',
+                                                                'delete-involved-equiment',
+                                                                'get-description',
+                                                                'get-driver-information',
+                                                                'get-last-modified-date',
+                                                                'index',
+                                                                'save-description'
+                                                            )
+                    ),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'incident/autocomplete' => array('resource' => 'incident:autocomplete', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-autocomplete-person-address1',
+                                                                'get-autocomplete-person-address2',
+                                                                'get-autocomplete-person-city',
+                                                                'get-autocomplete-person-first-name',
+                                                                'get-autocomplete-person-last-name',
+                                                                'get-autocomplete-person-telephone',
+                                                                'get-autocomplete-person-zip'
+                                                            ),
+                    ),
+                'incident/create' => array('resource' => 'incident:create', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-driver',
+                                                                'exit',
+                                                                'index',
+                                                                'save',
+                                                                'step1',
+                                                                'step2',
+                                                                'step3'
+                                                                )
+                    ),
+                'incident/dot' => array('resource' => 'incident:dot', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-dot-criteria',
+                                                                'save-dot-criteria'
+                                                            )
+                    ),
+                'incident/passenger' => array('resource' => 'incident:passenger', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-passenger',
+                                                                    'delete-passenger',
+                                                                    'get-passengers',
+                                                                    'save-passenger',
+                                                                )
+                    ),
+                'incident/witness' => array('resource' => 'incident:witness', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-witness',
+                                                                    'delete-witness',
+                                                                    'get-witnesses',
+                                                                    'save-witness',
+                                                                )
+                    ),
+                'violation' => array('resource' => 'violation'),
+                'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
+                'violation/index' => array('resource' => 'violation:index', 'module' => 'violation',
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'create',
+                                                                    'save'
+                                                                )
+                    ),
                 
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
@@ -176,7 +259,8 @@ class Permission_Model_Permission
                                                                     'get-assignment',
                                                                     'get-assignment-driver',
                                                                     'completed',
-                                                                    'show-complete-form'
+                                                                    'show-complete-form',
+                                                                    'get-last-modified-date'
                                                                 )
                     ),
                 'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
@@ -194,8 +278,81 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
-                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
+                                                                'module' => 'equipment',
+                                                                'actions' => array(
+                                                                    'add-maintenance',
+                                                                    'delete-maintenance',
+                                                                    'get-maintenances',
+                                                                    'save-maintenance'
+                                                                )
+                    ),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-involved-equipment',
+                                                                'change-driver',
+                                                                'delete-involved-equiment',
+                                                                'get-description',
+                                                                'get-driver-information',
+                                                                'get-last-modified-date',
+                                                                'index',
+                                                                'save-description'
+                                                            )
+                    ),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'incident/autocomplete' => array('resource' => 'incident:autocomplete', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-autocomplete-person-address1',
+                                                                'get-autocomplete-person-address2',
+                                                                'get-autocomplete-person-city',
+                                                                'get-autocomplete-person-first-name',
+                                                                'get-autocomplete-person-last-name',
+                                                                'get-autocomplete-person-telephone',
+                                                                'get-autocomplete-person-zip'
+                                                            ),
+                    ),
+                'incident/create' => array('resource' => 'incident:create', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-driver',
+                                                                'exit',
+                                                                'index',
+                                                                'save',
+                                                                'step1',
+                                                                'step2',
+                                                                'step3'
+                                                                )
+                    ),
+                'incident/dot' => array('resource' => 'incident:dot', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-dot-criteria',
+                                                                'save-dot-criteria'
+                                                            )
+                    ),
+                'incident/passenger' => array('resource' => 'incident:passenger', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-passenger',
+                                                                    'delete-passenger',
+                                                                    'get-passengers',
+                                                                    'save-passenger',
+                                                                )
+                    ),
+                'incident/witness' => array('resource' => 'incident:witness', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-witness',
+                                                                    'delete-witness',
+                                                                    'get-witnesses',
+                                                                    'save-witness',
+                                                                )
+                    ),
+                'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
                                                             'module' => 'driver',
@@ -313,7 +470,8 @@ class Permission_Model_Permission
                                                                     'get-assignment',
                                                                     'get-assignment-driver',
                                                                     'completed',
-                                                                    'show-complete-form'
+                                                                    'show-complete-form',
+                                                                    'get-last-modified-date'
                                                                 )
                     ),
                 'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
@@ -331,8 +489,78 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
-                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
+                                                                'module' => 'equipment',
+                                                                'actions' => array(
+                                                                    'add-maintenance',
+                                                                    'get-maintenances',
+                                                                    'save-maintenance'
+                                                                )
+                    ),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-involved-equipment',
+                                                                'change-driver',
+                                                                'get-description',
+                                                                'get-driver-information',
+                                                                'get-last-modified-date',
+                                                                'index',
+                                                                'save-description'
+                                                            )
+                    ),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'incident/autocomplete' => array('resource' => 'incident:autocomplete', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-autocomplete-person-address1',
+                                                                'get-autocomplete-person-address2',
+                                                                'get-autocomplete-person-city',
+                                                                'get-autocomplete-person-first-name',
+                                                                'get-autocomplete-person-last-name',
+                                                                'get-autocomplete-person-telephone',
+                                                                'get-autocomplete-person-zip'
+                                                            ),
+                    ),
+                'incident/create' => array('resource' => 'incident:create', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-driver',
+                                                                'exit',
+                                                                'index',
+                                                                'save',
+                                                                'step1',
+                                                                'step2',
+                                                                'step3'
+                                                                )
+                    ),
+                'incident/dot' => array('resource' => 'incident:dot', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-dot-criteria',
+                                                                'save-dot-criteria'
+                                                            )
+                    ),
+                'incident/passenger' => array('resource' => 'incident:passenger', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-passenger',
+                                                                    'delete-passenger',
+                                                                    'get-passengers',
+                                                                    'save-passenger',
+                                                                )
+                    ),
+                'incident/witness' => array('resource' => 'incident:witness', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-witness',
+                                                                    'get-witnesses',
+                                                                    'save-witness',
+                                                                )
+                    ),
+                'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
                                                             'module' => 'driver',
@@ -438,7 +666,8 @@ class Permission_Model_Permission
                                                                 'index',
                                                                 'get-viw',
                                                                 'get-assignment',
-                                                                'get-assignment-driver'
+                                                                'get-assignment-driver',
+                                                                'get-last-modified-date'
                                                                 )
                     ),
                 'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
@@ -454,8 +683,45 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
-                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
+                                                                'module' => 'equipment',
+                                                                'actions' => array(
+                                                                    'get-maintenances'
+                                                                )
+                    ),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-description',
+                                                                'get-last-modified-date',
+                                                                'get-driver-information',
+                                                                'index',
+                                                            )
+                    ),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'incident/dot' => array('resource' => 'incident:dot', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-dot-criteria'
+                                                            )
+                    ),
+                'incident/passenger' => array('resource' => 'incident:passenger', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'get-passengers'
+                                                                )
+                    ),
+                'incident/witness' => array('resource' => 'incident:witness', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'get-witnesses'
+                                                                )
+                    ),
+                'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
                                                             'module' => 'driver',
@@ -560,7 +826,8 @@ class Permission_Model_Permission
                                                                     'get-assignment',
                                                                     'get-assignment-driver',
                                                                     'completed',
-                                                                    'show-complete-form'
+                                                                    'show-complete-form',
+                                                                    'get-last-modified-date'
                                                                 )
                     ),
                 'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
@@ -578,8 +845,81 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
-                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
+                                                                'module' => 'equipment',
+                                                                'actions' => array(
+                                                                    'add-maintenance',
+                                                                    'delete-maintenance',
+                                                                    'get-maintenances',
+                                                                    'save-maintenance'
+                                                                )
+                    ),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-involved-equipment',
+                                                                'change-driver',
+                                                                'delete-involved-equiment',
+                                                                'get-description',
+                                                                'get-driver-information',
+                                                                'get-last-modified-date',
+                                                                'index',
+                                                                'save-description'
+                                                            )
+                    ),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'incident/autocomplete' => array('resource' => 'incident:autocomplete', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-autocomplete-person-address1',
+                                                                'get-autocomplete-person-address2',
+                                                                'get-autocomplete-person-city',
+                                                                'get-autocomplete-person-first-name',
+                                                                'get-autocomplete-person-last-name',
+                                                                'get-autocomplete-person-telephone',
+                                                                'get-autocomplete-person-zip'
+                                                            ),
+                    ),
+                'incident/create' => array('resource' => 'incident:create', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-driver',
+                                                                'exit',
+                                                                'index',
+                                                                'save',
+                                                                'step1',
+                                                                'step2',
+                                                                'step3'
+                                                                )
+                    ),
+                'incident/dot' => array('resource' => 'incident:dot', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-dot-criteria',
+                                                                'save-dot-criteria'
+                                                            )
+                    ),
+                'incident/passenger' => array('resource' => 'incident:passenger', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-passenger',
+                                                                    'delete-passenger',
+                                                                    'get-passengers',
+                                                                    'save-passenger',
+                                                                )
+                    ),
+                'incident/witness' => array('resource' => 'incident:witness', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-witness',
+                                                                    'delete-witness',
+                                                                    'get-witnesses',
+                                                                    'save-witness',
+                                                                )
+                    ),
+                'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
                                                             'module' => 'driver',
@@ -699,7 +1039,8 @@ class Permission_Model_Permission
                                                                     'get-assignment',
                                                                     'get-assignment-driver',
                                                                     'completed',
-                                                                    'show-complete-form'
+                                                                    'show-complete-form',
+                                                                    'get-last-modified-date'
                                                                 )
                     ),
                 'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
@@ -717,8 +1058,81 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
-                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
+                                                                'module' => 'equipment',
+                                                                'actions' => array(
+                                                                    'add-maintenance',
+                                                                    'delete-maintenance',
+                                                                    'get-maintenances',
+                                                                    'save-maintenance'
+                                                                )
+                    ),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-involved-equipment',
+                                                                'change-driver',
+                                                                'delete-involved-equiment',
+                                                                'get-description',
+                                                                'get-driver-information',
+                                                                'get-last-modified-date',
+                                                                'index',
+                                                                'save-description'
+                                                            )
+                    ),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'incident/autocomplete' => array('resource' => 'incident:autocomplete', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-autocomplete-person-address1',
+                                                                'get-autocomplete-person-address2',
+                                                                'get-autocomplete-person-city',
+                                                                'get-autocomplete-person-first-name',
+                                                                'get-autocomplete-person-last-name',
+                                                                'get-autocomplete-person-telephone',
+                                                                'get-autocomplete-person-zip'
+                                                            ),
+                    ),
+                'incident/create' => array('resource' => 'incident:create', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-driver',
+                                                                'exit',
+                                                                'index',
+                                                                'save',
+                                                                'step1',
+                                                                'step2',
+                                                                'step3'
+                                                                )
+                    ),
+                'incident/dot' => array('resource' => 'incident:dot', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-dot-criteria',
+                                                                'save-dot-criteria'
+                                                            )
+                    ),
+                'incident/passenger' => array('resource' => 'incident:passenger', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-passenger',
+                                                                    'delete-passenger',
+                                                                    'get-passengers',
+                                                                    'save-passenger',
+                                                                )
+                    ),
+                'incident/witness' => array('resource' => 'incident:witness', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-witness',
+                                                                    'delete-witness',
+                                                                    'get-witnesses',
+                                                                    'save-witness',
+                                                                )
+                    ),
+                'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
                                                             'module' => 'driver',
@@ -836,7 +1250,8 @@ class Permission_Model_Permission
                                                                     'get-assignment',
                                                                     'get-assignment-driver',
                                                                     'completed',
-                                                                    'show-complete-form'
+                                                                    'show-complete-form',
+                                                                    'get-last-modified-date'
                                                                 )
                     ),
                 'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
@@ -854,8 +1269,78 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
-                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
+                                                                'module' => 'equipment',
+                                                                'actions' => array(
+                                                                    'add-maintenance',
+                                                                    'delete-maintenance',
+                                                                    'get-maintenances',
+                                                                    'save-maintenance'
+                                                                )
+                    ),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-involved-equipment',
+                                                                'change-driver',
+                                                                'get-description',
+                                                                'get-driver-information',
+                                                                'get-last-modified-date',
+                                                                'index',
+                                                                'save-description'
+                                                            )
+                    ),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'incident/autocomplete' => array('resource' => 'incident:autocomplete', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-autocomplete-person-address1',
+                                                                'get-autocomplete-person-address2',
+                                                                'get-autocomplete-person-city',
+                                                                'get-autocomplete-person-first-name',
+                                                                'get-autocomplete-person-last-name',
+                                                                'get-autocomplete-person-telephone',
+                                                                'get-autocomplete-person-zip'
+                                                            ),
+                    ),
+                'incident/create' => array('resource' => 'incident:create', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'add-driver',
+                                                                'exit',
+                                                                'index',
+                                                                'save',
+                                                                'step1',
+                                                                'step2',
+                                                                'step3'
+                                                                )
+                    ),
+                'incident/dot' => array('resource' => 'incident:dot', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-dot-criteria',
+                                                                'save-dot-criteria'
+                                                            )
+                    ),
+                'incident/passenger' => array('resource' => 'incident:passenger', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-passenger',
+                                                                    'get-passengers',
+                                                                    'save-passenger',
+                                                                )
+                    ),
+                'incident/witness' => array('resource' => 'incident:witness', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'add-witness',
+                                                                    'get-witnesses',
+                                                                    'save-witness',
+                                                                )
+                    ),
+                'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
                                                             'module' => 'driver',
@@ -963,7 +1448,8 @@ class Permission_Model_Permission
                                                                 'index',
                                                                 'get-viw',
                                                                 'get-assignment',
-                                                                'get-assignment-driver'
+                                                                'get-assignment-driver',
+                                                                'get-last-modified-date'
                                                                 )
                     ),
                 'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
@@ -979,8 +1465,45 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
-                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
+                                                                'module' => 'equipment',
+                                                                'actions' => array(
+                                                                    'get-maintenances'
+                                                                )
+                    ),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-description',
+                                                                'get-last-modified-date',
+                                                                'get-driver-information',
+                                                                'index',
+                                                            )
+                    ),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'incident/dot' => array('resource' => 'incident:dot', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-dot-criteria'
+                                                            )
+                    ),
+                'incident/passenger' => array('resource' => 'incident:passenger', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'get-passengers'
+                                                                )
+                    ),
+                'incident/witness' => array('resource' => 'incident:witness', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'get-witnesses'
+                                                                )
+                    ),
+                'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
                                                             'module' => 'driver',
@@ -1073,7 +1596,8 @@ class Permission_Model_Permission
                                                                 'index',
                                                                 'get-viw',
                                                                 'get-assignment',
-                                                                'get-assignment-driver'
+                                                                'get-assignment-driver',
+                                                                'get-last-modified-date'
                                                                 )
                     ),
                 'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
@@ -1089,8 +1613,45 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'incident/index' => array('resource' => 'incident:index', 'module' => 'equipment'),
-                'incident/list' => array('resource' => 'incident:list', 'module' => 'equipment'),
+                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
+                                                                'module' => 'equipment',
+                                                                'actions' => array(
+                                                                    'get-maintenances'
+                                                                )
+                    ),
+                'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-description',
+                                                                'get-last-modified-date',
+                                                                'get-driver-information',
+                                                                'index',
+                                                            )
+                    ),
+                'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'incident/dot' => array('resource' => 'incident:dot', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                'get-dot-criteria'
+                                                            )
+                    ),
+                'incident/passenger' => array('resource' => 'incident:passenger', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'get-passengers'
+                                                                )
+                    ),
+                'incident/witness' => array('resource' => 'incident:witness', 'module' => 'incident',
+                                                            'actions' => array(
+                                                                    'get-witnesses'
+                                                                )
+                    ),
+                'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
+                                                            'actions' => array(
+                                                                    'index'
+                                                                )
+                    ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
                                                             'module' => 'driver',

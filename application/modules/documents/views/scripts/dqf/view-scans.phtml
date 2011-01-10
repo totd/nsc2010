@@ -1,0 +1,44 @@
+
+<div class="breadcrumbs-left">
+<div class="breadcrumbs-right">
+<div class="breadcrumbs-middle">
+<span>
+    <?php
+        echo $this->breadcrumbs;
+    ?>
+</span>
+</div>
+</div>
+</div>
+  <div id="main" class="driver-information">
+    <div class="post-top"><div class="post-bottom"><div class="post-middle">
+      <form class="select-parametr2">
+          <div style="padding:20px;">
+              <span id="status" ></span>
+              <br />
+              <ul id="files" >
+              <?php
+                  #print_r($this->scans);
+                for($i=0;$i<sizeof($this->scans);$i++){
+              ?>
+                  <div class="dqf-uploaded-images">
+                      <div>
+                          Status: <span><?php echo $this->scans[$i]['cdfs_status'];?></span>
+                          Page #: <span><?php echo $this->scans[$i]['cd_Current_Page'];?></span>
+                          <a ><img src="/images/icon-edit.png" alt="" width="22" height="22" class="dqf-document-scan-edit-icon"/></a>
+                      </div>
+                      <img width="180" class="dqf-uploaded-image" height="" alt="<?php echo $this->scans[$i]['cdfn_name'];?>" src="/documents/dqf/driver_<?php echo $this->scans[$i]['cd_Driver_ID'];?>/document_form_<?php echo $this->scans[$i]['cd_Form_Name_ID'];?>/<?php echo $this->scans[$i]['cd_Scan'];?>"/> 
+                      <!--  <br /><a onclick="deleteImageDocument(<?php echo $this->scans[$i]['cd_Driver_ID'];?>,<?php echo $this->scans[$i]['cd_Sccd_Form_Name_IDan'];?>,'<?php echo $this->scans[$i]['cd_Scan'];?>')">[delete]</a></div> -->
+                  </div>
+              <?php
+                }
+              ?>
+              </ul>
+              <br /><br />
+              <div class="clear"></div>
+              <input type="button" value="Exit" onclick="exit_simple('/driver/driver/dqf/driver_id/<?php echo $this->driver_id;?>');" />
+          </div>
+      </form>
+      <br /><br />
+      </div>
+    </div></div></div>

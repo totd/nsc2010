@@ -70,6 +70,28 @@
         
      </div>
 
+    <div class="post-top"><div class="post-bottom"><div class="post-middle">
+                <div class="inform" style="float: none; width: 889px;" >
+                <div id="currentEquipmentMaintenancesList">
+
+                </div>
+                <table cellspacing="0" class="inform addMaintenanceTableClass" style="float: none; width: 889px;">
+                    <tbody>
+                        <tr class="title-dark">
+                            <?php if ($this->identity->permissions->equipment_maintenance_create_permission === true) : ?>
+                                <td colspan="2">
+                                    ADD MAINTENANCE [ <a class="MaintenanceAddLinkClass">VIEW</a> ]
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                    </tbody>
+                </table>
+                <?php echo $this->partial('partials/index/_add-maintenance.phtml'
+                                          ,array('spList'=>$this->spList)
+                                        ); ?>
+                </div>
+    </div></div></div>
+
     <div>
         <h3 style="padding-top: 15px; padding-left: 28px;" >
             Last saved: <span id="last_modified_datetime">

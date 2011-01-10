@@ -1,11 +1,10 @@
 <?php
-class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
+class Equipment_Model_Equipment extends NSC_Model_Validate
 {
     protected $_name = 'equipment';
 
     protected $_requiredCopmleteFields = array (
         'e_Unit_Number' => 'unit',
-        'e_Picture' => 'picture',
         'e_License_Expiration_Date' => 'license expiration date',
         'e_License_Number' => 'license plate number',
         'e_Start_Mileage' => 'start mileage',
@@ -22,6 +21,97 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         'e_Description' => 'description',
         'e_DOT_Regulated' => 'DOT regulated',
         'e_type_id' => 'type'
+    );
+
+    protected $_fieldsValidationArray = array(
+        'e_Unit_Number' => array(
+                            'required' => true,
+                            'label' => 'Unit number'
+                        ),
+        'e_License_Expiration_Date' => array(
+                            'required' => true,
+                            'label' => 'License expiration date'
+                        ),
+        'e_License_Number' => array(
+                            'required' => true,
+                            'label' => 'License number'
+                        ),
+        'e_Start_Mileage' => array(
+                            'required' => true,
+                            'label' => 'Start mileage'
+                        ),
+        'e_Registration_State' => array(
+                            'required' => true,
+                            'label' => 'Registration state'
+                        ),
+        'e_Gross_Equipment_Weight_Rating' => array(
+                            'required' => true,
+                            'label' => 'Gross equipment weight rating'
+                        ),
+        'e_Gross_Equipment_Registered_Weight' => array(
+                            'required' => true,
+                            'label' => 'Gross equipment registered weight'
+                        ),
+        'e_Unladen_Weight' => array(
+                            'required' => true,
+                            'label' => 'Unladen weight'
+                        ),
+        'e_Axles' => array(
+                            'required' => true,
+                            'label' => 'Axles'
+                        ),
+        'e_Name' => array(
+                            'required' => true,
+                            'label' => 'Name'
+                        ),
+        'e_Make' => array(
+                            'required' => true,
+                            'label' => 'Make'
+                        ),
+        'e_Color' => array(
+                            'required' => true,
+                            'label' => 'Color'
+                        ),
+        'e_Model' => array(
+                            'required' => true,
+                            'label' => 'Model'
+                        ),
+        'e_Year' => array(
+                            'required' => true,
+                            'label' => 'Year'
+                        ),
+        'e_Description' => array(
+                            'required' => true,
+                            'label' => 'Description'
+                        ),
+        'e_DOT_Regulated' => array(
+                            'required' => true,
+                            'label' => 'DOT_Regulated'
+                        ),
+        'e_type_id' => array(
+                            'required' => true,
+                            'label' => 'Type'
+                        ),
+        'e_Picture' => array(
+                            'required' => false,
+                            'label' => 'Picture'
+                        ),
+        'e_Alternate_ID' => array(
+                            'required' => false,
+                            'label' => 'Alternate ID'
+                        ),
+        'e_Title_Status' => array(
+                            'required' => false,
+                            'label' => 'Title status'
+                        ),
+        'e_Fee' => array(
+                            'required' => false,
+                            'label' => 'Fee'
+                        ),
+        'e_RFID_No' => array(
+                            'required' => false,
+                            'label' => 'Radio Frequency Identify'
+                        ),
     );
 
     public function getArchivesList($offset = 0, $count = 20, $filterOptions = null)
@@ -76,20 +166,28 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
 
     public function saveEquipment($saveRow)
     {
+        $result = null;
+
         if (isset($saveRow['e_id'])) {
             $rowTable = $this->fetchRow("e_id = {$this->getDefaultAdapter()->quote($saveRow['e_id'])}");
             if ($rowTable) {
                 unset($saveRow['e_id']);
             }
 
-            foreach ($saveRow as $key => $value) {
-                $rowTable[$key] = $value;
-            }
+            $validate_result = $this->validateFields($saveRow);
             
-            $rowTable->save();
+            if (is_null($validate_result)) {
+                foreach ($saveRow as $key => $value) {
+                    $rowTable[$key] = $value;
+                }
 
-            return $rowTable;
+                $result['row'] = $rowTable->save();
+            } else {
+                $result['validationError'] = $validate_result;
+            }
         }
+
+        return $result;
     }
 
     public function getTruckFilesList($offset = 0, $count = 20, $filterOptions = null, $excludeStatus = 'Terminated')
@@ -369,13 +467,17 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
         if (!empty($id)) {
             $db = $this->getAdapter();
 
-
             $select = "SELECT e_last_modified_datetime,
                                 ea_last_modified_datetime,
-                                (e_last_modified_datetime - ea_last_modified_datetime) as compare
+                                MAX(em_last_modified_datetime) as max_em_date_time,
+                                (e_last_modified_datetime - ea_last_modified_datetime) as compare,
+                                (e_last_modified_datetime - MAX(em_last_modified_datetime)) as em_compare,
+                                (ea_last_modified_datetime - MAX(em_last_modified_datetime)) as eam_compare
                         FROM equipment
-                        LEFT JOIN equipment_assignment ON e_ID = ea_equipment_id
-                        WHERE e_id = {$this->getDefaultAdapter()->quote($id)}";
+                        LEFT JOIN equipment_assignment ON e_id = ea_equipment_id
+                        LEFT JOIN equipment_maintenance ON e_id = em_equipment_id
+                        WHERE e_id = {$this->getDefaultAdapter()->quote($id)}
+                        GROUP BY e_id, ea_equipment_id, em_equipment_id";
 
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
             $stmt = $db->query($select);
@@ -383,8 +485,10 @@ class Equipment_Model_Equipment extends Zend_Db_Table_Abstract
             $resultArray = $stmt->fetchAll();
             $row = (count($resultArray) > 0) ? $resultArray[0] : null;
             if (!is_null($row)) {
-                if ($row['compare'] < 0) {
+                if ($row['compare'] < 0 && $row['eam_compare'] > 0) {
                     $result = $row['ea_last_modified_datetime'];
+                } else if ($row['em_compare'] < 0) {
+                    $result = $row['max_em_date_time'];
                 } else {
                     $result = $row['e_last_modified_datetime'];
                 }

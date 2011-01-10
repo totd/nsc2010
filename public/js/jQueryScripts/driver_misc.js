@@ -72,7 +72,7 @@ $(document).ready(function() {
 // Show/hide Driver Hours of Service edit form
 $(document).ready(function() {
     $('#toggleHoS').click(function() {
-        if((document.getElementById("toggleHoS").innerHTML)=="EDIT"){
+        if(document.getElementById("toggleHoS").innerHTML=="EDIT"){
             document.getElementById("toggleHoS").innerHTML="CANCEL";
             $('#hos_list').hide();
             $('#lrfw_list').hide();

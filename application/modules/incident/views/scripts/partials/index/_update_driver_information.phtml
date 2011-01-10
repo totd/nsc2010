@@ -1,21 +1,15 @@
 <div class="post-top">
     <div class="post-bottom">
         <div class="post-middle">
-            <br>
-            <br>
-            <table class="inform">
-                <tbody>
-                    <tr>
-                        <td colspan="2"><h2>Incident Status:&nbsp;<span class="data">Pending</span></h2></td>
-                    </tr>
-                </tbody></table>
             <div class="clear"></div>
             <div class="second">
                 <table  cellspacing="0" class="inform">
                     <tbody>
                         <tr>
                             <th colspan="2">
+                                <h2 class="status-ok">
                                 Company Driver Information - involved in Incident
+                                </h2>
                             </th>
                         </tr>
                         <tr>
@@ -88,7 +82,7 @@
                             </th>
                         </tr>
                         <tr>
-                            <td colspan="2" style="padding-right: 0px;">
+                            <td colspan="2" style="padding-right: 0px;" id="tdColMovements">
                                 <select id="colMovements" class="multiselect" multiple="multiple" name="colMovements[]">
                                 </select>
                             </td>
@@ -134,24 +128,39 @@
                         <tr>
                             <td>Alcohol test was conducted within:</td>
                             <td>
-                                <input type="radio" class="i_Alcohol_Test_Class" name="i_Alcohol_Test" id="i_Alcohol_Test_Yes" value="Yes">&nbsp;Yes
-                                <input type="radio" class="i_Alcohol_Test_Class" name="i_Alcohol_Test" id="i_Alcohol_Test_No"  value="No">&nbsp;No
+                                <input type="radio" class="i_Alcohol_Test_Class" name="i_Alcohol_Test" id="i_Alcohol_Test_2" value="2 hours">&nbsp;2 hours
+                                <input type="radio" class="i_Alcohol_Test_Class" name="i_Alcohol_Test" id="i_Alcohol_Test_8" value="8 hours">&nbsp;8 hours
+                                <input type="radio" class="i_Alcohol_Test_Class" name="i_Alcohol_Test" id="i_Alcohol_Test_No" checked="checked" value="No Alcohol Test">&nbsp;No Alchol Test
                             </td>
                         </tr>
                         <tr class="color-dark">
-                            <td>
-                                Drug test was conducted within:
+                            <td colspan="2">If the Alcohol test was not conducted within 2 or 8 hours explain why: </td>
+                        </tr>
+                        <tr class="color-dark">
+                            <td colspan="2">
+                                <textarea id="i_reason_not_conducted_alcohol_test" cols="55" rows="3"></textarea>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>Drug test was conducted within:</td>
                             <td>
-                                <input type="radio" class="i_Drug_Test_Class" name="i_Drug_Test" value="Yes">&nbsp;Yes
-                                <input type="radio" class="i_Drug_Test_Class" name="i_Drug_Test" value="No">&nbsp;No
+                                <input type="radio" class="i_Drug_Test_Class" name="i_Drug_Test" id="i_Drug_Test_32" value="32 hours">&nbsp;32 hours
+                                <input type="radio" class="i_Drug_Test_Class" name="i_Drug_Test" id="i_Drug_Test_No" checked="checked" value="No Drug Test">&nbsp;No Drug Test
+                            </td>
+                        </tr>
+                        <tr class="color-dark">
+                            <td colspan="2">If the drug test was not conducted within 32 hours please explain why: </td>
+                        </tr>
+                        <tr class="color-dark">
+                            <td colspan="2">
+                                <textarea id="i_reason_not_conducted_drug_test" cols="55" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
                                 <span class="blue-button">
                                     <span>
-                                        <a id="saveIncidentDriverInformation">
+                                        <a id="saveIncidentDriverInformation" class="saveBlockButtonClass">
                                              Save
                                         </a>
                                     </span>

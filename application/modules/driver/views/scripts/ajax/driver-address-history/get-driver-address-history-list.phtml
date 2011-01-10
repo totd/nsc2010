@@ -46,15 +46,15 @@ foreach($driverAddressHistoryList as $k => $v)
             At Address:&nbsp;
             From Date:&nbsp;<span>
                 <?php
-                    $date->set($v['dah_Start_Date'],"MM/dd/YYYY");
-                    echo $date->toString("MM/dd/YYYY");
+                    $date->set($v['dah_Start_Date'],"MM/dd/yyyy");
+                    echo $date->toString("MM/dd/yyyy");
                 ?></span>
                 <?php
                     if($v['dah_Current_Address']!="YES"){ ?>
                         To Date:
                 <?php
-                    $date->set($v['dah_End_Date'],"MM/dd/YYYY");
-                    echo "<span>".$date->toString("MM/dd/YYYY")."</span>";
+                    $date->set($v['dah_End_Date'],"MM/dd/yyyy");
+                    echo "<span>".$date->toString("MM/dd/yyyy")."</span>";
                 ?>
                 <?php
                 $fromDate = explode("-",$v['dah_Start_Date']);

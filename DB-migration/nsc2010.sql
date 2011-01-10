@@ -83,9 +83,9 @@ CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
   `deo_From_Date` date NOT NULL,
   `deo_To_Date` date DEFAULT NULL,
   `deo_Total_Miles` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`deo_ID`),
-  UNIQUE KEY `deo_driver_equipment_assigment` (`deo_Driver_ID`,`deo_Equipment_Type_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`deo_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
 DROP TABLE IF EXISTS `company`;
 CREATE TABLE IF NOT EXISTS `company` (
   `c_id` int(11) NOT NULL AUTO_INCREMENT,
-  `c_Parent_Company_Account_Number` int(11) DEFAULT NULL,
+  `c_Parent_Company_Account_Number` int(11)  NOT NULL,
   `c_Number` varchar(12) COLLATE latin1_general_ci NOT NULL,
   `c_EIN` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `c_SSN` varchar(11) COLLATE latin1_general_ci DEFAULT NULL,
@@ -187,19 +187,20 @@ CREATE TABLE IF NOT EXISTS `custom_document` (
   `cd_Description` text COLLATE latin1_general_ci,
   `cd_Logo` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `cd_Fax_Status_id` tinyint(4) NOT NULL DEFAULT '1',
-  `cd_Document_Form_Status` tinyint(4) NOT NULL,
-  `cd_Date_Requested` date NOT NULL,
-  `cd_Date_Completed` date NOT NULL,
+  `cd_Document_Form_Status` tinyint(4) DEFAULT NULL,
+  `cd_Date_Requested` date DEFAULT NULL,
+  `cd_Date_Completed` date DEFAULT NULL,
   `cd_Scan` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `cd_Archived` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
   `cd_Electronic_Signature` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `cd_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  `cd_Current_Page` TINYINT( 4 ) NOT NULL DEFAULT '1',
+  `cd_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci DEFAULT NULL,
+  `cd_Current_Page` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`cd_ID`),
   KEY `fk_custom_document_company1` (`cd_Company_ID`),
   KEY `fk_custom_document_driver1` (`cd_Driver_ID`),
   KEY `fk_custom_document_homebase1` (`cd_Homebase_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+
 
 
 -- --------------------------------------------------------
@@ -620,21 +621,19 @@ CREATE TABLE IF NOT EXISTS `equipment_identifier` (
 
 DROP TABLE IF EXISTS `equipment_maintenance`;
 CREATE TABLE IF NOT EXISTS `equipment_maintenance` (
-  `em_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `em_Equipment_ID` int(11) DEFAULT NULL,
-  `em_Service_Provider_ID` int(11) DEFAULT NULL,
-  `em_Maintenance_Month` int(11) NOT NULL DEFAULT '30',
-  `em_Requested_Date` date NOT NULL,
-  `em_Next_Maintenance_Date` date DEFAULT NULL,
-  `em_Completed_Date` date NOT NULL,
-  `em_Invoice_Amount` varchar(12) COLLATE latin1_general_ci DEFAULT '30',
-  `em_Service_Date` date NOT NULL,
-  `em_Notes` text COLLATE latin1_general_ci,
-  `em_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`em_ID`),
-  KEY `fk_equipment_maintenance_equipment1` (`em_Equipment_ID`),
-  KEY `fk_equipment_maintenance_service_provider1` (`em_Service_Provider_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+  `em_id` int(11) NOT NULL AUTO_INCREMENT,
+  `em_equipment_id` int(11) DEFAULT NULL,
+  `em_service_provider_id` int(11) DEFAULT NULL,
+  `em_requested_date` date NOT NULL,
+  `em_next_maintenance_date` date DEFAULT NULL,
+  `em_completed_date` date NOT NULL,
+  `em_invoice_amount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `em_service_date` date NOT NULL,
+  `em_notes` text COLLATE latin1_general_ci,
+  `em_dot_regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
+  `em_last_modified_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`em_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------
@@ -719,7 +718,7 @@ CREATE TABLE IF NOT EXISTS `incident` (
   `i_Violation_ID` varchar(12) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Driver_ID` int(11) NOT NULL,
   `i_Date` date NOT NULL,
-  `i_Time` time DEFAULT NULL,
+  `i_Time` time DEFAULT '00:00:00',
   `i_Status` enum('Pending','Open','Closed') COLLATE latin1_general_ci NOT NULL DEFAULT 'Pending',
   `i_City` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
   `i_State_ID` tinyint(2) DEFAULT NULL,
@@ -734,8 +733,10 @@ CREATE TABLE IF NOT EXISTS `incident` (
   `i_Speed_Limit` tinyint(3) DEFAULT NULL,
   `i_Actual_Speed` tinyint(3) DEFAULT NULL,
   `i_Construction_Zone` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
-  `i_Alcohol_Test` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
-  `i_Drug_Test` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
+  `i_Alcohol_Test` enum('2 hours','8 hours','No Alcohol Test') COLLATE latin1_general_ci DEFAULT 'No Alcohol Test',
+  `i_reason_not_conducted_alcohol_test` text COLLATE latin1_general_ci,
+  `i_Drug_Test` enum('32 hours','No Drug Test') COLLATE latin1_general_ci DEFAULT 'No Drug Test',
+  `i_reason_not_conducted_drug_test` text COLLATE latin1_general_ci,
   `i_Cell_Phone_Usage` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
   `i_Photo_Taken_By` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `i_Injured` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
@@ -753,6 +754,10 @@ CREATE TABLE IF NOT EXISTS `incident` (
   `i_Preventable` enum('Yes','No') COLLATE latin1_general_ci DEFAULT 'No',
   `i_Equipment_ID` int(11) NOT NULL,
   `i_last_modified_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `i_fatality` enum('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
+  `i_injuries` enum('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
+  `i_towed` enum('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
+  `i_citation` enum('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
   PRIMARY KEY (`i_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
@@ -889,31 +894,6 @@ CREATE TABLE IF NOT EXISTS `inspection_types` (
   PRIMARY KEY (`it_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
 
---
--- Дамп данных таблицы `inspection_types`
---
---
--- Структура таблицы `person`
---
-
-DROP TABLE IF EXISTS `person`;
-CREATE TABLE IF NOT EXISTS `person` (
-  `per_id` int(11) NOT NULL AUTO_INCREMENT,
-  `per_first_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `per_last_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `per_telephone_number` varchar(14) COLLATE latin1_general_ci NOT NULL,
-  `per_address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `per_address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `per_city` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `per_state_id` tinyint(2) NOT NULL,
-  `per_postal_code` varchar(10) COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`per_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
-
-
--- --------------------------------------------------------
-
 -- --------------------------------------------------------
 
 --
@@ -1029,8 +1009,13 @@ CREATE TABLE IF NOT EXISTS `person` (
   `per_city` varchar(100) COLLATE latin1_general_ci NOT NULL,
   `per_state_id` tinyint(2) NOT NULL,
   `per_postal_code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  `per_last_modified_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`per_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+
+
+
+-- --------------------------------------------------------
 
 
 
@@ -1102,26 +1087,27 @@ CREATE TABLE IF NOT EXISTS `score` (
 
 DROP TABLE IF EXISTS `service_provider`;
 CREATE TABLE IF NOT EXISTS `service_provider` (
-  `sp_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `sp_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `sp_Contact` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `sp_Type` tinyint(4) DEFAULT NULL,
-  `sp_Telephone_Number` varchar(14) COLLATE latin1_general_ci NOT NULL,
-  `sp_Fax` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
-  `sp_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `sp_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `sp_City` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `sp_State` tinyint(2) NOT NULL,
-  `sp_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL,
-  `sp_Description` text COLLATE latin1_general_ci,
-  `sp_Insurance_Last_Valuation_Date` date NOT NULL,
-  `sp_Insurance_Company_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `sp_Insurance_Policy_Number` varchar(24) COLLATE latin1_general_ci DEFAULT NULL,
-  `sp_Insurance_Limit` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
-  `sp_Insurance_Deductible` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
-  `sp_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`sp_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+  `sp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sp_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sp_contact` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sp_type` tinyint(4) DEFAULT NULL,
+  `sp_telephone_number` varchar(14) COLLATE latin1_general_ci NOT NULL,
+  `sp_fax` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
+  `sp_address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sp_address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `sp_city` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sp_state` tinyint(2) NOT NULL,
+  `sp_postal_code` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  `sp_description` text COLLATE latin1_general_ci,
+  `sp_insurance_last_valuation_date` date DEFAULT NULL,
+  `sp_insurance_company_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `sp_insurance_policy_number` varchar(24) COLLATE latin1_general_ci DEFAULT NULL,
+  `sp_insurance_limit` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `sp_insurance_deductible` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
+  `sp_dot_regulated` enum('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
+  PRIMARY KEY (`sp_id`),
+  UNIQUE KEY `sp_name` (`sp_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `service_provider`
@@ -1172,26 +1158,6 @@ CREATE TABLE IF NOT EXISTS `service_provider__equipment_assignment` (
 --
 
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `service_provider__insurance`
---
-
-DROP TABLE IF EXISTS `service_provider__insurance`;
-CREATE TABLE IF NOT EXISTS `service_provider__insurance` (
-  `spi_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `spi_Service_Provider_ID` int(11) NOT NULL,
-  `spi_Insurance_Company_ID` int(11) NOT NULL,
-  PRIMARY KEY (`spi_ID`),
-  UNIQUE KEY `spi_row` (`spi_Service_Provider_ID`,`spi_Insurance_Company_ID`),
-  KEY `fk_service_provider__insurance_service_provider1` (`spi_Service_Provider_ID`),
-  KEY `fk_service_provider__insurance_insurance1` (`spi_Insurance_Company_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `service_provider__insurance`
---
 
 
 -- --------------------------------------------------------
@@ -1232,35 +1198,40 @@ CREATE TABLE IF NOT EXISTS `travel_direction` (
   PRIMARY KEY (`td_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=9 ;
 
+--
+-- Структура таблицы `violation`
+--
+
+DROP TABLE IF EXISTS `violation`;
+CREATE TABLE IF NOT EXISTS `violation` (
+  `v_id` int(11) NOT NULL AUTO_INCREMENT,
+  `v_code` varchar(2) COLLATE latin1_general_ci NOT NULL,
+  `v_type` enum('Driver','Equipment') COLLATE latin1_general_ci NOT NULL DEFAULT 'Driver',
+  `v_item` varchar(150) COLLATE latin1_general_ci NOT NULL,
+  `v_item_specific` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  PRIMARY KEY (`v_id`),
+  UNIQUE KEY `v_item` (`v_item`),
+  UNIQUE KEY `v_code` (`v_code`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=130 ;
+
+--
+-- Структура таблицы `violation_assignment`
+--
+
+DROP TABLE IF EXISTS `violation_assignment`;
+CREATE TABLE IF NOT EXISTS `violation_assignment` (
+  `va_id` int(11) NOT NULL AUTO_INCREMENT,
+  `va_inspection_id` int(11) NOT NULL,
+  `va_violation_id` int(12) NOT NULL,
+  `va_equipment_id` int(11) NOT NULL,
+  `va_driver_id` int(11) NOT NULL,
+  `va_company_id` int(11) NOT NULL,
+  `va_DOT_Regulated` enum('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
+  PRIMARY KEY (`va_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+
 -- --------------------------------------------------------
---
--- Структура таблицы `Violation`
---
 
-DROP TABLE IF EXISTS `Violation`;
-CREATE TABLE `Violation` (
-`v_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`v_Inspection_Number_id` INT NOT NULL ,
-`v_Violation_Number` VARCHAR( 12 ) NOT NULL ,
-`v_Equipment_Number_id` INT NOT NULL ,
-`v_Driver_Number_id` INT NOT NULL ,
-`v_Company_Number_id` INT NOT NULL ,
-`v_DOT_Regulated` SET( 'YES', 'NO' ) NOT NULL
-) ENGINE = InnoDB  ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
---
--- Структура таблицы `Violation_Type`
---
-
-DROP TABLE IF EXISTS `Violation_Type`;
-CREATE TABLE `Violation_Type` (
-`vt_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`vt_Item` VARCHAR( 100 ) NOT NULL DEFAULT "'turn signal', 'brakes', 'steering', 'left front turn signal', 'rear turn signal trailer', 'etc'",
-`vt_Item_Specific` VARCHAR( 100 ) NOT NULL DEFAULT "'Right', 'left', 'Right Front', 'Left Rear', 'etc.'"
-) ENGINE = InnoDB;
-
--- --------------------------------------------------------
 
 --
 -- Структура таблицы `user`

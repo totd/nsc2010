@@ -1,0 +1,61 @@
+<div class="bottom-nav">
+    <?php if ($this->identity->permissions->violation_create_permission === true) :  ?>
+        <ul class="blue-nav">
+            <li><span><a href="/violation/index/create">Add New Violation</a></span></li>
+        </ul>
+    <?php endif;    ?>
+    <form class="search" method="post" action="/violation/list/index" id="violationListParameters">
+        <fieldset>
+            <input type="hidden" id="from" name="from" value=""/>
+            <input type="hidden" id="step" name="step" value=""/>
+            <input type="hidden" id="orderBy" name="orderBy" value="<?= $this->orderBy; ?>"/>
+            <input type="hidden" id="orderWay" name="orderWay" value="<?= $this->orderWay; ?>"/>
+        </fieldset>
+    </form>
+</div>
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                    echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="driver-profile">
+    <table class="application-forms" cellspacing="0">
+        <tr class="table-title">
+            <td id="v_code">Code</td>
+            <td id="v_type">Type</td>
+            <td id="v_item">Item</td>
+            <td id="v_item_specific">Item Specifics</td>
+            <td id="action">Action</td>
+        </tr>
+        <?php
+            if ($this->violations != null) {
+                echo $this->partialLoop('partials/_violation-row.phtml', $this->violations);
+            } else {
+                echo '<tr><td>No Applications found </td></tr>';
+            }
+        ?>
+        <tr>
+            <td class="page" colspan="5">
+                Violation  <?php echo $this->from; ?> to <?php echo $this->from + $this->step; ?>  ( <?php echo $this->allViolations; ?> )
+            </td>
+        </tr>
+        <tr>
+            <td class="page" colspan="5">
+                <?php
+                echo $this->partial('partials/_paginator.phtml', array(
+                    'violationsCount' => $this->allViolations,
+                    'from' => $this->from,
+                    'last' => $this->from + $this->step,
+                    'step' => $this->step));
+                ?>
+            </td>
+        </tr>
+    </table>
+</div>

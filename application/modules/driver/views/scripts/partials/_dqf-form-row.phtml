@@ -16,18 +16,20 @@
           <td><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-6.gif";}else{echo "/images/ico-7.gif";}?>" alt=""/></td>
           <td><?php
             if(isset($documentsFormList[$i]['cd_Date_Requested'])){
-            $date->set($documentsFormList[$i]['cd_Date_Requested'],"YYYY-MM-dd");
-            echo $date->toString("MM/dd/YYYY");}
+            $date->set($documentsFormList[$i]['cd_Date_Requested'],"yyyy-MM-dd");
+            echo $date->toString("MM/dd/yyyy");}
           ?></td>
           <td><?php
             if(isset($documentsFormList[$i]['cd_Date_Completed'])){
-            $date->set($documentsFormList[$i]['cd_Date_Completed'],"YYYY-MM-dd");
-            echo $date->toString("MM/dd/YYYY");}
+            $date->set($documentsFormList[$i]['cd_Date_Completed'],"yyyy-MM-dd");
+            echo $date->toString("MM/dd/yyyy");}
           ?></td>
           <td>
               <a href="/documents/dqf/upload-form/driver_id/<?php echo $this->driverInfo['d_ID'];?>/document_form_name_id/<?php echo $documentsFormList[$i]['cdfn_ID']; ?>/"><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-8.gif";}else{echo "/images/ico-5.gif";}?>" alt=""/></a>
           </td>
-          <td><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-4.gif";}else{echo "/images/ico-3.gif";}?>" alt=""/></td>
+          <td>
+              <a href="/documents/dqf/view-scans/driver_id/<?php echo $this->driverInfo['d_ID'];?>/document_form_name_id/<?php echo $documentsFormList[$i]['cdfn_ID']; ?>/"><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-4.gif";}else{echo "/images/ico-3.gif";}?>" alt=""/></a>
+          </td>
           <td><img src="/images/ico-2.gif" alt=""/></td>
           <td><img src="<?php if(strtoupper($documentsFormList[$i]['cd_DOT_Regulated'])=="YES"){echo "/images/ico-1.gif";}elseif(strtoupper($documentsFormList[$i]['cd_DOT_Regulated'])=="NO"){echo "/images/ico-9.gif";}?>" alt=""/></td>
 </tr>

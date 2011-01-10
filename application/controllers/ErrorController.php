@@ -53,7 +53,14 @@ class ErrorController extends Zend_Controller_Action
 
     public function noauthAction()
     {
-        // action body
+        if ($this->_request->isXmlHttpRequest()) {
+            $this->_helper->layout->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
+            $result = array();
+            $result['result'] = 0;
+            $result['errorMessage'] = 'Sorry, you are not authorized to access this resource.';
+            print json_encode($result);
+        }
     }
 
 }

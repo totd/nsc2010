@@ -21,8 +21,23 @@ function updateHosAndLrfwRecord(){
             dlrfw_date: ""+edit_dlrfw_date+"",
             dlrfw_from_time: ""+edit_dlrfw_from_time+""
         }, function(data){
-            if(data==1){
-                setTimeout("location.reload(true)",1000);
+            if(data!=""){
+                document.getElementById("Hos_and_lrfw_table").innerHTML="";
+                document.getElementById("Hos_and_lrfw_table").innerHTML=data;
+                if(document.getElementById("toggleHoS").innerHTML=="EDIT"){
+                    document.getElementById("toggleHoS").innerHTML="CANCEL";
+                    $('#hos_list').hide();
+                    $('#lrfw_list').hide();
+                    $('#edit_hos_list').show(300);
+                    $('#edit_lrfw_list').show(300);
+                }else{
+                    document.getElementById("toggleHoS").innerHTML="EDIT";
+                    $('#edit_hos_list').hide();
+                    $('#edit_lrfw_list').hide();
+                    $('#hos_list').show(300);
+                    $('#lrfw_list').show(300);
+                }
+                //setTimeout("location.reload(true)",1000);
                 return true;
             }else{
                 var $dialog = $('<div></div>')

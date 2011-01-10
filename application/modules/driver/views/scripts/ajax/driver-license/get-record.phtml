@@ -32,8 +32,8 @@ $licenseRecord = $this->layout()->driverLicenseRecord;
         </SELECT> &nbsp;
         <label for="edit_l_Expiration_Date" class="required"><span>*</span>Expires:</label>&nbsp;
         <input size="7" id="edit_l_Expiration_Date" name="edit_l_Expiration_Date"  value="<?php
-                    $date = new Zend_Date($licenseRecord['l_Expiration_Date'],"YYYY-MM-dd");
-                    echo $date->toString("MM/dd/YYYY");
+                    $date = new Zend_Date($licenseRecord['l_Expiration_Date'],"yyyy-MM-dd");
+                    echo $date->toString("MM/dd/yyyy");
                 ?>" /> &nbsp;
         DOT Regulated:&nbsp;
         <select name="edit_l_DOT_Regulated"  id="edit_l_DOT_Regulated" >

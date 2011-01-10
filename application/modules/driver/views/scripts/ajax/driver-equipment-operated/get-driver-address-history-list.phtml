@@ -24,14 +24,14 @@ if(sizeof($driverEquipmentOperatedList)<1){?>
             From Date:&nbsp;
             <span>
                 <?php
-                    $date->set($v['deo_From_Date'],"YYYY-MM-dd"); echo $date->toString("MM/dd/YYYY");
+                    $date->set($v['deo_From_Date'],"yyyy-MM-dd"); echo $date->toString("MM/dd/yyyy");
                 ?>
             </span>
             To Date:&nbsp;
             <span>
                 <?php
                     if(isset($v['deo_To_Date'])){
-                        $date->set($v['deo_To_Date'],"YYYY-MM-dd"); echo $date->toString("MM/dd/YYYY");
+                        $date->set($v['deo_To_Date'],"yyyy-MM-dd"); echo $date->toString("MM/dd/yyyy");
                     }else{echo "";}
                 ?>
             </span>

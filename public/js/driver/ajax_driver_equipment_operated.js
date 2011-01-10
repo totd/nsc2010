@@ -36,8 +36,6 @@ function addEquipmentOperatedRecord(){
                 });
                 $dialog.dialog('open');
                 document.getElementById("addDriverEquipmentOperated").setAttribute('class', '');
-                //document.getElementById("addAddressHistoryRecord").addClass("status-ok");
-                //document.getElementById("addAddressHistoryRecord").addClass("status-warning");
                 document.getElementById("addDriverEquipmentOperated").innerHTML="Add";
                 return false;
             }

@@ -88,11 +88,11 @@ class Driver_AjaxDriverPreviousEmploymentController extends Zend_Controller_Acti
             $data['dpe_Salary']=$dpe_Salary;
             $data['dpe_Reason_for_Leaving']=$dpe_Reason_for_Leaving;
 
-            $date = new Zend_Date($dpe_Employment_Start_Date,"MM/dd/YYYY");
-            $data['dpe_Employment_Start_Date'] =  $date->toString("YYYY-MM-dd");
+            $date = new Zend_Date($dpe_Employment_Start_Date,"MM/dd/yyyy");
+            $data['dpe_Employment_Start_Date'] =  $date->toString("yyyy-MM-dd");
             if($dpe_Employment_Stop_Date!=""){
-                $date = new Zend_Date($dpe_Employment_Stop_Date,"MM/dd/YYYY");
-                $data['dpe_Employment_Stop_Date'] =  $date->toString("YYYY-MM-dd");
+                $date = new Zend_Date($dpe_Employment_Stop_Date,"MM/dd/yyyy");
+                $data['dpe_Employment_Stop_Date'] =  $date->toString("yyyy-MM-dd");
             }else{
                 $data['dpe_Employment_Stop_Date']= null;
             }

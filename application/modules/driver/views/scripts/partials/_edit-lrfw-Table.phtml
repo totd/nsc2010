@@ -6,8 +6,8 @@
             <td colspan="7">Last relieved from work:&nbsp;<span></span>Date:&nbsp;
                 <input type="text" name="edit_dlrfw_date"  maxlength="10" size="8" id="edit_lrfw_date" value="<?php
                 if(isset($this->currentDriverLrfwRecord[0]['dlrfw_date'])){
-                    $date->set($this->currentDriverLrfwRecord[0]['dlrfw_date'],"YYYY-MM-dd");
-                    echo $date->toString("MM/dd/YYYY");
+                    $date->set($this->currentDriverLrfwRecord[0]['dlrfw_date'],"yyyy-MM-dd");
+                    echo $date->toString("MM/dd/yyyy");
                 }
                 ?>" />
                 Time:&nbsp;<input name="edit_dlrfw_from_time" type="text" maxlength="5" size="7" value="<?php if($this->currentDriverLrfwRecord!=null){echo $this->currentDriverLrfwRecord[0]['dlrfw_from_time'];}?>" /> (hh:mm)

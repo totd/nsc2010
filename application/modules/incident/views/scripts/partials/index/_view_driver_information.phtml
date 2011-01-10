@@ -3,7 +3,9 @@
     <tbody>
         <tr>
             <th colspan="2">
+                <h2 class="status-ok">
                 Company Driver Information - involved in Incident
+                </h2>
             </th>
         </tr>
         <tr>
@@ -87,25 +89,53 @@
                 Alcohol test conducted within:&nbsp;&nbsp;<span id="view_i_Alcohol_Test"></span>
             </td>
         </tr>
+        <tr class="row_not_conducted_alcohol_test color-dark">
+            <td colspan="2">
+                Reason why the alcohol test was not conducted:
+            </td>
+        </tr>
+        <tr class="row_not_conducted_alcohol_test color-dark">
+            <td colspan="2">
+                <span id="view_i_reason_not_conducted_alcohol_test">
+                </span>
+            </td>
+        </tr>
         <tr>
             <td colspan="2">
                 Drug test conducted within:&nbsp;&nbsp;<span id="view_i_Drug_Test"></span>
             </td>
         </tr>
+        <tr class="row_not_conducted_drug_test">
+            <td colspan="2">
+                Reason why the drug test was not conducted:
+            </td>
+        </tr>
+        <tr class="row_not_conducted_drug_test">
+            <td colspan="2">
+                <span id="view_i_reason_not_conducted_drug_test">
+                </span>
+            </td>
+        </tr>
         <tr>
             <td colspan="2">
-                <span class="blue-button">
-                    <span>
-                        <a id="updateIncidentDriverInformation" class="DriverInformationActionLink">
-                            Update Incident Information
-                        </a>
+                <?php if ($this->identity->permissions->incident_modify_permission === true) :  ?>
+                    <span class="blue-button">
+                        <span>
+                            <a id="updateIncidentDriverInformation" class="DriverInformationActionLink">
+                                Update Incident Information
+                            </a>
+                        </span>
                     </span>
-                    <span>
-                        <a id="changeDriverButton">
-                            Change Driver
-                        </a>
+                <?php endif; ?>
+                <?php if ($this->identity->permissions->incident_involved_driver_modify_permission === true) :  ?>
+                    <span class="blue-button">
+                        <span>
+                            <a id="changeDriverButton">
+                                Change Driver
+                            </a>
+                        </span>
                     </span>
-                </span>
+                <?php endif; ?>
             </td>
         </tr>
         <tr>

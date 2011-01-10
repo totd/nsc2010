@@ -38,16 +38,16 @@
                 <td>Entry Date</td>
                 <td><span>
                   <?php
-                        $date->set($this->driverInfo['d_Entry_Date'],"YYYY-MM-dd");
-                  echo  $date->toString("MM/dd/YYYY");
+                        $date->set($this->driverInfo['d_Entry_Date'],"yyyy-MM-dd");
+                  echo  $date->toString("MM/dd/yyyy");
                   ?></span></td>
             <?php }else{?>
                 <td>Date Of Hire</td>
             <td><span>
             <?php
                 if(isset($this->driverInfo['d_Date_Of_Hire'])){
-                $date->set($this->driverInfo['d_Date_Of_Hire'],"YYYY-MM-dd");
-                echo  $date->toString("MM/dd/YYYY");}
+                $date->set($this->driverInfo['d_Date_Of_Hire'],"yyyy-MM-dd");
+                echo  $date->toString("MM/dd/yyyy");}
                 ?></span></td>
             <?php }?>
         </tr>
@@ -62,8 +62,8 @@
                 Last:&nbsp;<span><?php echo $this->driverInfo['d_Last_Name']; ?></span>
                 Middle:&nbsp;<span><?php echo $this->driverInfo['d_Middle_Name']; ?></span></td></tr>
         <tr class="color-dark"><td>Date Of Birth</td><td><span><?php
-                  $date->set($this->driverInfo['d_Date_Of_Birth'],"YYYY-MM-dd");
-                  echo $date->toString("MM/dd/YYYY");
+                  $date->set($this->driverInfo['d_Date_Of_Birth'],"yyyy-MM-dd");
+                  echo $date->toString("MM/dd/yyyy");
                   ?></span></td></tr>
         <tr><td>Social Security #</td><td><span>
         <?php
@@ -73,8 +73,8 @@
             <td>Medical Card</td>
             <td>Expires:&nbsp;<span><?php
                         if(isset($this->driverInfo['d_Medical_Card_Expiration_Date'])){
-                        $date->set($this->driverInfo['d_Medical_Card_Expiration_Date'],"YYYY-MM-dd");
-                  echo  $date->toString("MM/dd/YYYY");}
+                        $date->set($this->driverInfo['d_Medical_Card_Expiration_Date'],"yyyy-MM-dd");
+                  echo  $date->toString("MM/dd/yyyy");}
                   ?></span>
                 Medical Examiner's Name:&nbsp;<span><?php echo $this->driverInfo['d_Doctor_Name']; ?></span></td></tr>
         <tr>
@@ -107,16 +107,16 @@
         <tr><td>TWIC expiration date:</td><td><span>
                   <?php
                         if(isset($this->driverInfo['d_TWIC_expiration'])){
-                            $date->set($this->driverInfo['d_TWIC_expiration'],"YYYY-MM-dd");
-                            echo  $date->toString("MM/dd/YYYY");
+                            $date->set($this->driverInfo['d_TWIC_expiration'],"yyyy-MM-dd");
+                            echo  $date->toString("MM/dd/yyyy");
                         }
                   ?></span></td></tr>
         <tr class="color-dark"><td>R/A card #:</td><td><span><?php echo $this->driverInfo['d_R_A']; ?></span></td></tr>
         <tr><td>R/A card expiration date:</td><td><span>
                   <?php
                         if(isset($this->driverInfo['d_R_A_expiration'])){
-                            $date->set($this->driverInfo['d_R_A_expiration'],"YYYY-MM-dd");
-                            echo  $date->toString("MM/dd/YYYY");
+                            $date->set($this->driverInfo['d_R_A_expiration'],"yyyy-MM-dd");
+                            echo  $date->toString("MM/dd/yyyy");
                         }
                   ?></span></td></tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
@@ -251,7 +251,9 @@
 </div></div></div>
 <div class="post-top"><div class="post-bottom"><div class="post-middle">
     <table cellspacing="0" class="inform adress">
-        <tr><th colspan="7"><h2>Hours Of Service In Previous 7 Days [ <a id="toggleHoS" onclick="">EDIT</a> ]</h2><h2 id="status_hos"></h2></th></tr>
+        <tr><th colspan="7"><h2>Hours Of Service In Previous 7 Days&nbsp;[&nbsp;<a id="toggleHoS">EDIT</a>&nbsp;]&nbsp;</h2><h2 id="status_hos"></h2></th></tr>
+    </table>
+    <table cellspacing="0" class="inform adress" id="Hos_and_lrfw_table">    
         <tbody id="hos_list">
         <tr align="center">
             <td><?php echo $this->currentDriverHoSList[6]['dhos_date'];?></td>
@@ -273,14 +275,13 @@
         </tr>
         </tbody>
         <?php echo $this->partial('partials/_edit-HoS-Table.phtml',array('currentDriverHoSList' => $this->currentDriverHoSList,"driverId" => $this->driverId)); ?>
-
         <tbody id="lrfw_list">
         <tr>
             <td colspan="7">Last relieved from work:&nbsp;<span></span>Date:&nbsp;
                 <span><?php
                 if(isset($this->currentDriverLrfwRecord[0]['dlrfw_date'])){
-                    $date->set($this->currentDriverLrfwRecord[0]['dlrfw_date'],"YYYY-MM-dd");
-                    echo $date->toString("MM/dd/YYYY");
+                    $date->set($this->currentDriverLrfwRecord[0]['dlrfw_date'],"yyyy-MM-dd");
+                    echo $date->toString("MM/dd/yyyy");
                 }
                 ?></span>
                 Time:&nbsp;<span><?php if($this->currentDriverLrfwRecord!=null){echo $this->currentDriverLrfwRecord[0]['dlrfw_from_time'];}?></span>
@@ -290,7 +291,8 @@
         <?php echo $this->partial('partials/_edit-lrfw-Table.phtml',array('currentDriverLrfwRecord' => $this->currentDriverLrfwRecord)); ?>
 
         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-        </tbody></table>
+        </tbody>
+    </table>
     <script type="text/javascript">
         $("#edit_hos_list").hide();
         $("#edit_lrfw_list").hide();
@@ -302,7 +304,7 @@
 <div><?php
     if(isset($this->driverInfo['d_last_update_date'])){
         $date->set($this->driverInfo['d_last_update_date'],"YYYY-MM-dd HH:mm:ss");
-        echo "<h3 id='last_saved' style='padding-top: 15px; padding-left: 28px;'>Last saved: ".$date->toString("MM/dd/YYYY hh:mm")."</h3>";
+        echo "<h3 id='last_saved' style='padding-top: 15px; padding-left: 28px;'>Last saved: ".$date->toString("MM/dd/yyyy hh:mm")."</h3>";
     }
 
 ?></div>

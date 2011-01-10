@@ -5,11 +5,13 @@ class Driver_IndexController extends Zend_Controller_Action
 
     public $driver = null;
     var $auth;
+    var $identity;
 
     public function init()
     {
         $this->auth = Zend_Auth::getInstance();
         if ($this->auth->hasIdentity()) {
+            $this->identity = $this->auth->getIdentity();
             $this->view->identity = $this->auth->getIdentity();
             $this->driver = new Driver_Model_Driver();
         }else{
@@ -62,7 +64,7 @@ class Driver_IndexController extends Zend_Controller_Action
             
             # returns list of temporary driver accounts
             $Drivers = $this->driver->getDrivers($where,$orderBy,$page);
-            if($this->auth->vau_role=="NSC_LEVEL_0"){
+            if (isset($this->identity->permissions->see_non_crypt_ssn_permission)){
                 for($i=0;$i<sizeof($Drivers);$i++){
                     $Drivers[$i]['d_Driver_SSN'] = preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3",$Drivers[$i]['d_Driver_SSN']);
                 }
@@ -252,7 +254,7 @@ class Driver_IndexController extends Zend_Controller_Action
 
 
             $Drivers = $this->driver->getDrivers($where,$orderBy,$page);
-            if($this->auth->vau_role=="NSC_LEVEL_0"){
+            if (isset($this->identity->permissions->see_non_crypt_ssn_permission)){
                 for($i=0;$i<sizeof($Drivers);$i++){
                     $Drivers[$i]['d_Driver_SSN'] = preg_replace("/^([0-9]{3})([0-9]{2})([0-9]{4})/","$1-$2-$3",$Drivers[$i]['d_Driver_SSN']);
                 }

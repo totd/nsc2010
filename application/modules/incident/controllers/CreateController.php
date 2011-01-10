@@ -8,6 +8,11 @@ class Incident_CreateController extends Zend_Controller_Action
 
     public function init()
     {
+        $auth = Zend_Auth::getInstance();
+
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }
     }
 
     public function indexAction()
@@ -26,8 +31,8 @@ class Incident_CreateController extends Zend_Controller_Action
             $incidentDate = $this->_request->getPost('i_Date');
             if (!empty($incidentDate)) {
                 try {
-                    $date = new Zend_Date($incidentDate, "MM/dd/YYYY");
-                    $incidentDate = $date->toString("YYYY-MM-dd");
+                    $date = new Zend_Date($incidentDate, "MM/dd/yyyy");
+                    $incidentDate = $date->toString("yyyy-MM-dd");
                 } catch (Exception $e) {
                     //throw new Exception("Not valid incident date");
                     $thid->_redirect('/index/create/step1');
@@ -41,12 +46,14 @@ class Incident_CreateController extends Zend_Controller_Action
             $incidentSession->newIncidentDataArray = array();
             $incidentSession->newIncidentDataArray['i_Date'] = $incidentDate;
 
-            $fatality = $this->_request->getPost('fatality');
-            $injuries = $this->_request->getPost('injuries');
-            $towed = $this->_request->getPost('towed');
-            $citation = $this->_request->getPost('citation');
+            $incidentSession->newIncidentDataArray['i_fatality'] = $this->_request->getPost('fatality');
+            $incidentSession->newIncidentDataArray['i_injuries'] = $this->_request->getPost('injuries');
+            $incidentSession->newIncidentDataArray['i_towed'] = $this->_request->getPost('towed');
+            $incidentSession->newIncidentDataArray['i_citation'] = $this->_request->getPost('citation');
 
-            if ($fatality == 'Yes' || $injuries == 'Yes' || $towed == 'Yes') {
+            if ($incidentSession->newIncidentDataArray['i_fatality'] == 'Yes' ||
+                    $incidentSession->newIncidentDataArray['i_injuries'] == 'Yes' ||
+                    $incidentSession->newIncidentDataArray['i_towed'] == 'Yes') {
                 $incidentSession->newIncidentDataArray['i_DOT_Regulated'] = 'Yes';
             } else {
                 $incidentSession->newIncidentDataArray['i_DOT_Regulated'] = 'No';
@@ -139,25 +146,29 @@ class Incident_CreateController extends Zend_Controller_Action
                 $incidentDataArray['i_Collision_Movement_Other'] = $colMovementsOther;
             }
 
-            $injured = $this->_request->getPost('injured', $incidentDataArray['i_Injured']);
+            $injured = $this->_request->getPost('injured');
             if (!empty ($injured)) {
                 $incidentDataArray['i_Injured'] = $injured;
             }
 
-            $deceased = $this->_request->getPost('deceased', $incidentDataArray['i_Deceased']);
+            $deceased = $this->_request->getPost('deceased');
             if (!empty ($deceased)) {
                 $incidentDataArray['i_Deceased'] = $deceased;
             }
 
-            $alcoholTest = $this->_request->getPost('alcoholTest', $incidentDataArray['i_Alcohol_Test']);
+            $alcoholTest = $this->_request->getPost('alcoholTest');
             if (!empty ($alcoholTest)) {
                 $incidentDataArray['i_Alcohol_Test'] = $alcoholTest;
             }
 
-            $drugTest = $this->_request->getPost('drugTest', $incidentDataArray['i_Drug_Test']);
+            $incidentDataArray['i_reason_not_conducted_alcohol_test'] = $this->_request->getPost('i_reason_not_conducted_alcohol_test');
+                        
+            $drugTest = $this->_request->getPost('drugTest');
             if (!empty ($drugTest)) {
                 $incidentDataArray['i_Drug_Test'] = $drugTest;
             }
+
+            $incidentDataArray['i_reason_not_conducted_drug_test'] = $this->_request->getPost('i_reason_not_conducted_drug_test');
 
             $incidentSession->newIncidentDataArray = $incidentDataArray;
 

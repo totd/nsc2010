@@ -1,0 +1,63 @@
+<table cellspacing="0" class="inform addPassengerTableClass" id="addPassengerTable" style="display : none;">
+    <tr class="title-dark">
+        <td colspan="2">
+            ADD PASSENGER [ <a class="PassengerAddLinkClass">HIDE</a> ]
+        </td>
+    </tr>
+    <tr>
+        <td class="" width="150">
+            <div id="errorCustomAddPassengerTable" class="error_custom2">
+            </div>
+        </td>
+    </tr>
+    <tr  class="color-dark">
+        <td class="" width="150"><label class="required" for="per_first_name"><span>*</span>First Name:</label></td>
+        <td class="">
+            <input type="text" class="personFirstName" id="per_first_name_passenger" size=18 maxlength="50" />&nbsp;&nbsp;&nbsp;
+            <label class="required" for="per_last_name"><span>*</span>Last Name:</label>
+            <input type="text" class="personLastName" id="per_last_name_passenger" size=18 maxlength="50" />
+        </td>
+    </tr>
+    <tr>
+        <td class="" width="150"><label class="required" for="per_address1"><span>*</span>Address 1:</label></td>
+        <td class="">
+            <input type="text" class="personAddress1" id="per_address1_passenger" size="50" maxlength="200" />
+        </td>
+    </tr>
+    <tr  class="color-dark">
+        <td class="" width="150"><label for="per_address2">Address 2:</label></td>
+        <td class="">
+            <input type="text" class="personAddress2" id="per_address2_passenger" size="50" maxlength="200" />
+        </td>
+    </tr>
+    <tr>
+        <td class=""><label class="required" for="per_city"><span>*</span>City:</label></td>
+        <td class="">
+            <input type="text" class="personCity"  id="per_city_passenger" name="per_city" size=15 maxlength="50" />&nbsp;&nbsp;&nbsp;
+            <label class="required" for="per_state_id"><span>*</span>State:</label>
+            <select id='per_state_id_passenger'>
+                <?php
+                    foreach ($this->states as $key => $value) {
+                      echo '<option value="' . $key . '">' . $value . '</option>';
+                    }
+                ?>
+            </select>&nbsp;&nbsp;&nbsp;
+            <label class="required" for="per_postal_code"><span>*</span>Zip: </label>
+            <input type="text" class="personZip" id="per_postal_code_passenger" size=10 maxlength="20">
+        </td>
+    </tr>
+    <tr  class="color-dark">
+        <td class=""><label class="required" for="per_telephone_number"><span>*</span>Phone:</label></td>
+        <td class=""><input type="text" class="personTelephone" id="per_telephone_number_passenger" size=30 /></td>
+    </tr>
+    <tr height=40 valign=middle>
+        <td class="" align=center>&nbsp;</td>
+        <td class="" align=left>
+            <span class="blue-button float-left">
+                <a id="addPassenger"  class="saveBlockButtonClass">
+                    Add new Passenger
+                </a>
+            </span>
+        </td>
+    </tr>
+</table>

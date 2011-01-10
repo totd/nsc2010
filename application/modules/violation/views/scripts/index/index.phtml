@@ -1,0 +1,53 @@
+<div class="driver-information" id="main">
+    <div class="post-top"><div class="post-bottom"><div class="post-middle">
+        <div class="clear"></div>
+            <div class="second">
+                <form class="select-parametr2" >
+                    <input type="hidden" id="v_id" value="<?= (isset($this->violationRow['v_id']) ? $this->violationRow['v_id'] : ''); ?>" />
+                    <table cellspacing="0" class="inform">
+                        <tbody>
+                            <tr><th colspan="2">VIOLATION NUMBER: <?= (isset($this->violationRow['v_id']) ? $this->violationRow['v_id'] : ''); ?></th></tr>
+                            <tr><td colspan="2">Violation Code:</td></tr>
+                            <tr><td colspan="2"><input maxlength="2" size="3" id="v_code" value="<?= (isset($this->violationRow['v_code']) ? $this->violationRow['v_code'] : ''); ?>"></td></tr>
+                            <tr><td colspan="2">Violation Type:</td></tr>
+                            <tr>
+                                <td colspan="2">
+                                    <?php 
+                                    $equipmentChecked = '';
+                                    $driverChecked = '';
+                                    if (isset($this->violationRow['v_type']) && $this->violationRow['v_type'] == 'Driver') {
+                                        $driverChecked = 'checked="checked"';
+                                    } else if (isset($this->violationRow['v_type']) && $this->violationRow['v_type'] == 'Equipment') {
+                                        $equipmentChecked = 'checked="checked"';
+                                    }
+                                    ?>
+                                    <input type="radio" class="v_type_class" name="v_type" id="v_type_driver"
+                                           value="Driver" <?= $driverChecked; ?>>&nbsp;Driver
+                                    <input type="radio" class="v_type_class" name="v_type" id="v_type_equipment"
+                                           value="Equipment" <?= $equipmentChecked; ?>>&nbsp;Equipment
+                                </td>
+                            </tr>
+                            <tr><td colspan="2">Violation Item:</td></tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input size="100" id="v_item"
+                                           value="<?= (isset($this->violationRow['v_item']) ? $this->violationRow['v_item'] : ''); ?>">
+                                </td>
+                            </tr>
+                            <tr><td colspan="2">Violation Specifics:</td></tr>
+                            <tr>
+                                <td colspan="2">
+                                    <textarea cols="80" id="v_item_specific" ><?= (isset($this->violationRow['v_item_specific']) ? $this->violationRow['v_item_specific'] : ''); ?></textarea>
+                                </td>
+                            </tr>
+                            <tr><td align="center" colspan="2">
+                            <input type="button" id="exitEditViolationButton" value="Exit">
+                            <input type="button" id="saveEditViolationButton" value="Save">
+                            </td></tr>
+                            <tr><td><br></td></tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+    </div></div></div>
+</div>

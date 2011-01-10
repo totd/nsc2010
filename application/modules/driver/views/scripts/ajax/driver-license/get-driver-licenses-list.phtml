@@ -15,8 +15,8 @@
         State:&nbsp;<span><?php echo $stateList[$v['l_Driver_Issue_State_id']]['s_name'];?></span>&nbsp;&nbsp;&nbsp;
         Class:&nbsp;<span><?php echo $v['l_Class']?></span>&nbsp;&nbsp;&nbsp;
         Expires:&nbsp;<span><?php
-            $date->set($v['l_Expiration_Date'],"YYYY-MM-dd");
-            echo $date->toString("MM/dd/YYYY");
+            $date->set($v['l_Expiration_Date'],"yyyy-MM-dd");
+            echo $date->toString("MM/dd/yyyy");
         ?></span>&nbsp;&nbsp;&nbsp;
         DOT Regulated::&nbsp;<span><?php echo ucwords($v['l_DOT_Regulated'])?></span><br/>
         License Restrictions:&nbsp;<span><?php echo $v['l_License_Restrictions']?></span>&nbsp;&nbsp;&nbsp;

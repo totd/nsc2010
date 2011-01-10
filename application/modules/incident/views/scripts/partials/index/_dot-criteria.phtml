@@ -1,0 +1,152 @@
+<table cellspacing="0" class="inform adress dotIncidentClass" id="viewDotIncident">
+    <tbody>
+        <tr>
+            <th>
+                <h2 class="status-ok">
+                    DOT Incident criteria (Applies to commercial vehicles only)
+                    <?php if ($this->identity->permissions->incident_modify_permission === true) :  ?>
+                        [<a onclick="$('.dotIncidentClass').toggle('slow');">Edit</a>]
+                    <?php endif; ?>
+                </h2>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <?php if ($this->layout()->fatality == 'Yes') : ?>
+                    Incident resulted in human fatality.
+                <?php else : ?>
+                    Incident did not resulted in human faality.
+                <?php endif ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <?php if ($this->layout()->injuries == 'Yes') : ?>
+                     Incident resulted in injuries treated immediately/away from the scene.
+                <?php else : ?>
+                    Incident did not result in injuries treated immediately/away from the scene.
+                <?php endif ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <?php if ($this->layout()->towed == 'Yes') : ?>
+                     The vehicles have been towed away from the scene.
+                <?php else : ?>
+                     The vehicles have not been towed away from the scene.
+                <?php endif ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <?php if ($this->layout()->citation == 'Yes') : ?>
+                     Driver received a traffic citation.
+                <?php else : ?>
+                     Driver did not receive a traffic citation.
+                <?php endif ?>
+            </td>
+        </tr>
+        <tr>
+            <?php if ($this->layout()->dotRegulated == 'Yes') : ?>
+            <td style="color: red;">
+                 DOT RECORDABLE INCIDENT.
+             </td>
+            <?php else : ?>
+             <td>
+                 NOT DOT RECORDABLE INCIDENT.
+             </td>
+            <?php endif ?>
+        </tr>
+        <?php if ($this->layout()->drugAlcholTestRequired) : ?>
+        <tr>
+            <td style="color: red;">
+                 POST ACCIDENT DRUG AND ALCOHOL TEST IS REQUIRED.
+             </td>
+         </tr>
+        <?php endif ?>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </tbody>
+</table>
+<table cellspacing="0" class="inform adress dotIncidentClass updateValuesClass" id="updateDotIncident" style="display: none;">
+    <tbody>
+        <tr>
+            <th>DOT Incident criteria (Applies to commercial vehicles only)[<a onclick="$('.dotIncidentClass').toggle('slow');">HIDE</a>]</th>
+        </tr>
+        <tr>
+            <td>Did Incident result in human Fatality?</td>
+            <td>
+                <?php
+                $radioButtonFatalityYesChecked = '';
+                $radioButtonFatalityNoChecked = 'checked="checked"';
+                if ($this->layout()->fatality == 'Yes') {
+                    $radioButtonFatalityNoChecked = '';
+                    $radioButtonFatalityYesChecked = 'checked="checked"';
+                }
+                ?>
+                <span class="radio-button"><input type="radio" name="fatality" class="fatalityRadioButtonClass" value="Yes" <?= $radioButtonFatalityYesChecked ?> >&nbsp;Yes</span>
+                <span class="radio-button"><input type="radio" name="fatality" class="fatalityRadioButtonClass" value="No" <?= $radioButtonFatalityNoChecked ?>>&nbsp;No</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Did Incident result in injuries treated immediately away from the scene?</td>
+            <td>
+                <?php
+                $radioButtonInjuriesYesChecked = '';
+                $radioButtonInjuriesNoChecked = 'checked="checked"';
+                if ($this->layout()->injuries == 'Yes') {
+                    $radioButtonInjuriesNoChecked = '';
+                    $radioButtonInjuriesYesChecked = 'checked="checked"';
+                }
+                ?>
+                <span class="radio-button"><input type="radio" name="injuries" class="injuriesRadioButtonClass" value="Yes" <?= $radioButtonInjuriesYesChecked ?> >&nbsp;Yes</span>
+                <span class="radio-button"><input type="radio" name="injuries" class="injuriesRadioButtonClass" value="No" <?= $radioButtonInjuriesNoChecked ?>>&nbsp;No</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Did Incident result in any equipment being towed away from the scene?</td>
+            <td>
+                <?php
+                $radioButtonTowedYesChecked = '';
+                $radioButtonTowedNoChecked = 'checked="checked"';
+                if ($this->layout()->towed == 'Yes') {
+                    $radioButtonTowedNoChecked = '';
+                    $radioButtonTowedYesChecked = 'checked="checked"';
+                }
+                ?>
+                <span class="radio-button"><input type="radio" name="towed" class="towedRadioButtonClass" value="Yes" <?= $radioButtonTowedYesChecked ?> >&nbsp;Yes</span>
+                <span class="radio-button"><input type="radio" name="towed" class="towedRadioButtonClass" value="No" <?= $radioButtonTowedNoChecked ?>>&nbsp;No</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Did the driver involved in incident receive a traffic citation?</td>
+            <td>
+                <?php
+                $radioButtonCitationYesChecked = '';
+                $radioButtonCitationNoChecked = 'checked="checked"';
+                if ($this->layout()->citation == 'Yes') {
+                    $radioButtonCitationNoChecked = '';
+                    $radioButtonCitationYesChecked = 'checked="checked"';
+                }
+                ?>
+                <span class="radio-button"><input type="radio" name="citation" class="citationRadioButtonClass" value="Yes" <?= $radioButtonCitationYesChecked ?> >&nbsp;Yes</span>
+                <span class="radio-button"><input type="radio" name="citation" class="citationRadioButtonClass" value="No" <?= $radioButtonCitationNoChecked ?>>&nbsp;No</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="blue-button">
+                    <span>
+                        <a id="dotIncidentUpdateLink"  class="saveBlockButtonClass" onclick="saveDotCriteria(<?= $this->layout()->i_ID; ?>)">Update DOT Incident Criteria</a>
+                    </span>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </tbody>
+</table>

@@ -17,17 +17,17 @@ function setHiddenFieldFromUrlQuery(id, url) {
 
 
 $(document).ready(function() {
-    $("#prevEquipments").click(function() {
-        url = $("#prevEquipments").attr("href");
-        $("#prevEquipments").attr("href", "");
+    $("#prevIncidents").click(function() {
+        url = $("#prevIncidents").attr("href");
+        $("#prevIncidents").attr("href", "");
         setHiddenFieldFromUrlQuery("from", url);
         setHiddenFieldFromUrlQuery("step", url);
         submitSearchParameters();
     });
 
-    $("#nextEquipments").click(function() {
-        url = $("#nextEquipments").attr("href");
-        $("#nextEquipments").attr("href", "");
+    $("#nextIncidents").click(function() {
+        url = $("#nextIncidents").attr("href");
+        $("#nextIncidents").attr("href", "");
         setHiddenFieldFromUrlQuery("from", url);
         setHiddenFieldFromUrlQuery("step", url);
         submitSearchParameters();

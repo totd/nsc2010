@@ -75,3 +75,13 @@ table.inform td a span {
 #emp_Employer_Name_ul ul li:hover{
     cursor:pointer;
 }
+
+/***************************************************/
+#edit_document_form{
+    border:#000 solid 1px;
+    
+}
+
+
+
+/***************************************************/

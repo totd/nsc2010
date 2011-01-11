@@ -1097,10 +1097,12 @@ added by Vlad on 25-12-2010
 }
 
 .dqf-uploaded-images {
-       float: left;
-       padding:0 20px 20px 0;
-       text-align:center;
-    min-height: 290px;
+    float: left;
+    height: 220px;
+    overflow: hidden;
+    padding: 0 20px 20px 0;
+    margin-bottom: 15px;
+    text-align: center;
 }
 .dqf-document-scan-edit-icon{
     float:right;

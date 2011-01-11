@@ -82,4 +82,23 @@ class Documents_Model_CustomDocument extends Zend_Db_Table_Abstract
         $table = new Documents_Model_CustomDocument();
         return $table->delete("cd_Scan = '".$mData['cd_Scan']."' AND cd_Driver_ID = ".$mData['cd_Driver_ID']." AND  cd_Form_Name_ID = ".$mData['cd_Form_Name_ID']);
     }
+
+    public function getRecord($cd_ID)
+    {
+        if(!isset($cd_ID)){
+            return null;
+        }
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $stmt = $db->query('
+                    SELECT *
+                        FROM custom_document
+                        LEFT JOIN custom_document__form_name ON custom_document__form_name.cdfn_ID = custom_document.cd_Form_Name_ID
+                        LEFT JOIN custom_document__form_status ON custom_document__form_status.cdfms_id = custom_document.cd_Document_Form_Status
+                        LEFT JOIN custom_document__fax_status ON custom_document__fax_status.cdfs_id = custom_document.cd_Fax_Status_id
+                    WHERE cd_ID = '.$cd_ID.'
+            ');
+
+        $row = $stmt->fetchAll();
+        return $row;
+    }
 }

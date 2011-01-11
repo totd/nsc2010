@@ -76,10 +76,10 @@ class Documents_DqfController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/jquery-ui.min.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/index.js', 'text/javascript');
 
-        $this->view->headScript()->appendFile('/js/ajaxfileupload/ajaxupload.3.5.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/jcarousellite_1.0.1.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/css/documents/documents-slider.css', 'text/css');
+
         $this->view->headScript()->appendFile('/js/documents/index.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/documents/multiply-upload.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/css/document-file-upload.css', 'text/css');
         # Breadcrumbs & page title goes here:
         $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driver_id."'>Driver</a>&nbsp;&gt;&nbsp;<a href='/driver/driver/dqf/driver_id/".$driver_id."'>DQF</a>&nbsp;&gt;&nbsp;View Document Scans";
         $this->view->pageTitle = "DRIVER QUALIFICATION FILE SCANS";

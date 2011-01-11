@@ -125,7 +125,7 @@ class Documents_AjaxDocumentUploadController extends Zend_Controller_Action
         Documents_Model_CustomDocument::deleteRecord($data);
         echo 1;
     }
-
+    
     
 }
 

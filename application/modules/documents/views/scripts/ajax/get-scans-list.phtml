@@ -1,0 +1,24 @@
+
+      <div class="select-parametr2">
+              <span id="status" ></span>
+              <br />
+              <ul id="files" >
+              <?php
+                for($i=0;$i<sizeof($this->layout()->scans);$i++){
+              ?>
+                  <div class="dqf-uploaded-images">
+                      <div>
+                          Status: <span><?php echo $this->layout()->scans[$i]['cdfs_status'];?></span>
+                          Page #: <span><?php echo $this->layout()->scans[$i]['cd_Current_Page'];?></span>
+                          <a onclick="editImageDocument(<?php echo $this->layout()->scans[$i]['cd_ID'].",".$this->layout()->scans[$i]['cd_Driver_ID'];?>);" ><img src="/images/icon-edit.png" alt="" width="22" height="22" class="dqf-document-scan-edit-icon"/></a>
+                      </div>
+                      <img width="180" class="dqf-uploaded-image" height="" alt="<?php echo $this->layout()->scans[$i]['cdfn_name'];?>" src="/documents/dqf/driver_<?php echo $this->layout()->scans[$i]['cd_Driver_ID'];?>/document_form_<?php echo $this->layout()->scans[$i]['cd_Form_Name_ID'];?>/<?php echo $this->layout()->scans[$i]['cd_Scan'];?>"/>
+                  </div>
+              <?php
+                }
+              ?>
+              </ul>
+              <br /><br />
+              <div class="clear"></div>
+              <input type="button" value="Exit" onclick="exit_simple('/driver/driver/dqf/driver_id/<?php echo $this->layout()->cd_Driver_ID;?>');" />
+      </div>

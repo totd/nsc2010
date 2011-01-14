@@ -101,4 +101,11 @@ class Documents_Model_CustomDocument extends Zend_Db_Table_Abstract
         $row = $stmt->fetchAll();
         return $row;
     }
+
+    public static function updateRecord($mData)
+    {
+        $db = new Documents_Model_CustomDocument();
+        $w = 'cd_ID = '.$mData['cd_ID'];
+        return $db->update($mData,$w);
+    }
 }

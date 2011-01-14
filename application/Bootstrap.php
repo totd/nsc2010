@@ -5,6 +5,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function init()
     {
         define('LOCALHOST', "127.0.0.1");
+        define('ADMIN_EMAIL', "skachkov@guns.ru");
     }
     protected function _initAutoload()
     {

@@ -1129,3 +1129,31 @@ ul .dqf-sub-menu, ul .dqf-sub-menu li a, ul .dqf-sub-menu ul li  {
 ul .dqf-sub-menu ul {
        width:0px !important;
 }
+
+.dqf-uploaded-images-delete {
+       padding:0px 10px 10px 10px;
+       margin:5px;
+       background: url(/images/delete.png) no-repeat;
+       background-position:top right !important;
+}
+
+.dqf-uploaded-images-delete:hover {
+       background: url(/images/delete-over.png) no-repeat;
+       background-position:top right !important;
+}
+
+div.status-ok {
+       background: url(/images/status-ok.png) no-repeat 100% 27px !important;
+}
+
+div.status-warning{
+       background: url(/images/attention.png) no-repeat 100% 27px !important;
+}
+
+table.status-ok {
+       background: url(/images/status-ok.png) no-repeat 98% 35px !important;
+}
+
+table.status-warning{
+       background: url(/images/attention.png) no-repeat 98% 35px !important;
+}

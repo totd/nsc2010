@@ -78,10 +78,24 @@ table.inform td a span {
 
 /***************************************************/
 #edit_document_form{
-    border:#000 solid 1px;
-    
+    border:0px;
 }
 
+#edit_document_form td{
+	vertical-align:top;
+	padding: 0px 15px 10px 0px;
+	
+}
 
+#watermark_box {
+	position:relative;
+	display:block;
+}
+
+img.watermark {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+} 
 
 /***************************************************/

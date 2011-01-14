@@ -17,7 +17,8 @@ class Documents_AjaxDocumentUploadController extends Zend_Controller_Action
     public function preUploadAction()
     {
         $uploaddir = 'documents/_tmp/uploads/';
-        
+        $driver_ID = (int)$this->_request->getParam('driver_ID');
+        $document_form_name_id = (int)$this->_request->getParam('document_form_name_id');
         if ((($_FILES['uploadfile']["type"] == "image/tiff")
                 || ($_FILES['uploadfile']["type"] == "image/jpeg"))
                 && ($_FILES['uploadfile']["size"] < 2097152)) {
@@ -35,7 +36,7 @@ class Documents_AjaxDocumentUploadController extends Zend_Controller_Action
                         $currentDate->toString("mm") . "_" .
                         $currentDate->toString("ss");
                 $randomVal = rand(0, 9999);
-                $storeName = $strDate . "_" . $randomVal;
+                $storeName = "dID".$driver_ID."_dfnID".$document_form_name_id."_".$strDate . "_" . $randomVal;
                 if (!empty($extension)) {
                     $storeName .= ".$extension";
                 }

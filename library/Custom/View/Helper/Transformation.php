@@ -12,7 +12,7 @@ class Custom_View_Helper_Transformation extends Zend_View_Helper_Abstract
      *
      * Returns transformed phone/fax number
      *
-     * @param string $sFormat = "SHORT" | "FULL"
+     * @param string $sFormat
      *
      * @return bool.
      */

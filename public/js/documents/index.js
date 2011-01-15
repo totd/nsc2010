@@ -1,5 +1,6 @@
 
 function getDocumentScansList(Driver_ID,document_form_name_id){
+    $("#ProgressBar").show();
     $.get("/documents/Ajax-Document-View/get-document-scans-list/",
         {
             cd_Driver_ID: Driver_ID,
@@ -7,9 +8,10 @@ function getDocumentScansList(Driver_ID,document_form_name_id){
         }, function(data){
                 $("#edit_document").hide();
                 $("#edit_document").html("");
-                $("#document_images_preview_edit").hide();
                 $("#document_images").hide();
+                document.getElementById("document_images").innerHTML="";
                 document.getElementById("document_images").innerHTML=data;
+                $("#ProgressBar").hide();
                 $("#document_images").show(400);
                 return true;
            });
@@ -66,7 +68,46 @@ function deleteImageDocument(Driver_ID, Document_ID,file_name){
     
 }function editImageDocument(cd_ID,cd_Driver_ID){
     document.getElementById("edit_document").innerHTML="";
+    var patt1=/\?[0-9]+/;
+    $("#document_images").hide(400);
+    $("#ProgressBar").show();
     $.get("/documents/Ajax-Document-Edit/get-Edit-Document-Form/",
+        {
+            cd_ID: cd_ID,
+            cd_Driver_ID: cd_Driver_ID
+        }, function(data){
+            if(data!=""){
+                $("#edit_document").hide();
+                $("#edit_document").append(data);
+                $("#ProgressBar").hide();
+                $("#edit_document").show(400);
+
+                var imgWidth = $("#dqf-uploaded-image-large").attr("width");
+                var imgHeight = $("#dqf-uploaded-image-large").attr("height");
+                $("#dqf-uploaded-image-large-width").val(imgWidth);
+                $("#dqf-uploaded-image-large-height").val(imgHeight);
+
+               //alert(patt1.test($("#dqf-uploaded-image-large").attr("src")));
+
+                if(imgWidth<=501){
+                    //album oriented scan
+                    $("#watermark_box").css("overflow","hidden");
+                }else{
+                    // book oriented scan
+                    $("#dqf-uploaded-image-large").attr("width","500");
+                    $("#watermark_box").css("overflow","auto");
+                }
+                return true;
+            }
+            $("#ProgressBar").hide();
+           });
+}
+
+function viewImageDocument(cd_ID,cd_Driver_ID){
+    document.getElementById("edit_document").innerHTML="";
+    var patt1=/\?[0-9]+/;
+
+    $.get("/documents/Ajax-Document-View/get-View-Document-Form/",
         {
             cd_ID: cd_ID,
             cd_Driver_ID: cd_Driver_ID
@@ -76,12 +117,13 @@ function deleteImageDocument(Driver_ID, Document_ID,file_name){
                 $("#edit_document").append(data);
                 $("#edit_document").show(400);
                 $("#document_images").hide(400);
-                $("#document_images_preview_edit").show(400);
 
                 var imgWidth = $("#dqf-uploaded-image-large").attr("width");
                 var imgHeight = $("#dqf-uploaded-image-large").attr("height");
                 $("#dqf-uploaded-image-large-width").val(imgWidth);
                 $("#dqf-uploaded-image-large-height").val(imgHeight);
+
+               //alert(patt1.test($("#dqf-uploaded-image-large").attr("src")));
 
                 if(imgWidth<=501){
                     //album oriented scan
@@ -101,39 +143,51 @@ function saveImageDocument(){
     var cd_Driver_ID;
     var cd_Form_Name_ID;
     var cd_Description;
+    var cd_Homebase_ID;
+    var cd_Company_ID;
     var cd_Fax_Status_id;
     var cd_Document_Form_Status;
     var cd_Archived;
     var cd_DOT_Regulated;
+    var cd_Scan_Origin;
+    var cd_Scan_Rotated;
+
     var cd_Current_Page;
 
     cd_ID = document.getElementById("cd_ID").value;
     cd_Driver_ID = document.getElementById("cd_Driver_ID").value;
     cd_Form_Name_ID = document.getElementById("cd_Form_Name_ID").value;
+    cd_Company_ID = document.getElementById("cd_Company_ID").value;
+    cd_Homebase_ID = document.getElementById("cd_Homebase_ID").value;
     cd_Description = document.getElementById("cd_Description").value;
     cd_Fax_Status_id = document.getElementById("cd_Fax_Status_id").value;
     cd_Document_Form_Status = document.getElementById("cd_Document_Form_Status").value;
     cd_Archived = document.getElementById("cd_Archived").value;
     cd_DOT_Regulated = document.getElementById("cd_DOT_Regulated").value;
     cd_Current_Page = document.getElementById("cd_Current_Page").value;
-    
+
+    cd_Scan_Origin = document.getElementById("dqf-uploaded-image-large-origin").value;
+    cd_Scan_Rotated = document.getElementById("dqf-uploaded-image-large-rotated").value;
     $.get("/documents/Ajax-Document-Edit/save-Document/",
         {
             cd_ID: cd_ID,
             cd_Driver_ID: cd_Driver_ID,
             cd_Form_Name_ID: cd_Form_Name_ID,
+            cd_Company_ID: cd_Company_ID,
+            cd_Homebase_ID: cd_Homebase_ID,
             cd_Description: cd_Description,
             cd_Fax_Status_id: cd_Fax_Status_id,
             cd_Document_Form_Status: cd_Document_Form_Status,
             cd_Archived: cd_Archived,
             cd_DOT_Regulated: cd_DOT_Regulated,
-            cd_Current_Page: cd_Current_Page
+            cd_Current_Page: cd_Current_Page,
+            cd_Scan_Origin: cd_Scan_Origin,
+            cd_Scan_Rotated: cd_Scan_Rotated
         }, function(data){
             if(data==1){
                 document.getElementById("edit_document").innerHTML="";
                 $("#edit_document").hide();
                 getDocumentScansList(cd_Driver_ID,cd_Form_Name_ID);
-                $("#document_images_preview_edit").hide(400);
                 return true;
             }else{
                 var $dialog = $('<div></div>')
@@ -152,6 +206,26 @@ function saveImageDocument(){
 }
 
 /************ IMAGE EDIT SECTION ************/
+function changeLogo(company_id) {
+        $.get("/company/ajax-Company/get-logo/",{ct_ID:company_id}, function(data){
+            if(data!=0){
+                $("#watermark").attr("src",data);
+                $("#company_logo").attr("src",data);
+            }else{
+                
+            }/*
+            $('#cd_Homebase_ID option').remove();
+            $('#cd_Homebase_ID').append(""+data+"");*/
+        })
+ }
+function getHomebaseList(company_id) {
+        $.get("/homebase/ajax-Homebase/get-Homebase-List/",{h_Company_Account_Number:company_id}, function(data){
+            $('#cd_Homebase_ID option').remove();
+            $('#cd_Homebase_ID').append(""+data+"");
+        })
+    changeLogo(company_id);
+ }
+
 function imageReverse(){
     var cd_Scan = $("#dqf-uploaded-image-large").attr("src");
     var img;

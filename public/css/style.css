@@ -1157,3 +1157,18 @@ table.status-ok {
 table.status-warning{
        background: url(/images/attention.png) no-repeat 98% 35px !important;
 }
+
+.slider {
+    width:600px !important;
+}
+.slider ul{
+    width:600px !important;
+}
+.slider ul li{
+    width:100px !important;
+    height:105px !important;
+}
+.slider ul li img{
+    width:98px !important;
+    height:105px !important;
+}

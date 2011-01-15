@@ -39,56 +39,27 @@
                     <tbody>
                     <tr>
                         <td>
-                            <label for="cd_Company_ID">Company:</label>
+                            <label >Company:</label>
                         </td>
-                        <td><?php
-
-                            $companyList = $this->layout()->companyList;
-                                #print_r($companyList);
-                        ?>
-                            <select id="cd_Company_ID" name="cd_Company_ID">
-                                <option value="" <?php if($this->layout()->customDocument[0]['cd_Company_ID']==""){echo " selected='selected' ";} ?>  disabled="disabled"> - Select -</option>
-                            <?php
-
-                            foreach($companyList as $k => $v){
-                                echo $k. " => ".$v."<br/>";
-                                ?>
-                                    <option onclick="getHomebaseList(<?php echo $v['c_id'];?>)" value="<?php echo $v['c_id'];?>" <?php if($this->layout()->customDocument[0]['cd_Company_ID']==$v['c_id']){echo " selected='selected' "; }?>><?php echo $v['c_Name'].", ".$v['s_name'];?></option>
-                                <?php
-                                    }
-                            ?>
-                            </select>
+                        <td>
+                            <span>
+                                <?php echo $this->layout()->customDocument[0]['c_Name'];?>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="cd_Homebase_ID">HomeBase:</label>
+                            <label>HomeBase:</label>
                         </td>
-                        <td><?php
-                            $homebaseList = $this->layout()->homebaseList;
-                        ?>
-                            <select id="cd_Homebase_ID" name="cd_Homebase_ID">
-                                <option value="" <?php if($this->layout()->customDocument[0]['cd_Homebase_ID']==""){echo " selected='selected' ";} ?>  disabled="disabled"> - Select company first -</option>
-                            <?php
-
-                            foreach($homebaseList as $k => $v){
-                                echo $k. " => ".$v."<br/>";
-                                ?>
-                                    <option value="<?php echo $v['h_id'];?>" <?php if($this->layout()->customDocument[0]['cd_Homebase_ID']==$v['h_id']){echo " selected='selected' "; }?>><?php echo $v['h_Name'].", ".$v['s_name'];?></option>
-                                <?php
-                                    }
-                            ?>
-                            </select>
+                        <td>
+                            <span><?php echo $this->layout()->customDocument[0]['h_Name'];?></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="cd_Description">Description:</label>
+                            <label>Description:</label>
                         </td>
-                        <td><input type="hidden" name="cd_ID" id="cd_ID" value="<?php echo $this->layout()->customDocument[0]['cd_ID'];?>" />
-                            <input type="hidden" name="cd_Driver_ID" id="cd_Driver_ID" value="<?php echo $this->layout()->customDocument[0]['cd_Driver_ID'];?>" />
-                            <input type="hidden" name="cd_Form_Name_ID" id="cd_Form_Name_ID" value="<?php echo $this->layout()->customDocument[0]['cd_Form_Name_ID'];?>" />
-                            <textarea name="cd_Description" id="cd_Description" rows="4" cols="20"><?php echo $this->layout()->customDocument[0]['cd_Description'];?></textarea>
+                        <td><span><?php echo $this->layout()->customDocument[0]['cd_Description'];?></span>
                         </td>
                     </tr>
                     <tr>
@@ -106,102 +77,73 @@
                     </tr>
                     <tr>
                         <td>
-                            <label class="required" for="cd_Fax_Status_id"><span>*</span>Fax Status:</label>
+                            <label>Fax Status:</label>
                         </td>
                         <td>
-                            <select id="cd_Fax_Status_id" name="cd_Fax_Status_id">
-                                <option <?php if($this->layout()->customDocument[0]['cd_Fax_Status_id']==""){echo " selected='selected' ";} ?>  disabled="disabled"> - Select -</option>
-                            <?php
-                                                                $faxStatusList = $this->layout()->faxStatusList;
-                            foreach($faxStatusList as $k => $v){
-                                echo $k. " => ".$v."<br/>";
-                                ?>
-                                    <option value="<?php echo $v['cdfs_id'];?>" <?php if($this->layout()->customDocument[0]['cd_Fax_Status_id']==$v['cdfs_id']){echo " selected='selected' "; }?>><?php echo $v['cdfs_status'];?></option>
-                                <?php
-                                    }
-                            ?>
-                            </select>
+                            <span><?php echo $this->layout()->customDocument[0]['cdfs_status'];?></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="required" for="cd_Document_Form_Status"><span>*</span>Document Form Status:</label>
+                            <label>Document Form Status:</label>
                         </td>
                         <td>
-                            <select id="cd_Document_Form_Status" name="cd_Document_Form_Status">
-                                <option <?php if($this->layout()->customDocument[0]['cd_Document_Form_Status']==""){echo " selected='selected' ";} ?>  disabled="disabled"> - Select -</option>
-                            <?php
-                                                                $formStatusList = $this->layout()->formStatusList;
-                            foreach($formStatusList as $k => $v){
-                                echo $k. " => ".$v."<br/>";
-                                ?>
-                                    <option value="<?php echo $v['cdfms_id'];?>" <?php if($this->layout()->customDocument[0]['cd_Document_Form_Status']==$v['cdfms_id']){echo " selected='selected' "; }?>><?php echo $v['cdfms_status'];?></option>
-                                <?php
-                                    }
-                            ?>
-                            </select>
+                            <span><?php echo $this->layout()->customDocument[0]['cdfms_status'];?></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label>Date Requested:</label>
                         </td>
-                        <td>
+                        <td><span>
                         <?php
-                                                        if(isset($this->layout()->customDocument[0]['cd_Date_Requested'])){
+                         if(isset($this->layout()->customDocument[0]['cd_Date_Requested'])){
                             $date->set($this->layout()->customDocument[0]['cd_Date_Requested'],"yyyy-MM-dd");
                             echo $date->toString("MM/dd/yyyy");}
                         ?>
+                        </span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label>Date Completed:</label>
                         </td>
-                        <td>
+                        <td><span>
                         <?php
-                                                        if(isset($this->layout()->customDocument[0]['cd_Date_Completed'])){
+                         if(isset($this->layout()->customDocument[0]['cd_Date_Completed'])){
                             $date->set($this->layout()->customDocument[0]['cd_Date_Completed'],"yyyy-MM-dd");
                             echo $date->toString("MM/dd/yyyy");}
-                        ?>
+                        ?></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="cd_Archived">Archived:</label>
+                            <label>Archived:</label>
                         </td>
                         <td>
-                            <select id="cd_Archived" name="cd_Archived">
-                                <option value="No" <?php if(strtolower($this->layout()->customDocument[0]['cd_Archived'])=="no"){echo " selected='selected' ";} ?>  >No</option>
-                                <option value="Yes" <?php if(strtolower($this->layout()->customDocument[0]['cd_Archived'])=="yes"){echo " selected='selected' ";} ?>  >Yes</option>
-                            </select>
+                            <span><?php echo $this->layout()->customDocument[0]['cd_Archived'];?></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="required" for="cd_DOT_Regulated"><span>*</span>DOT Regulated:</label>
+                            <label>DOT Regulated:</label>
                         </td>
                         <td>
-                            <select id="cd_DOT_Regulated" name="cd_DOT_Regulated">
-                                <option value="" <?php if(strtolower($this->layout()->customDocument[0]['cd_DOT_Regulated'])==""){echo " selected='selected' ";} ?>  > - Select - </option>
-                                <option value="No" <?php if(strtolower($this->layout()->customDocument[0]['cd_DOT_Regulated'])=="no"){echo " selected='selected' ";} ?>  >No</option>
-                                <option value="Yes" <?php if(strtolower($this->layout()->customDocument[0]['cd_DOT_Regulated'])=="yes"){echo " selected='selected' ";} ?>  >Yes</option>
-                            </select>
+                            <span><?php echo $this->layout()->customDocument[0]['cd_DOT_Regulated'];?></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="required" for="cd_Current_Page"><span>*</span>Page #:</label>
+                            <label>Page #:</label>
                         </td>
                         <td>
-                            <input type="text" size="3" id="cd_Current_Page" name="cd_Current_Page" value="<?php echo $this->layout()->customDocument[0]['cd_Current_Page']?>" />
+                            <span><?php echo $this->layout()->customDocument[0]['cd_Current_Page'];?></span>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <div class="blue-nav">
                                 <ul>
-                                    <li><span><a onclick="saveImageDocument()">Save</a></span></li>
                                     <li><span><a onclick="getDocumentScansList(<?php echo $this->layout()->customDocument[0]['cd_Driver_ID'];?>,<?php echo $this->layout()->customDocument[0]['cd_Form_Name_ID'];?>);">Close</a></span></li>
                                 </ul>
                             </div>
@@ -213,8 +155,9 @@
 
         </tbody></table>
 </div>
-            <div id="document_images_preview_edit" style="visibility:visible !important;">
-                <div class="slider">
+
+            <div id="document_images_preview_edit">
+                <div class="anyClass">
                     <ul>
                                 <?php
                                 for($i=0;$i<sizeof($this->layout()->scans);$i++){
@@ -233,7 +176,7 @@
 				</div>
                 <script type="text/javascript">
                     $(function() {
-                        $(".slider").jCarouselLite({
+                        $(".anyClass").jCarouselLite({
                             btnNext: ".next",
                             btnPrev: ".prev",
                             visible:6,

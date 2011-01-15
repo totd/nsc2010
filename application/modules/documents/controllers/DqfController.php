@@ -85,8 +85,8 @@ class Documents_DqfController extends Zend_Controller_Action
         $this->view->pageTitle = "DRIVER QUALIFICATION FILE SCANS";
 
         $scans = Documents_Model_CustomDocument::getScansList($driver_id,$document_form_name_id);
-        
-        
+
+
         $this->view->scans = $scans;
         $this->view->driver_id = $driver_id;
         $this->view->document_form_name_id = $document_form_name_id;

@@ -1,5 +1,5 @@
 <?php
-    $filename = $_GET['img'];
+    $filename = preg_replace("/\?[0-9]+$/","",$_GET['img']);
     $degrees = $_GET['angle'];
 
 
@@ -17,7 +17,7 @@
             header('Content-type: image/jpeg');
             imagejpeg($rotate,$img_path.$f2[(sizeof($f2)-1)]);
             imagejpeg($rotate,$img_path."_".$f2[(sizeof($f2)-1)]);
-            echo preg_replace("/^\.\.[\/]+/","/",$img_path.$f2[(sizeof($f2)-1)]);
+            echo preg_replace("/^\.\.[\/]+/","/",$img_path.$f2[(sizeof($f2)-1)]."?".rand(0,999));
 
         }
     }else{
@@ -42,7 +42,7 @@
             $rand = rand(0,90);
             imagejpeg($rotate,$img_path."_=".$rand."=".$source_temp_file);
             imagejpeg($rotate,$img_path."_".$source_temp_file);
-            echo preg_replace("/^\.\.[\/]+/","/",$img_path."_=".$rand."=".$source_temp_file);
+            echo preg_replace("/^\.\.[\/]+/","/",$img_path."_=".$rand."=".$source_temp_file."?".rand(0,999));
 
         }
     }

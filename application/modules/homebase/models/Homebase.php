@@ -21,17 +21,21 @@ class Homebase_Model_Homebase extends Zend_Db_Table_Abstract
                 $select = "SELECT * FROM homebase
                             JOIN contacts_table on contacts_table.ct_ID=homebase.h_Contact_Table_ID
                             JOIN company on company.c_ID=homebase.h_Company_Account_Number
+                            JOIN state on state.s_id=contacts_table.ct_State
                             WHERE h_Company_Account_Number=" . $iCompanyID . "
                             ";
             }else{
                 $select = "SELECT * FROM homebase
                             JOIN contacts_table on contacts_table.ct_ID=homebase.h_Contact_Table_ID
                             JOIN company on company.c_ID=homebase.h_Company_Account_Number
+                            JOIN state on state.s_id=contacts_table.ct_State
                             ";
             }
         }else{
             if($iCompanyID!=null){
-                $select = "SELECT h_id,h_Name FROM homebase
+                $select = "SELECT h_id,h_Name,h_Contact_Table_ID,ct_State,s_name FROM homebase
+                            JOIN contacts_table on contacts_table.ct_ID=homebase.h_Contact_Table_ID
+                            JOIN state on state.s_id=contacts_table.ct_State
                             WHERE h_Company_Account_Number=" . $iCompanyID . "
                             ";
             }else{

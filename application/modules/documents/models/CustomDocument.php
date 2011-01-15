@@ -90,11 +90,23 @@ class Documents_Model_CustomDocument extends Zend_Db_Table_Abstract
         }
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
         $stmt = $db->query('
-                    SELECT *
+                    SELECT
+                            cd_ID, cd_Driver_ID, cd_Company_ID, cd_Homebase_ID, cd_Form_Name_ID, cd_Description, cd_Logo, cd_Fax_Status_id,
+                                cd_Document_Form_Status, cd_Date_Requested, cd_Date_Completed, cd_Scan, cd_Archived, cd_Electronic_Signature,
+                                cd_DOT_Regulated, cd_Current_Page,
+                            cdfn_ID, cdfn_category_id, cdfn_name,
+                            cdfms_id, cdfms_status,
+                            cdfs_id, cdfs_status,
+                            c_id,c_Name,c_Contact_Table_ID,
+                            ct_ID,ct_Contact,ct_Contact_Title,ct_Contact_Email,ct_logo,
+                            h_id,h_Name
                         FROM custom_document
                         LEFT JOIN custom_document__form_name ON custom_document__form_name.cdfn_ID = custom_document.cd_Form_Name_ID
                         LEFT JOIN custom_document__form_status ON custom_document__form_status.cdfms_id = custom_document.cd_Document_Form_Status
                         LEFT JOIN custom_document__fax_status ON custom_document__fax_status.cdfs_id = custom_document.cd_Fax_Status_id
+                        LEFT JOIN company ON company.c_id = custom_document.cd_Company_ID
+                        LEFT JOIN homebase ON homebase.h_id = custom_document.cd_Company_ID
+                        LEFT JOIN contacts_table ON contacts_table.ct_ID = custom_document.cd_Company_ID
                     WHERE cd_ID = '.$cd_ID.'
             ');
 

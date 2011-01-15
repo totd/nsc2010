@@ -69,6 +69,12 @@ class NSC_Controller_Plugin_Permission extends  Zend_Controller_Plugin_Abstract
             $this->identity->permissions->driver_delete_driver_address_history = $permission->doesRoleHaveResource($this->identity->vau_role,
                     'driver/Ajax-Driver-Address-History', 'delete-Record');
             $this->identity->permissions->see_non_crypt_ssn_permission = $permission->doesRoleHavePermission($this->identity->vau_role, 'seeNonCryptSsn');
+            $this->identity->permissions->documents_add = $permission->doesRoleHavePermission($this->identity->vau_role, 'documentsAdd');
+            $this->identity->permissions->documents_delete = $permission->doesRoleHavePermission($this->identity->vau_role, 'documentsDelete');
+            $this->identity->permissions->documents_edit = $permission->doesRoleHavePermission($this->identity->vau_role, 'documentsEdit');
+            $this->identity->permissions->documents_add_comment = $permission->doesRoleHavePermission($this->identity->vau_role, 'documentsAddComments');
+            $this->identity->permissions->documents_delete_comment = $permission->doesRoleHavePermission($this->identity->vau_role, 'documentsDeleteComments');
+            $this->identity->permissions->documents_edit_comment = $permission->doesRoleHavePermission($this->identity->vau_role, 'documentsEditComments');
 
         }
     }

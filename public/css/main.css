@@ -43,3 +43,14 @@ table.inform td a span {
 * html .ui-autocomplete {
     height: 100px;
 }
+
+
+.slider {
+    width:600px !important;
+}
+.slider ul{
+    width:600px !important;
+}
+.slider ul li{
+    width:72px !important;
+}

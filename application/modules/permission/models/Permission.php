@@ -18,218 +18,226 @@ class Permission_Model_Permission
                 'equipment/list' => array('resource' => 'equipment:list', 'module' => 'equipment'),
                 'equipment/search' => array('resource' => 'equipment:search', 'module' => 'equipment'),
                 'equipment/information-worksheet' => array( 'resource' => 'equipment:information-worksheet',
-                                                            'module' => 'equipment',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'create-new',
-                                                                    'update',
-                                                                    'validate-completed',
-                                                                    'declined',
-                                                                    'reactivated',
-                                                                    'save-vim',
-                                                                    'upload-picture',
-                                                                    'save-assignment',
-                                                                    'get-viw',
-                                                                    'get-assignment',
-                                                                    'get-assignment-driver',
-                                                                    'completed',
-                                                                    'show-complete-form',
-                                                                    'get-last-modified-date'
-                                                                )
-                    ),
+                    'module' => 'equipment',
+                    'actions' => array(
+                        'index',
+                        'create-new',
+                        'update',
+                        'validate-completed',
+                        'declined',
+                        'reactivated',
+                        'save-vim',
+                        'upload-picture',
+                        'save-assignment',
+                        'get-viw',
+                        'get-assignment',
+                        'get-assignment-driver',
+                        'completed',
+                        'show-complete-form',
+                        'get-last-modified-date'
+                    )
+                ),
                 'equipment/equipment-file' => array( 'resource' => 'equipment:equipment-file',
-                                                            'module' => 'equipment',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'change-active-status'
-                                                                )
-                    ),
+                    'module' => 'equipment',
+                    'actions' => array(
+                        'index',
+                        'change-active-status'
+                    )
+                ),
                 'equipment/archives' => array( 'resource' => 'equipment:archives',
-                                                            'module' => 'equipment',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'terminate'
-                                                                )
-                    ),
+                    'module' => 'equipment',
+                    'actions' => array(
+                        'index',
+                        'terminate'
+                    )
+                ),
                 'equipment/truck-files' => array('resource' => 'equipment:truck-files', 'module' => 'equipment'),
                 'equipment/maintenance' => array('resource' => 'equipment:maintenance',
-                                                                'module' => 'equipment',
-                                                                'actions' => array(
-                                                                    'add-maintenance',
-                                                                    'delete-maintenance',
-                                                                    'get-maintenances',
-                                                                    'save-maintenance'
-                                                                )
-                    ),
+                    'module' => 'equipment',
+                    'actions' => array(
+                        'add-maintenance',
+                        'delete-maintenance',
+                        'get-maintenances',
+                        'save-maintenance'
+                    )
+                ),
                 'incident' => array('resource' => 'incident'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
-                                                            'actions' => array(
-                                                                'add-involved-equipment',
-                                                                'change-driver',
-                                                                'delete-involved-equiment',
-                                                                'get-description',
-                                                                'get-driver-information',
-                                                                'get-last-modified-date',
-                                                                'index',
-                                                                'save-description'
-                                                            )
-                    ),
+                    'actions' => array(
+                        'add-involved-equipment',
+                        'change-driver',
+                        'delete-involved-equiment',
+                        'get-description',
+                        'get-driver-information',
+                        'get-last-modified-date',
+                        'index',
+                        'save-description'
+                    )
+                ),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
-                                                            'actions' => array(
-                                                                'index'
-                                                            )
-                    ),
+                    'actions' => array(
+                        'index'
+                    )
+                ),
                 'incident/autocomplete' => array('resource' => 'incident:autocomplete', 'module' => 'incident',
-                                                            'actions' => array(
-                                                                'get-autocomplete-person-address1',
-                                                                'get-autocomplete-person-address2',
-                                                                'get-autocomplete-person-city',
-                                                                'get-autocomplete-person-first-name',
-                                                                'get-autocomplete-person-last-name',
-                                                                'get-autocomplete-person-telephone',
-                                                                'get-autocomplete-person-zip'
-                                                            ),
+                    'actions' => array(
+                        'get-autocomplete-person-address1',
+                        'get-autocomplete-person-address2',
+                        'get-autocomplete-person-city',
+                        'get-autocomplete-person-first-name',
+                        'get-autocomplete-person-last-name',
+                        'get-autocomplete-person-telephone',
+                        'get-autocomplete-person-zip'
                     ),
+                ),
                 'incident/create' => array('resource' => 'incident:create', 'module' => 'incident',
-                                                            'actions' => array(
-                                                                'add-driver',
-                                                                'exit',
-                                                                'index',
-                                                                'save',
-                                                                'step1',
-                                                                'step2',
-                                                                'step3'
-                                                                )
-                    ),
+                    'actions' => array(
+                        'add-driver',
+                        'exit',
+                        'index',
+                        'save',
+                        'step1',
+                        'step2',
+                        'step3'
+                    )
+                ),
                 'incident/dot' => array('resource' => 'incident:dot', 'module' => 'incident',
-                                                            'actions' => array(
-                                                                'get-dot-criteria',
-                                                                'save-dot-criteria'
-                                                            )
-                    ),
+                    'actions' => array(
+                        'get-dot-criteria',
+                        'save-dot-criteria'
+                    )
+                ),
                 'incident/passenger' => array('resource' => 'incident:passenger', 'module' => 'incident',
-                                                            'actions' => array(
-                                                                    'add-passenger',
-                                                                    'delete-passenger',
-                                                                    'get-passengers',
-                                                                    'save-passenger',
-                                                                )
-                    ),
+                    'actions' => array(
+                        'add-passenger',
+                        'delete-passenger',
+                        'get-passengers',
+                        'save-passenger',
+                    )
+                ),
                 'incident/witness' => array('resource' => 'incident:witness', 'module' => 'incident',
-                                                            'actions' => array(
-                                                                    'add-witness',
-                                                                    'delete-witness',
-                                                                    'get-witnesses',
-                                                                    'save-witness',
-                                                                )
-                    ),
+                    'actions' => array(
+                        'add-witness',
+                        'delete-witness',
+                        'get-witnesses',
+                        'save-witness',
+                    )
+                ),
                 'violation' => array('resource' => 'violation'),
                 'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
-                                                            'actions' => array(
-                                                                    'index'
-                                                                )
-                    ),
+                    'actions' => array(
+                        'index'
+                    )
+                ),
                 'violation/index' => array('resource' => 'violation:index', 'module' => 'violation',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'create',
-                                                                    'save'
-                                                                )
-                    ),
-                
+                    'actions' => array(
+                        'index',
+                        'create',
+                        'save'
+                    )
+                ),
+
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
-                                                            'module' => 'driver',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'dqf',
-                                                                    'archives',
-                                                                    'involved-In-Incident-Drivers'
-                                                                )
-                    ),
+                    'module' => 'driver',
+                    'actions' => array(
+                        'index',
+                        'dqf',
+                        'archives',
+                        'involved-In-Incident-Drivers'
+                    )
+                ),
                 'driver/Ajax-Driver-Address-History' => array( 'resource' => 'driver:Ajax-Driver-Address-History',
-                                                            'module' => 'driver',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'add-Record',
-                                                                    'get-Driver-Address-History-List',
-                                                                    'delete-Record',
-                                                                    'get-Record',
-                                                                    'update-Record',
-                                                                    'autocomplete-Address-History'
-                                                                )
-                    ),
+                    'module' => 'driver',
+                    'actions' => array(
+                        'index',
+                        'add-Record',
+                        'get-Driver-Address-History-List',
+                        'delete-Record',
+                        'get-Record',
+                        'update-Record',
+                        'autocomplete-Address-History'
+                    )
+                ),
                 'driver/Ajax-Driver' => array( 'resource' => 'driver:Ajax-Driver',
-                                                            'module' => 'driver',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'validate-Driver-Info'
-                                                                )
-                    ),
+                    'module' => 'driver',
+                    'actions' => array(
+                        'index',
+                        'validate-Driver-Info'
+                    )
+                ),
                 'driver/Ajax-Driver-homebase' => array( 'resource' => 'driver:Ajax-Driver-homebase',
-                                                            'module' => 'driver',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'get-Depot-List'
-                                                                )
-                    ),
+                    'module' => 'driver',
+                    'actions' => array(
+                        'index',
+                        'get-Depot-List'
+                    )
+                ),
                 'driver/Ajax-Driver-License' => array( 'resource' => 'driver:Ajax-Driver-License',
-                                                            'module' => 'driver',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'add-Record',
-                                                                    'get-Driver-Licenses-List',
-                                                                    'delete-Record',
-                                                                    'get-Record',
-                                                                    'update-Record'
-                                                                )
-                    ),
+                    'module' => 'driver',
+                    'actions' => array(
+                        'index',
+                        'add-Record',
+                        'get-Driver-Licenses-List',
+                        'delete-Record',
+                        'get-Record',
+                        'update-Record'
+                    )
+                ),
                 'driver/Ajax-Driver-Previous-Employment' => array( 'resource' => 'driver:Ajax-Driver-Previous-Employment',
-                                                            'module' => 'driver',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'add-Record',
-                                                                    'get-Previous-Employment-List',
-                                                                    'delete-Record',
-                                                                    'get-Record',
-                                                                    'update-Record'
-                                                                )
-                    ),
+                    'module' => 'driver',
+                    'actions' => array(
+                        'index',
+                        'add-Record',
+                        'get-Previous-Employment-List',
+                        'delete-Record',
+                        'get-Record',
+                        'update-Record'
+                    )
+                ),
                 'driver/Ajax-Driver-Search' => array( 'resource' => 'driver:Ajax-Driver-Search',
-                                                            'module' => 'driver',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'search'
-                                                                )
-                    ),
+                    'module' => 'driver',
+                    'actions' => array(
+                        'index',
+                        'search'
+                    )
+                ),
                 'driver/Driver' => array( 'resource' => 'driver:Driver',
-                                                            'module' => 'driver',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'edit-Driver-Information',
-                                                                    'save-Driver-Information',
-                                                                    'view-Driver-Information',
-                                                                    'dqf',
-                                                                    'driver-Complete',
-                                                                    'driver-Decline'
-                                                                )
-                    ),
+                    'module' => 'driver',
+                    'actions' => array(
+                        'index',
+                        'edit-Driver-Information',
+                        'save-Driver-Information',
+                        'view-Driver-Information',
+                        'dqf',
+                        'driver-Complete',
+                        'driver-Decline'
+                    )
+                ),
                 'driver/new-Driver' => array( 'resource' => 'driver:new-Driver',
-                                                            'module' => 'driver',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'new-Driver-Search'
-                                                                )
-                    ),
+                    'module' => 'driver',
+                    'actions' => array(
+                        'index',
+                        'new-Driver-Search'
+                    )
+                ),
                 'driver/search' => array( 'resource' => 'driver:search',
-                                                            'module' => 'driver',
-                                                            'actions' => array(
-                                                                    'index',
-                                                                    'driver-Search'
-                                                                )
-                    ),
+                    'module' => 'driver',
+                    'actions' => array(
+                        'index',
+                        'driver-Search'
+                    )
+                ),
             ),
-            'permissions' => array('seeNonCryptSsn')
+            'permissions' => array(
+                'seeNonCryptSsn' => true,
+                'documentsAdd' => true,
+                'documentsDelete' => true,
+                'documentsEdit' => true,
+                'documentsAddComments' => true,
+                'documentsDeleteComments' => true,
+                'documentsEditComments' => true
+            )
         ),
         'NSC_LEVEL_2' => array(
             'resources' => array(
@@ -443,6 +451,14 @@ class Permission_Model_Permission
                                                                     'driver-Search'
                                                                 )
                     ),
+            ),
+            'permissions' => array(
+                'documentsAdd' => true,
+                'documentsDelete' => true,
+                'documentsEdit' => true,
+                'documentsAddComments' => true,
+                'documentsDeleteComments' => true,
+                'documentsEditComments' => true
             )
         ),
         'NSC_LEVEL_3' => array(
@@ -648,6 +664,12 @@ class Permission_Model_Permission
                                                                     'driver-Search'
                                                                 )
                     ),
+            ),
+            'permissions' => array(
+                'documentsAdd' => true,
+                'documentsEdit' => true,
+                'documentsAddComments' => true,
+                'documentsEditComments' => true
             )
         ),
         'NSC_LEVEL_4' => array(
@@ -797,6 +819,9 @@ class Permission_Model_Permission
                                                                     'driver-Search'
                                                                 )
                     ),
+            ),
+            'permissions' => array(
+                'documentsAddComments' => true
             )
         ),
         'CUSTOMER_LEVEL_1' => array(
@@ -1010,6 +1035,9 @@ class Permission_Model_Permission
                                                                     'driver-Search'
                                                                 )
                     ),
+            ),
+            'permissions' => array(
+                'documentsAdd' => true
             )
         ),
         'CUSTOMER_LEVEL_2' => array(
@@ -1223,6 +1251,9 @@ class Permission_Model_Permission
                                                                     'driver-Search'
                                                                 )
                     ),
+            ),
+            'permissions' => array(
+                'documentsAdd' => true
             )
         ),
         'CUSTOMER_LEVEL_3' => array(
@@ -1430,6 +1461,9 @@ class Permission_Model_Permission
                                                                     'driver-Search'
                                                                 )
                     ),
+            ),
+            'permissions' => array(
+                'documentsAdd' => true
             )
         ),
         'EXTERNAL_LEVEL_1' => array(

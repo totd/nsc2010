@@ -2,25 +2,21 @@ $(function() {
 
     var equipmentId = $("#e_id");
    
-
-    $(".MaintenanceAddLinkClass").each(function() {
-       $(this).click(function() {
-            $(".addMaintenanceTableClass").toggle("slow");
-            return false;
-        });
-    });
-
-    $("#addMaintenance").click(function() {
-        $(this).addClass('button-updating');
-        var label = $(this).html();
-        $(this).html('Updating...');
-        addMaintenance(equipmentId.val());
-        $(this).removeClass('button-updating');
-        $(this).html(label);
-    });
-
     getMaintenances(equipmentId.val());
 });
+
+function maintenanceAddLinkClassClickHeandler() {
+    $(".addMaintenanceTableClass").toggle("slow");
+}
+
+function addMaintenanceClick() {
+    $(this).addClass('button-updating');
+    var label = $(this).html();
+    $(this).html('Updating...');
+    addMaintenance($("#e_id").val());
+    $(this).removeClass('button-updating');
+    $(this).html(label);
+}
 
 function turnOnCalculator() {
      $('.Amount').calculator({
@@ -37,7 +33,7 @@ function turnOnCalculator() {
 
 
 function __deleteMaintenance(maintenanceId, equipmentId) {
-    $.getJSON('/equipment/maintenance/delete-maintenance',
+    $.getJSON('/maintenance/maintenance/delete-maintenance',
         {
             em_id : maintenanceId
         }, function(data) {
@@ -65,7 +61,7 @@ function turnOnDatepicker() {
 
 function deleteMaintenanceClickHandler(maintenanceId, equipmentId) {
     var $dialogDeleteInvolvedMaintenance = $('<div></div>')
-		.html('Do you really want to remove this maintenance from equipment?')
+		.html('Do you really want to remove this maintenance?')
 		.dialog({
 			autoOpen: false,
             modal: true,
@@ -79,7 +75,7 @@ function deleteMaintenanceClickHandler(maintenanceId, equipmentId) {
                 }
             },
             resizable: false,
-			title: 'Confirm Equipment Delete'
+			title: 'Confirm Maintenance Delete'
 		}
     );
 
@@ -87,7 +83,7 @@ function deleteMaintenanceClickHandler(maintenanceId, equipmentId) {
 }
 
 function saveMaintenance(maintenanceId, equipmentId) {
-    $.getJSON("/equipment/maintenance/save-maintenance",
+    $.getJSON("/maintenance/maintenance/save-maintenance",
             {
                 em_id : maintenanceId,
                 em_equipment_id: equipmentId,
@@ -103,8 +99,7 @@ function saveMaintenance(maintenanceId, equipmentId) {
             }, function(data) {
                 if (data.result == 1) {
                     refreshMaintenance(data.row);
-                    getMaintenances(equipmentId);
-                    $(".classMaintenanceRecordID_" + maintenanceId).toggle();
+                    $(".classMaintenanceRecordID_" + maintenanceId).toggle('slow');
                     refreshLastModifiedDate($("#e_id").val());
                     return true;
                 } else {
@@ -116,26 +111,26 @@ function saveMaintenance(maintenanceId, equipmentId) {
 }
 
 function refreshMaintenance(data) {
-    var personId = data.per_id;
+    var maintenanceId = data.em_id;
 
-    $("#view_first_name_maintenance_" + personId).html(data.per_first_name);
-    $("#view_last_name_maintenance_" + personId).html(data.per_last_name);
-    $("#view_address1_maintenance_" + personId).html(data.per_address1);
-    $("#view_address2_maintenance_" + personId).html(data.per_address2);
-    $("#view_city_maintenance_" + personId).html(data.per_city);
-    $("#view_s_name_maintenance_" + personId).html(data.s_name);
-    $("#view_postal_code_maintenance_" + personId).html(data.per_postal_code);
-    $("#view_telephone_number_maintenance_" + personId).html(data.per_telephone_number);
+    $("#view_em_requested_date_" + maintenanceId).html(data.em_requested_date);
+    $("#view_em_completed_date_" + maintenanceId).html(data.em_completed_date);
+    $("#view_em_next_maintenance_date_" + maintenanceId).html(data.em_next_maintenance_date);
+    $("#view_em_completed_date_" + maintenanceId).html(data.em_completed_date);
+    $("#view_em_service_provider_id_" + maintenanceId).html(data.sp_name);
+    $("#view_em_invoice_amount_" + maintenanceId).html(data.em_invoice_amount);
+    $("#view_em_dot_regulated_" + maintenanceId).html(data.em_dot_regulated);
+    $("#view_em_notes_" + maintenanceId).html(data.em_notes);
 
 
-    $("#per_first_name_maintenance_" + personId).val(data.per_first_name);
-    $("#per_last_name_maintenance_" + personId).val(data.per_last_name);
-    $("#per_address1_maintenance_" + personId).val(data.per_address1);
-    $("#per_address2_maintenance_" + personId).val(data.per_address2);
-    $("#per_city_maintenance_" + personId).val(data.per_city);
-    $("#per_state_id_maintenance_" + personId).val(data.per_state_id);
-    $("#per_postal_code_maintenance_" + personId).val(data.per_postal_code);
-    $("#per_telephone_number_maintenance_" + personId).val(data.per_telephone_number);
+    $("#em_requested_date_" + maintenanceId).val(data.em_requested_date);
+    $("#em_completed_date_" + maintenanceId).val(data.em_completed_date);
+    $("#em_next_maintenance_date_" + maintenanceId).val(data.em_next_maintenance_date);
+    $("#em_completed_date_" + maintenanceId).val(data.em_completed_date);
+    $("#em_service_provider_id_" + maintenanceId).val(data.em_service_provider_id);
+    $("#em_invoice_amount_" + maintenanceId).val(data.em_invoice_amount);
+    $("#em_dot_regulated_" + maintenanceId).val(data.em_dot_regulated);
+    $("#em_notes_" + maintenanceId).val(data.em_notes);
 }
 
 function isset(variable) {
@@ -144,7 +139,7 @@ function isset(variable) {
 
 
 function addMaintenance(equipmentId) {
-    $.getJSON("/equipment/maintenance/add-maintenance",
+    $.getJSON("/maintenance/maintenance/add-equipment-maintenance",
         {
             em_equipment_id: equipmentId,
             em_requested_date : $("#em_requested_date").val(),
@@ -185,7 +180,7 @@ function displayMaintenanceSaveError(data) {
 function getMaintenances(equipmentId) {
     $.ajax({
             type: "GET",
-            url: "/equipment/maintenance/get-maintenances",
+            url: "/maintenance/maintenance/get-equipment-maintenances",
             data: "equipmentId=" + equipmentId,
             success: function(data){
                 $("#currentEquipmentMaintenancesList").html(data.result);
@@ -193,7 +188,6 @@ function getMaintenances(equipmentId) {
                 turnOnCalculator();
             }, 
             dataType : "json"
-
     });
 }
 
@@ -203,7 +197,6 @@ function clearAddMaintenanceForm() {
     $("#em_next_maintenance_date").val(""),
     $("#em_service_date").val(""),
     $("#em_service_provider_id").val(""),
-    $("#per_state_id_maintenance").val(""),
     $("#em_invoice_amount").val(""),
     $("#em_notes").val(""),
     $("#em_dot_regulated_no").attr('checked', 'checked');

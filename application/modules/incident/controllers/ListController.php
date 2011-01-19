@@ -4,9 +4,6 @@ class Incident_ListController extends Zend_Controller_Action
 {
 
     private $_filterFields = array(
-        '-' => array(
-            'text' => '-'
-        ),
         'i_Number' => array(
             'text' => 'Incident #'
         ),
@@ -22,19 +19,16 @@ class Incident_ListController extends Zend_Controller_Action
     );
 
     private $_statuses = array(
-            'Pending' => array(
-                'text' => 'Pending'
-            ),
-            'Open' => array(
-                'text' => 'Declined'
-            ),
-            'Closed' => array(
-                'text' => 'Closed'
-            ),
-            'All' => array(
-                'text' => 'All'
-            )
-        );
+        'Open' => array(
+            'text' => 'Open'
+        ),
+        'Closed' => array(
+            'text' => 'Closed'
+        ),
+        'All' => array(
+            'text' => 'All'
+        )
+    );
 
     public function preDispatch()
     {
@@ -56,7 +50,7 @@ class Incident_ListController extends Zend_Controller_Action
         $this->view->breadcrumbs .= "&nbsp;&gt;&nbsp;Incident List";
 
         // Set parameters for paginator
-        $status = $this->_getParam('status', 'Pending');
+        $status = $this->_getParam('status', 'Open');
         $from = $this->_getParam('from', 0);
         $step = $this->_getParam('step', 20);
         $orderBy = $this->_getParam('orderBy', 'i_Status');
@@ -76,7 +70,7 @@ class Incident_ListController extends Zend_Controller_Action
                             $options['SearchText'] = $date->toString("yyyy-MM-dd");
                         }
                     } catch (Exception $e) {
-                        $options['SearchBy'] = '-';
+                        $options['SearchBy'] = 'i_Number';
                         $options['SearchText'] = '';
                     }
                 } else {
@@ -132,7 +126,7 @@ class Incident_ListController extends Zend_Controller_Action
             $this->view->incidents = null;
         }
 
-        if ($searchBy != '-' && !empty($searchBy) && !empty($searchText)) {
+        if (!empty($searchBy) && !empty($searchText)) {
             foreach ($this->_filterFields as $key => &$value) {
                 if ($searchBy == $key) {
                     $value['selected'] = true;
@@ -141,7 +135,7 @@ class Incident_ListController extends Zend_Controller_Action
                 }
             }
         } else {
-            $this->_filterFields['-']['selected'] = 'true';
+            $this->_filterFields['i_Number']['selected'] = 'true';
         }
         $this->view->filterFields = $this->_filterFields;
 

@@ -1,0 +1,62 @@
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?php
+                echo $this->breadcrumbs;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="new-appl" id="main">
+    <div class="parametr-top"><div class="parametr-bottom"><div class="parametr-middle">
+                <form class="select-parametr2" id="createForm" method="post"
+                      action="/serviceProvider/index/create">
+                    <table  cellspacing="0" class="inform">
+                        <tbody>
+                            <tr>
+                                <th  style="text-align: center;" colspan="2">
+                                    Search Parameters
+                                </th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="required"><span>*</span>Name:</label>
+                                </td>
+                                <td>
+                                    <input type="text" value="" id="sp_name" name="sp_name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="required"><span>*</span>Type:</label>
+                                </td>
+                                <td>
+                                    <span class="radio-button"><input type="radio" name="sp_type" class="sp_type_class" value="Insurance">&nbsp;Insurance</span>
+                                    <span class="radio-button"><input type="radio" name="sp_type" class="sp_type_class" value="Tow Truck">&nbsp;Tow Truck</span>
+                                    <span class="radio-button"><input type="radio" name="sp_type" class="sp_type_class" value="Repair"  checked="checked">&nbsp;Repair</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2">
+                                    <input type="button" id="exitSubmit" value="Exit">
+                                    <input type="button" id="NextSubmit" value="Save">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div></div></div>
+</div>

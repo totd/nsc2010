@@ -16,7 +16,7 @@ class IndexControllerTest extends ControllerTestCase
     {
         $this->dispatch('/index');
         $this->assertModule('user');
-        $this->assertController('index');
+        $this->assertController('login');
         $this->assertAction('index');
         $this->assertResponseCode(200);
     }

@@ -20,6 +20,18 @@ class NSC_Controller_Plugin_Permission extends  Zend_Controller_Plugin_Abstract
                     $permission->doesRoleHaveResource($this->identity->vau_role,
                     'equipment/information-worksheet', 'completed');
 
+            /***** MAIONTENANCE SECTION *****/
+
+            $this->identity->permissions->equipment_maintenance_create_permission =
+                    $permission->doesRoleHaveResource($this->identity->vau_role,
+                            'maintenance/maintenance', 'add-equipment-maintenance');
+            $this->identity->permissions->equipment_maintenance_delete_permission =
+                    $permission->doesRoleHaveResource($this->identity->vau_role,
+                            'maintenance/maintenance', 'delete-maintenance');
+            $this->identity->permissions->equipment_maintenance_modify_permission =
+                    $permission->doesRoleHaveResource($this->identity->vau_role,
+                            'maintenance/maintenance', 'save-maintenance');
+
             /***** INCIDENT SECTION *****/
             $this->identity->permissions->incident_create_permission =
                     $permission->doesRoleHaveResource($this->identity->vau_role, 'incident/create', 'save');
@@ -60,6 +72,14 @@ class NSC_Controller_Plugin_Permission extends  Zend_Controller_Plugin_Abstract
                             'create');
             $this->identity->permissions->violation_modify_permission =
                     $permission->doesRoleHaveResource($this->identity->vau_role, 'violation/index',
+                            'save');
+
+            /***** SERVICE PROVIDER SECTION *****/
+            $this->identity->permissions->service_provider_create_permission =
+                    $permission->doesRoleHaveResource($this->identity->vau_role, 'serviceProvider/index',
+                            'create');
+            $this->identity->permissions->service_provider_modify_permission =
+                    $permission->doesRoleHaveResource($this->identity->vau_role, 'serviceProvider/index',
                             'save');
 
             

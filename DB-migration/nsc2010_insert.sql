@@ -1,5 +1,23 @@
 
 --
+-- Дамп данных таблицы `custom_document`
+--
+
+INSERT INTO `custom_document` (`cd_ID`, `cd_Driver_ID`, `cd_Company_ID`, `cd_Homebase_ID`, `cd_Form_Name_ID`, `cd_Description`, `cd_Logo`, `cd_Fax_Status_id`, `cd_Document_Form_Status`, `cd_Date_Requested`, `cd_Date_Completed`, `cd_Scan`, `cd_Archived`, `cd_Electronic_Signature`, `cd_DOT_Regulated`, `cd_Current_Page`) VALUES
+(1, 1, NULL, NULL, 1, NULL, NULL, 1, NULL, '2011-01-14', '2011-01-14', 'dID1_dfnID1_14_01_2011_13_08_18_7839.jpg', 'No', NULL, NULL, 1),
+(2, 1, NULL, NULL, 1, NULL, NULL, 1, NULL, '2011-01-14', '2011-01-14', 'dID1_dfnID1_14_01_2011_13_08_47_7671.jpg', 'No', NULL, NULL, 2),
+(3, 1, NULL, NULL, 1, NULL, NULL, 1, NULL, '2011-01-14', '2011-01-14', 'dID1_dfnID1_14_01_2011_13_08_51_776.jpg', 'No', NULL, NULL, 3),
+(4, 1, NULL, NULL, 1, NULL, NULL, 1, NULL, '2011-01-14', '2011-01-14', 'dID1_dfnID1_14_01_2011_13_09_09_891.jpg', 'No', NULL, NULL, 4),
+(5, 3, 1, NULL, 2, NULL, NULL, 1, NULL, '2011-01-14', '2011-01-14', 'dID3_dfnID2_14_01_2011_13_15_22_3692.jpg', 'No', NULL, NULL, 1),
+(6, 1, 1, 2, 2, '', NULL, 1, 6, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_10_7202.jpg', 'No', NULL, 'Yes', 1),
+(7, 1, 1, 1, 2, '', NULL, 3, 8, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_12_7428.jpg', 'No', NULL, 'No', 2),
+(8, 1, 2, 5, 2, '', NULL, 1, 7, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_14_5774.jpg', 'No', NULL, 'Yes', 3),
+(9, 1, NULL, NULL, 2, NULL, NULL, 1, NULL, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_18_9129.jpg', 'No', NULL, NULL, 4),
+(10, 1, 1, 2, 2, '', NULL, 1, 6, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_20_7546.jpg', 'No', NULL, 'Yes', 5),
+(11, 1, NULL, NULL, 2, NULL, NULL, 1, NULL, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_23_3395.jpg', 'No', NULL, NULL, 6),
+(12, 1, NULL, NULL, 2, '', NULL, 1, 9, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_26_5180.jpg', 'No', NULL, 'No', 7);
+
+--
 -- Дамп данных таблицы `parent_company`
 --
 
@@ -345,16 +363,6 @@ INSERT INTO `incident_cause` (`ic_id`, `ic_type`) VALUES
 (13, 'Construction');
 
 --
--- Дамп данных таблицы `incident__investigator`
---
-
-
---
--- Дамп данных таблицы `incident__passenger`
---
-
-
---
 -- Дамп данных таблицы `inspection`
 --
 
@@ -408,34 +416,9 @@ INSERT INTO `inspection__result` (`ir_id`, `ir_type`) VALUES
 -- Дамп данных таблицы `service_provider`
 --
 
-INSERT INTO `service_provider` (`sp_id`, `sp_name`, `sp_contact`, `sp_type`, `sp_telephone_number`, `sp_fax`, `sp_address1`, `sp_address2`, `sp_city`, `sp_state`, `sp_postal_code`, `sp_description`, `sp_insurance_last_valuation_date`, `sp_insurance_company_name`, `sp_insurance_policy_number`, `sp_insurance_limit`, `sp_insurance_deductible`, `sp_dot_regulated`) VALUES
-(3, 'test sp', '', 1, '', NULL, '', NULL, 'tt', 3, 'ttt', NULL, NULL, '', NULL, NULL, NULL, 'No'),
-(4, 'Service Company', '', 1, '', NULL, '', NULL, 'tt', 3, 'ttt', NULL, NULL, '', NULL, NULL, NULL, 'No');
-
-
---
--- Дамп данных таблицы `service_provider__company_assignment`
---
-
-
---
--- Дамп данных таблицы `service_provider__equipment_assignment`
---
-
-
---
--- Дамп данных таблицы `service_provider__insurance`
---
-
-
---
--- Дамп данных таблицы `service_provider__type`
---
-
-INSERT INTO `service_provider__type` (`spt_id`, `spt_type`) VALUES
-(1, 'Insurance'),
-(2, 'Tow Truck'),
-(3, 'Repair');
+INSERT INTO `service_provider` (`sp_id`, `sp_name`, `sp_contact`, `sp_type`, `sp_telephone_number`, `sp_fax`, `sp_address1`, `sp_address2`, `sp_city`, `sp_state_id`, `sp_postal_code`, `sp_description`, `sp_dot_regulated`, `sp_status`, `sp_entry_date`, `sp_last_modified_datetime`) VALUES
+(1, 'test sp', '', 'Repair', '1', '', '1', '', 'tt', 3, 'ttt', '', 'No', 'Open', '2011-01-01', '2011-01-14 12:54:52'),
+(2, 'Service Company', '', 'Tow Truck', '1', '', '1', '', 'tt', 3, 'ttt', '', 'No', 'Open', '2011-01-01', '2011-01-14 12:54:52');
 
 --
 -- Дамп данных таблицы `state`

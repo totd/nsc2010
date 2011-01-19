@@ -27,17 +27,24 @@
     <div class="post-top">
         <div class="post-bottom">
             <div class="post-middle">
-                <div id="viewVIWdiv" class="VIWDiv">
+                <input type="hidden" value="<?= $this->equipmentRow['e_id']; ?>" id="e_id" name="e_id" />
+                <input type="hidden" value="<?= $this->equipmentRow['e_Number']; ?>"
+                                           id="e_Number" name="e_Number" />
+                <input type="hidden" value="<?= $this->equipmentRow['e_Entry_Date']; ?>"
+                                           id="e_Entry_Date" name="e_Entry_Date" />
+                <input type="hidden" value="<?= $this->equipmentRow['enes_type']; ?>"
+                                           id="e_New_Equipment_Status" name="e_New_Equipment_Status" />
+                <div id="mainVIWdiv">
                 
                 </div>
                 <?php
-                    echo $this->partial('partials/_updateVIW.phtml', array(
-                            'equipmentRow' => $this->equipmentRow,
-                            'equipmentTypes' => $this->equipmentTypes,
-                            'states' => $this->states,
-                            'equipmentStatus' => $this->equipmentStatus,
-                            'allRequiredViwFieldFilled' => $this->allRequiredViwFieldFilled
-                        ));
+//                    echo $this->partial('partials/_updateVIW.phtml', array(
+//                            'equipmentRow' => $this->equipmentRow,
+//                            'equipmentTypes' => $this->equipmentTypes,
+//                            'states' => $this->states,
+//                            'equipmentStatus' => $this->equipmentStatus,
+//                            'allRequiredViwFieldFilled' => $this->allRequiredViwFieldFilled
+//                        ));
                 ?>
             </div>
         </div>
@@ -75,20 +82,15 @@
                 <div id="currentEquipmentMaintenancesList">
 
                 </div>
-                <table cellspacing="0" class="inform addMaintenanceTableClass" style="float: none; width: 889px;">
-                    <tbody>
-                        <tr class="title-dark">
-                            <?php if ($this->identity->permissions->equipment_maintenance_create_permission === true) : ?>
-                                <td colspan="2">
-                                    ADD MAINTENANCE [ <a class="MaintenanceAddLinkClass">VIEW</a> ]
-                                </td>
-                            <?php endif; ?>
-                        </tr>
-                    </tbody>
-                </table>
-                <?php echo $this->partial('partials/index/_add-maintenance.phtml'
-                                          ,array('spList'=>$this->spList)
-                                        ); ?>
+                
+                <div id="addMaintenanceDiv">
+                    
+                </div>
+                <?php
+//                echo $this->partial('partials/index/_add-maintenance.phtml'
+//                                          ,array('spList'=>$this->spList)
+//                                        ); 
+                ?>
                 </div>
     </div></div></div>
 

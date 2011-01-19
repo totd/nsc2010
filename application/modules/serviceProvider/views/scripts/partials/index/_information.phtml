@@ -1,0 +1,208 @@
+<div class="second">
+    <div id="viewInformation" class="informationDiv">
+        <table cellspacing="0" class="inform">
+            <tbody>
+                <tr>
+                    <th colspan="2">
+                        <h2 class="informationHeaderClass">
+                            Service Provider Information
+                        </h2>
+                    </th>
+
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr class="color-dark">
+                    <td>State</td>
+                    <td><span id="sp_state_view"></span></td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td><span id="sp_city_view"></span></td>
+                </tr>
+                <tr class="color-dark">
+                    <td>Address #1</td>
+                    <td><span id="sp_address1_view"></span></td>
+                </tr>
+                <tr>
+                    <td>Address #2</td>
+                    <td><span id="sp_address2_view"></span></td>
+                </tr>
+                <tr class="color-dark">
+                    <td>Zip</td>
+                    <td><span id="sp_postal_code_view"></span></td>
+                </tr>
+                <tr>
+                    <td>Contact</td>
+                    <td><span id="sp_contact_view"></span></td>
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+            </tbody>
+        </table>
+
+        <table cellspacing="0" class="inform informationSecondTable">
+            <tbody>
+                <tr>
+                    <th colspan="2">
+                        <?php if ($this->identity->permissions->service_provider_modify_permission === true) : ?>
+                            <span class="blue-button">
+                                <span>
+                                    <a class="informationActionLink" id="updateActionLink">
+                                        Update Service Provider
+                                    </a>
+                                </span>
+                            </span>
+                        <?php else : ?>
+                            &nbsp;
+                        <?php endif ?>
+                    </th>
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr class="color-dark">
+                    <td>Type</td>
+                    <td><span id="sp_type_view"></span></td>
+                </tr>
+                <tr>
+                    <td>Telephone</td>
+                    <td><span id="sp_telephone_number_view"></span></td>
+                </tr>
+                <tr class="color-dark">
+                    <td>Fax</td>
+                    <td><span id="sp_fax_view"></span></td>
+                </tr>
+                <tr>
+                    <td>DOT Regulated</td>
+                    <td><span id="sp_dot_regulated_view"></span></td>
+                </tr>
+                <tr class="color-dark">
+                    <td style="vertical-align: top;">Description</td>
+                    <td><span id="sp_description_view"></span></td>
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+            </tbody>
+        </table>
+
+        
+    </div>
+
+    <div id="editInformation"  class="informationDiv" style="display: none;">
+        <table cellspacing="0" class="inform">
+            <tbody>
+                <tr>
+                    <tr>
+                        <th colspan="2">
+                            <h2 class="informationHeaderClass">
+                                Service Provider Information
+                            </h2>
+                        </th>
+                    </tr>
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr class="color-dark">
+                    <td><label class="required"><span>*</span>State</label></td>
+                    <td>
+                        <select id='sp_state_id' class="sp_state_class">
+                            <?php
+                                foreach ($this->states as $key => $value) {
+                                  echo '<option value="' . $key . '">' . $value . '</option>';
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="required"><span>*</span>City</label></td>
+                    <td>
+                        <input type="text" id="sp_city" />
+                        <span class="sp_city_class"></span>
+                    </td>
+                </tr>
+                <tr class="color-dark">
+                    <td><label class="required"><span>*</span>Address #1</label></td>
+                    <td>
+                        <input type="text" id="sp_address1" />
+                        <span class="sp_address1_class"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address #2</td>
+                    <td>
+                        <input type="text" id="sp_address2"/>
+                        <span class="sp_address2_class"></span>
+                    </td>
+                </tr>
+                <tr class="color-dark">
+                    <td><label class="required"><span>*</span>Zip</label></td>
+                    <td>
+                        <input type="text" id="sp_postal_code"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Contact</td>
+                    <td>
+                        <input type="text" id="sp_contact" class="sp_contact_class" value="" />
+                    </td>
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+            </tbody>
+        </table>
+
+        <table cellspacing="0" class="inform informationSecondTable">
+            <tbody>
+                <th colspan="2">
+                    <span class="blue-button">
+                        <span>
+                            <a id="saveInformationLink" class="saveButton">
+                                Save
+                            </a>
+                        </span>
+                    </span>
+                    <span class="blue-button">
+                        <span>
+                            <a class="informationActionLink" id="cancelInformationButton">
+                                Cancel
+                            </a>
+                        </span>
+                    </span>
+                </th>
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr class="color-dark">
+                    <td><label class="required"><span>*</span>Type</label></td>
+<!--                    TODO Implement allowing to change type if SP hasn't any assignment, 
+                    else give to user a confirmation about deleting all assignment. -->
+                    <td>
+                        <input type="radio" name="sp_type" class="sp_type_class" value="Insurance" checked="checked">&nbsp;Insurance&nbsp;
+                        <input type="radio" name="sp_type" class="sp_type_class" value="Tow Truck">&nbsp;Tow Truck&nbsp;
+                        <input type="radio" name="sp_type" class="sp_type_class" value="Repair">&nbsp;Repair&nbsp;
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><label class="required"><span>*</span>Telephone</label></td>
+                    <td>
+                        <input type="text" id="sp_telephone_number" />
+                    </td>
+                </tr>
+                <tr class="color-dark">
+                    <td>Fax</td>
+                    <td>
+                        <input type="text" id="sp_fax" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="required"><span>*</span>DOT Regulated</label></td>
+                    <td>
+                        <input type="radio" name="sp_dot_regulated" class="sp_dot_regulated_class" value="Yes">&nbsp;Yes&nbsp;
+                        <input type="radio" name="sp_dot_regulated" class="sp_dot_regulated_class" value="No" checked="checked">&nbsp;No&nbsp;
+                    </td>
+                </tr>
+                <tr class="color-dark">
+                    <td>Description</td>
+                    <td style="vertical-align: top;">
+                        <textarea type="text" id="sp_description" cols="22" rows="2"></textarea>
+                    </td>
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>

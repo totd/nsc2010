@@ -5,7 +5,7 @@
                 <tbody>
                     <tr>
                         <th colspan="2">
-                           <h2 id="equipmentAssignmentHeader" <?= ($this->allRequiredAssignmentFieldFilled === true) ? 'class="status-ok"' : ''; ?>">
+                           <h2 id="equipmentAssignmentHeader">
                                 Equipment Assignment
                            </h2>
                             <input type="hidden" value="<?= (isset($this->equipmentAssignmentRow['ea_equipment_id'])) ? $this->equipmentAssignmentRow['ea_equipment_id'] : '' ; ?>" id="ea_equipment_id" name="ea_equipment_id" />
@@ -126,7 +126,7 @@
                         </td>
                     </tr>
             </table>
-            <table cellspacing="0" class="inform">
+            <table cellspacing="0" class="inform <?= ($this->allRequiredAssignmentFieldFilled === true) ? 'status-ok' : ''; ?>">
                 <tbody>
                     <tr>
                         <th colspan="2">
@@ -159,7 +159,7 @@
                         </td>
                     </tr>
                     
-                    <tr>
+                    <tr class="color-dark">
                         <td>Incident</td>
                         <td>
                             <span>
@@ -167,14 +167,6 @@
                                     Add incident
                                 </a>
                             </span>
-                        </td>
-                    </tr>
-                    <tr class="color-dark">
-                        <td>Service Provider</td>
-                        <td>
-                            <a href="/serviceProvider/create/index/equipmentId/<?= (isset($this->equipmentAssignmentRow['e_id'])) ? $this->equipmentAssignmentRow['e_id'] : '' ; ?>">
-                                    Add Service Provider
-                            </a>
                         </td>
                     </tr>
                     <tr>

@@ -1077,6 +1077,22 @@ h2.status-warning{
 	padding-right: 30px;
 }
 
+div.status-ok {
+        background: url(/images/status-ok.png) no-repeat 100% 27px !important;
+}
+
+div.status-warning{
+        background: url(/images/attention.png) no-repeat 100% 27px !important;
+}
+
+table.status-ok {
+        background: url(/images/status-ok.png) no-repeat 98% 35px !important;
+}
+
+table.status-warning{
+        background: url(/images/attention.png) no-repeat 98% 35px !important;
+}
+
 
 /*
 added by Vlad on 25-12-2010
@@ -1140,22 +1156,6 @@ ul .dqf-sub-menu ul {
 .dqf-uploaded-images-delete:hover {
        background: url(/images/delete-over.png) no-repeat;
        background-position:top right !important;
-}
-
-div.status-ok {
-       background: url(/images/status-ok.png) no-repeat 100% 27px !important;
-}
-
-div.status-warning{
-       background: url(/images/attention.png) no-repeat 100% 27px !important;
-}
-
-table.status-ok {
-       background: url(/images/status-ok.png) no-repeat 98% 35px !important;
-}
-
-table.status-warning{
-       background: url(/images/attention.png) no-repeat 98% 35px !important;
 }
 
 

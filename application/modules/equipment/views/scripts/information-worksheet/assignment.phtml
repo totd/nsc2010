@@ -3,7 +3,7 @@
         <tbody>
             <tr>
                 <th colspan="2">
-                    <h2 id="equipmentAssignmentHeader" <?= ($this->layout()->allRequiredAssignmentFieldFilled === true) ? 'class="status-ok"' : ''; ?>">
+                    <h2 id="equipmentAssignmentHeader">
                         Equipment Assignment
                     </h2>
                 </th>
@@ -33,7 +33,7 @@
             </tr>
         </tbody>
     </table>
-    <table cellspacing="0" class="inform">
+    <table cellspacing="0" class="inform <?= ($this->layout()->allRequiredAssignmentFieldFilled === true) ? 'status-ok' : ''; ?>">
         <tbody>
             <tr>
                 <th colspan="2">

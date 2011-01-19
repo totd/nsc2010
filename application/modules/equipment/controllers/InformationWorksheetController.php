@@ -12,6 +12,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
     public function preDispatch()
     {
         $this->_helper->layout->setLayout('equipmentLayout');
+        Zend_Controller_Action_HelperBroker::addPrefix('NSC_Helper_Validation');
     }
 
     public function init()
@@ -80,6 +81,13 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             $equipmentRow['e_License_Expiration_Date'] = '';
         }
 
+        if (!empty($equipmentRow['e_valuation_date']) && $equipmentRow['e_valuation_date'] != '0000-00-00') {
+            $myDate = new Zend_Date($equipmentRow['e_valuation_date'], "yyyy-MM-dd");
+            $equipmentRow['e_valuation_date'] = $myDate->toString("MM/dd/yyyy");
+        } else {
+            $equipmentRow['e_valuation_date'] = '';
+        }
+
         $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
         $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentRow['e_id']);
 
@@ -105,53 +113,6 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/ajaxfileupload/ajaxfileupload.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/calculator/jquery.calculator.min.js', 'text/javascript');
 
-
-        // update VIW data
-        // create state select.
-        $stateModel = new State_Model_State();
-        $states = $stateModel->getList();
-
-        $selectStateArray = array('' => array('text' => '-'));
-        foreach ($states as $state) {
-            if (is_object($state)) {
-                $selectStateArray[$state->s_id] = array('text' => $state->s_name);
-            } else {
-                $selectStateArray[$state['s_id']] = array('text' => $state['s_name']);
-            }
-        }
-
-        if (isset($equipmentRow['e_Registration_State']) && !is_null($equipmentRow['e_Registration_State'])) {
-            foreach ($selectStateArray as $key => &$value) {
-                if ($equipmentRow['e_Registration_State'] == $key) {
-                    $value['selected'] = true;
-                    break;
-                }
-            }
-        } else {
-            $selectStateArray['']['selected'] = true;
-        }
-        $this->view->states = $selectStateArray;
-
-        // create equipment type select.
-        $equipmentTypeModel = new EquipmentType_Model_EquipmentType();
-        $equipmentTypes = $equipmentTypeModel->getList();
-
-        $selectEquipmentTypeArray = array('' => array('text' => '-'));
-        foreach ($equipmentTypes as $equipmentType) {
-            $selectEquipmentTypeArray[$equipmentType->et_id] = array('text' => $equipmentType->et_type);
-        }
-
-        if (isset($equipmentRow['e_type_id']) && !is_null($equipmentRow['e_type_id'])) {
-            foreach ($selectEquipmentTypeArray as $key => &$value) {
-                if ($equipmentRow['e_type_id'] == $key) {
-                    $value['selected'] = true;
-                    break;
-                }
-            }
-        } else {
-            $selectEquipmentTypeArray['']['selected'] = true;
-        }
-        $this->view->equipmentTypes = $selectEquipmentTypeArray;
 
         // create service provider select.
         $spModel = new ServiceProvider_Model_ServiceProvider();
@@ -294,6 +255,13 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         } else {
             $equipmentRow['e_License_Expiration_Date'] = '';
         }
+        
+        if (!empty($equipmentRow['e_valuation_date']) && $equipmentRow['e_valuation_date'] != '0000-00-00') {
+            $myDate = new Zend_Date($equipmentRow['e_valuation_date'], "yyyy-MM-dd");
+            $equipmentRow['e_valuation_date'] = $myDate->toString("MM/dd/yyyy");
+        } else {
+            $equipmentRow['e_valuation_date'] = '';
+        }
 
         $this->view->equipmentRow = $equipmentRow;
         $this->view->pageTitle = 'UPDATE EQUIPMENT INFORMATION WORKSHEET';
@@ -396,7 +364,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
             
             $data = $this->_request->getQuery();
             foreach ($data as $key => &$value) {
-                if ($key == 'e_License_Expiration_Date') {
+                if ('e_License_Expiration_Date' == $key  || 'e_valuation_date' == $key) {
                     try {
                         $myDate = new Zend_Date($value, "MM/dd/yyyy");
                         $data[$key] = $myDate->toString("yyyy-MM-dd");
@@ -413,46 +381,11 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $result['result'] = 1;
                 $result['row'] = $saveResult['row'];
             } else if (isset($saveResult['validationError'])) {
-                $result['errorMessage'] = $this->buildValidateErrorMessage($saveResult['validationError']);
+                $result['errorMessage'] = $this->_helper->buildValidateError($saveResult['validationError']);
             }
 
             print json_encode($result);
         }
-    }
-
-    private function buildValidateErrorMessage($validationErrorArray)
-    {
-        $result = '';
-
-        if (isset($validationErrorArray['notExistFields'])) {
-            $result = "The following fields don't exist: " .
-                                    implode(", ", $validationErrorArray['notExistFields']) .
-                                    "<br /><br />";
-        }
-
-        if (isset($validationErrorArray['requiredFields'])) {
-            $result .= "The following fields are required: " .
-                                    implode(", ", $validationErrorArray['requiredFields']) .
-                                    "<br /><br />";
-        }
-
-        if (isset($validationErrorArray['notValidFields'])) {
-            foreach ($validationErrorArray['notValidFields'] as $value) {
-                $result .= $value['message'] . "<br /><br />";
-            }
-        }
-
-        if (isset($validationErrorArray['other'])) {
-            foreach ($validationErrorArray['other'] as $value) {
-                $result .= $value . "<br /><br />";
-            }
-        }
-
-        if (empty($result)) {
-            $result = 'Unknown validation error';
-        }
-
-        return $result;
     }
 
     public function uploadPictureAction()
@@ -571,7 +504,7 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $result['result'] = 1;
                 $result['row'] = $saveResult['row'];
             } else if (isset($saveResult['validationError'])) {
-                $result['errorMessage'] = $this->buildValidateErrorMessage($saveResult['validationError']);
+                $result['errorMessage'] = $this->_helper->buildValidateError($saveResult['validationError']);
             }
 
             print json_encode($result);
@@ -607,6 +540,13 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                     $equipmentRow['e_License_Expiration_Date'] = $myDate->toString("MM/dd/yyyy");
                 } else {
                     $equipmentRow['e_License_Expiration_Date'] = '';
+                }
+
+                if (!empty($equipmentRow['e_valuation_date']) && $equipmentRow['e_valuation_date'] != '0000-00-00') {
+                    $myDate = new Zend_Date($equipmentRow['e_valuation_date'], "yyyy-MM-dd");
+                    $equipmentRow['e_valuation_date'] = $myDate->toString("MM/dd/yyyy");
+                } else {
+                    $equipmentRow['e_valuation_date'] = '';
                 }
 
                 $equipmentAssignmentModel = new EquipmentAssignment_Model_EquipmentAssignment();
@@ -652,6 +592,52 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
 
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender(true);
+
+                // create state select.
+                $stateModel = new State_Model_State();
+                $states = $stateModel->getList();
+
+                $selectStateArray = array('' => array('text' => '-'));
+                foreach ($states as $state) {
+                    if (is_object($state)) {
+                        $selectStateArray[$state->s_id] = array('text' => $state->s_name);
+                    } else {
+                        $selectStateArray[$state['s_id']] = array('text' => $state['s_name']);
+                    }
+                }
+
+                if (isset($equipmentRow['e_Registration_State']) && !is_null($equipmentRow['e_Registration_State'])) {
+                    foreach ($selectStateArray as $key => &$value) {
+                        if ($equipmentRow['e_Registration_State'] == $key) {
+                            $value['selected'] = true;
+                            break;
+                        }
+                    }
+                } else {
+                    $selectStateArray['']['selected'] = true;
+                }
+                $layout->states = $selectStateArray;
+
+                // create equipment type select.
+                $equipmentTypeModel = new EquipmentType_Model_EquipmentType();
+                $equipmentTypes = $equipmentTypeModel->getList();
+
+                $selectEquipmentTypeArray = array('' => array('text' => '-'));
+                foreach ($equipmentTypes as $equipmentType) {
+                    $selectEquipmentTypeArray[$equipmentType->et_id] = array('text' => $equipmentType->et_type);
+                }
+
+                if (isset($equipmentRow['e_type_id']) && !is_null($equipmentRow['e_type_id'])) {
+                    foreach ($selectEquipmentTypeArray as $key => &$value) {
+                        if ($equipmentRow['e_type_id'] == $key) {
+                            $value['selected'] = true;
+                            break;
+                        }
+                    }
+                } else {
+                    $selectEquipmentTypeArray['']['selected'] = true;
+                }
+                $layout->equipmentTypes = $selectEquipmentTypeArray;
 
                 $result['layout'] = $layout->render();
 
@@ -787,6 +773,11 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
                 $equipmentAssigmentRow = $equipmentAssignmentModel->getAssignment($equipmentId);
                 if (is_array($equipmentAssigmentRow) && count($equipmentAssigmentRow)) {
                     $layout->equipmentAssignmentRow = $equipmentAssigmentRow;
+                    if (isset($equipmentAssigmentRow['d_ID']) && !empty($equipmentAssigmentRow['d_ID'])) {
+                        $layout->allRequiredAssignmentDriverFieldFilled = true;
+                    } else {
+                        $layout->allRequiredAssignmentDriverFieldFilled = false;
+                    }
                 }
 
                 $this->_helper->layout->disableLayout();

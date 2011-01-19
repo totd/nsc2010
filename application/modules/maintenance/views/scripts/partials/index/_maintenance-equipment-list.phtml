@@ -1,0 +1,181 @@
+<table cellspacing="0" class="inform status-ok" style="float: none; width: 889px;" >
+    <tbody>
+    <tr>
+        <th>
+            <h2><?= $this->layout()->header; ?></h2>
+        </th>
+        <th>
+            &nbsp;
+        </th>
+    </tr>
+    </tbody>
+</table>
+<table cellspacing="0" class="inform" style="float: none; width: 889px;" >
+
+<?php
+$maintenanceList = $this->layout()->maintenanceList;
+$maintenanceCount = 0;
+foreach($maintenanceList as $key => $value)
+{
+    $maintenanceCount++;
+    ?>
+    <tbody id="viewMaintenanceRecordID_<?= $value['em_id']; ?>" class="classMaintenanceRecordID_<?= $value['em_id']; ?>">
+        <tr class="title-dark">
+            <td colspan="2">
+                Maintenance #<?= $maintenanceCount;?>
+            <?php if ($this->identity->permissions->equipment_maintenance_modify_permission === true) : ?>
+                [ <a onclick="$('.classMaintenanceRecordID_<?= $value['em_id']; ?>').toggle('slow');">EDIT</a> ]
+            <?php endif; ?>
+            <?php if ($this->identity->permissions->equipment_maintenance_delete_permission === true) : ?>
+                [ <a onclick="deleteMaintenanceClickHandler(<?= "{$value['em_id']}, {$value['em_equipment_id']}";?>)">DELETE</a> ]
+            <?php endif; ?>
+            </td>
+        </tr>
+        
+        <tr  class="color-dark">
+            <td colspan="2">
+                Requested Date:&nbsp;&nbsp;<span id="view_em_requested_date_<?= $value['em_id']; ?>"><?= $value['em_requested_date']?></span>
+                Completed Date:&nbsp;&nbsp;<span id="view_em_completed_date_<?= $value['em_id']; ?>"><?= $value['em_completed_date']?></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Next Maintenance Date:&nbsp;&nbsp;<span id="view_em_next_maintenance_date_<?= $value['em_id']; ?>"><?= $value['em_next_maintenance_date']?></span>
+                Service Date:&nbsp;&nbsp;<span id="view_em_service_date_<?= $value['em_id']; ?>"><?= $value['em_service_date']?></span>
+            </td>
+        </tr>
+        <tr  class="color-dark">
+            <td colspan="2">
+                Service Provider:&nbsp;&nbsp;<span id="view_em_service_provider_id_<?= $value['em_id']; ?>"><?= $value['sp_name']?></span>
+                Amount:&nbsp;&nbsp;<span id="view_em_invoice_amount_<?= $value['em_id']; ?>"><?= $value['em_invoice_amount']?></span>
+                DOT reported:&nbsp;&nbsp;<span id="view_em_dot_regulated_<?= $value['em_id']; ?>"><?= $value['em_dot_regulated']?></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Notes :&nbsp;&nbsp;<span id="view_em_notes_<?= $value['em_id']; ?>"><?= $value['em_notes']?></span>
+            </td>
+        </tr>
+        
+    </tbody>
+
+    <tbody id="editMaintenanceRecordID_<?php echo $value['em_id']; ?>" class="classMaintenanceRecordID_<?= $value['em_id']; ?>" style="display: none;">
+        <tr class="title-dark">
+            <td colspan="2">
+                Edit Maintenance #<?= $maintenanceCount;?> [ <a class="MaintenanceAddLinkClass" onclick="$('.classMaintenanceRecordID_<?= $value['em_id']; ?>').toggle('slow');">HIDE</a> ]
+            </td>
+        </tr>
+        <tr>
+            <td class="" width="150">
+                <div id="errorCustomAddMaintenanceTable" class="error_custom2">
+                </div>
+            </td>
+        </tr>
+        <tr  class="color-dark">
+            <td width="150">
+                <label class="required">
+                    <span>*</span>Requested Date:
+                </label>
+            </td>
+            <td>
+                <input type="text" class="RequestedDate maintenanceDate" id="em_requested_date_<?= $value['em_id']; ?>"
+                       size=12 value="<?= $value['em_requested_date']; ?>"/>&nbsp;&nbsp;&nbsp;
+                <label class="required">
+                    <span>*</span>Completed Date:
+                </label>
+                <input type="text" class="CompletedDate maintenanceDate" id="em_completed_date_<?= $value['em_id']; ?>"
+                       size=12 value="<?= $value['em_completed_date']; ?>"/>
+            </td>
+        </tr>
+        <tr>
+            <td width="150">
+                <label class="required">
+                    <span>*</span>Next Maintenance Date:
+                </label>
+            </td>
+            <td>
+                <input type="text" class="NextMaintenanceDate maintenanceDate" id="em_next_maintenance_date_<?= $value['em_id']; ?>"
+                       size=12 value="<?= $value['em_next_maintenance_date']; ?>"/>&nbsp;&nbsp;&nbsp;
+                <label class="required">
+                    <span>*</span>Service Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </label>
+                <input type="text" class="CompletedDate maintenanceDate" id="em_service_date_<?= $value['em_id']; ?>"
+                       size=12 value="<?= $value['em_service_date']; ?>"/>
+            </td>
+        </tr>
+        <tr  class="color-dark">
+            <td width="150">
+                <label>
+                    Service Provider:
+                </label>
+            </td>
+            <td>
+                <select id="em_service_provider_id_<?= $value['em_id']; ?>" >
+                    <?php
+                        foreach ($this->layout()->spList as $sp_ind => $sp_name) {
+                            $selected = '';
+                            if ($sp_ind == $value['em_service_provider_id']) {
+                                $selected = 'selected="selected"';
+                            }
+                          echo '<option value="' . $sp_ind . '" ' . $selected . '>' . $sp_name . '</option>';
+                        }
+                    ?>
+                </select>
+                &nbsp;&nbsp;&nbsp;
+                <label>
+                    Amount:
+                </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" class="Amount" id="em_invoice_amount_<?= $value['em_id']; ?>"
+                       size=12 value="<?= $value['em_invoice_amount']; ?>"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label>
+                    DOT reported:
+                </label>
+                <?php
+                    $yesChecked = '';
+                    $noChecked = '';
+                    if (isset($value['em_dot_regulated']) && $value['em_dot_regulated'] == 'No') {
+                        $noChecked = 'checked="checked"';
+                    } else if (isset($value['em_dot_regulated']) && $value['em_dot_regulated'] == 'Yes') {
+                        $yesChecked = 'checked="checked"';
+                    }
+                ?>
+                <input type="radio" class="DOTreported_<?= $value['em_id']; ?>" 
+                       name="em_dot_regulated_<?= $value['em_id']; ?>" id="em_dot_regulated_yes"
+                       value="Yes" <?= $yesChecked; ?>>&nbsp;Yes
+                <input type="radio" class="DOTreported_<?= $value['em_id']; ?>" 
+                       name="em_dot_regulated_<?= $value['em_id']; ?>" id="em_dot_regulated_no"
+                       value="No" <?= $noChecked; ?>>&nbsp;No
+            </td>
+        </tr>
+        <tr>
+            <td width="150">
+                Notes :
+            </td>
+            <td>
+                <textarea cols="40" rows="3" id="em_notes_<?= $value['em_id']; ?>"><?= $value['em_notes']?></textarea>
+            </td>
+        </tr>
+        <tr height=40 valign=middle>
+            <td class="" align=center>&nbsp;</td>
+            <td class="" align=left>
+                <span class="blue-button float-left">
+                    <a id="saveMaintenance"  class="saveBlockButtonClass" onclick="saveMaintenance(<?= $value['em_id'] . ',' . $value['em_equipment_id'];?>);">
+                        Save
+                    </a>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+
+    <?php
+        }
+?>
+
+</table>
+<?php
+        echo $this->partial('partials/index/_add-equipment-maintenance.phtml',array(
+                                'spList' => $this->layout()->spList,
+                                'identity' => $this->layout()->identity
+                        )
+                );
+?>

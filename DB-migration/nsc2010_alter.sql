@@ -75,11 +75,25 @@ ALTER TABLE `inspection`
   ADD CONSTRAINT `fk_inspection_inspection_types1` FOREIGN KEY (`ins_Type_ID`) REFERENCES `inspection_types` (`it_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `service_provider__company_assignment`
+-- Ограничения внешнего ключа таблицы `service_providers_companies`
 --
-ALTER TABLE `service_provider__company_assignment`
-  ADD CONSTRAINT `fk_service_provider__company_assignment_company1` FOREIGN KEY (`spca_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_service_provider__company_assignment_service_provider1` FOREIGN KEY (`spca_Service_Provider_ID`) REFERENCES `service_provider` (`sp_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `service_providers_companies`
+  ADD CONSTRAINT `service_providers_companies_ibfk_2` FOREIGN KEY (`spc_company_id`) REFERENCES `company` (`c_id`),
+  ADD CONSTRAINT `service_providers_companies_ibfk_1` FOREIGN KEY (`spc_service_provider_id`) REFERENCES `service_provider` (`sp_id`);
+
+--
+-- Ограничения внешнего ключа таблицы `service_providers_equipments`
+--
+ALTER TABLE `service_providers_equipments`
+  ADD CONSTRAINT `service_providers_equipments_ibfk_1` FOREIGN KEY (`spe_service_provider_id`) REFERENCES `service_provider` (`sp_id`),
+  ADD CONSTRAINT `service_providers_equipments_ibfk_2` FOREIGN KEY (`spe_equipment_id`) REFERENCES `equipment` (`e_id`);
+
+--
+-- Ограничения внешнего ключа таблицы `service_providers_insurances`
+--
+ALTER TABLE `service_providers_insurances`
+  ADD CONSTRAINT `service_providers_insurances_ibfk_2` FOREIGN KEY (`spi_insurance_company_id`) REFERENCES `insurance` (`i_ID`),
+  ADD CONSTRAINT `service_providers_insurances_ibfk_1` FOREIGN KEY (`spi_service_provider_id`) REFERENCES `service_provider` (`sp_id`);
 
 --
 -- Ограничения внешнего ключа таблицы `user`

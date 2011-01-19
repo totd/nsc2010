@@ -4,6 +4,7 @@ class Incident_IndexController extends Zend_Controller_Action
     public function  preDispatch()
     {
         $this->_helper->layout->setLayout('incidentLayout');
+        Zend_Controller_Action_HelperBroker::addPrefix('NSC_Helper_View');
     }
 
     public function  init()
@@ -32,19 +33,7 @@ class Incident_IndexController extends Zend_Controller_Action
 
         $this->view->i_ID = $id;
 
-        // create state select.
-        $stateModel = new State_Model_State();
-        $states = $stateModel->getList();
-
-        $selectStateArray = array('' => '-');
-        foreach ($states as $state) {
-            if (is_object($state)) {
-                $selectStateArray[$state->s_id] = $state->s_name;
-            } else if (is_array ($state)){
-                $selectStateArray[$state['s_id']] = $state['s_name'];
-            }
-        }
-        $this->view->states = $selectStateArray;
+        $this->view->states = $this->_helper->getStateArray();
 
         $travelDirectionModel = new Incident_Model_TravelDirection();
         $travelDirections = $travelDirectionModel->getList();
@@ -218,6 +207,8 @@ class Incident_IndexController extends Zend_Controller_Action
 
             if (isset($data['colMovements']) && is_array($data['colMovements'])) {
                 $data['i_Collision_Movement'] = implode(",", $data['colMovements']);
+            } else {
+                $data['i_Collision_Movement'] = null;
             }
             unset($data['colMovements']);
 
@@ -290,7 +281,7 @@ class Incident_IndexController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
         
-        $incidentId = $this->_request->getParam('incidentId');
+        $incidentId = $this->_request->getParam('id');
         $equipmentId = $this->_request->getParam('equipmentId');
 
         if (!empty($incidentId) && !empty($equipmentId)) {

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/css/style.css" type="text/css" rel="stylesheet"/>
-    <script src="/js//jquery-latest.js"></script>
+    <script src="/js/jquery-latest.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
     <title>National Safety Compliance, INC</title>
 
@@ -109,7 +109,7 @@
               <li>
                   <span class="left">
                       <span class="right">
-                          <a href="/incident/list/index/status/Pending" style="background:none; color:#1c357c; text-shadow:0px 1px 1px #fff;">
+                          <a href="/incident/list/index" style="background:none; color:#1c357c; text-shadow:0px 1px 1px #fff;">
                               <span class="left" style="background: none;">
                                   <span class="right" style="background: none;">
                                       Incident
@@ -122,7 +122,7 @@
                     <ul>
                         <li>
                             <ul>
-                                <li><a href="/incident/list/index/status/Pending">Incident List</a></li>
+                                <li><a href="/incident/list/index">Incident List</a></li>
                                 <?php if ($this->identity->permissions->incident_create_permission === true) : ?>
                                     <li><a href="/incident/create/step1">Add New Incident</a></li>
                                 <?php endif; ?>
@@ -189,7 +189,31 @@
                     </ul>
                 </div>
             </li>
-            <li><span class="left"><span class="right"><a href="/driver/index/index"><span class="left"><span class="right">Service Provider</span></span></a></span></span></li>
+            <li>
+                <span class="left">
+                    <span class="right">
+                        <a href="/serviceProvider/list/index">
+                          <span class="left">
+                              <span class="right">
+                                    Service Provider
+                                </span>
+                            </span>
+                        </a>
+                    </span>
+                </span>
+                <div class="top-pod-menu">
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><a href="/serviceProvider/list/index">Service Provider List</a></li>
+                                <?php if ($this->identity->permissions->service_provider_create_permission === true) :  ?>
+                                    <li><a href="/serviceProvider/index/create">Create New Service Provider</a></li>
+                                <?php endif; ?>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
           </ul>
 
           <?php if(isset($this->pageTitle)){ ?><h1 class="page-title"><?php echo $this->pageTitle; ?></h1><?php } ?>

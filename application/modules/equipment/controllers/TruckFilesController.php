@@ -151,9 +151,12 @@ class Equipment_TruckFilesController extends Zend_Controller_Action
 
     public function addInvolvedAction()
     {
-        $incidentId = $this->_request->getParam('incidentId');
+        $assignmentId = $this->_request->getParam('id');
+        $module = $this->_request->getParam('assignModule');
+        $controller = $this->_request->getParam('assignController');
+        $action = $this->_request->getParam('assignAction');
 
-        $this->view->pageTitle = 'ADD INVOLVED EQUIPMENT';
+        $this->view->pageTitle = 'ASSIGN EQUIPMENT';
 
         $statuses = array(
             'In Service' => array(
@@ -171,8 +174,8 @@ class Equipment_TruckFilesController extends Zend_Controller_Action
         );
         
         
-        $this->view->redirectUrl = "/incident/index/add-involved-equipment/incidentId/$incidentId";
-        $this->view->incidentId = $incidentId;
+        $this->view->redirectUrl = "/$module/$controller/$action/id/$assignmentId";
+        $this->view->assignmentId = $assignmentId;
 
         $this->buildList($statuses);
         $this->view->breadcrumbs = "<a href='/equipment/index'>Equipment Management</a>&nbsp;&gt;&nbsp;Equipment List";

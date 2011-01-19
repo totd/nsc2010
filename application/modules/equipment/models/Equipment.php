@@ -45,19 +45,19 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
                             'label' => 'Registration state'
                         ),
         'e_Gross_Equipment_Weight_Rating' => array(
-                            'required' => true,
+                            'required' => false,
                             'label' => 'Gross equipment weight rating'
                         ),
         'e_Gross_Equipment_Registered_Weight' => array(
-                            'required' => true,
+                            'required' => false,
                             'label' => 'Gross equipment registered weight'
                         ),
         'e_Unladen_Weight' => array(
-                            'required' => true,
+                            'required' => false,
                             'label' => 'Unladen weight'
                         ),
         'e_Axles' => array(
-                            'required' => true,
+                            'required' => false,
                             'label' => 'Axles'
                         ),
         'e_Name' => array(
@@ -112,6 +112,18 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
                             'required' => false,
                             'label' => 'Radio Frequency Identify'
                         ),
+        'e_valuation_date' => array(
+                            'required' => false,
+                            'label' => 'Valuation Date'
+                        ),
+        'e_valuation_value' => array(
+                            'required' => false,
+                            'label' => 'Equipment Valuation Value'
+                        ),
+        'e_number_passenger_seats' => array(
+                            'required' => false,
+                            'label' => 'Number of Passenger Seats'
+                        )
     );
 
     public function getArchivesList($offset = 0, $count = 20, $filterOptions = null)
@@ -261,14 +273,46 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
 
     public function getRow($id)
     {
-        $row = $this->fetchRow("e_id = $id");
+        $result = null;
 
-        return $row;
+        $select = "SELECT *
+                    FROM equipment
+                    LEFT JOIN equipment_types ON e_type_id = et_id
+                    WHERE e_id = {$this->getDefaultAdapter()->quote($id)}
+            ";
+
+        $stmt = $this->getDefaultAdapter()->query($select);
+        $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+
+        if ($rows && 1 == count($rows)) {
+            $result = $rows[0];
+        }
+
+        return $result;
     }
+
+    
+
 
     public function checkCompletedFields($id)
     {
         $row = $this->getRow($id);
+
+        if (is_object($row)) {
+            $row = (arraY) $row;
+        }
+
+        $companyCarNonRequiredFields = array('e_Gross_Equipment_Weight_Rating',
+                                            'e_Gross_Equipment_Registered_Weight',
+                                            'e_Unladen_Weight',
+                                            'e_Axles',
+                                        );
+
+        if (isset($row['et_type']) && 'Company Car' == $row['et_type']) {
+            foreach ($companyCarNonRequiredFields as $value) {
+                unset($this->_requiredCopmleteFields[$value]);
+            }
+        }
 
         foreach ($row as $field => $value) {
             if ((empty($value) || is_null($field)) && key_exists($field, $this->_requiredCopmleteFields))  {
@@ -496,6 +540,17 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
         }
 
         return $result;
+    }
+
+    public function getList($option = null)
+    {
+        $select = $this->select();
+        if (!is_null($option) && is_array($option)) {
+            foreach ($option as $fieldName => $value) {
+                $select->where("$fieldName = ?", $value);
+            }
+        }
+        return $this->fetchAll($select);
     }
 
 }

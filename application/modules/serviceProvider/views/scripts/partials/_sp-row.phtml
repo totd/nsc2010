@@ -1,0 +1,12 @@
+<tr class="<?php print ($this->partialCounter % 2 == 0) ? 'color-dark' : ''; ?>">
+    <td><?= $this->sp_name;?></td>
+    <td><?= $this->sp_type; ?></td>
+    <td><?= $this->s_name; ?></td>
+    <td><?= $this->sp_city; ?>  </td>
+    <td><?= $this->sp_status; ?>  </td>
+    <td>
+        <a href="/serviceProvider/index/index/id/<?= $this->sp_id; ?>">Profile</a>
+        &nbsp;|&nbsp;
+        <a href="/serviceProvider/index/file/id/<?= $this->sp_id; ?>">File</a>
+    </td>
+</tr>

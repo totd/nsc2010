@@ -1,5 +1,5 @@
-.required {
-    font-weight:bold;
+.VIWDiv table.inform td {
+    width: 40%;
 }
 
 .second.post .text-blue {
@@ -43,4 +43,3 @@ table.inform td a span {
 * html .ui-autocomplete {
     height: 100px;
 }
-

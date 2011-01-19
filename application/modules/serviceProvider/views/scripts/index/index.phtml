@@ -1,0 +1,70 @@
+<div class="bottom-nav">
+    <input type="hidden" value="<?= $this->sp_id; ?>" id="sp_id" />
+    <span class="name-driver">
+        Status:&nbsp;<span id="view_sp_status"></span>
+    </span>
+    <ul class="blue-nav">
+        <li>
+            <span>
+                <a class="createSpFileLink">
+                    Create File
+                </a>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a class="exitSpProfileLink" href="/serviceProvider/list">
+                    Exit
+                </a>
+            </span>
+        </li>
+    </ul>
+</div>
+
+<div class="breadcrumbs-left">
+    <div class="breadcrumbs-right">
+        <div class="breadcrumbs-middle">
+            <span>
+                <?= $this->breadcrumbs; ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="driver-information equipment" id="main">
+    <div class="post-top">
+        <div class="post-bottom">
+            <div class="post-middle">
+                <div id="spInformationHeader">
+                    <?= $this->partial('partials/index/_information-header.phtml'); ?>
+                </div>
+                <div id="spInformation">
+                    <?= $this->partial('partials/index/_information.phtml', array(
+                                            'states' => $this->states,
+                                            'identity' => $this->identity
+                    )); ?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="repairType" style="display: <?= ((isset($this->spRow['sp_type']) && $this->spRow['sp_type'] == 'Repair')) ? 'inline' : 'none' ?>">
+    <div class="post-top"><div class="post-bottom"><div class="post-middle">
+                <div class="inform" style="float: none; width: 889px;" >
+                    <div id="currentSpMaintenancesList">
+                    </div>
+                    <div id="addMaintenanceDiv">
+                    </div>
+                </div>
+    </div></div></div>
+    </div>
+
+    <div>
+        <h3 style="padding-top: 15px; padding-left: 28px;" >
+            Last saved: <span id="last_modified_datetime">
+            </span>
+        </h3>
+    </div>
+</div>
+

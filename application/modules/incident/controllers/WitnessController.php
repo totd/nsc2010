@@ -4,6 +4,8 @@ class Incident_WitnessController extends Zend_Controller_Action
     public function  preDispatch()
     {
         $this->_helper->layout->setLayout('incidentLayout');
+        Zend_Controller_Action_HelperBroker::addPrefix('NSC_Helper_Validation');
+        Zend_Controller_Action_HelperBroker::addPrefix('NSC_Helper_View');
     }
 
     public function  init()
@@ -50,7 +52,7 @@ class Incident_WitnessController extends Zend_Controller_Action
                         $result['errorMessage'] = "Error is occurred during a witness-incident storing.";
                     }
                 } else if (isset($savePersonResult['validationError'])) {
-                    $result['errorMessage'] = $this->buildValidateErrorMessage($savePersonResult['validationError']);
+                    $result['errorMessage'] = $this->_helper->buildValidateError($savePersonResult['validationError']);
                 } else {
                     $result['errorMessage'] = "Error is occurred during a witness-person storing.";
                 }
@@ -58,35 +60,6 @@ class Incident_WitnessController extends Zend_Controller_Action
         }
 
         print json_encode($result);
-    }
-
-    private function buildValidateErrorMessage($validationErrorArray)
-    {
-        $result = '';
-
-        if (isset($validationErrorArray['notExistFields'])) {
-            $result = "The following fields don't exist: " .
-                                    implode(", ", $validationErrorArray['notExistFields']) .
-                                    "<br /><br />";
-        }
-
-        if (isset($validationErrorArray['requiredFields'])) {
-            $result .= "The following fields are required: " .
-                                    implode(", ", $validationErrorArray['requiredFields']) .
-                                    "<br /><br />";
-        }
-
-        if (isset($validationErrorArray['notValidFields'])) {
-            foreach ($validationErrorArray['notValidFields'] as $value) {
-                $result .= $value['message'] . "<br /><br />";
-            }
-        }
-
-        if (empty($result)) {
-            $result = 'Unknown validation error';
-        }
-
-        return $result;
     }
 
     public function getWitnessesAction()
@@ -112,19 +85,7 @@ class Incident_WitnessController extends Zend_Controller_Action
                     $layout->setLayout('_witness-list');
                     $layout->witnessList = $witnesses;
 
-                    // create state select.
-                    $stateModel = new State_Model_State();
-                    $states = $stateModel->getList();
-
-                    $selectStateArray = array('' => '-');
-                    foreach ($states as $state) {
-                        if (is_object($state)) {
-                            $selectStateArray[$state->s_id] = $state->s_name;
-                        } else if (is_array ($state)){
-                            $selectStateArray[$state['s_id']] = $state['s_name'];
-                        }
-                    }
-                    $layout->states = $selectStateArray;
+                    $layout->states = $this->_helper->getStateArray();
                 } else {
                     $layout->setLayout('_empty-list');
                     $layout->message = "No Witness";
@@ -156,7 +117,7 @@ class Incident_WitnessController extends Zend_Controller_Action
                 $result['result'] = 1;
                 $result['row'] = $savePersonResult['row'];
             } else if (isset($savePersonResult['validationError'])) {
-                $result['errorMessage'] = $this->buildValidateErrorMessage($savePersonResult['validationError']);
+                $result['errorMessage'] = $this->_helper->buildValidateError($savePersonResult['validationError']);
             }
 
             print json_encode($result);

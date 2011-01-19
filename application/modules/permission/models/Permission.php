@@ -52,28 +52,32 @@ class Permission_Model_Permission
                     )
                 ),
                 'equipment/truck-files' => array('resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
-                    'module' => 'equipment',
-                    'actions' => array(
-                        'add-maintenance',
-                        'delete-maintenance',
-                        'get-maintenances',
-                        'save-maintenance'
-                    )
-                ),
+                'maintenance' => array('resource' => 'maintenance'),
+                'maintenance/maintenance' => array('resource' => 'maintenance:maintenance',
+                                                                'module' => 'maintenance',
+                                                                'actions' => array(
+                                                                    'add-equipment-maintenance',
+                                                                    'add-sp-maintenance',
+                                                                    'delete-maintenance',
+                                                                    'delete-sp-from-maintenances',
+                                                                    'get-equipment-maintenances',
+                                                                    'get-sp-maintenances',
+                                                                    'save-maintenance'
+                                                                )
+                    ),
                 'incident' => array('resource' => 'incident'),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
-                    'actions' => array(
-                        'add-involved-equipment',
-                        'change-driver',
-                        'delete-involved-equiment',
-                        'get-description',
-                        'get-driver-information',
-                        'get-last-modified-date',
-                        'index',
-                        'save-description'
-                    )
-                ),
+                                                            'actions' => array(
+                                                                'add-involved-equipment',
+                                                                'change-driver',
+                                                                'delete-involved-equiment',
+                                                                'get-description',
+                                                                'get-driver-information',
+                                                                'get-last-modified-date',
+                                                                'index',
+                                                                'save-description'
+                                                            )
+                    ),
                 'incident/list' => array('resource' => 'incident:list', 'module' => 'incident',
                     'actions' => array(
                         'index'
@@ -130,12 +134,27 @@ class Permission_Model_Permission
                     )
                 ),
                 'violation/index' => array('resource' => 'violation:index', 'module' => 'violation',
-                    'actions' => array(
-                        'index',
-                        'create',
-                        'save'
-                    )
-                ),
+                                                            'actions' => array(
+                                                                    'index',
+                                                                    'create',
+                                                                    'save'
+                                                                )
+                    ),
+                'serviceProvider' => array('resource' => 'serviceProvider'),
+                'serviceProvider/list' => array('resource' => 'serviceProvider:list', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'serviceProvider/index' => array('resource' => 'serviceProvider:index', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-information',
+                                                                'get-last-modified-date',
+                                                                'create',
+                                                                'save'
+                                                            )
+                    ),
 
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
@@ -286,12 +305,16 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
-                                                                'module' => 'equipment',
+                'maintenance' => array('resource' => 'maintenance'),
+                'maintenance/maintenance' => array('resource' => 'maintenance:maintenance',
+                                                                'module' => 'maintenance',
                                                                 'actions' => array(
-                                                                    'add-maintenance',
+                                                                    'add-equipment-maintenance',
+                                                                    'add-sp-maintenance',
                                                                     'delete-maintenance',
-                                                                    'get-maintenances',
+                                                                    'delete-sp-from-maintenances',
+                                                                    'get-equipment-maintenances',
+                                                                    'get-sp-maintenances',
                                                                     'save-maintenance'
                                                                 )
                     ),
@@ -360,6 +383,20 @@ class Permission_Model_Permission
                                                             'actions' => array(
                                                                     'index'
                                                                 )
+                    ),
+                'serviceProvider/list' => array('resource' => 'serviceProvider:list', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'serviceProvider/index' => array('resource' => 'serviceProvider:index', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-information',
+                                                                'get-last-modified-date',
+                                                                'create',
+                                                                'save'
+                                                            )
                     ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
@@ -505,11 +542,15 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
-                                                                'module' => 'equipment',
+                'maintenance' => array('resource' => 'maintenance'),
+                'maintenance/maintenance' => array('resource' => 'maintenance:maintenance',
+                                                                'module' => 'maintenance',
                                                                 'actions' => array(
-                                                                    'add-maintenance',
-                                                                    'get-maintenances',
+                                                                    'add-equipment-maintenance',
+                                                                    'add-sp-maintenance',
+                                                                    'delete-sp-from-maintenances',
+                                                                    'get-equipment-maintenances',
+                                                                    'get-sp-maintenances',
                                                                     'save-maintenance'
                                                                 )
                     ),
@@ -576,6 +617,20 @@ class Permission_Model_Permission
                                                             'actions' => array(
                                                                     'index'
                                                                 )
+                    ),
+                'serviceProvider/list' => array('resource' => 'serviceProvider:list', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'serviceProvider/index' => array('resource' => 'serviceProvider:index', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-information',
+                                                                'get-last-modified-date',
+                                                                'create',
+                                                                'save'
+                                                            )
                     ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
@@ -705,10 +760,12 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
-                                                                'module' => 'equipment',
+                'maintenance' => array('resource' => 'maintenance'),
+                'maintenance/maintenance' => array('resource' => 'maintenance:maintenance',
+                                                                'module' => 'maintenance',
                                                                 'actions' => array(
-                                                                    'get-maintenances'
+                                                                    'get-equipment-maintenances',
+                                                                    'get-sp-maintenances'
                                                                 )
                     ),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
@@ -743,6 +800,18 @@ class Permission_Model_Permission
                                                             'actions' => array(
                                                                     'index'
                                                                 )
+                    ),
+                'serviceProvider/list' => array('resource' => 'serviceProvider:list', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'serviceProvider/index' => array('resource' => 'serviceProvider:index', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-information',
+                                                                'get-last-modified-date'
+                                                            )
                     ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
@@ -870,12 +939,16 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
-                                                                'module' => 'equipment',
+                'maintenance' => array('resource' => 'maintenance'),
+                'maintenance/maintenance' => array('resource' => 'maintenance:maintenance',
+                                                                'module' => 'maintenance',
                                                                 'actions' => array(
-                                                                    'add-maintenance',
+                                                                    'add-equipment-maintenance',
+                                                                    'add-sp-maintenance',
                                                                     'delete-maintenance',
-                                                                    'get-maintenances',
+                                                                    'delete-sp-from-maintenances',
+                                                                    'get-equipment-maintenances',
+                                                                    'get-sp-maintenances',
                                                                     'save-maintenance'
                                                                 )
                     ),
@@ -944,6 +1017,20 @@ class Permission_Model_Permission
                                                             'actions' => array(
                                                                     'index'
                                                                 )
+                    ),
+                'serviceProvider/list' => array('resource' => 'serviceProvider:list', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'serviceProvider/index' => array('resource' => 'serviceProvider:index', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-information',
+                                                                'get-last-modified-date',
+                                                                'create',
+                                                                'save'
+                                                            )
                     ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
@@ -1086,12 +1173,16 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
-                                                                'module' => 'equipment',
+                'maintenance' => array('resource' => 'maintenance'),
+                'maintenance/maintenance' => array('resource' => 'maintenance:maintenance',
+                                                                'module' => 'maintenance',
                                                                 'actions' => array(
-                                                                    'add-maintenance',
+                                                                    'add-equipment-maintenance',
+                                                                    'add-sp-maintenance',
                                                                     'delete-maintenance',
-                                                                    'get-maintenances',
+                                                                    'delete-sp-from-maintenances',
+                                                                    'get-equipment-maintenances',
+                                                                    'get-sp-maintenances',
                                                                     'save-maintenance'
                                                                 )
                     ),
@@ -1160,6 +1251,20 @@ class Permission_Model_Permission
                                                             'actions' => array(
                                                                     'index'
                                                                 )
+                    ),
+                'serviceProvider/list' => array('resource' => 'serviceProvider:list', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'serviceProvider/index' => array('resource' => 'serviceProvider:index', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-information',
+                                                                'get-last-modified-date',
+                                                                'create',
+                                                                'save'
+                                                            )
                     ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
@@ -1300,12 +1405,16 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
-                                                                'module' => 'equipment',
+                'maintenance' => array('resource' => 'maintenance'),
+                'maintenance/maintenance' => array('resource' => 'maintenance:maintenance',
+                                                                'module' => 'maintenance',
                                                                 'actions' => array(
-                                                                    'add-maintenance',
+                                                                    'add-equipment-maintenance',
+                                                                    'add-sp-maintenance',
                                                                     'delete-maintenance',
-                                                                    'get-maintenances',
+                                                                    'delete-sp-from-maintenances',
+                                                                    'get-equipment-maintenances',
+                                                                    'get-sp-maintenances',
                                                                     'save-maintenance'
                                                                 )
                     ),
@@ -1371,6 +1480,20 @@ class Permission_Model_Permission
                                                             'actions' => array(
                                                                     'index'
                                                                 )
+                    ),
+                'serviceProvider/list' => array('resource' => 'serviceProvider:list', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'serviceProvider/index' => array('resource' => 'serviceProvider:index', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-information',
+                                                                'get-last-modified-date',
+                                                                'create',
+                                                                'save'
+                                                            )
                     ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
@@ -1499,10 +1622,12 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
-                                                                'module' => 'equipment',
+                'maintenance' => array('resource' => 'maintenance'),
+                'maintenance/maintenance' => array('resource' => 'maintenance:maintenance',
+                                                                'module' => 'maintenance',
                                                                 'actions' => array(
-                                                                    'get-maintenances'
+                                                                    'get-equipment-maintenances',
+                                                                    'get-sp-maintenances'
                                                                 )
                     ),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
@@ -1537,6 +1662,18 @@ class Permission_Model_Permission
                                                             'actions' => array(
                                                                     'index'
                                                                 )
+                    ),
+                'serviceProvider/list' => array('resource' => 'serviceProvider:list', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'serviceProvider/index' => array('resource' => 'serviceProvider:index', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-information',
+                                                                'get-last-modified-date'
+                                                            )
                     ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',
@@ -1647,10 +1784,12 @@ class Permission_Model_Permission
                                                                 )
                     ),
                 'equipment/truck-files' => array( 'resource' => 'equipment:truck-files', 'module' => 'equipment'),
-                'equipment/maintenance' => array('resource' => 'equipment:maintenance',
-                                                                'module' => 'equipment',
+                'maintenance' => array('resource' => 'maintenance'),
+                'maintenance/maintenance' => array('resource' => 'maintenance:maintenance',
+                                                                'module' => 'maintenance',
                                                                 'actions' => array(
-                                                                    'get-maintenances'
+                                                                    'get-equipment-maintenances',
+                                                                    'get-sp-maintenances'
                                                                 )
                     ),
                 'incident/index' => array('resource' => 'incident:index', 'module' => 'incident',
@@ -1685,6 +1824,18 @@ class Permission_Model_Permission
                                                             'actions' => array(
                                                                     'index'
                                                                 )
+                    ),
+                'serviceProvider/list' => array('resource' => 'serviceProvider:list', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index'
+                                                            )
+                    ),
+                'serviceProvider/index' => array('resource' => 'serviceProvider:index', 'module' => 'serviceProvider',
+                                                            'actions' => array(
+                                                                'index',
+                                                                'get-information',
+                                                                'get-last-modified-date'
+                                                            )
                     ),
                 'driver' => array('resource' => 'driver'),
                 'driver/index' => array( 'resource' => 'driver:index',

@@ -35,7 +35,7 @@
                 <tbody>
 
                     <tr>
-                        <th colspan="2"><h2 id="equipmantInformetionHeader" class="<?= ($this->allRequiredViwFieldFilled === true) ? 'status-ok' : 'status-warning'; ?>">Equipment Information</h2></th>
+                        <th colspan="2"><h2 id="equipmantInformetionHeader">Equipment Information</h2></th>
                     </tr>
                     <tr class="color-dark">
                         <td><label class="required" title="Unit Number"><span>*</span>Unit #</label></td>
@@ -159,7 +159,7 @@
                 </tbody>
             </table>
 
-            <table cellspacing="0" class="inform">
+            <table cellspacing="0" class="inform <?= ($this->allRequiredViwFieldFilled === true) ? 'status-ok' : 'status-warning'; ?>">
                 <tbody>
                     <tr>
                         <th colspan="2">

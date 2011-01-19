@@ -1,75 +1,3 @@
-function storePrimaryViwValues() {
-    Viw.e_id = $("#e_id").val();
-    Viw.e_Picture = $("#e_Picture").val();
-    Viw.e_Unit_Number = $("#e_Unit_Number").val();
-    Viw.e_type_id = $("#e_type_id").val();
-    Viw.e_Start_Mileage = $("#e_Start_Mileage").val();
-    Viw.e_Registration_State = $("#e_Registration_State").val();
-    Viw.e_Name = $("#e_Name").val();
-    Viw.e_Description = $("#e_Description").val();
-    Viw.e_Axles = $("#e_Axles").val();
-    Viw.e_License_Number = $("#e_License_Number").val();
-    Viw.e_License_Expiration_Date = $("#e_License_Expiration_Date").val();
-    Viw.e_Owner_Number = $("#e_Owner_Number").val();
-    Viw.e_Alternate_ID = $("#e_Alternate_ID").val();
-    Viw.e_DOT_Regulated = $("#e_DOT_Regulated").val();
-    Viw.e_Model = $("#e_Model").val();
-    Viw.e_Year = $("#e_Year").val();
-    Viw.e_Make = $("#e_Make").val();
-    Viw.e_Color = $("#e_Color").val();
-    Viw.e_Unladen_Weight = $("#e_Unladen_Weight").val();
-    Viw.e_Gross_Equipment_Registered_Weight = $("#e_Gross_Equipment_Registered_Weight").val();
-    Viw.e_Gross_Equipment_Weight_Rating = $("#e_Gross_Equipment_Weight_Rating").val();
-    Viw.e_Title_Status = $("#e_Title_Status").val();
-    Viw.e_Fee = $("#e_Fee").val();
-    Viw.e_RFID_No = $("#e_RFID_No").val();
-}
-
-function storePrimaryAssignmentValues() {
-    Assignment.ea_homebase_id = $("#ea_homebase_id").val();
-    Assignment.ea_DOT_regulated = $("#ea_DOT_regulated").val();
-    Assignment.ea_owner_id = $("#ea_owner_id").val();
-    Assignment.ea_driver_id = $("#ea_driver_id").val();
-    Assignment.ea_depot_id = $("#ea_depot_id").val();
-    Assignment.ea_mileage = $("#ea_mileage").val();
-    Assignment.ea_start_date = $("#ea_start_date").val();
-    Assignment.ea_end_date = $("#ea_end_date").val();
-    Assignment.ea_equipment_id = $("#ea_equipment_id").val();
-    Assignment.ea_id = $("#ea_id").val();
-    Assignment.driver_autocomplete = $("#driver_autocomplete").val();
-}
-
-function changeType() {
-    var text = $('#e_type_id :selected').text();
-    $(".second *").show();
-
-    if (text == "Straight Truck") {
-        $("#e_Owner_Number").parents("tr").hide();
-
-        $("#e_Alternate_ID").parents("tr").hide();
-
-    }
-
-    if (text == "Tractor") {
-        $("#e_Alternate_ID").parents("tr").hide();
-
-        $("#e_Fee").parents("tr").hide();
-
-        $("#e_Title_Status").parents("tr").hide();
-
-        $("#e_RFID_No").parents("tr").hide();
-    }
-}
-
-function hideViewAssignment() {
-    $(".AssignmentDiv").toggle("slow");
-}
-
-function hideViewVIW() {
-    $(".VIWDiv").toggle("slow");
-}
-
-
 $(function() {
     Viw = new Object();
     Assignment = new Object();
@@ -78,14 +6,6 @@ $(function() {
     refreshEquipmentAssigment($("#ea_equipment_id").val());
     refreshLastModifiedDate($("#e_id").val());
 
-    // Show/hide VIW edit form
-    $(".VIWActionLink").each(function() {
-       $(this).click(function() {
-            $(".VIWDiv").toggle("slow");
-            return false;
-        });
-    });
-
     $(".EquipmentAssignmentActionLink").each(function() {
        $(this).click(function() {
             $(".AssignmentDiv").toggle("slow");
@@ -93,35 +13,12 @@ $(function() {
         });
     });
 
-    $("#e_License_Expiration_Date").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '-20:+20',
-        showOn: 'button',
-        buttonImage: "/images/select-data.gif",
-        buttonImageOnly: true
-    });
-
-    $("#e_type_id").change(function() {
-        changeType();
-    })
-
-    changeType();
-
     $("#EquipmentAssignmentSaveLink").click(function() {
         $("#EquipmentAssignmentSaveLink").html('Updating...');
         $("#EquipmentAssignmentSaveLink").addClass('button-updating');
         saveAssignment();
         $("#EquipmentAssignmentSaveLink").html('Save');
         $("#EquipmentAssignmentSaveLink").removeClass('button-updating');
-    });
-
-    $("#VIWSaveLink").click(function() {
-        $("#VIWSaveLink").html('Updating...');
-        $("#VIWSaveLink").addClass('button-updating');
-        saveViw();
-        $("#VIWSaveLink").html('Save');
-        $("#VIWSaveLink").removeClass('button-updating');
     });
 
     $("#commonSaveButton").click(function() {
@@ -211,10 +108,96 @@ $(function() {
 
         $("#ea_depot_id").val(Assignment['ea_depot_id']);
     });
-
-
-
 });
+
+function storePrimaryViwValues() {
+    Viw.e_id = $("#e_id").val();
+    Viw.e_Picture = $("#e_Picture").val();
+    Viw.e_Unit_Number = $("#e_Unit_Number").val();
+    Viw.e_type_id = $("#e_type_id").val();
+    Viw.e_Start_Mileage = $("#e_Start_Mileage").val();
+    Viw.e_Registration_State = $("#e_Registration_State").val();
+    Viw.e_Name = $("#e_Name").val();
+    Viw.e_Description = $("#e_Description").val();
+    Viw.e_Axles = $("#e_Axles").val();
+    Viw.e_License_Number = $("#e_License_Number").val();
+    Viw.e_License_Expiration_Date = $("#e_License_Expiration_Date").val();
+    Viw.e_Owner_Number = $("#e_Owner_Number").val();
+    Viw.e_Alternate_ID = $("#e_Alternate_ID").val();
+    Viw.e_DOT_Regulated = $("#e_DOT_Regulated").val();
+    Viw.e_Model = $("#e_Model").val();
+    Viw.e_Year = $("#e_Year").val();
+    Viw.e_Make = $("#e_Make").val();
+    Viw.e_Color = $("#e_Color").val();
+    Viw.e_Unladen_Weight = $("#e_Unladen_Weight").val();
+    Viw.e_Gross_Equipment_Registered_Weight = $("#e_Gross_Equipment_Registered_Weight").val();
+    Viw.e_Gross_Equipment_Weight_Rating = $("#e_Gross_Equipment_Weight_Rating").val();
+    Viw.e_Title_Status = $("#e_Title_Status").val();
+    Viw.e_Fee = $("#e_Fee").val();
+    Viw.e_RFID_No = $("#e_RFID_No").val();
+    Viw.e_valuation_value = $("#e_valuation_value");
+    Viw.e_valuation_date = $("#e_valuation_date");
+    Viw.e_number_passenger_seats = $("#e_number_passenger_seats");
+}
+
+function storePrimaryAssignmentValues() {
+    Assignment.ea_homebase_id = $("#ea_homebase_id").val();
+    Assignment.ea_DOT_regulated = $("#ea_DOT_regulated").val();
+    Assignment.ea_owner_id = $("#ea_owner_id").val();
+    Assignment.ea_driver_id = $("#ea_driver_id").val();
+    Assignment.ea_depot_id = $("#ea_depot_id").val();
+    Assignment.ea_mileage = $("#ea_mileage").val();
+    Assignment.ea_start_date = $("#ea_start_date").val();
+    Assignment.ea_end_date = $("#ea_end_date").val();
+    Assignment.ea_equipment_id = $("#ea_equipment_id").val();
+    Assignment.ea_id = $("#ea_id").val();
+    Assignment.driver_autocomplete = $("#driver_autocomplete").val();
+}
+
+function changeType() {
+    var text = $('#e_type_id :selected').text();
+    $(".second *").show();
+
+    if (text != "Bus") {
+        $(".e_number_passenger_seats").parents("tr").hide();
+    }
+
+    if (text == "Company Car") {
+        $(".e_Axles").parents("tr").hide();
+        $(".e_Gross_Equipment_Weight_Rating").parents("tr").hide();
+        $(".e_Gross_Equipment_Registered_Weight").parents("tr").hide();
+        $(".e_Unladen_Weight").parents("tr").hide();
+    }
+
+    $(".VIWDiv tr:even").attr("class", "color-dark");
+}
+
+function hideViewAssignment() {
+    $(".AssignmentDiv").toggle("slow");
+}
+
+function hideViewVIW() {
+    $(".VIWDiv").toggle("slow");
+}
+
+function turnOnDatePickers() {
+    $(".e_date_class").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-20:+20',
+        showOn: 'button',
+        buttonImage: "/images/select-data.gif",
+        buttonImageOnly: true
+    });
+}
+
+function saveViwClickHeandler() {
+    $("#VIWSaveLink").html('Updating...');
+    $("#VIWSaveLink").addClass('button-updating');
+    saveViw();
+    $("#VIWSaveLink").html('Save');
+    $("#VIWSaveLink").removeClass('button-updating');
+}
 
 /**
  * Compare object values: current and previous (primary).
@@ -276,9 +259,11 @@ function saveAssignment() {
                         if (data.result == 1) {
                             $("#viewAssignmentDiv").html("");
                             refreshEquipmentAssigment($("#ea_equipment_id").val());
+                            $("#ea_id").val(data.row.ea_id);
                             refreshLastModifiedDate($("#e_id").val());
                             $(".AssignmentDiv").toggle("slow");
                             $(".saveButton").html("Save");
+                            
                             return true;
                         } else {
                             __displayEquipmentSaveError(data);
@@ -314,7 +299,10 @@ function saveViw() {
                 e_Gross_Equipment_Weight_Rating : $("#e_Gross_Equipment_Weight_Rating").val(),
                 e_Title_Status : $("#e_Title_Status").val(),
                 e_Fee : $("#e_Fee").val(),
-                e_RFID_No : $("#e_RFID_No").val()
+                e_RFID_No : $("#e_RFID_No").val(),
+                e_valuation_value : $("#e_valuation_value").val(),
+                e_valuation_date : $("#e_valuation_date").val(),
+                e_number_passenger_seats : $("#e_number_passenger_seats").val()
             }, function(data) {
                 if (data.result == 1) {
                     $("#viewVIWdiv").html("");
@@ -382,9 +370,12 @@ function refreshVIW(EIN) {
             url: "/equipment/information-worksheet/get-viw/",
             data: "EIN=" + EIN,
             success: function(data){
-                $("#viewVIWdiv").html(data.layout);
-                atachPreview();
+                $("#mainVIWdiv").html(data.layout);
+                turnOnDatePickers();
+                $(".VIWDiv tr:even").attr("class", "color-dark");
                 storePrimaryViwValues();
+                changeType();
+                atachPreview();
             },
             dataType: "json"
     });
@@ -426,7 +417,8 @@ function refreshEquipmentAssigment(equipmentId) {
 
 
  function atachPreview() {
-     $("#attachFile").imgPreview({
+     $("#attachFile").each(function(){
+        $(this).imgPreview({
             containerID: 'imgPreviewWithStyles',
             imgCSS: {
                 // Limit preview size:
@@ -449,7 +441,8 @@ function refreshEquipmentAssigment(equipmentId) {
                 // Animate link:
                 $(link).stop().animate({opacity:1});
             }
-        });
+        }); 
+     });
  }
 
 

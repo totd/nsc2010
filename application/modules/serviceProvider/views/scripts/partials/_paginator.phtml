@@ -1,0 +1,42 @@
+<?php
+if ($this->spCount > $this->step) {
+    $url = $_SERVER['REQUEST_URI'];
+//    $url = "";
+    if (!isset($_GET['status']) || $_GET['status'] == null) {
+        $url .= "?status={$this->status}";
+    }
+    
+    if (!isset($_GET['from']) || $_GET['from'] == null) {
+        $_GET['from'] = 0;
+        $url .= "&from=0";
+    }
+
+    if (!isset($_GET['step']) || !$_GET['step']) {
+        $url .= "&step={$this->step}";
+    }
+
+    if ($this->from > 0) {
+        $from = $this->from - $this->step;
+        if ($from < 0) {
+            $from = 0;
+        }
+        $url = preg_replace("/from[=][0-9]+/", "from=" . $from . "", $url);
+        $url = preg_replace("/step[=][0-9]+/", "step=" . $this->step, $url);
+?>
+<!--Hak to prohibit a crossing using a link-->
+        <a id="prevSp" onClick="location.href='#';return false;" href="<?php echo $url; ?>"><< Prev <?php echo $this->step; ?> records</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+<?php
+    }
+    if ($this->last < $this->spCount) {
+        $from = $this->from + $this->step;
+        if ($from < 0) {
+            $from = 0;
+        }
+        $url = preg_replace("/from[=][0-9]+/", "from=" . $from . "", $url);
+        $url = preg_replace("/step[=][0-9]+/", "step=" . $this->step, $url);
+?>
+        <a id="nextSp" onClick="location.href='#';return false;" href="<?php echo $url; ?>">Next <?php echo $this->step; ?> records >></a>
+<?php
+    }
+}
+?>

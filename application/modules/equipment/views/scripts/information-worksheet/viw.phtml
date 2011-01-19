@@ -1,155 +1,466 @@
-<table class="first">
-    <tbody>
-        <tr>
-            <td>EIN</td>
-            <td><?= $this->layout()->equipmentRow['e_Number'] ?></td>
-        </tr>
-        <tr>
-            <td>Unit Number</td>
-            <td><?= isset($this->layout()->equipmentRow['e_Unit_Number']) ? $this->layout()->equipmentRow['e_Unit_Number'] : ''; ?></td>
-        </tr>
-        <tr>
-            <td>Entry Date</td>
-            <td><?= $this->layout()->equipmentRow['e_Entry_Date'] ?></td>
-        </tr>
-        <tr>
-            <td>Status</td>
-            <td><?= $this->layout()->equipmentStatus ?></td>
-        </tr>
-    </tbody>
-</table>
-
-<div class="second">
-    <table cellspacing="0" class="inform">
+<div id="viewVIWdiv" class="VIWDiv">
+    <table class="first">
         <tbody>
-            <tr><th colspan="2"><h2 id="equipmantInformetionHeader" class="<?= ($this->layout()->allRequiredViwFieldFilled === true) ? 'status-ok' : 'status-warning'; ?>">Equipment Information</h2></th></tr>
-            <tr class="color-dark">
+            <tr>
+                <td>EIN</td>
+                <td><?= $this->layout()->equipmentRow['e_Number'] ?></td>
+            </tr>
+            <tr>
                 <td>Unit Number</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Unit_Number']; ?></span></td>
+                <td><?= isset($this->layout()->equipmentRow['e_Unit_Number']) ? $this->layout()->equipmentRow['e_Unit_Number'] : ''; ?></td>
             </tr>
             <tr>
-                <td>Picture</td>
-                <td>
-                    <?php if (isset($this->layout()->equipmentRow['e_Picture']) && !empty($this->layout()->equipmentRow['e_Picture'])) : ?>
-                        <span>
-                            <a id="attachFile" href="/<?= $this->layout()->uploadPath . $this->layout()->equipmentRow['e_Picture']; ?>">
-                                Attached file
-                            </a>
-                        </span>
-                    <?php else : ?>
-                        <a id="attachFile"> </a>
-                    <?php endif; ?>
-                </td>
-            </tr>
-            <tr class="color-dark">
-                <td>Type</td>
-                <td><span><?= $this->layout()->equipmentRow['et_type']; ?></span></td>
+                <td>Entry Date</td>
+                <td><?= $this->layout()->equipmentRow['e_Entry_Date'] ?></td>
             </tr>
             <tr>
-                <td>Start Mileage</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Start_Mileage']; ?></span></td>
-            </tr>
-            <tr class="color-dark">
-                <td>Registration State</td>
-                <td><span><?= $this->layout()->equipmentRow['s_name']; ?></span></td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Name']; ?></span></td>
-            </tr>
-            <tr class="color-dark">
-                <td>Description</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Description']; ?></span></td>
-            </tr>
-            <tr>
-                <td>Number Of Axles</td>
-                <td><span><?= ($this->layout()->equipmentRow['e_Axles'] == '0') ? '' : $this->layout()->equipmentRow['e_Axles']; ?></span></td>
-            </tr>
-            <tr class="color-dark">
-                <td>DOT Regulated</td>
-                <td><span><?= $this->layout()->equipmentRow['e_DOT_Regulated']; ?></span></td>
-            </tr>
-            <tr>
-                <td>Fee</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Fee']; ?></span></td>
-            </tr>
-            <tr class="color-dark">
-                <td>Alternate ID</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Alternate_ID']; ?></span></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>Status</td>
+                <td><?= $this->layout()->equipmentStatus ?></td>
             </tr>
         </tbody>
     </table>
 
-    <table cellspacing="0" class="inform">
-        <tbody>
-            <tr>
-                <th colspan="2">
-                    <?php if ($this->identity->permissions->equipment_create_permission === true) : ?>
-                        <span class="blue-button">
-                            <span>
-                                <a class="VIWActionLink" id="UpdateActionLink" onclick="hideViewVIW();">
-                                    Update Equipment Information
-                                </a>
-                            </span>
+    <div class="second">
+        <table cellspacing="0" class="inform">
+            <tbody>
+                <tr><th colspan="2"><h2 id="equipmantInformetionHeader">Equipment Information</h2></th></tr>
+                <tr>
+                    <td>Unit Number</td>
+                    <td><span class="e_Unit_Number"><?= $this->layout()->equipmentRow['e_Unit_Number']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Picture</td>
+                    <td>
+                        <span class="e_Picture">
+                            <?php if (isset($this->layout()->equipmentRow['e_Picture']) && !empty($this->layout()->equipmentRow['e_Picture'])) : ?>
+                                    <a id="attachFile" href="/<?= $this->layout()->uploadPath . $this->layout()->equipmentRow['e_Picture']; ?>">
+                                        Attached file
+                                    </a>
+                            <?php else : ?>
+                                &nbsp;
+                            <?php endif; ?>
                         </span>
-                    <?php else : ?>
-                        &nbsp;
-                    <?php endif ?>
-                </th>
-            </tr>
-            <tr class="color-dark">
-                <td>License Plate Number</td>
-                <td><span><?= $this->layout()->equipmentRow['e_License_Number']; ?></span></td>
-            </tr>
-            <tr>
-                <td>License Expiration Date</td>
-                <td><span><?= $this->layout()->equipmentRow['e_License_Expiration_Date']; ?></span></td>
-            </tr>
-            
-            <tr class="color-dark">
-                <td>Year</td>
-                <td><span><?= ($this->layout()->equipmentRow['e_Year'] == '0000') ? '' : $this->layout()->equipmentRow['e_Year']; ?></span></td>
-            </tr>
-            <tr>
-                <td>Make</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Make']; ?></span></td>
-            </tr>
-            <tr class="color-dark">
-                <td>Color</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Color']; ?></span></td>
-            </tr>
-            <tr>
-                <td>Unladen Weight</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Unladen_Weight']; ?></span></td>
-            </tr>
-            <tr class="color-dark">
-                <td>Gross Registered Weight</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Gross_Equipment_Registered_Weight']; ?></span></td>
-            </tr>
-            <tr>
-                <td>Gross Weight</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Gross_Equipment_Weight_Rating']; ?></span></td>
-            </tr>
-            <tr class="color-dark">
-                <td>Model</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Model']; ?></span></td>
-            </tr>
-            <tr>
-                <td>Title Status</td>
-                <td><span><?= $this->layout()->equipmentRow['e_Title_Status']; ?></span></td>
-            </tr>
-            <tr class="color-dark">
-                <td>Radio Frequency Identify</td>
-                <td><span><?= $this->layout()->equipmentRow['e_RFID_No']; ?></span></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td><span class="e_type_id"><?= $this->layout()->equipmentRow['et_type']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Start Mileage</td>
+                    <td><span class="e_Start_Mileage"><?= $this->layout()->equipmentRow['e_Start_Mileage']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Registration State</td>
+                    <td><span class="e_Registration_State"><?= $this->layout()->equipmentRow['s_name']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td><span class="e_Name"><?= $this->layout()->equipmentRow['e_Name']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td><span class="e_Description"><?= $this->layout()->equipmentRow['e_Description']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>DOT Regulated</td>
+                    <td><span class="e_DOT_Regulated"><?= $this->layout()->equipmentRow['e_DOT_Regulated']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Fee</td>
+                    <td><span class="e_Fee"><?= $this->layout()->equipmentRow['e_Fee']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Alternate ID</td>
+                    <td><span class="e_Alternate_ID"><?= $this->layout()->equipmentRow['e_Alternate_ID']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Valuation Value</td>
+                    <td><span class="e_valuation_value"><?= $this->layout()->equipmentRow['e_valuation_value']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Valuation Date</td>
+                    <td><span class="e_valuation_date"><?= $this->layout()->equipmentRow['e_valuation_date']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table cellspacing="0" class="inform <?= ($this->layout()->allRequiredViwFieldFilled === true) ? 'status-ok' : 'status-warning'; ?>">
+            <tbody>
+                <tr>
+                    <th colspan="2">
+                        <?php if ($this->identity->permissions->equipment_create_permission === true) : ?>
+                            <span class="blue-button">
+                                <span>
+                                    <a class="VIWActionLink" id="UpdateActionLink" onclick="hideViewVIW();">
+                                        Update Equipment Information
+                                    </a>
+                                </span>
+                            </span>
+                        <?php else : ?>
+                            &nbsp;
+                        <?php endif ?>
+                    </th>
+                </tr>
+                <tr>
+                    <td>License Plate Number</td>
+                    <td><span class="e_License_Number"><?= $this->layout()->equipmentRow['e_License_Number']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>License Expiration Date</td>
+                    <td><span class="e_License_Expiration_Date"><?= $this->layout()->equipmentRow['e_License_Expiration_Date']; ?></span></td>
+                </tr>
+
+                <tr>
+                    <td>Year</td>
+                    <td><span class="e_Year"><?= ($this->layout()->equipmentRow['e_Year'] == '0000') ? '' : $this->layout()->equipmentRow['e_Year']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Make</td>
+                    <td><span class="e_Make"><?= $this->layout()->equipmentRow['e_Make']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Color</td>
+                    <td><span class="e_Color"><?= $this->layout()->equipmentRow['e_Color']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Unladen Weight</td>
+                    <td><span class="e_Unladen_Weight"><?= $this->layout()->equipmentRow['e_Unladen_Weight']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Gross Registered Weight</td>
+                    <td><span class="e_Gross_Equipment_Registered_Weight"><?= $this->layout()->equipmentRow['e_Gross_Equipment_Registered_Weight']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Gross Weight</td>
+                    <td><span class="e_Gross_Equipment_Weight_Rating"><?= $this->layout()->equipmentRow['e_Gross_Equipment_Weight_Rating']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Number Of Axles</td>
+                    <td><span class="e_Axles"><?= ($this->layout()->equipmentRow['e_Axles'] == '0') ? '' : $this->layout()->equipmentRow['e_Axles']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Model</td>
+                    <td><span class="e_Model"><?= $this->layout()->equipmentRow['e_Model']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Title Status</td>
+                    <td><span class="e_Title_Status"><?= $this->layout()->equipmentRow['e_Title_Status']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Radio Frequency Identify</td>
+                    <td><span class="e_RFID_No"><?= $this->layout()->equipmentRow['e_RFID_No']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>Number of Passenger Seats</td>
+                    <td><span class="e_number_passenger_seats"><?= $this->layout()->equipmentRow['e_number_passenger_seats']; ?></span></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<div id="updateVIWdiv"  style="display: none" class="VIWDiv">
+<form id="updateVIM" method="post" class="select-parametr2"
+      enctype="multipart/form-data"
+      action="/equipment/information-worksheet/save-vim/id/<?php echo $this->layout()->equipmentRow['e_id']; ?>">
+        <table class="first">
+            <tbody>
+                <tr>
+                    <td>EIN</td>
+                    <td><?= $this->layout()->equipmentRow['e_Number'] ?></td>
+                </tr>
+                <tr>
+                    <td>Unit Number</td>
+                    <td><?= isset($this->layout()->equipmentRow['e_Unit_Number']) ? $this->layout()->equipmentRow['e_Unit_Number'] : ''; ?></td>
+                </tr>
+                <tr>
+                    <td>Entry Date</td>
+                    <td><?= $this->layout()->equipmentRow['e_Entry_Date'] ?></td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td><?= $this->layout()->equipmentStatus ?></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="second">
+            <table cellspacing="0" class="inform">
+                <tbody>
+
+                    <tr>
+                        <th colspan="2"><h2 id="equipmantInformetionHeader">Equipment Information</h2></th>
+                    </tr>
+                    <tr>
+                        <td><label class="required" title="Unit Number"><span>*</span>Unit #</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Unit_Number']; ?>"
+                                   id="e_Unit_Number" name="e_Unit_Number" class="e_Unit_Number" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Picture</label></td>
+                        <td>
+                            <input type="file" value="<?= $this->layout()->equipmentRow['e_Picture']; ?>"
+                                   id="uploadPicture" name="uploadPicture" onChange="ajaxFileUpload();"/>
+                            <input type="hidden" value="<?= $this->layout()->equipmentRow['e_Picture']; ?>"
+                                   id="e_Picture" class="e_Picture" name="e_Picture" />
+                            <br />
+                            <label>Size limit is 2mb (jpeg or tiff only)</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Type</label></td>
+                        <td>
+                            <select  class="rc10" name="e_type_id" id="e_type_id" onchange="changeType();">
+                                <?php
+                                foreach ($this->layout()->equipmentTypes as $key => $value) {
+                                    if (isset($value['selected']) && $value['selected']) {
+                                        echo '<option selected="selected" value="' . $key . '">' . $value['text'] . '</option>';
+                                    } else {
+                                        echo '<option value="' . $key . '">' . $value['text'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Start Mileage</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Start_Mileage']; ?>"
+                                   id="e_Start_Mileage" class="e_Start_Mileage" name="e_Start_Mileage" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Registration State</label></td>
+                        <td>
+                            <select  class="rc10" name="e_Registration_State" id="e_Registration_State"
+                                     class="e_Registration_State">
+                            <?php
+                                foreach ($this->layout()->states as $key => $value) {
+                                    if (isset($value['selected']) && $value['selected']) {
+                                        echo '<option selected="selected" value="' . $key . '">'
+                                        . $value['text'] . '</option>';
+                                    } else {
+                                        echo '<option value="' . $key . '">' . $value['text']
+                                        . '</option>';
+                                    }
+                                }
+                            ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Name</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Name']; ?>"
+                                   id="e_Name" class="e_Name" name="e_Name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Description</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Description']; ?>"
+                                   id="e_Description" class="e_Description" name="e_Description" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required" title="DOT Regulated"><span>*</span>DOT Regulated</label></td>
+                        <td>
+                            <span class="radio-button">
+                                <?php if ($this->layout()->equipmentRow['e_DOT_Regulated'] == 'Yes') : ?>
+                                    <input type="radio" class="e_DOT_Regulated" name="e_DOT_Regulated"
+                                           id="e_DOT_Regulated" value="Yes" checked="checked">
+                                <?php else : ?>
+                                        <input type="radio" class="e_DOT_Regulated" name="e_DOT_Regulated"
+                                               id="e_DOT_Regulated" value="Yes">
+                                <?php endif; ?>
+                                        &nbsp;Yes
+                            </span>
+                            <span class="radio-button">
+                                <?php if ($this->layout()->equipmentRow['e_DOT_Regulated'] == 'No') : ?>
+                                            <input type="radio" class="e_DOT_Regulated" name="e_DOT_Regulated"
+                                                   id="e_DOT_Regulated" value="No" checked="checked">
+                                <?php else : ?>
+                                                <input type="radio" class="e_DOT_Regulated" name="e_DOT_Regulated"
+                                                       id="e_DOT_Regulated" value="No">
+                                <?php endif; ?>
+                                                &nbsp;No
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fee</td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Fee']; ?>"
+                                   id="e_Fee" class="e_Fee" name="e_Fee" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Alternate ID</td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Alternate_ID']; ?>"
+                                   id="e_Alternate_ID" class="e_Alternate_ID" name="e_Alternate_ID"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Valuation Value</td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_valuation_value']; ?>"
+                                   id="e_valuation_value" class="e_valuation_value" name="e_valuation_value"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Valuation Date</td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_valuation_date']; ?>"
+                                   class="e_date_class e_valuation_date" id="e_valuation_date" name="e_valuation_date" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table cellspacing="0" class="inform <?= ($this->layout()->allRequiredViwFieldFilled === true) ? 'status-ok' : 'status-warning'; ?>">
+                <tbody>
+                    <tr>
+                        <th colspan="2">
+                            <span class="blue-button">
+                                <span>
+                                    <a id="VIWSaveLink" class="saveButton" onclick="saveViwClickHeandler();">
+                                        Save
+                                    </a>
+                                </span>
+                            </span>
+                            <span class="blue-button">
+                                <span>
+                                    <a class="VIWActionLink" id="CancelActionLink" onclick="hideViewVIW();">
+                                        Cancel
+                                    </a>
+                                </span>
+                            </span>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td><label class="required" title="License Plate Number"><span>*</span>License Plate Number</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_License_Number']; ?>"
+                                   id="e_License_Number" class="e_License_Number" name="e_License_Number" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required" title="License Expiration Date"><span>*</span>License Expiration Date</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_License_Expiration_Date']; ?>"
+                                   class="e_date_class e_License_Expiration_Date" id="e_License_Expiration_Date" name="e_License_Expiration_Date" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label class="required"><span>*</span>Year</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Year']; ?>"
+                                   id="e_Year" class="e_Year" name="e_Year" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Make</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Make']; ?>"
+                                   id="e_Make" class="e_Make" name="e_Make" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Color</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Color']; ?>"
+                                   id="e_Color" class="e_Color" name="e_Color" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Unladen Weight</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Unladen_Weight']; ?>"
+                                   id="e_Unladen_Weight" class="e_Unladen_Weight" name="e_Unladen_Weight" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Gross Registered Weight</label></td>
+                        <td>
+                            <input type="text"
+                                   value="<?= $this->layout()->equipmentRow['e_Gross_Equipment_Registered_Weight']; ?>"
+                                   id="e_Gross_Equipment_Registered_Weight" class="e_Gross_Equipment_Registered_Weight"
+                                   name="e_Gross_Equipment_Registered_Weight" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Gross Weight</label></td>
+                        <td>
+                            <input type="text"
+                                   value="<?= $this->layout()->equipmentRow['e_Gross_Equipment_Weight_Rating']; ?>"
+                                   id="e_Gross_Equipment_Weight_Rating" class="e_Gross_Equipment_Weight_Rating"
+                                   name="e_Gross_Equipment_Weight_Rating" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required" title="Number of Axles"><span>*</span>Number Of Axles</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Axles']; ?>"
+                                   id="e_Axles" class="e_Axles" name="e_Axles" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="required"><span>*</span>Model</label></td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Model']; ?>"
+                                   id="e_Model" class="e_Model" name="e_Model" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Title Status</td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_Title_Status']; ?>"
+                                   id="e_Title_Status" class="e_Title_Status" name="e_Title_Status" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Radio Frequency Identify</td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_RFID_No']; ?>"
+                                   id="e_RFID_No" class="e_RFID_No" name="e_RFID_No" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Number of Passenger Seats</td>
+                        <td>
+                            <input type="text" value="<?= $this->layout()->equipmentRow['e_number_passenger_seats']; ?>"
+                                   id="e_number_passenger_seats" class="e_number_passenger_seats"
+                                   name="e_number_passenger_seats" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+</form>
+</div>
+
+
+

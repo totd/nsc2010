@@ -360,6 +360,7 @@ function refreshIncidentAdditionalDriverInformation(id) {
                 disabledElements(data.row);
                 storePrimaryDriverInvormationValues(data.row);
                 // Hak for correct building multiselect
+                $("#updateDriverInformation").css("display", "inline");
                 $("#colMovements").html(data.collisionSelectOptions);
                 $("#colMovements").multiselect();
                 $("#updateDriverInformation").css("display", "none");
@@ -571,11 +572,11 @@ function saveDescription(id) {
             });
 }
 
-function refreshLastModifiedDate(equipmentId) {
+function refreshLastModifiedDate(incidentId) {
     $.ajax({
             type: "GET",
             url: "/incident/index/get-last-modified-date/",
-            data: "incidentId=" + equipmentId,
+            data: "incidentId=" + incidentId,
             success: function(data){
                 $("#last_modified_datetime").html(data.last_modified_date);
             },

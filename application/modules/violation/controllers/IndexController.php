@@ -13,6 +13,7 @@ class Violation_IndexController extends Zend_Controller_Action
     public function  preDispatch()
     {
         $this->_helper->layout->setLayout('violationLayout');
+        Zend_Controller_Action_HelperBroker::addPrefix('NSC_Helper_Validation');
     }
 
     public function createAction()
@@ -73,7 +74,7 @@ class Violation_IndexController extends Zend_Controller_Action
                 $result['result'] = 1;
                 $result['row'] = $saveResult['row'];
             } else if (isset($saveResult['validationError'])) {
-                $result['errorMessage'] = $this->buildValidateErrorMessage($saveResult['validationError']);
+                $result['errorMessage'] = $this->_helper->buildValidateError($saveResult['validationError']);
             } else if (isset($saveResult['saveError'])) {
                 $result['errorMessage'] = $saveResult['saveError'];
             } else {
@@ -82,35 +83,6 @@ class Violation_IndexController extends Zend_Controller_Action
 
             print json_encode($result);
         }
-    }
-
-    private function buildValidateErrorMessage($validationErrorArray)
-    {
-        $result = '';
-
-        if (isset($validationErrorArray['notExistFields'])) {
-            $result = "The following fields don't exist: " .
-                                    implode(", ", $validationErrorArray['notExistFields']) .
-                                    "<br /><br />";
-        }
-
-        if (isset($validationErrorArray['requiredFields'])) {
-            $result .= "The following fields are required: " .
-                                    implode(", ", $validationErrorArray['requiredFields']) .
-                                    "<br /><br />";
-        }
-
-        if (isset($validationErrorArray['notValidFields'])) {
-            foreach ($validationErrorArray['notValidFields'] as $value) {
-                $result .= $value['message'] . "<br /><br />";
-            }
-        }
-
-        if (empty($result)) {
-            $result = 'Unknown validation error';
-        }
-
-        return $result;
     }
 }
 

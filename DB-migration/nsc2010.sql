@@ -459,7 +459,16 @@ CREATE TABLE IF NOT EXISTS `driver__status` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
-
+DROP TABLE IF EXISTS `email_notification`;
+CREATE TABLE IF NOT EXISTS `email_notification` (
+  `en_id` int(11) NOT NULL AUTO_INCREMENT,
+  `en_user_id` int(11) NOT NULL,
+  `en_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `en_subject_id` int(11) NOT NULL,
+  `en_body` int(11) NOT NULL,
+  `en_status_id` int(11) NOT NULL,
+  PRIMARY KEY (`en_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 --
 -- Структура таблицы `employer`
 --
@@ -524,6 +533,9 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `e_change_active_status_date` date DEFAULT NULL,
   `e_change_active_status_comment` tinytext COLLATE latin1_general_ci,
   `e_last_modified_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `e_valuation_value` int(11) DEFAULT NULL,
+  `e_valuation_date` date DEFAULT NULL,
+  `e_number_passenger_seats` int(11) DEFAULT NULL,
   PRIMARY KEY (`e_id`),
   UNIQUE KEY `e_Number` (`e_Number`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
@@ -719,7 +731,7 @@ CREATE TABLE IF NOT EXISTS `incident` (
   `i_Driver_ID` int(11) NOT NULL,
   `i_Date` date NOT NULL,
   `i_Time` time DEFAULT '00:00:00',
-  `i_Status` enum('Pending','Open','Closed') COLLATE latin1_general_ci NOT NULL DEFAULT 'Pending',
+  `i_Status` enum('Open','Closed') COLLATE latin1_general_ci NOT NULL DEFAULT 'Open',
   `i_City` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
   `i_State_ID` tinyint(2) DEFAULT NULL,
   `i_Postal_Code` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
@@ -827,22 +839,6 @@ CREATE TABLE IF NOT EXISTS `incident_investigator` (
   PRIMARY KEY (`ii_ID`),
   KEY `fk_incident_investigator_company1` (`ii_Company_ID`),
   KEY `fk_incident_investigator_driver1` (`ii_Driver_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `incident__passenger`
---
-
-DROP TABLE IF EXISTS `incident__passenger`;
-CREATE TABLE IF NOT EXISTS `incident__passenger` (
-  `ip_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `ip_Equipment_Number` int(11) NOT NULL,
-  `ip_Passenger _Number` int(11) NOT NULL,
-  PRIMARY KEY (`ip_ID`),
-  KEY `fk_incident__passenger_equipment1` (`ip_Equipment_Number`),
-  KEY `fk_incident__passenger_passenger1` (`ip_Passenger _Number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -1090,88 +1086,73 @@ CREATE TABLE IF NOT EXISTS `service_provider` (
   `sp_id` int(11) NOT NULL AUTO_INCREMENT,
   `sp_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `sp_contact` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `sp_type` tinyint(4) DEFAULT NULL,
+  `sp_type` enum('Insurance','Tow Truck','Repair') COLLATE latin1_general_ci NOT NULL DEFAULT 'Repair',
   `sp_telephone_number` varchar(14) COLLATE latin1_general_ci NOT NULL,
   `sp_fax` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
   `sp_address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `sp_address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   `sp_city` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `sp_state` tinyint(2) NOT NULL,
+  `sp_state_id` tinyint(2) NOT NULL,
   `sp_postal_code` varchar(10) COLLATE latin1_general_ci NOT NULL,
   `sp_description` text COLLATE latin1_general_ci,
-  `sp_insurance_last_valuation_date` date DEFAULT NULL,
-  `sp_insurance_company_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `sp_insurance_policy_number` varchar(24) COLLATE latin1_general_ci DEFAULT NULL,
-  `sp_insurance_limit` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
-  `sp_insurance_deductible` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `sp_dot_regulated` enum('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT 'No',
+  `sp_status` enum('Open','Closed') COLLATE latin1_general_ci NOT NULL DEFAULT 'Open',
+  `sp_entry_date` date NOT NULL,
+  `sp_last_modified_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`sp_id`),
   UNIQUE KEY `sp_name` (`sp_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `service_provider`
---
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `service_provider__company_assignment`
+-- Структура таблицы `service_providers_companies`
 --
 
-DROP TABLE IF EXISTS `service_provider__company_assignment`;
-CREATE TABLE IF NOT EXISTS `service_provider__company_assignment` (
-  `spсa_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `spca_Service_Provider_ID` int(11) NOT NULL,
-  `spca_Company_ID` int(11) NOT NULL,
-  PRIMARY KEY (`spсa_ID`),
-  UNIQUE KEY `spсa_row` (`spca_Service_Provider_ID`,`spca_Company_ID`),
-  KEY `fk_service_provider__company_assignment_service_provider1` (`spca_Service_Provider_ID`),
-  KEY `fk_service_provider__company_assignment_company1` (`spca_Company_ID`)
+DROP TABLE IF EXISTS `service_providers_companies`;
+CREATE TABLE IF NOT EXISTS `service_providers_companies` (
+  `spc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spc_service_provider_id` int(11) NOT NULL,
+  `spc_company_id` int(11) NOT NULL,
+  PRIMARY KEY (`spc_id`),
+  UNIQUE KEY `spc_service_provider_company_unique_index` (`spc_service_provider_id`,`spc_company_id`),
+  KEY `spc_service_provider_id` (`spc_service_provider_id`),
+  KEY `spc_company_id` (`spc_company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
 --
--- Дамп данных таблицы `service_provider__company_assignment`
+-- Структура таблицы `service_providers_equipments`
 --
 
+DROP TABLE IF EXISTS `service_providers_equipments`;
+CREATE TABLE IF NOT EXISTS `service_providers_equipments` (
+  `spe_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spe_service_provider_id` int(11) NOT NULL,
+  `spe_equipment_id` int(11) NOT NULL,
+  PRIMARY KEY (`spe_id`),
+  UNIQUE KEY `spe_service_provider_equipment_unique_index` (`spe_service_provider_id`,`spe_equipment_id`),
+  KEY `spe_service_provider_id` (`spe_service_provider_id`),
+  KEY `spe_equipment_id` (`spe_equipment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `service_provider__equipment_assignment`
+-- Структура таблицы `service_providers_insurances`
 --
 
-DROP TABLE IF EXISTS `service_provider__equipment_assignment`;
-CREATE TABLE IF NOT EXISTS `service_provider__equipment_assignment` (
-  `spea_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `spea_Service_Provider_ID` int(11) NOT NULL,
-  `spea_Equipment_ID` int(11) NOT NULL,
-  PRIMARY KEY (`spea_ID`),
-  UNIQUE KEY `spea_row` (`spea_Service_Provider_ID`,`spea_Equipment_ID`),
-  KEY `fk_service_provider__equipment_assignment_equipment1` (`spea_Equipment_ID`),
-  KEY `fk_service_provider__equipment_assignment_service_provider1` (`spea_Service_Provider_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=FIXED AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `service_provider__equipment_assignment`
---
-
-
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `service_provider__type`
---
-
-DROP TABLE IF EXISTS `service_provider__type`;
-CREATE TABLE IF NOT EXISTS `service_provider__type` (
-  `spt_id` int(11) NOT NULL AUTO_INCREMENT,
-  `spt_type` varchar(50) NOT NULL,
-  PRIMARY KEY (`spt_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
+DROP TABLE IF EXISTS `service_providers_insurances`;
+CREATE TABLE IF NOT EXISTS `service_providers_insurances` (
+  `spi_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spi_service_provider_id` int(11) NOT NULL,
+  `spi_insurance_company_id` int(11) NOT NULL,
+  PRIMARY KEY (`spi_id`),
+  UNIQUE KEY `spi_service_provider_insuarance_unique_index` (`spi_service_provider_id`,`spi_insurance_company_id`),
+  KEY `spi_service_provider_id` (`spi_service_provider_id`),
+  KEY `spi_insurance_company_id` (`spi_insurance_company_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

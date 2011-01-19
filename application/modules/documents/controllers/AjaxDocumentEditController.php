@@ -78,25 +78,40 @@ class Documents_AjaxDocumentEditController extends Zend_Controller_Action
         if($msg!=""){
             echo $msg;
         }else{
-            
+            if($_REQUEST['cd_Scan_Rotated']!=""){
+                    $documents_folder = "documents/dqf/driver_" . $data['cd_Driver_ID'] . "/document_form_" . $data['cd_Form_Name_ID'] . "/";
+                    $img_origin = preg_replace("/\?[0-9]+$/","",$_REQUEST['cd_Scan_Origin']);
+                    $img_rotated = preg_replace("/^\//","",$_REQUEST['cd_Scan_Rotated']);
+                    $img_rotated = preg_replace("/\?[0-9]+$/","",$img_rotated);
+                    # Attempt make backup copy of original file:
+                    try{
+                        if (!copy($documents_folder.$img_origin, $documents_folder.$img_origin.".backup")) {
+                            $msg = $msg . "<div><span style='color:red;'>FATAL ERROR:</span>Failed to backup <strong>".$documents_folder.$img_origin."</strong> !</div>";
+                        }else{
+                            # Attempt to remove original file:
+                            if(!unlink ($documents_folder.$img_origin)){
+                                $msg = $msg . "<div><span style='color:red;'>FATAL ERROR:</span>Failed to remove origin file <strong>".$documents_folder.$img_origin."</strong> !</div>";
+                            }else{
+                                # Attempt to copy modified file instead of deleted original:
+                                if(!copy($img_rotated, $documents_folder.$img_origin)){
+                                    $msg = $msg . "<div><span style='color:red;'>FATAL ERROR:</span>Failed to remove origin file <strong>".$documents_folder.$img_origin."</strong> !</div>";
+                                    # Attempt to restore backup of origin file
+                                    $scanRotatedSuccess = 2;
+                                    copy($documents_folder.$img_origin, str_replace(".backup","",$documents_folder.$img_origin));
+                                }else{
+                                    $scanRotatedSuccess = 1;
+                                }
+                            }
+                        }
+                    }catch(Exception $e){//
+                    }
+                }
+                if($msg==""){}
+                    else{echo $msg;}
             Documents_Model_CustomDocument::updateRecord($data);
             echo 1;
         }
-        /*
-        $custom_document = Documents_Model_CustomDocument::getRecord($cd_ID);
-        $formStatusList = new Documents_Model_CustomDocumentFormStatus();
-        $faxStatusList = new Documents_Model_CustomDocumentFaxStatus();
-
-
-        $layout = new Zend_Layout();
-        $layout->setLayoutPath(APPLICATION_PATH.'/modules/documents/views/scripts/ajax/');
-        $layout->setLayout('get-edit-document-form');
-        $layout->customDocument = $custom_document;
-        $layout->cd_Driver_ID = $cd_Driver_ID;
-        $layout->formStatusList = $formStatusList->getList();
-        $layout->faxStatusList = $faxStatusList->getList();
-        echo $layout->render();
-*/
+        
     }
 
 
@@ -123,7 +138,7 @@ class Documents_AjaxDocumentEditController extends Zend_Controller_Action
                     }
                 }
             }
-            if($msg==""){
+            if($msg==""){/*
                 if($_REQUEST['cd_Scan_Rotated']!=""){
                     $documents_folder = "documents/dqf/driver_" . $data['cd_Driver_ID'] . "/document_form_" . $data['cd_Form_Name_ID'] . "/";
                     $img_origin = preg_replace("/\?[0-9]+$/","",$_REQUEST['cd_Scan_Origin']);
@@ -153,7 +168,7 @@ class Documents_AjaxDocumentEditController extends Zend_Controller_Action
                     }
                 }
                 if($msg==""){echo 1;}
-                    else{echo $msg;}
+                    else{echo $msg;}*/
             }else{
 
                 echo $msg;

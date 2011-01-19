@@ -72,8 +72,6 @@ class Documents_DqfController extends Zend_Controller_Action
         $driver_id = (int)$this->_request->getParam('driver_id');
         $document_form_name_id = (int)$this->_request->getParam('document_form_name_id');
 
-        $this->view->headScript()->appendFile('/js/jquery-latest.js', 'text/javascript');
-        $this->view->headScript()->appendFile('/js/jquery-ui.min.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/index.js', 'text/javascript');
 
         $this->view->headScript()->appendFile('/js/jcarousellite_1.0.1.js', 'text/javascript');

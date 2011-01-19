@@ -4,11 +4,15 @@
 <div id="edit_document_form">
     <table>
         <tbody>
-        <tr><td>
+        <tr>
+            <td>
+                <input type="hidden" name="cd_ID" id="cd_ID" value="<?php echo $this->layout()->customDocument[0]['cd_ID'];?>" />
+                <input type="hidden" name="cd_Driver_ID" id="cd_Driver_ID" value="<?php echo $this->layout()->customDocument[0]['cd_Driver_ID'];?>" />
+                <input type="hidden" name="cd_Form_Name_ID" id="cd_Form_Name_ID" value="<?php echo $this->layout()->customDocument[0]['cd_Form_Name_ID'];?>" />            
             <a onclick="imageReverse();"><img title="Reverse Image" alt="Reverse" src="/images/rotate.png"></a> &nbsp;
             <a onclick="imageRotateClockwise();"><img title="Rotate Image Clockwise" alt="Rotate" src="/images/rotate-clockwise.png"></a> &nbsp;
             <a onclick="imageRotateContraclockwise();"><img title="Rotate Image Contraclockwise" alt="Rotate" src="/images/rotate-contraclockwise.png"></a> &nbsp;
-            <a onclick="imageEmailComment();"><img title="Email Comment about image" alt="Comment" src="/images/mail_forward.png"></a> &nbsp;
+            <a onclick="imageEmailCommentForm();"><img title="Email Comment about image" alt="Comment" src="/images/mail_forward.png"></a> &nbsp;
             <a onclick="imageEnlargeYourPicture('+');"><img title="Enlarge Image" alt="Enlarge" width="24px" height="24px" src="/images/icon-zoom_in.png"></a> &nbsp;
             <a onclick="imageEnlargeYourPicture('-');"><img title="Enlarge Image" alt="Enlarge" width="24px" height="24px" src="/images/icon-zoom_out.png"></a> &nbsp;
             <a onclick="imagePrint();"><img title="Print Image" alt="Print" src="/images/print.png"></a> &nbsp;
@@ -16,7 +20,9 @@
         if ($this->layout()->identity->permissions->documents_delete==true){ ?>
                 <a onclick="imageDelete();"><img title="Delete Image" alt="Delete" src="/images/delete-over.png"></a> &nbsp;
             <?php } ?>
-        </td><td rowspan="2"></td></tr>
+                <img src="/images/ProgressBar.gif" id="ProgressBar2" style="visibility:hidden;" />
+        </td>
+            <td rowspan="2"></td></tr>
         <tr>
             <td width="500px">
                 <div style=" max-width:500px; max-height:550px; " id="watermark_box">
@@ -85,9 +91,7 @@
                         <td>
                             <label for="cd_Description">Description:</label>
                         </td>
-                        <td><input type="hidden" name="cd_ID" id="cd_ID" value="<?php echo $this->layout()->customDocument[0]['cd_ID'];?>" />
-                            <input type="hidden" name="cd_Driver_ID" id="cd_Driver_ID" value="<?php echo $this->layout()->customDocument[0]['cd_Driver_ID'];?>" />
-                            <input type="hidden" name="cd_Form_Name_ID" id="cd_Form_Name_ID" value="<?php echo $this->layout()->customDocument[0]['cd_Form_Name_ID'];?>" />
+                        <td>
                             <textarea name="cd_Description" id="cd_Description" rows="4" cols="20"><?php echo $this->layout()->customDocument[0]['cd_Description'];?></textarea>
                         </td>
                     </tr>
@@ -212,34 +216,5 @@
         </tr>
 
         </tbody></table>
+
 </div>
-            <div id="document_images_preview_edit" style="visibility:visible !important;">
-                <div class="slider">
-                    <ul>
-                                <?php
-                                for($i=0;$i<sizeof($this->layout()->scans);$i++){
-                              ?>
-                                  <li><img onclick="viewImageDocument(<?php echo $this->layout()->scans[$i]['cd_ID'].",".$this->layout()->scans[$i]['cd_Driver_ID'];?>);"  width="70" class="dqf-uploaded-image" alt="<?php echo $this->layout()->scans[$i]['cdfn_name'];?>"  src="/documents/dqf/driver_<?php echo $this->layout()->scans[$i]['cd_Driver_ID'];?>/document_form_<?php echo $this->layout()->scans[$i]['cd_Form_Name_ID'];?>/<?php echo $this->layout()->scans[$i]['cd_Scan']."?".rand(0,999);?>"/></li>
-                              <?php
-                                }
-                                ?>
-                    </ul>
-                </div>
-                <div class="blue-nav" style=" padding-left: 55px !important;">
-					<ul>
-						<li><span><a class="prev" >&lt;&lt;</a></span></li>
-						<li><span><a class="next" >&gt;&gt;</a></span></li>
-					</ul>
-				</div>
-                <script type="text/javascript">
-                    $(function() {
-                        $(".slider").jCarouselLite({
-                            btnNext: ".next",
-                            btnPrev: ".prev",
-                            visible:6,
-                            scroll: 1,
-                            circular:false
-                        });
-                    });
-                </script>
-            </div>

@@ -235,7 +235,6 @@ $.fn.jCarouselLite = function(o) {
 
         var li = $("li", ul), itemLength = li.size(), curr = o.start;
         div.css("visibility", "visible");
-        div.css("margin", "0 auto");
 
         li.css({overflow: "hidden", float: o.vertical ? "none" : "left"});
         ul.css({margin: "0", padding: "0", position: "relative", "list-style-type": "none", "z-index": "1"});

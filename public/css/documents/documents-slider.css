@@ -1,9 +1,9 @@
-.slider {
-    width:600px !important;
+#document_images_preview_edit {
+    width:800px! important;
+    margin: 0 auto !important;
 }
-.slider ul{
-    width:600px !important;
-}
-.slider ul li{
-    width:72px !important;
+
+.slider ul li {
+    pagging-left:1px;
+    pagging-right:1px;
 }

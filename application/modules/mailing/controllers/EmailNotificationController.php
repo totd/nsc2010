@@ -122,5 +122,45 @@ class Mailing_EmailNotificationController extends Zend_Controller_Action
         }
     }
 
+    public function sendDocumentScanCommentAction(){
+
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+
+        $to = trim($_GET['to']);
+        $text = trim($_GET['text']);
+        # TODO: добавить логирование в базу
+        try{
+            # TODO: добавить нормальный шаблон сообщения;
+            $body = "";
+            $body = $body."Hello!<br/>";
+            $body = $body."You have notification about your document scan! <br/>";
+            $body = $body."The message is: <br/>";
+            $body = $body." <pre>" . $text . "</pre> ";
+            $body = $body."<br/>";
+            $body = $body."Thank you!<br/><br/>";
+            $body = $body.date("m/d/Y H:i:s");
+            $transport = new Zend_Mail_Transport_Smtp();
+
+            $protocol = new Zend_Mail_Protocol_Smtp($this->host);
+            $protocol->connect();
+            $protocol->helo($this->host);
+            $transport->setConnection($protocol);
+            $mail = new Zend_Mail('UTF-8');
+            $mail->addTo($to);
+            $mail->setFrom('no-reply@nsc2000.com', 'NSC 2010 Admin');
+            $mail->setSubject('Comment about Scanned or Uploaded document on '.date("mm/dd/YYYY"));
+            $mail->setBodyHtml($body);
+            $protocol->rset();
+            $mail->send($transport);
+            $protocol->quit();
+            $protocol->disconnect();
+        }catch(Exception $e){
+            $e->getMessage();
+        }
+
+        echo 1;
+    }
+
 
 }

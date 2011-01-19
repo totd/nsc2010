@@ -68,8 +68,9 @@ function deleteImageDocument(Driver_ID, Document_ID,file_name){
     
 }function editImageDocument(cd_ID,cd_Driver_ID){
     document.getElementById("edit_document").innerHTML="";
-    var patt1=/\?[0-9]+/;
+    //var patt1=/\?[0-9]+/;
     $("#document_images").hide(400);
+    $("#document_images_preview_edit").css("display","block");
     $("#ProgressBar").show();
     $.get("/documents/Ajax-Document-Edit/get-Edit-Document-Form/",
         {
@@ -105,7 +106,8 @@ function deleteImageDocument(Driver_ID, Document_ID,file_name){
 
 function viewImageDocument(cd_ID,cd_Driver_ID){
     document.getElementById("edit_document").innerHTML="";
-    var patt1=/\?[0-9]+/;
+    $("#document_images_preview_view").css("display","block");
+    //var patt1=/\?[0-9]+/;
 
     $.get("/documents/Ajax-Document-View/get-View-Document-Form/",
         {
@@ -139,6 +141,7 @@ function viewImageDocument(cd_ID,cd_Driver_ID){
 }
 
 function saveImageDocument(){
+    $("#ProgressBar2").css("visibility","visible");
     var cd_ID;
     var cd_Driver_ID;
     var cd_Form_Name_ID;
@@ -187,6 +190,7 @@ function saveImageDocument(){
             if(data==1){
                 document.getElementById("edit_document").innerHTML="";
                 $("#edit_document").hide();
+                $("#ProgressBar2").css("visibility","hidden");
                 getDocumentScansList(cd_Driver_ID,cd_Form_Name_ID);
                 return true;
             }else{
@@ -198,6 +202,7 @@ function saveImageDocument(){
                     minHeight: 13
                 });
                 $dialog.dialog('open');
+                $("#ProgressBar2").css("visibility","hidden");
                 return false;
                 
             }
@@ -222,14 +227,13 @@ function getHomebaseList(company_id) {
         $.get("/homebase/ajax-Homebase/get-Homebase-List/",{h_Company_Account_Number:company_id}, function(data){
             $('#cd_Homebase_ID option').remove();
             $('#cd_Homebase_ID').append(""+data+"");
-        })
+        });
     changeLogo(company_id);
  }
 
 function imageReverse(){
     var cd_Scan = $("#dqf-uploaded-image-large").attr("src");
-    var img;
-
+    $("#ProgressBar2").css("visibility","visible");
     $.get("/php/imageRotate.php",
         {
             img: cd_Scan,
@@ -238,6 +242,7 @@ function imageReverse(){
             if(data){
                 document.getElementById("dqf-uploaded-image-large").setAttribute('src', data);
                 document.getElementById("dqf-uploaded-image-large-rotated").value=data;
+                $("#ProgressBar2").css("visibility","hidden");
                 return true;
             }else{/*
                 var $dialog = $('<div></div>')
@@ -251,10 +256,11 @@ function imageReverse(){
                 return false;*/
 
             }
-           });};
+           });
+}
 function imageRotateClockwise(){
     var cd_Scan = $("#dqf-uploaded-image-large").attr("src");
-    var img;
+    $("#ProgressBar2").css("visibility","visible");
 
     $.get("/php/imageRotate.php",
         {
@@ -264,6 +270,7 @@ function imageRotateClockwise(){
             if(data){
                 document.getElementById("dqf-uploaded-image-large").setAttribute('src', data);
                 document.getElementById("dqf-uploaded-image-large-rotated").value=data;
+                $("#ProgressBar2").css("visibility","hidden");
                 return true;
             }else{/*
                 var $dialog = $('<div></div>')
@@ -279,11 +286,10 @@ function imageRotateClockwise(){
             }
            });
     
-};
+}
 function imageRotateContraclockwise(){
     var cd_Scan = $("#dqf-uploaded-image-large").attr("src");
-    var img;
-
+    $("#ProgressBar2").css("visibility","visible");
     $.get("/php/imageRotate.php",
         {
             img: cd_Scan,
@@ -292,6 +298,7 @@ function imageRotateContraclockwise(){
             if(data){
                 document.getElementById("dqf-uploaded-image-large").setAttribute('src', data);
                 document.getElementById("dqf-uploaded-image-large-rotated").value=data;
+                $("#ProgressBar2").css("visibility","hidden");
                 return true;
             }else{/*
                 var $dialog = $('<div></div>')
@@ -319,7 +326,6 @@ function imageEnlargeYourPicture(mode){
     }
 
     var imgWidth = $("#dqf-uploaded-image-large").attr("width");
-    var imgHeight = $("#dqf-uploaded-image-large").attr("height");
 
     if(imgWidth<=501){
         $("#watermark_box").css("overflow","hidden");
@@ -329,10 +335,56 @@ function imageEnlargeYourPicture(mode){
 
 
     // 0,72 - A4 side proportion
-};
-function imagePrint(){};
-function imageDelete(){};
-function imageEmailComment(){};
+}
+function imagePrint(){}
+function imageDelete(){}
+function imageEmailCommentForm(){
+    var html;
+    html = "To Email:<br/><input type='text' id='document_scan_comment_receiver' /><br/>";
+    html = html + "Message:<br/><textarea cols='30' rows='4' id='document_scan_comment_body' ></textarea><br/>";
+    html = html + "<input type='button' onclick='imageEmailCommentSend();' value='Send' />";
+    var $dialog = $('<div id="email_scan_form"></div>')
+            .html(html)
+            .dialog({
+        autoOpen: false,
+        title: 'Email notification',
+        minHeight: 13
+    });
+    $dialog.dialog('open');
+    return false;
+
+
+
+}
+
+function imageEmailCommentSend(){
+    document_scan_comment_receiver = $("#document_scan_comment_receiver").val();
+    document_scan_comment_body = $("#document_scan_comment_body").val();
+    document_scan_comment_body = $("#document_scan_comment_body").val();
+     $.get("/mailing/Email-Notification/send-Document-Scan-Comment/",
+        {
+            to: document_scan_comment_receiver,
+            text: document_scan_comment_body
+        }, function(data){
+            if(data==1){
+                alert("Email sent!");
+                $("#email_scan_form").remove();
+                return true;
+            }else{
+                var $dialog = $('<div></div>')
+                .html(data)
+                .dialog({
+                    autoOpen: false,
+                    title: 'Form validation error!',
+                    minHeight: 13
+                });
+                $dialog.dialog('open');
+                return false;
+
+            }
+           });
+
+}
 
 function clearTempImageFolder(cd_Driver_ID,cd_Form_Name_ID){
 
@@ -348,4 +400,4 @@ function clearTempImageFolder(cd_Driver_ID,cd_Form_Name_ID){
 
             }
         });
-};
+}

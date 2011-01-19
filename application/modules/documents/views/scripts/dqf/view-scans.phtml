@@ -16,6 +16,57 @@
             <div align="center" "><img src="/images/ProgressBar.gif" id="ProgressBar" /></div>
             <div id="edit_document"></div>
             <div id="document_images" style="display:none;"></div>
+<!--
+        <div id="document_images_preview_edit" >
+                <div class="slider">
+                    <ul>
+                                <?php
+                                for($i=0;$i<sizeof($this->scans);$i++){
+                              ?>
+                                  <li><img onclick="editImageDocument(<?php echo $this->scans[$i]['cd_ID'].",".$this->scans[$i]['cd_Driver_ID'];?>);"  width="70" class="dqf-uploaded-image" alt="<?php echo $this->scans[$i]['cdfn_name'];?>"  src="/documents/dqf/driver_<?php echo $this->scans[$i]['cd_Driver_ID'];?>/document_form_<?php echo $this->scans[$i]['cd_Form_Name_ID'];?>/<?php echo $this->scans[$i]['cd_Scan']."?".rand(0,999);?>"/></li>
+                              <?php
+                                }
+                                ?>
+                    </ul>
+                </div>
+                    <div class="blue-nav" style=" padding-left: 55px !important;">
+                        <ul>
+                            <li><span><a class="prev" >&lt;&lt;</a></span></li>
+                            <li><span><a class="next" >&gt;&gt;</a></span></li>
+                        </ul>
+                    </div>
+        </div>
+        <div id="document_images_preview_view" style="display:none;">
+                <div class="slider">
+                    <ul>
+                                <?php
+                                for($i=0;$i<sizeof($this->scans);$i++){
+                              ?>
+                                  <li><img onclick="editImageDocument(<?php echo $this->scans[$i]['cd_ID'].",".$this->scans[$i]['cd_Driver_ID'];?>);"  width="70" class="dqf-uploaded-image" alt="<?php echo $this->scans[$i]['cdfn_name'];?>"  src="/documents/dqf/driver_<?php echo $this->scans[$i]['cd_Driver_ID'];?>/document_form_<?php echo $this->scans[$i]['cd_Form_Name_ID'];?>/<?php echo $this->scans[$i]['cd_Scan']."?".rand(0,999);?>"/></li>
+                              <?php
+                                }
+                                ?>
+                    </ul>
+                    <div class="blue-nav" style=" padding-left: 55px !important;">
+                        <ul>
+                            <li><span><a class="prev" >&lt;&lt;</a></span></li>
+                            <li><span><a class="next" >&gt;&gt;</a></span></li>
+                        </ul>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function() {
+                        $(".slider").jCarouselLite({
+                            btnNext: ".next",
+                            btnPrev: ".prev",
+                            visible:6,
+                            scroll: 1,
+                            circular:false
+                        });
+                    });
+                </script>
+            </div>
+-->
             <script type="text/javascript">
                 getDocumentScansList(<?php echo $this->driver_id.",".$this->document_form_name_id;?>);
                 clearTempImageFolder(<?php echo $this->driver_id.",".$this->document_form_name_id;?>);
@@ -24,3 +75,4 @@
       <br /><br />
       </div>
     </div></div></div>
+

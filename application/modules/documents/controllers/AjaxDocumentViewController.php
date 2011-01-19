@@ -53,6 +53,7 @@ class Documents_AjaxDocumentViewController extends Zend_Controller_Action
         $scans = Documents_Model_CustomDocument::getScansList($custom_document[0]['cd_Driver_ID'],$custom_document[0]['cd_Form_Name_ID']);
         $layout->scans = $scans;
 
+
         if($custom_document[0]['cd_Company_ID']!=""){
             $homebaseList = Homebase_Model_Homebase::getHomebaseList($custom_document[0]['cd_Company_ID']);
             $layout->homebaseList = $homebaseList;

@@ -5,9 +5,11 @@
     <table>
         <tbody>
         <tr><td>
+            <!--
             <a onclick="imageReverse();"><img title="Reverse Image" alt="Reverse" src="/images/rotate.png"></a> &nbsp;
             <a onclick="imageRotateClockwise();"><img title="Rotate Image Clockwise" alt="Rotate" src="/images/rotate-clockwise.png"></a> &nbsp;
             <a onclick="imageRotateContraclockwise();"><img title="Rotate Image Contraclockwise" alt="Rotate" src="/images/rotate-contraclockwise.png"></a> &nbsp;
+            -->
             <a onclick="imageEmailComment();"><img title="Email Comment about image" alt="Comment" src="/images/mail_forward.png"></a> &nbsp;
             <a onclick="imageEnlargeYourPicture('+');"><img title="Enlarge Image" alt="Enlarge" width="24px" height="24px" src="/images/icon-zoom_in.png"></a> &nbsp;
             <a onclick="imageEnlargeYourPicture('-');"><img title="Enlarge Image" alt="Enlarge" width="24px" height="24px" src="/images/icon-zoom_out.png"></a> &nbsp;
@@ -156,8 +158,8 @@
         </tbody></table>
 </div>
 
-            <div id="document_images_preview_edit">
-                <div class="anyClass">
+            <div id="document_images_preview_edit" style="visibility:visible !important;">
+                <div class="slider">
                     <ul>
                                 <?php
                                 for($i=0;$i<sizeof($this->layout()->scans);$i++){
@@ -176,7 +178,7 @@
 				</div>
                 <script type="text/javascript">
                     $(function() {
-                        $(".anyClass").jCarouselLite({
+                        $(".slider").jCarouselLite({
                             btnNext: ".next",
                             btnPrev: ".prev",
                             visible:6,
